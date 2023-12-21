@@ -8,16 +8,16 @@
   outputs = { self, nixpkgs }: rec {
     nixosConfigurations.piTime = nixpkgs.lib.nixosSystem {
       modules = [
-        "${nixpkgs}/nixos/modules/installer/sd-card/sd-image-raspberrypi.nix"
+        "${nixpkgs}/nixos/modules/installer/sd-card/sd-image-aarch64.nix"
         {
           nixpkgs.config.allowUnsupportedSystem = true;
-          nixpkgs.hostPlatform.system = "Aarch64-linux";
+          nixpkgs.hostPlatform.system = "aarch64-linux";
           nixpkgs.buildPlatform.system = "x86_64-linux"; #If you build on x86 other wise changes this.
           # ... extra configs as above
         }
         ./config.nix
       ];
     };
-    images.piTime = nixosConfigurations.piTimeconfig.system.build.sdImage;
+    images.piTime = nixosConfigurations.piTime.config.system.build.sdImage;
   };
 }

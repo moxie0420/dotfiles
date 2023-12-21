@@ -50,6 +50,6 @@
             musicDirectory = "/data/Music";
             startWhenNeeded = true;
         };
-        ympd.enable = true;
+        ympd.enable = false;
     };
 }

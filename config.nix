@@ -20,7 +20,7 @@
       fsType = "ext4";
     };
     "/data" = {
-      device = "/dev/disk/by-uuid/3b38f12c-5e5b-4de2-a299-e13d8ba7ddef"
+      device = "/dev/disk/by-uuid/3b38f12c-5e5b-4de2-a299-e13d8ba7ddef";
     };
   };
   
@@ -31,4 +31,6 @@
 
   hardware.enableRedistributableFirmware = true;
   networking.wireless.enable = true;
+
+  system.stateVersion = "23.11";
 }
