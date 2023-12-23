@@ -1,6 +1,6 @@
 { config, pkgs, ... }:
 {
-    includes = [
+    imports = [
         ./boot.nix
         ./disks.nix
         ./hardware.nix

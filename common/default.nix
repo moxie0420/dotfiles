@@ -1,6 +1,6 @@
 { config, pkgs, ... }:
 {
-    includes = [
+    imports = [
 		./audio.nix
 		./desktop.nix
 		./steam.nix
