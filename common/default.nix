@@ -6,6 +6,12 @@
 		./steam.nix
     ];
 
+	users.users.moxie = {
+        isNormalUser = true;
+        extraGroups = [ "wheel" "audio" "video" "pipewire" "plugdev" ];
+        shell = pkgs.fish;
+    };
+
     time.timeZone = "America/Chicago";
 
 	programs.direnv.enable = true;

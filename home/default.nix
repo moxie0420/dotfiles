@@ -5,14 +5,7 @@ in
 {
 	imports = [ 
 		spicetify-nix.homeManagerModule
-        ./spicetify.nix
 	];
-
-    users.users.moxie = {
-        isNormalUser = true;
-        extraGroups = [ "wheel" "audio" "video" "pipewire" "plugdev" ];
-        shell = pkgs.fish;
-    };
 
 	home = {
 		username = "moxie";
@@ -40,7 +33,6 @@ in
       		bottom
 			neofetch
 			lutris
-            spotify
 		    (wrapOBS {
     			plugins = with pkgs.obs-studio-plugins; [
      			    wlrobs
@@ -58,18 +50,18 @@ in
 			extensions = with pkgs.vscode-extensions; [
 				catppuccin.catppuccin-vsc
 				catppuccin.catppuccin-vsc-icons
-				arrterian.nix-env-selector
+				mkhl.direnv
 				ms-vscode.makefile-tools
 				ms-vscode.cpptools
 			];
 			package = pkgs.vscode;
 			userSettings = {
          			"window.titleBarStyle" = "custom";
-				"git.enableSmartCommit" = true;
-				"git.confirmSync" = false;
-				"workbench.colorTheme" = "Catppuccin Mocha";
-  				"workbench.iconTheme" = "catppuccin-mocha";
-      			};
+					"git.enableSmartCommit" = true;
+					"git.confirmSync" = false;
+					"workbench.colorTheme" = "Catppuccin Mocha";
+  					"workbench.iconTheme" = "catppuccin-mocha";
+      		};
 		};
 		spicetify = {
       			enable = true;
@@ -87,6 +79,11 @@ in
 			lfs.enable = true;
 			userName = "Moxie Benavides";
 			userEmail = "astronomicalgamer5@gmail.com";
+			extraConfig = {
+				safe = {
+					directory = "*";
+				};
+			};
 		};
 	};
 	services = {

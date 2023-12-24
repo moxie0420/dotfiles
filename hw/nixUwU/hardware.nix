@@ -9,7 +9,7 @@
 		sleep.enable = false;
 		suspend.enable = false;
 		hibernate.enable = false;
-		hybrid-sleep.enable = false
+		hybrid-sleep.enable = false;
 	};
   	
 	powerManagement.cpuFreqGovernor = lib.mkDefault "performance";
