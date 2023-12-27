@@ -12,15 +12,7 @@
 		gamemode.enable = true;
 	};
     environment.systemPackages = with pkgs; [
-		wineWowPackages.stable
-		wine
-		(wine.override { wineBuild = "wine64"; })
-		(wineWowPackages.full.override {
-			wineRelease = "staging";
-			mingwSupport = true;
-		})
-		wineWowPackages.staging
-		wineWowPackages.waylandFull
+		winePackages.waylandFull
 		winetricks
 		protontricks
 		protonup-qt

@@ -18,33 +18,52 @@ in
 			baobab
 			qbittorrent
 			xwaylandvideobridge
-            heroic
-		    r2modman
+            		heroic
+		    	r2modman
+			zstd
 
-            # to be thinned when laptop is added
-            firefox
+			# to be thinned when laptop is added
+			firefox
 			neovim
-      		kitty
-      		pavucontrol
-      		waybar
-      		prismlauncher
-      		hyprpaper
-      		wofi
-      		bottom
-			neofetch
+	      		kitty
+      			pavucontrol
+      			waybar
+	      		prismlauncher
+      			hyprpaper
+	      		wofi
+	      		bottom
 			lutris
-		    (wrapOBS {
-    			plugins = with pkgs.obs-studio-plugins; [
-     			    wlrobs
-      			    obs-backgroundremoval
-      			    obs-pipewire-audio-capture
-    			];
-  		    })
+			vulkan-tools
 		];
 
 		stateVersion = "23.11";
 	};
 	programs = {
+		hyfetch = {
+			enable = true;
+			settings = {
+				preset = "transgender";
+    				mode = "rgb";
+				light_dark = "dark";
+				lightness = 0.75;
+				color_align = {
+					mode = "horizontal";
+					custom_colors = [];
+					fore_back = null;
+				};
+				backend = "neofetch";
+				args = null;
+				distro = null;
+				pride_month_shown = [];
+				pride_month_disable = false;
+			};
+		};
+		obs-studio = {
+			enable = true;
+			plugins = with pkgs.obs-studio-plugins; [
+     			    wlrobs
+    			]; 
+		};
 		vscode = {
 			enable = true;
 			extensions = with pkgs.vscode-extensions; [

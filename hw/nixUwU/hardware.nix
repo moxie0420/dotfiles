@@ -28,12 +28,9 @@
 
   		nvidia = {
 			modesetting.enable = true;
-			powerManagement.enable = false;
-			powerManagement.finegrained = false;
 			open = true;
-			nvidiaSettings = false;
-			nvidiaPersistenced = false;
-			package = config.boot.kernelPackages.nvidiaPackages.beta;
+			nvidiaSettings = true;
+			package = config.boot.kernelPackages.nvidiaPackages.stable;
   		};
   		opentabletdriver.enable = true;
 	};
