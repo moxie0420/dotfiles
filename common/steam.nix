@@ -12,7 +12,7 @@
 		gamemode.enable = true;
 	};
     environment.systemPackages = with pkgs; [
-		winePackages.waylandFull
+		wineWowPackages.waylandFull
 		winetricks
 		protontricks
 		protonup-qt
