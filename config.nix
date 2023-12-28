@@ -11,15 +11,29 @@
     })
   ];
 
-  # NixOS wants to enable GRUB by default
-  boot.loader.grub.enable = false;
-  # Enables the generation of /boot/extlinux/extlinux.conf
-  boot.loader.generic-extlinux-compatible.enable = true;
- 
-  # !!! If your board is a Raspberry Pi 1, select this:
-  boot.kernelPackages = pkgs.linuxPackages_rpi3;
-  # On other boards, pick a different kernel, note that on most boards with good mainline support, default, latest and hardened should all work
-  # Others might need a BSP kernel, which should be noted in their respective wiki entries
+  boot = {
+    loader = {
+      grub.enable = false;
+      generic-extlinux-compatible.enable = true;
+
+      raspberryPi.firmwareConfig = ''
+        dtparam=audio=on
+      '';
+    };
+    kernelPackages = pkgs.linuxPackages_rpi3;
+    kernelParams = [
+      "console=ttyS1,115200n8"
+    ];
+  };
+
+  systemd.services.btattach = {
+    before = [ "bluetooth.service" ];
+    after = [ "dev-ttyAMA0.device" ];
+    wantedBy = [ "multi-user.target" ];
+    serviceConfig = {
+      ExecStart = "${pkgs.bluez}/bin/btattach -B /dev/ttyAMA0 -P bcm -S 3000000";
+    };
+  };
 
   fileSystems = {
     "/" = {

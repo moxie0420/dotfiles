@@ -17,23 +17,24 @@ in
 			arduino-ide
 			baobab
 			qbittorrent
-			xwaylandvideobridge
-            		heroic
-		    	r2modman
+            heroic
+		    r2modman
 			zstd
 
 			# to be thinned when laptop is added
 			firefox
 			neovim
-	      		kitty
-      			pavucontrol
-      			waybar
-	      		prismlauncher
-      			hyprpaper
-	      		wofi
-	      		bottom
+	      	kitty
+      		pavucontrol
+      		waybar
+	      	prismlauncher
+      		hyprpaper
+	      	wofi
+	      	bottom
 			lutris
 			vulkan-tools
+			vesktop
+			tor-browser
 		];
 
 		stateVersion = "23.11";
