@@ -64,10 +64,7 @@
 		GDK_BACKEND = "wayland";
 		QT_QPA_PLATFORM = "wayland;xcb";
 		CLUTTER_BACKEND = "wayland";
-		SDL_VIDEODRIVER = "x11";
-		LIBVA_DRIVER_NAME = "nvidia";
-		GBM_BACKEND = "nvidia-drm";
-		__GLX_VENDOR_LIBRARY_NAME = "nvidia";
+		SDL_VIDEODRIVER = "wayland";
 		ANKI_WAYLAND = "1";
 	};
 	xdg.portal = {
