@@ -27,7 +27,10 @@ in
 	      	kitty
       		pavucontrol
       		waybar
-	      	prismlauncher
+	      	(pkgs.prismlauncher.override {
+			additionalLibs = with pkgs; [ glfw-wayland ];
+			additionalPrograms = with pkgs; [ gamescope ];
+		})
       		hyprpaper
 	      	wofi
 	      	bottom
@@ -35,6 +38,9 @@ in
 			vulkan-tools
 			vesktop
 			tor-browser
+			p7zip
+			unzip
+			zip
 		];
 
 		stateVersion = "23.11";

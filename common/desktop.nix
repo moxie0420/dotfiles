@@ -9,6 +9,7 @@
 			withVencord = true;
 		})
 		catppuccin-cursors
+		glfw-wayland
 	];
 	fonts.packages = with pkgs; [
 		noto-fonts

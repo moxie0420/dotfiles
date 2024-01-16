@@ -15,6 +15,14 @@
 	VK_DRIVER_FILES = "/run/opengl-driver/share/vulkan/icd.d/nvidia_icd.x86_64.json";
     };
     systemd.services = {
+    	"scx_rusty" = {
+		enable = true;
+		description = "scx_rusty systemd service";
+		script = ''
+			/run/current-system/sw/bin/scx_rusty -b
+		'';
+		wantedBy = [ "multi-user.target" ];
+	};
 	"nv-power-limit" = {
 		enable = true;
 		description = "set nvidia gpu power to max";
