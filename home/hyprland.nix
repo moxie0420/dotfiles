@@ -72,6 +72,8 @@
 				"XCURSOR_SIZE,24"
 			];
 			monitor = [
+				"DP-1,3840x2160@144,0x0,1"
+				"HDMI-A-2,1360x768@60,-1360x0,1"
 				"eDP-1,1920x1080@165.009995,0x0,1"
 				",preferred,auto,1,mirror,eDP-1"
 			];
@@ -110,6 +112,30 @@
 			bindm = [
 				"$mod, mouse:272, movewindow"
 				"$mod, mouse:273, resizewindow"
+			];
+			windowrule = [
+				"workspace 3, class(battle.net.exe)"
+				"workspace 8, classs:(com.obsproject.Studio)"
+			];
+			windowrulev2 = [
+				"workspace 2, class:(code-url-handler)"
+				"workspace 3, class:(steam)"
+				"workspace 3, class:(lutris)"
+				"workspace 9, class:(discord)"
+				"workspace 9, class:(VencordDesktop)"
+				"workspace 10, title:(Spotify)"
+			];
+			workspace = [
+				"1,monitor:DP-1"
+				"2,monitor:DP-1"
+				"3,monitor:DP-1"
+				"4,monitor:DP-1"
+				"5,monitor:DP-1"
+				"6,monitor:DP-1"
+				"7,monitor:DP-1"
+				"8,monitor:DP-1"
+				"9,monitor:HDMI-A-2, gapsout:10, on-created-empty: discord"
+				"10,monitor:HDMI-A-2, gapsout:10, on-created-empty: spotify"
 			];
 			bind = [
 				"$mod, Return, exec, 		kitty"
