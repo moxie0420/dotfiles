@@ -14,7 +14,6 @@ in
 		homeDirectory = "/home/moxie";
 
 		packages = with pkgs; [
-			wlr-randr
 			fritzing
 			arduino-ide
 			baobab
@@ -22,9 +21,11 @@ in
             heroic
 		    r2modman
 			zstd
+			vulkan-tools
+			qbittorrent
+			yubikey-manager
 
 			# to be thinned when laptop is added
-			neovim
       		pavucontrol
       		waybar
 	      	(pkgs.prismlauncher.override {
@@ -131,8 +132,7 @@ in
 				};
 			};
 		};
-
-
+		
 		# spotify theme
 		spicetify = {
       		enable = true;
