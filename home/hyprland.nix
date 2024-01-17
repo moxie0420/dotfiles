@@ -13,10 +13,7 @@
 				modules-center = [ "hyprland/window" ];
 				modules-right = [ "wireplumber" "memory" "disk" "cpu" "temperature" "backlight" "battery" "clock" "tray" ];
 
-				"hyprland/workspaces" = {
-					format = "{name}";
-				};
-
+				"hyprland/workspaces" = { format = "{name}"; };
 				"hyprland/window" = {
 					format = "{title}";
     					max-length = 50;
@@ -26,34 +23,21 @@
 							"sudo vim (.*)" = " $1";
     					};
 				};
-
 				"wireplumber" = {
 					format-muted = "muted";
 					on-click = "pavucontrol";
 				};
-
-				"memory" = {
-					format = "RAM: {percentage}%";	
-				};
-
-				"disk" = {
-					format = "{percentage_free}% remaining on /";
-				};
-
-				"cpu" = {
-					format = "CPU: {usage}%";
-				};
-
+				"memory" = { format = "RAM: {percentage}%";	};
+				"disk" = { format = "{percentage_free}% remaining on /";};
+				"cpu" = { format = "CPU: {usage}%"; };
 				"backlight" = {
 					format = "{percent}% {icon}";
 					format-icons = ["" ""];
 				};
-
 				"battery" = {
 					format = "{capacity}%";
 					format-icons = ["" "" "" "" ""];
 				};
-
 				"tray" = {
 					icon-size = 21;
 					show-passive-items = true;
@@ -79,27 +63,27 @@
 			];
 			input = {
 				kb_layout = "us";
-				follow_mouse = "1";
+				follow_mouse = 1;
 				touchpad = {
-					natural_scroll = "no";
+					natural_scroll = false;
 				};
 				sensitivity = "0";
 			};
 			general = {
-				gaps_in = "5";
-				gaps_out = "7";
-				border_size = "1";
+				gaps_in = 9;
+				gaps_out = 12;
+				border_size = 1;
 
 				layout = "dwindle";
 			};
 			decoration = {
 				rounding = 10;
 
-				drop_shadow = "yes";
+				drop_shadow = true;
 			};
 			dwindle = {
-				pseudotile = "yes";
-				preserve_split = "yes";
+				pseudotile = true;
+				preserve_split = true;
 			};
 			exec = [
 				"pkill waybar; waybar &"
