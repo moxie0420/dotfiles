@@ -6,11 +6,19 @@
 		./steam.nix
 		./firefox.nix
 		./style.nix
+		./wireshark.nix
     ];
 
 	users.users.moxie = {
         isNormalUser = true;
-        extraGroups = [ "wheel" "audio" "video" "pipewire" "plugdev" ];
+        extraGroups = [ 
+			"wheel"
+			"audio"
+			"video"
+			"pipewire"
+			"plugdev"
+			"wireshark"
+		];
         shell = pkgs.fish;
     };
 
