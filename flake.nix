@@ -25,7 +25,7 @@
     stylix.url = "github:danth/stylix";
   };
 
-  outputs = {nixpkgs, lanzaboote, hyprland, home-manager, spicetify-nix, chaotic, ... } @ inputs: rec {
+  outputs = {nixpkgs, lanzaboote, hyprland, home-manager, spicetify-nix, chaotic, stylix, ... } @ inputs: rec {
     nixosConfigurations = {
       
       # home desktop

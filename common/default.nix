@@ -5,7 +5,7 @@
 		./desktop.nix
 		./steam.nix
 		./firefox.nix
-		
+		./style.nix
     ];
 
 	users.users.moxie = {

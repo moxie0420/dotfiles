@@ -8,7 +8,7 @@
 		base16Scheme = "${pkgs.base16-schemes}/share/themes/catppuccin-mocha.yaml";
 		polarity = "dark";
 
-		image = ./wallpapers/cyber.png;
+		image = ../wallpapers/cyber.png;
 		
 		cursor = {
 			package = pkgs.catppuccin-cursors;
