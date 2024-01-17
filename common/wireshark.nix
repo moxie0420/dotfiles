@@ -1,4 +1,7 @@
 {config, pkgs, lib, ... }:
 {
-	programs.wireshark.enable = true;
+	programs.wireshark = {
+		enable = true;
+		package = pkgs.wireshark;
+	};
 }
