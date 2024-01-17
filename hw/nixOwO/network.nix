@@ -6,12 +6,16 @@
 		hostName = "nixOwO";
 		enableIPv6 = false;
 		networkmanager = {
-			enable = true;
+			enable = false;
 			wifi = {
 				powersave = true;
 				scanRandMacAddress = true;
 				backend = "iwd";
 			};
+		};
+		wireless = {
+			enable = false;
+			iwd.enable = true;
 		};
 		firewall = {
 

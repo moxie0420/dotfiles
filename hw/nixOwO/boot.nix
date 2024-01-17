@@ -91,7 +91,7 @@
 		tmpfiles.settings = {
 			"hibernate file" = {
 				"/sys/power/image_size" = {
-					w.argument = "0";
+					w.argument = "48";
 				};
 			};
 		};
