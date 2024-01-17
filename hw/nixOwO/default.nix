@@ -7,16 +7,12 @@
 {
 	imports = [
 		./boot.nix
-		./disks.nix
-		./firefox.nix
-		./gaming.nix
-		./hardware.nix
-		./laptop.nix
-		./network.nix
 		../../common
-		./wayland.nix
-		./style.nix
 		../../common/harden.nix
+		../../common/laptop.nix
+		./disks.nix
+		./hardware.nix
+		./network.nix
 		./yubikey.nix
     ];
 
