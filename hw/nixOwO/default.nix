@@ -13,10 +13,10 @@
 		./hardware.nix
 		./laptop.nix
 		./network.nix
-		./pipewire.nix
+		../../common
 		./wayland.nix
 		./style.nix
-		./harden.nix
+		../../common/harden.nix
 		./yubikey.nix
     ];
 

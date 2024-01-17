@@ -1,5 +1,5 @@
 {
-  description = "Moxie's RPI3B nix config";
+  description = "Moxie's nix config";
 
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
@@ -12,17 +12,29 @@
     	inputs.nixpkgs.follows = "nixpkgs";
     };
 
+    # secure boo
+    lanzaboote = {
+			url = "github:nix-community/lanzaboote";
+			inputs.nixpkgs.follows = "nixpkgs";
+		};
+
     # spotify themeing
     spicetify-nix.url = "github:the-argus/spicetify-nix";
+
+    # nix themeing
+    stylix.url = "github:danth/stylix";
   };
 
-  outputs = {nixpkgs, hyprland, home-manager, spicetify-nix, chaotic, ... } @ inputs: rec {
+  outputs = {nixpkgs, lanzaboote, hyprland, home-manager, spicetify-nix, chaotic, ... } @ inputs: rec {
     nixosConfigurations = {
+      
+      # home desktop
       nixUwU = nixpkgs.lib.nixosSystem {
         specialArgs = { inherit inputs; };
         system = "x86_64-linux";
         modules = [ 
       	  ./hw/nixUwU
+          stylix.nixosModules.stylix
 	        chaotic.nixosModules.default
 	        home-manager.nixosModules.home-manager {
 	          home-manager.extraSpecialArgs = {inherit spicetify-nix;};
@@ -32,6 +44,23 @@
 	        }
         ];
       };
+
+      # school laptop
+      nixOwO = nixpkgs.lib.nixosSystem {
+      	system = "x86_64-linux";
+      		modules = [
+            ./hw/nixOwO
+					  lanzaboote.nixosModules.lanzaboote
+					  stylix.nixosModules.stylix
+					  chaotic.nixosModules.default
+					  home-manager.nixosModules.home-manager {
+              home-manager.extraSpecialArgs = {inherit spicetify-nix;};
+						  home-manager.useGlobalPkgs = true;
+            	home-manager.useUserPackages = true;
+						  home-manager.users.moxie = import ./home;
+					  }
+				];
+			};
 
       piTime = nixpkgs.lib.nixosSystem {
         modules = [

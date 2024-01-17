@@ -5,6 +5,7 @@
 		cpuFreqGovernor = "powersave";
 		powertop.enable = true;
 	};
+	services.xserver.videoDrivers = [ "amdgpu" "nvidia" ];
 	hardware = {
 		enableAllFirmware = true;
 		enableRedistributableFirmware = config.hardware.enableAllFirmware;

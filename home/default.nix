@@ -5,6 +5,8 @@ in
 {
 	imports = [ 
 		spicetify-nix.homeManagerModule
+		./style.nix
+		./hyprland.nix
 	];
 
 	home = {
@@ -22,18 +24,15 @@ in
 			zstd
 
 			# to be thinned when laptop is added
-			firefox
 			neovim
-	      	kitty
       		pavucontrol
       		waybar
 	      	(pkgs.prismlauncher.override {
-			additionalLibs = with pkgs; [ glfw-wayland ];
-			additionalPrograms = with pkgs; [ gamescope ];
-		})
+				additionalLibs = with pkgs; [ glfw-wayland ];
+				additionalPrograms = with pkgs; [ gamescope ];
+			})
       		hyprpaper
-	      	wofi
-	      	bottom
+	      	
 			lutris
 			vulkan-tools
 			vesktop
@@ -46,6 +45,34 @@ in
 		stateVersion = "23.11";
 	};
 	programs = {
+		feh.enable = true;
+
+		# terminal config
+		fish.enable = true;
+		kitty = {
+			enable = true;
+			shellIntegration.enableFishIntegration = true;
+		};
+
+		#s chool
+		pandoc = {
+			enable = true;
+			#TODO
+		};
+		neovim = {
+			extraConfig = ''
+				set tabstop=4
+				set softtabstop=0 noexpandtab
+				set shiftwidth=4
+			'';
+			plugins = with pkgs.vimPlugins; [
+				vim-pandoc
+				vim-pandoc-syntax
+			];
+		};
+
+		# show off stuff
+		bottom.enable = true;
 		hyfetch = {
 			enable = true;
 			settings = {
@@ -65,12 +92,16 @@ in
 				pride_month_disable = false;
 			};
 		};
+
+		# obs
 		obs-studio = {
 			enable = true;
 			plugins = with pkgs.obs-studio-plugins; [
      			    wlrobs
     			]; 
 		};
+
+		# coding stuff
 		vscode = {
 			enable = true;
 			extensions = with pkgs.vscode-extensions; [
@@ -89,34 +120,57 @@ in
   					"workbench.iconTheme" = "catppuccin-mocha";
       		};
 		};
-		spicetify = {
-      			enable = true;
-      			theme = spicePkgs.themes.catppuccin;
-      			colorScheme = "mocha";
-
-      			enabledExtensions = with spicePkgs.extensions; [
-        			fullAppDisplay
-        			shuffle # shuffle+ (special characters are sanitized out of ext names)
-        			hidePodcasts
-      			];
-    		};
 		git = {
 			enable = true;
 			lfs.enable = true;
 			userName = "Moxie Benavides";
-			userEmail = "astronomicalgamer5@gmail.com";
+			userEmail = "ethanpbenavides@gmail.com";
 			extraConfig = {
 				safe = {
 					directory = "*";
 				};
 			};
 		};
+
+
+		# spotify theme
+		spicetify = {
+      		enable = true;
+      		theme = spicePkgs.themes.catppuccin;
+      		colorScheme = "mocha";
+      		enabledExtensions = with spicePkgs.extensions; [
+        		fullAppDisplay
+        		shuffle # shuffle+ (special characters are sanitized out of ext names)
+        		hidePodcasts
+      		];
+    	};
 	};
 	services = {
-		
+		dunst.enable = true;
+		gpg-agent = {
+			enable = true;
+			enableSshSupport = true;
+		};
+		swayidle = {
+			enable = true;
+			systemdTarget = "hyprland-session.target";
+			events = [
+				{ event = "before-sleep"; command = "${pkgs.swaylock-effects}/bin/swaylock -S --clock --indicator-idle-visible --effect-blur 5x7"; }
+				{ event = "lock"; command = "${pkgs.swaylock-effects}/bin/swaylock -S --clock --indicator-idle-visible --effect-blur 5x7"; }
+			];
+		};
 	};
 	xdg = {
 		enable = true;
+		desktopEntries = {
+			feh = {
+				name = "Feh";
+				genericName = "Image Viewer";
+				exec = "feh --scale-down";
+				terminal = false;
+				mimeType = [ "image/jpeg" "image/png" ];
+			};
+		};
 		mime.enable = true;
 		mimeApps = {
 			enable = true;
@@ -126,6 +180,21 @@ in
 				"x-scheme-handler/beatsaver" = [ "BeatSaberModManager-url-beatsaver.desktop" ];
 				"x-scheme-handler/everest" = [ "Olympus.desktop" ];
 				"x-scheme-handler/ror2mm" = [ "r2modman.desktop" ];
+				"image/png" = [ "feh.desktop" ];
+				"image/jpeg" = [ "feh.desktop" ];
+				"image/gif" = [ "feh.desktop" ];
+				"application/pdf" = [ "firefox.desktop" ];
+				"inode/directory" = [ "thunar.desktop" ];
+				"x-scheme-handler/http" = [ "firefox.dektop" ];
+				"x-scheme-handler/https" = [ "firefox.dektop" ];
+				"x-scheme-handler/chrome" = [ "firefox.dektop" ];
+				"text/html" = [ "firefox.desktop" ];
+				"application/x-extension-htm" = [ "firefox.dektop" ];
+				"application/x-extension-html" = [ "firefox.dektop" ];
+				"application/x-extension-shtml" = [ "firefox.dektop" ];
+				"application/xhtml+xml" = [ "firefox.dektop" ];
+				"application/x-extension-xhtml" = [ "firefox.dektop" ];
+				"application/x-extension-xht" = [ "firefox.dektop" ];
 			};
 			associations.added = {
 				"text/x-ms-regedit" = [ "wine-extension-txt.desktop" "nvim.desktop" ];

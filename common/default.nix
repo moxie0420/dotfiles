@@ -4,6 +4,8 @@
 		./audio.nix
 		./desktop.nix
 		./steam.nix
+		./firefox.nix
+		
     ];
 
 	users.users.moxie = {
