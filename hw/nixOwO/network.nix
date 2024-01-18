@@ -4,21 +4,18 @@
 	systemd.services.NetworkManager-wait-online.enable = false;
 	networking = {
 		hostName = "nixOwO";
-		enableIPv6 = false;
-		networkmanager = {
-			enable = false;
-			wifi = {
-				powersave = true;
-				scanRandMacAddress = true;
-				backend = "iwd";
-			};
-		};
+		enableIPv6 = true;
 		wireless = {
-			enable = false;
 			iwd.enable = true;
 		};
 		firewall = {
 
+		};
+	};
+	services.globalprotect = {
+		enable = true;
+		settings = {
+			
 		};
 	};
 }

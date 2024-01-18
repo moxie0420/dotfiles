@@ -55,7 +55,7 @@ in
 			shellIntegration.enableFishIntegration = true;
 		};
 
-		#s chool
+		# school
 		pandoc = {
 			enable = true;
 			#TODO
@@ -155,8 +155,8 @@ in
 			enable = true;
 			systemdTarget = "hyprland-session.target";
 			events = [
-				{ event = "before-sleep"; command = "${pkgs.swaylock-effects}/bin/swaylock -S --clock --indicator-idle-visible --effect-blur 5x7"; }
-				{ event = "lock"; command = "${pkgs.swaylock-effects}/bin/swaylock -S --clock --indicator-idle-visible --effect-blur 5x7"; }
+				{ event = "before-sleep"; command = "pkill swaylock; ${pkgs.swaylock-effects}/bin/swaylock -S --clock --indicator-idle-visible --effect-blur 5x7"; }
+				{ event = "lock"; command = "pkill swaylock; ${pkgs.swaylock-effects}/bin/swaylock -S --clock --indicator-idle-visible --effect-blur 5x7"; }
 			];
 		};
 	};

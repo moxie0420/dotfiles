@@ -19,6 +19,8 @@
 			"amd_pstate=active"
 			"resume_offset=474218496"
 			"mem_sleep_default=s2idle"
+			"iwlmvm.power_scheme=1"
+			"iwlwifi.power_save=0"
 		];
 		blacklistedKernelModules = [ "nouveau" ];
 		
@@ -68,7 +70,9 @@
 		enableContainers = true;
 	};
 	services = {
-		fwupd.enable = true;
+		fwupd = {
+			enable = true;
+		};
 		logind = {
 			lidSwitch = "suspend";
 			extraConfig = ''
