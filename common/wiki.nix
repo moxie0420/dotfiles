@@ -5,5 +5,5 @@
 
         name = "Moxies brew";
         url = "https://brew.wiki";
-    }
+    };
 }
