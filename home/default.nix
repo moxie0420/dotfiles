@@ -24,20 +24,14 @@ in
 			vulkan-tools
 			qbittorrent
 			yubikey-manager
-
 			# to be thinned when laptop is added
       		pavucontrol
-      		waybar
 	      	(pkgs.prismlauncher.override {
 				additionalLibs = with pkgs; [ glfw-wayland ];
 				additionalPrograms = with pkgs; [ gamescope ];
 			})
       		hyprpaper
-	      	
 			lutris
-			vulkan-tools
-			vesktop
-			tor-browser
 			p7zip
 			unzip
 			zip
@@ -117,7 +111,6 @@ in
          			"window.titleBarStyle" = "custom";
 					"git.enableSmartCommit" = true;
 					"git.confirmSync" = false;
-					"workbench.colorTheme" = "Catppuccin Mocha";
   					"workbench.iconTheme" = "catppuccin-mocha";
       		};
 		};
