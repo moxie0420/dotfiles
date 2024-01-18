@@ -10,6 +10,7 @@
 		../../common
 		../../common/harden.nix
 		../../common/laptop.nix
+		../../common/wiki.nix
 		./disks.nix
 		./hardware.nix
 		./network.nix
