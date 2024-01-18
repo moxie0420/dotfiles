@@ -23,9 +23,25 @@
 
     # nix themeing
     stylix.url = "github:danth/stylix";
+
+    #declareative disk partitioning
+    disko = {
+      url = "github:nix-community/disko";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
-  outputs = {nixpkgs, lanzaboote, hyprland, home-manager, spicetify-nix, chaotic, stylix, ... } @ inputs: rec {
+  outputs = {
+    nixpkgs, 
+    lanzaboote, 
+    hyprland, 
+    home-manager, 
+    spicetify-nix, 
+    chaotic, 
+    stylix, 
+    disko,
+    self
+  } @ inputs: rec {
     nixosConfigurations = {
       
       # home desktop
@@ -49,19 +65,29 @@
       nixOwO = nixpkgs.lib.nixosSystem {
         specialArgs = { inherit inputs; };
       	system = "x86_64-linux";
-      		modules = [
-            ./hw/nixOwO
-					  lanzaboote.nixosModules.lanzaboote
-					  stylix.nixosModules.stylix
-					  chaotic.nixosModules.default
-					  home-manager.nixosModules.home-manager {
-              home-manager.extraSpecialArgs = {inherit spicetify-nix;};
-						  home-manager.useGlobalPkgs = true;
-            	home-manager.useUserPackages = true;
-						  home-manager.users.moxie = import ./home;
-					  }
+      	modules = [
+          ./hw/nixOwO
+				  lanzaboote.nixosModules.lanzaboote
+				  stylix.nixosModules.stylix
+				  chaotic.nixosModules.default
+				  home-manager.nixosModules.home-manager {
+            home-manager.extraSpecialArgs = {inherit spicetify-nix;};
+					  home-manager.useGlobalPkgs = true;
+           	home-manager.useUserPackages = true;
+					  home-manager.users.moxie = import ./home;
+				  }
 				];
 			};
+
+      jbod = nixpkgs.lib.nixosSystem {
+        specialArgs = { inherit inputs; };
+      	system = "x86_64-linux";
+        modules = [
+          ./hw/jbod
+          lanzaboote.nixosModules.lanzaboote
+          disko.nixosModules.disko
+        ];
+      };
 
       piTime = nixpkgs.lib.nixosSystem {
         modules = [

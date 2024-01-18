@@ -111,7 +111,6 @@ in
          			"window.titleBarStyle" = "custom";
 					"git.enableSmartCommit" = true;
 					"git.confirmSync" = false;
-					"workbench.colorTheme" = "Catppuccin Mocha";
   					"workbench.iconTheme" = "catppuccin-mocha";
       		};
 		};

@@ -19,7 +19,7 @@
 			enable = true;
 			description = "scx_rusty systemd service";
 			script = ''
-				/run/current-system/sw/bin/scx_rusty -b
+				${pkgs.scx}/bin/scx_rusty -b
 			'';
 			wantedBy = [ "multi-user.target" ];
 		};
