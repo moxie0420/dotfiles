@@ -41,7 +41,8 @@
     stylix, 
     disko,
     self
-  } @ inputs: rec {
+  } @ inputs: rec 
+  {
     nixosConfigurations = {
       
       # home desktop
