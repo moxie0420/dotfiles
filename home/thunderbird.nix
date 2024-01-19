@@ -8,6 +8,6 @@
                 isDefault = true;
                 withExternalGnupg = true;
             };
-        }
+        };
     };
 }

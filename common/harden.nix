@@ -113,7 +113,7 @@ with lib;
 		enable = true;
 		wrappedBinaries = {
 			firefox = {
-          		executable = "${pkgs.lib.getBin pkgs.firefox-devedition}/bin/firefox";
+          		executable = "${pkgs.firefox-devedition}/bin/firefox-devedition";
           		profile = "${pkgs.firejail}/etc/firejail/firefox.profile";
       		};
 		};
