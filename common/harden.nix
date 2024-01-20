@@ -30,6 +30,7 @@ with lib;
 			enable = true;
 			execWheelOnly = true;
 		};
+		polkit.enable = true;
 		pam = {
 			u2f.enable = true;
 			services = {
@@ -114,7 +115,7 @@ with lib;
 		wrappedBinaries = {
 			firefox = {
           		executable = "${pkgs.firefox-devedition}/bin/firefox-devedition";
-          		profile = "${pkgs.firejail}/etc/firejail/firefox.profile";
+          		profile = "${pkgs.firejail}/etc/firejail/firefox-developer-edition.profile";
       		};
 		};
 	};

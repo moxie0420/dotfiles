@@ -1,15 +1,10 @@
 { config, pkgs, inputs, ... }:
 {
 	environment.systemPackages = with pkgs; [
-		gnome.file-roller
-		ns-usbloader
-		flameshot
 		(pkgs.discord.override {
 			withOpenASAR = true;
 			withVencord = true;
 		})
-		catppuccin-cursors
-		glfw-wayland
 	];
 	fonts.packages = with pkgs; [
 		noto-fonts
