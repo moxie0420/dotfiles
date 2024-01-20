@@ -19,8 +19,8 @@
 			"amd_pstate=active"
 			"resume_offset=474218496"
 			"mem_sleep_default=s2idle"
-			"iwlmvm.power_scheme=1"
-			"iwlwifi.power_save=0"
+			"acpi_os_name=\"Linux\""
+			"amdgpu.backlight=0"
 		];
 		blacklistedKernelModules = [ "nouveau" ];
 		
@@ -56,7 +56,9 @@
 				"sdhci_pci"
 			];
 			kernelModules = [ "amdgpu" "cryptd" "aesni_intel" "xhci_hcd" ];
-			prepend = ["${/boot/acpi_override}"];
+			prepend = [
+				"${/boot/acpi_override}"
+			];
 			systemd = {
 				enable = true;
 				dbus.enable = true;
@@ -74,7 +76,7 @@
 			enable = true;
 		};
 		logind = {
-			lidSwitch = "suspend";
+			lidSwitch = "suspend-then-hibernate";
 			extraConfig = ''
 				HandlePowerKey=hibernate
 				HandlePowerKeyLongPress=shutdown
@@ -84,7 +86,7 @@
 	};
 	systemd = {
 		extraConfig = ''
-			HibernateDelaySec=15m
+			HibernateDelaySec=10m
 		'';
 		units = {
 			"dev-ttyS0.device".enable = false;
@@ -95,7 +97,7 @@
 		tmpfiles.settings = {
 			"hibernate file" = {
 				"/sys/power/image_size" = {
-					w.argument = "48";
+					w.argument = "64";
 				};
 			};
 		};

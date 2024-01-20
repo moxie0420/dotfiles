@@ -16,26 +16,19 @@ in
 
 		packages = with pkgs; [
 			fritzing
-			arduino-ide
-			baobab
 			qbittorrent
-            heroic
+			heroic
 		    r2modman
-			zstd
+			lutris
 			vulkan-tools
-			qbittorrent
 			yubikey-manager
+			yubikey-personalization-gui
 			# to be thinned when laptop is added
       		pavucontrol
 	      	(pkgs.prismlauncher.override {
-				additionalLibs = with pkgs; [ glfw-wayland ];
 				additionalPrograms = with pkgs; [ gamescope ];
 			})
       		hyprpaper
-			lutris
-			p7zip
-			unzip
-			zip
 		];
 
 		stateVersion = "23.11";
