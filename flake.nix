@@ -31,20 +31,8 @@
     };
   };
 
-  outputs = {
-    nixpkgs, 
-    lanzaboote, 
-    hyprland, 
-    home-manager, 
-    spicetify-nix, 
-    chaotic, 
-    stylix, 
-    disko,
-    self
-  } @ inputs: rec 
-  {
+  outputs = { nixpkgs, lanzaboote, hyprland, home-manager, spicetify-nix, chaotic, stylix, disko, self, ... } @ inputs: rec {
     nixosConfigurations = {
-      
       # home desktop
       nixUwU = nixpkgs.lib.nixosSystem {
         specialArgs = { inherit inputs; };
@@ -80,12 +68,11 @@
 				];
 			};
 
-      jbod = nixpkgs.lib.nixosSystem {
+      "jbod" = nixpkgs.lib.nixosSystem {
         specialArgs = { inherit inputs; };
       	system = "x86_64-linux";
         modules = [
           ./hw/jbod
-          lanzaboote.nixosModules.lanzaboote
           disko.nixosModules.disko
         ];
       };

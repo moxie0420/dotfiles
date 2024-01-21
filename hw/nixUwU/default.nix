@@ -15,14 +15,6 @@
 		WLR_NO_HARDWARE_CURSORS = "1";
     };
     systemd.services = {
-    	"scx_rusty" = {
-			enable = true;
-			description = "scx_rusty systemd service";
-			script = ''
-				${pkgs.scx}/bin/scx_rusty -b
-			'';
-			wantedBy = [ "multi-user.target" ];
-		};
 		"nv-power-limit" = {
 			enable = true;
 			description = "set nvidia gpu power to max";
