@@ -14,7 +14,6 @@
 		./disks.nix
 		./hardware.nix
 		./network.nix
-		./yubikey.nix
     ];
 
   	# Set your time zone.

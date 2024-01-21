@@ -7,6 +7,7 @@
 		./firefox.nix
 		./style.nix
 		./wireshark.nix
+		./yubikey.nix
     ];
 
 	users.users.moxie = {
