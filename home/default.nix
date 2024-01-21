@@ -15,6 +15,7 @@ in
 		homeDirectory = "/home/moxie";
 
 		packages = with pkgs; [
+			rnix-lsp
 			fritzing
 			qbittorrent
 			heroic

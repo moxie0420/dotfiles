@@ -4,6 +4,7 @@
     disko.devices = {
         disk = 
         let
+        a = {
             type = "disk"; 
             content = {
                 type = "gpt";
@@ -25,12 +26,14 @@
                     };
                 };
             };
+        };
         in
         {
-            disk1 = { device = "/dev/sda"; };
-            disk2 = { device = "/dev/sdb"; };
-            disk3 = { device = "/dev/sdc"; };
-            disk4 = { device = "/dev/sdd"; };
+            inherit a;
+            disk1 = { device = "/dev/sda"; } ++ a;
+            disk2 = { device = "/dev/sdb"; } ++ a;
+            disk3 = { device = "/dev/sdc"; } ++ a;
+            disk4 = { device = "/dev/sdd"; } ++ a;
             
         } ++ {
             mdadm = {
@@ -82,6 +85,4 @@
             };
         };
     };
-
-
 }
