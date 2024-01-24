@@ -18,7 +18,7 @@
 			"acpi_backlight=native"
 			"amd_pstate=active"
 			"resume_offset=474218496"
-			"mem_sleep_default=s2idle"
+			"mem_sleep_default=deep"
 			"acpi_os_name=\"Linux\""
 			"amdgpu.backlight=0"
 		];
