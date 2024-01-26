@@ -21,7 +21,7 @@
 			driSupport32Bit = true;
 		};
 		nvidia = {
-			open = false;
+			open = true;
 			nvidiaSettings = false;
 			modesetting.enable = true;
 			package = config.boot.kernelPackages.nvidiaPackages.beta;
