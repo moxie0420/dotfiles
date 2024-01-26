@@ -20,7 +20,7 @@
 		udisks2.enable = true;
 		hardware.openrgb = {
 			enable = true;
-			motherboard = "amd";
+			motherboard = null;
 			package = pkgs.openrgb-with-all-plugins;
 		};
 		xserver = {

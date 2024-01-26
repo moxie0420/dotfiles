@@ -41,7 +41,7 @@
 			"intel_idle.max_cstate=1"
 		];
 		#kernelPackages = pkgs.linuxPackages_xanmod_stable;
-		kernelPackages = pkgs.linuxPackages_cachyos-sched-ext;
+		kernelPackages = pkgs.linuxPackages_cachyos;
 		kernel.sysctl = {
 			"vm.max_map_count" = 2147483642;
 		};
