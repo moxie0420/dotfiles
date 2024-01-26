@@ -8,12 +8,13 @@
 	services.xserver.videoDrivers = [ "amdgpu" "nvidia" ];
 	hardware = {
 		enableAllFirmware = true;
-		enableRedistributableFirmware = config.hardware.enableAllFirmware;
-		cpu.amd.updateMicrocode = true;
+		cpu.amd = {
+			updateMicrocode = true;
+			sev.enable = true;
+		};
 		opentabletdriver.enable = true;
-		bluetooth.enable = false;
 		ksm.enable = true;
-		deviceTree.enable = true;
+		deviceTree.enable = false;
 
 		opengl = {
 			enable = true;
@@ -21,7 +22,7 @@
 			driSupport32Bit = true;
 		};
 		nvidia = {
-			open = true;
+			open = false;
 			nvidiaSettings = false;
 			modesetting.enable = true;
 			package = config.boot.kernelPackages.nvidiaPackages.beta;

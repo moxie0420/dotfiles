@@ -91,8 +91,10 @@
 			exec-once = [
 				"hyprpaper"
 			];
+
 			"$mod" = "SUPER";
 			"$shiftMod" = "SUPER_SHIFT";
+
 			bindm = [
 				"$mod, mouse:272, movewindow"
 				"$mod, mouse:273, resizewindow"
@@ -122,7 +124,7 @@
 				"10,monitor:HDMI-A-2, gapsout:10, on-created-empty: spotify"
 			];
 			bind = [
-				"$mod, Return, exec, 		kitty"
+				"$mod, Return, exec, kitty -1"
 				"$shiftMod, Q, killactive, 	i"
 				"$mod, Space,  togglefloating,"
 				"$mod, D,      exec, wofi --show drun -I"
@@ -141,8 +143,11 @@
 				"$shiftMod, Right, movewindow, right, visible"
 				"$shiftMod, Up,    movewindow, up,    visible"
 				"$shiftMod, Down,  movewindow, down,  visible"
-			] 
-			++ (
+
+				",XF86AudioRaiseVolume, exec, ${pkgs.wireplumber}/bin/wpctl set-volume 53 5%+"
+				",XF86AudioLowerVolume, exec, ${pkgs.wireplumber}/bin/wpctl set-volume 53 5%-"
+				",XF86AudioMute, exec, ${pkgs.wireplumber}/bin/wpctl set-mute 53 toggle"
+			] ++ (
         		# workspaces
         		# binds $mod + [shift +] {1..10} to [move to] workspace {1..10}
         		builtins.concatLists (builtins.genList (
