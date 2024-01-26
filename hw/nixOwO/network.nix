@@ -12,10 +12,4 @@
 
 		};
 	};
-	services.globalprotect = {
-		enable = true;
-		settings = {
-			
-		};
-	};
 }
