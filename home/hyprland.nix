@@ -147,6 +147,11 @@
 				",XF86AudioRaiseVolume, exec, ${pkgs.wireplumber}/bin/wpctl set-volume 53 5%+"
 				",XF86AudioLowerVolume, exec, ${pkgs.wireplumber}/bin/wpctl set-volume 53 5%-"
 				",XF86AudioMute, exec, ${pkgs.wireplumber}/bin/wpctl set-mute 53 toggle"
+				",XF86AudioMicMute, exec, ${pkgs.wireplumber}/bin/wpctl set-mute 54 toggle"
+				",XF86AudioPlay, exec, ${pkgs.playerctl}/bin/playerctl play-pause"
+				",XF86AudioStop, exec, ${pkgs.playerctl}/bin/playerctl stop"
+				",XF86AudioNext, exec, ${pkgs.playerctl}/bin/playerctl next"
+				",XF86AudioPrev, exec, ${pkgs.playerctl}/bin/playerctl previous"
 			] ++ (
         		# workspaces
         		# binds $mod + [shift +] {1..10} to [move to] workspace {1..10}

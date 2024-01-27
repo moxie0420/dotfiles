@@ -15,12 +15,10 @@
 			"debugfs=off"
 			"logo.nologo"
 			"fbcon=nodefer"
-			"acpi_backlight=native"
 			"amd_pstate=active"
 			"resume_offset=474218496"
 			"mem_sleep_default=deep"
 			"acpi_os_name=\"Linux\""
-			"amdgpu.backlight=0"
 		];
 		blacklistedKernelModules = [ "nouveau" ];
 		
