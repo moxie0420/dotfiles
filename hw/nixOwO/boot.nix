@@ -29,7 +29,7 @@
 		kernelPatches = [
 			{
 				name = "nvidia wmi patch for quirky firmware";
-				patch = ./v2-nvidia-wmi-ec-backlight-Add-workarounds-for-confused-firmware.patch;
+				patch = ./v2-nvidia-wmi-ec-backlight-Add-workarounds-for-confused-firmware.diff;
 			}
 		];
 		extraModulePackages = with config.boot.kernelPackages; [ 
