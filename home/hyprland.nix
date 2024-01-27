@@ -90,7 +90,7 @@
 			];
 			exec-once = [
 				"hyprpaper"
-				"gpg-agent"
+				"gpg-agent --daemon"
 			];
 
 			"$mod" = "SUPER";
