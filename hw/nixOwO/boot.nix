@@ -18,7 +18,7 @@
 			"amd_pstate=active"
 			"resume_offset=474218496"
 			"mem_sleep_default=deep"
-			"acpi_os_name=\"Linux\""
+			"nvidia.NVreg_RegistryDWords=EnableBrightnessControl=1"
 		];
 		blacklistedKernelModules = [ "nouveau" ];
 		
@@ -26,8 +26,14 @@
 		kernel.sysctl = {
 			"kernel.kexec_load_disabled" = lib.mkDefault true;
 		};
+		kernelPatches = [
+			{
+				name = "nvidia wmi patch for quirky firmware";
+				patch = ./nvidia-wmi-ec-patch.diff;
+			}
+		];
 		extraModulePackages = with config.boot.kernelPackages; [ 
-			acpi_call 
+			acpi_call
 		];
 
 		tmp.cleanOnBoot = true;
