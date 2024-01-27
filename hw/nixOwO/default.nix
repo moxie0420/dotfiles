@@ -104,7 +104,10 @@
     		];
 		};
 		udev.extraRules = ''
-			ACTION=="add", SUBSYSTEM=="backlight", KERNEL=="nvidia_wmi_ec_backlight", MODE="0666", RUN+="${pkgs.coreutils}/bin/chmod a+w /sys/class/backlight/%k/brightness"
+			ACTION=="add",\
+				SUBSYSTEM=="backlight",\
+				MODE="0666",\
+				RUN+="${pkgs.coreutils}/bin/chmod a+w /sys/class/backlight/%k/brightness"
 			
 			ACTION=="remove",\
        			ENV{ID_BUS}=="usb",\
