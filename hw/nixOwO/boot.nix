@@ -54,9 +54,6 @@
 				"sdhci_pci"
 			];
 			kernelModules = [ "amdgpu" "cryptd" "aesni_intel" "xhci_hcd" ];
-			prepend = [
-				#"${/boot/acpi_override}"
-			];
 			systemd = {
 				enable = true;
 				dbus.enable = true;

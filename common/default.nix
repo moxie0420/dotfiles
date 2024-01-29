@@ -8,6 +8,7 @@
 		./style.nix
 		./wireshark.nix
 		./yubikey.nix
+		./polkit.nix
     ];
 
 	users.users.moxie = {
