@@ -1,5 +1,4 @@
-{ config, lib, pkgs, ... }:
-
+{ lib, ... }:
 {
 	networking = {
 		hostName = "nixUwU";

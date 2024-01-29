@@ -17,21 +17,15 @@
 			"fbcon=nodefer"
 			"amd_pstate=active"
 			"resume_offset=474218496"
-			"mem_sleep_default=deep"
-			"nvidia.NVreg_RegistryDWords=EnableBrightnessControl=1"
+			"nvidia.NVreg_RegistryDwords=EnableBrightnessControl=1"
+			"amdgpu.backlight=0"
 		];
 		blacklistedKernelModules = [ "nouveau" ];
 		
-		kernelPackages = lib.mkDefault pkgs.linuxPackages_xanmod_latest;
+		kernelPackages = lib.mkDefault pkgs.linuxPackages_latest;
 		kernel.sysctl = {
 			"kernel.kexec_load_disabled" = lib.mkDefault true;
 		};
-		kernelPatches = [
-			{
-				name = "nvidia wmi patch for quirky firmware";
-				patch = ./v2-nvidia-wmi-ec-backlight-Add-workarounds-for-confused-firmware.diff;
-			}
-		];
 		extraModulePackages = with config.boot.kernelPackages; [ 
 			acpi_call
 		];
@@ -61,7 +55,7 @@
 			];
 			kernelModules = [ "amdgpu" "cryptd" "aesni_intel" "xhci_hcd" ];
 			prepend = [
-				"${/boot/acpi_override}"
+				#"${/boot/acpi_override}"
 			];
 			systemd = {
 				enable = true;
