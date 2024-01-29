@@ -5,10 +5,10 @@
 		./desktop.nix
 		./steam.nix
 		./firefox.nix
+		./polkit.nix
 		./style.nix
 		./wireshark.nix
 		./yubikey.nix
-		./polkit.nix
     ];
 
 	users.users.moxie = {
