@@ -30,7 +30,6 @@ with lib;
 			enable = true;
 			execWheelOnly = true;
 		};
-		polkit.enable = true;
 		pam = {
 			u2f.enable = true;
 			services = {
