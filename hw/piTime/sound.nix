@@ -37,8 +37,8 @@
 
     services = {
         minidlna = {
-            enable = true;
-            openFirewall = true;
+            enable = false;
+            openFirewall = false;
             settings = {
                 inotify = "yes";
                 media_dir = [
@@ -47,7 +47,7 @@
             };
         };
         mpd = {
-            enable = true;
+            enable = false;
             musicDirectory = "/data/Music";
             startWhenNeeded = true;
         };

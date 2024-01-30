@@ -40,9 +40,6 @@
       device = "/dev/disk/by-label/NIXOS_SD";
       fsType = "ext4";
     };
-    "/data" = {
-      device = "/dev/disk/by-uuid/3b38f12c-5e5b-4de2-a299-e13d8ba7ddef";
-    };
   };
   
     
@@ -51,7 +48,7 @@
   swapDevices = [ { device = "/swapfile"; size = 2048; } ];
 
   hardware.enableRedistributableFirmware = true;
-  networking.wireless.enable = true;
+  networking.wireless.enable = false;
 
   system.stateVersion = "23.11";
 }
