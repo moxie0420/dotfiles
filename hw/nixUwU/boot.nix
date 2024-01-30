@@ -1,4 +1,4 @@
-{ config, lib, pkgs, ... }:
+{ config, pkgs, ... }:
 { 
     boot = {
 		loader = {
@@ -47,7 +47,6 @@
 		kernel.sysctl = {
 			"vm.max_map_count" = 2147483642;
 		};
-
 	};
 	environment.systemPackages =  [ pkgs.scx ];
 }

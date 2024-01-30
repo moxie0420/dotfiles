@@ -17,17 +17,17 @@
 			"fbcon=nodefer"
 			"amd_pstate=active"
 			"resume_offset=474218496"
-			"mem_sleep_default=deep"
-			"acpi_os_name=\"Linux\""
+			"nvidia.NVreg_RegistryDwords=EnableBrightnessControl=1"
+			"amdgpu.backlight=0"
 		];
 		blacklistedKernelModules = [ "nouveau" ];
 		
-		kernelPackages = lib.mkDefault pkgs.linuxPackages_xanmod_latest;
+		kernelPackages = lib.mkDefault pkgs.linuxPackages_latest;
 		kernel.sysctl = {
 			"kernel.kexec_load_disabled" = lib.mkDefault true;
 		};
 		extraModulePackages = with config.boot.kernelPackages; [ 
-			acpi_call 
+			acpi_call
 		];
 
 		tmp.cleanOnBoot = true;
@@ -54,9 +54,6 @@
 				"sdhci_pci"
 			];
 			kernelModules = [ "amdgpu" "cryptd" "aesni_intel" "xhci_hcd" ];
-			prepend = [
-				"${/boot/acpi_override}"
-			];
 			systemd = {
 				enable = true;
 				dbus.enable = true;

@@ -1,4 +1,4 @@
-{ config, pkgs, lib, ... }:
+{ pkgs, ... }:
 {
     programs = {
         wofi.enable = true;
@@ -69,6 +69,9 @@
 				};
 				sensitivity = "0";
 			};
+			gestures = {
+				workspace_swipe = true;
+			};
 			general = {
 				gaps_in = 9;
 				gaps_out = 12;
@@ -90,7 +93,8 @@
 			];
 			exec-once = [
 				"hyprpaper"
-				"gpg-agent"
+				"gpg-agent --daemon"
+				"[silent] vencorddesktop"
 			];
 
 			"$mod" = "SUPER";
@@ -101,16 +105,15 @@
 				"$mod, mouse:273, resizewindow"
 			];
 			windowrule = [
-				"workspace 3, class(battle.net.exe)"
 				"workspace 8, classs:(com.obsproject.Studio)"
 			];
 			windowrulev2 = [
 				"workspace 2, class:(code-url-handler)"
-				"workspace 3, class:(steam)"
-				"workspace 3, class:(lutris)"
-				"workspace 9, class:(discord)"
-				"workspace 9, class:(VencordDesktop)"
-				"workspace 10, title:(Spotify)"
+				"workspace 3 silent, class:(steam)"
+				"workspace 3 silent, class:(lutris)"
+				"workspace 9 silent, class:(discord)"
+				"workspace 9 silent, class:(VencordDesktop)"
+				"workspace 10 silent, title:(Spotify)"
 			];
 			workspace = [
 				"1,monitor:DP-1"
@@ -121,8 +124,8 @@
 				"6,monitor:DP-1"
 				"7,monitor:DP-1"
 				"8,monitor:DP-1"
-				"9,monitor:HDMI-A-2, gapsout:10, on-created-empty: discord"
-				"10,monitor:HDMI-A-2, gapsout:10, on-created-empty: spotify"
+				"9,monitor:HDMI-A-2, gapsout:10"
+				"10,monitor:HDMI-A-2, gapsout:10"
 			];
 			bind = [
 				"$mod, Return, exec, kitty -1"

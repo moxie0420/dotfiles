@@ -104,17 +104,19 @@
     		];
 		};
 		udev.extraRules = ''
-			ACTION=="add",\
-				SUBSYSTEM=="backlight",\
-				MODE="0666",\
-				RUN+="${pkgs.coreutils}/bin/chmod a+w /sys/class/backlight/%k/brightness"
-			
 			ACTION=="remove",\
        			ENV{ID_BUS}=="usb",\
 				ENV{ID_MODEL_ID}=="0407",\
 				ENV{ID_VENDOR_ID}=="1050",\
 				ENV{ID_VENDOR}=="Yubico",\
 				RUN+="${pkgs.systemd}/bin/loginctl lock-sessions"
+
+			ACTION=="add",\
+       			ENV{ID_BUS}=="usb",\
+				ENV{ID_MODEL_ID}=="0407",\
+				ENV{ID_VENDOR_ID}=="1050",\
+				ENV{ID_VENDOR}=="Yubico",\
+				RUN+="${pkgs.systemd}/bin/loginctl unlock-sessions"
 		'';
 	};
 

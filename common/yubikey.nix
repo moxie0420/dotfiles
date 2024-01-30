@@ -1,4 +1,4 @@
-{ pkgs, config, ...}:
+{ pkgs, ... }:
 {
 	services = {
 		udev.packages = [ pkgs.yubikey-personalization ];
@@ -9,7 +9,6 @@
 		enableSSHSupport = true;
 	};
 	environment.shellInit = ''
-    	
     	export SSH_AUTH_SOCK=$(gpgconf --list-dirs agent-ssh-socket)
   	'';
 }

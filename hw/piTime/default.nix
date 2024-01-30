@@ -1,14 +1,7 @@
-{ config, pkgs, lib, ... }:
+{ pkgs, ... }:
 {
   imports = [
     ./sound.nix
-  ];
-
-  nixpkgs.overlays = [
-    (final: super: {
-      makeModulesClosure = x:
-        super.makeModulesClosure (x // { allowMissing = true; });
-    })
   ];
 
   boot = {
