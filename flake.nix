@@ -31,7 +31,7 @@
     };
   };
 
-  outputs = { nixpkgs, lanzaboote, hyprland, home-manager, spicetify-nix, chaotic, stylix, disko, self, ... } @ inputs: rec {
+  outputs = { nixpkgs, lanzaboote, hyprland, home-manager, spicetify-nix, chaotic, stylix, disko, ... } @ inputs: rec {
     nixosConfigurations = {
       # home desktop
       nixUwU = nixpkgs.lib.nixosSystem {
@@ -39,6 +39,7 @@
         system = "x86_64-linux";
         modules = [ 
       	  ./hw/nixUwU
+          hyprland.nixosModules.default
           stylix.nixosModules.stylix
 	        chaotic.nixosModules.default
 	        home-manager.nixosModules.home-manager {

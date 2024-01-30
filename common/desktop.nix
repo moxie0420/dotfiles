@@ -1,4 +1,4 @@
-{ config, pkgs, inputs, ... }:
+{ pkgs, inputs, ... }:
 {
 	environment.systemPackages = with pkgs; [
 		(pkgs.discord.override {

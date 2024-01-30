@@ -1,4 +1,4 @@
-{ config, pkgs, spicetify-nix, ... }:
+{ pkgs, spicetify-nix, ... }:
 let
 	spicePkgs = spicetify-nix.packages.${pkgs.system}.default;
 in
@@ -23,13 +23,18 @@ in
 			lutris
 			vulkan-tools
 			yubikey-manager
-			yubikey-personalization-gui
 			# to be thinned when laptop is added
       		pavucontrol
 	      	(pkgs.prismlauncher.override {
 				additionalPrograms = with pkgs; [ gamescope ];
 			})
       		hyprpaper
+
+			# for pandoc
+			texliveFull
+
+			#start transition
+			vesktop
 		];
 
 		stateVersion = "23.11";
@@ -47,7 +52,14 @@ in
 		# school
 		pandoc = {
 			enable = true;
-			#TODO
+			defaults = {
+				metadata = {
+					author = "Moxie Benavides";
+					lang = "en-US";
+				};
+				pdf-engine = "xelatex";
+				citeproc = true;
+			};
 		};
 		neovim = {
 			extraConfig = ''
