@@ -5,7 +5,7 @@
 		pcscd.enable = true;
 	};
 	programs.gnupg.agent = {
-		enable = false;
+		enable = true;
 		enableSSHSupport = true;
 	};
 	environment.shellInit = ''
