@@ -39,6 +39,8 @@
 			"nvidia-drm.fbdev=1"
 			"v4l2loopback.exclusive_caps=1"
 			"intel_idle.max_cstate=1"
+			"nvidia.NVreg_EnablePCIeGen3=1"
+			"nvidia.NVreg_UsePageAttributeTable=1"
 		];
 		#kernelPackages = pkgs.linuxPackages_xanmod_stable;
 		kernelPackages = pkgs.linuxPackages_cachyos;
