@@ -125,7 +125,7 @@ in
 			enable = true;
 			lfs.enable = true;
 			userName = "Moxie Benavides";
-			userEmail = "ethanpbenavides@gmail.com";
+			userEmail = "moxie@moxiege.com";
 			extraConfig = {
 				safe = {
 					directory = "*";
