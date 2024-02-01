@@ -14,7 +14,7 @@
 			];
 		};
 		"/boot" = {
-			device = "/dev/disk/by-uuid/5F30-508A";
+			device = "/dev/disk/by-uuid/A048-7A0C";
 			fsType = "vfat";
 			label = "the boring stuff";
 		};
