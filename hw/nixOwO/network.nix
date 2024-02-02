@@ -5,8 +5,13 @@
 	networking = {
 		hostName = "nixOwO";
 		enableIPv6 = true;
-		wireless = {
-			iwd.enable = true;
+		wireless.iwd = {
+			enable = true;
+			settings = {
+				general = {
+						EnableNetworkConfiguration = true;
+				};
+			};
 		};
 		firewall = {
 
