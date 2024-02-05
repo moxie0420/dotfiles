@@ -33,8 +33,7 @@
 		blacklistedKernelModules = [
 			"nouveau"
 		];
-		kernelParams = [ 
-			"nvidia-drm.modeset=1"
+		kernelParams = [
 			"nvme_core.default_ps_max_latency_us=0" 
 			"nvidia-drm.fbdev=1"
 			"v4l2loopback.exclusive_caps=1"

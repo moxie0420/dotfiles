@@ -1,4 +1,4 @@
-{ config, lib, ... }:
+{ config, lib, pkgs, ... }:
 {
 
   	nixpkgs = {
@@ -16,22 +16,22 @@
 	powerManagement.cpuFreqGovernor = lib.mkDefault "performance";
 	powerManagement.enable = false;
 
-	services.xserver.videoDrivers = ["nvidia"];
+	services.xserver.videoDrivers = [ "nvidia" ];
 	hardware = {
   		enableAllFirmware = true;
   		cpu.intel.updateMicrocode = lib.mkDefault config.hardware.enableRedistributableFirmware;
 
   		opengl = {
-			enable = true;
-			driSupport = true;
-			driSupport32Bit = true;
+				enable = true;
+				driSupport = true;
+				driSupport32Bit = true;
   		};
 
   		nvidia = {
-			modesetting.enable = true;
-			open = false;
-			nvidiaSettings = false;
-			package = config.boot.kernelPackages.nvidiaPackages.beta;
+				modesetting.enable = true;
+				open = true;
+				nvidiaSettings = false;
+				package = config.boot.kernelPackages.nvidiaPackages.beta;
   		};
   		opentabletdriver.enable = true;
 	};
