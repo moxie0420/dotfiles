@@ -118,6 +118,7 @@ in
          			"window.titleBarStyle" = "custom";
 					"git.enableSmartCommit" = true;
 					"git.confirmSync" = false;
+					"git.terminalAuthentication" = true;
   					"workbench.iconTheme" = "catppuccin-mocha";
       		};
 		};
