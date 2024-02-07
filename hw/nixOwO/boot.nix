@@ -17,10 +17,12 @@
 			"fbcon=nodefer"
 			"amd_pstate=active"
 			"resume_offset=474218496"
-			"nvidia.NVreg_RegistryDwords=EnableBrightnessControl=1"
-			"amdgpu.backlight=0"
+			#"nvidia.NVreg_RegistryDwords=EnableBrightnessControl=1"
+			#"amdgpu.backlight=0"
 		];
-		blacklistedKernelModules = [ "nouveau" ];
+		blacklistedKernelModules = [ 
+			#"nouveau"
+		];
 		
 		kernelPackages = lib.mkDefault pkgs.linuxPackages_latest;
 		kernel.sysctl = {
