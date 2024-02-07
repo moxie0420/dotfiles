@@ -95,6 +95,7 @@
 				"hyprpaper"
 				"gpg-agent --daemon"
 				"[silent] vesktop"
+				"[silent] spotify"
 			];
 
 			"$mod" = "SUPER";
