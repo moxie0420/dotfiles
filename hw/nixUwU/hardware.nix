@@ -35,4 +35,5 @@
   		};
   		opentabletdriver.enable = true;
 	};
+	chaotic.mesa-git.enable = false;
 }
