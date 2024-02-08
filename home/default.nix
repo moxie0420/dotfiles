@@ -33,8 +33,9 @@ in
 			# for pandoc
 			texliveFull
 
-			#start transition
 			vesktop
+			osu-lazer-bin
+			blender
 		];
 
 		stateVersion = "23.11";
