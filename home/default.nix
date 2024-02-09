@@ -10,6 +10,12 @@ in
 		./thunderbird.nix
 	];
 
+	dconf = {
+		enable = true;
+		settings = {
+		};
+	};
+
 	home = {
 		username = "moxie";
 		homeDirectory = "/home/moxie";
