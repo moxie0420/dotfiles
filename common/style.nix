@@ -11,8 +11,8 @@
 		image = ../wallpapers/cyber.png;
 		
 		cursor = {
-			package = pkgs.catppuccin-cursors;
-			name = "mochaPink";
+			package = pkgs.catppuccin-cursors.mochaPink;
+			name = "Catppuccin-Mocha-Pink-Cursors";
 		};
 		
 		fonts = {
