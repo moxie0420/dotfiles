@@ -90,9 +90,10 @@
 			};
 			exec = [
 				"pkill waybar; waybar &"
+				"pkill hyprpaper; hyprpaper"
 			];
 			exec-once = [
-				"hyprpaper"
+				"hyprctl setcursor Catppuccin-Mocha-Pink-Cursors 24"
 				"gpg-agent --daemon"
 				"[silent] vesktop"
 				"[silent] spotify"
