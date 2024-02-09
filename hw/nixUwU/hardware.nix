@@ -16,7 +16,7 @@
 	powerManagement.cpuFreqGovernor = lib.mkDefault "performance";
 	powerManagement.enable = false;
 
-	services.xserver.videoDrivers = [ "nvidia" ];
+	services.xserver.videoDrivers = [ "intel" "nvidia" ];
 	hardware = {
   		enableAllFirmware = true;
   		cpu.intel.updateMicrocode = lib.mkDefault config.hardware.enableRedistributableFirmware;
@@ -32,6 +32,16 @@
 				open = true;
 				nvidiaSettings = false;
 				package = config.boot.kernelPackages.nvidiaPackages.beta;
+				prime = {
+					offload = {
+						enable = true;
+						enableOffloadCmd = true;
+					};
+					sync.enable = false;
+
+					intelBusId = "PCI:0:2:0";
+					nvidiaBusId = "PCI:1:0:0";
+				};
   		};
   		opentabletdriver.enable = true;
 	};
