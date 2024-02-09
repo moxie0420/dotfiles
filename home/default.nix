@@ -36,6 +36,8 @@ in
 			vesktop
 			osu-lazer-bin
 			blender
+
+			#(callPackage ../pkgs/ue5.nix {})
 		];
 
 		stateVersion = "23.11";

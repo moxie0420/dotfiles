@@ -42,7 +42,7 @@
 			"nvidia.NVreg_UsePageAttributeTable=1"
 			"nvidia-modeset.hdmi_deepcolor=1"
 		];
-		kernelPackages = pkgs.linuxPackages_xanmod_latest;
+		kernelPackages = pkgs.linuxPackages_latest;
 		#kernelPackages = pkgs.linuxPackages_latest;
 		kernel.sysctl = {
 			"vm.max_map_count" = 2147483642;

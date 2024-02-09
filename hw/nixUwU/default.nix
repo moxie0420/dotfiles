@@ -8,11 +8,11 @@
       ../../common
   ];
   environment.sessionVariables = {
-		LIBVA_DRIVER_NAME = "nvidia";
-		GBM_BACKEND = "nvidia-drm";
-		__GLX_VENDOR_LIBRARY_NAME = "nvidia";
-		#VK_DRIVER_FILES = "/run/opengl-driver/share/vulkan/icd.d/nvidia_icd.x86_64.json";
-		WLR_NO_HARDWARE_CURSORS = "1";
+		#LIBVA_DRIVER_NAME = "nvidia";
+		#GBM_BACKEND = "nvidia-drm";
+		#__GLX_VENDOR_LIBRARY_NAME = "nvidia";
+		#VK_DRIVER_FILES = "/run/opengl-driver/share/vulkan/icd.d/intel_icd.x86_64.json";
+		#WLR_NO_HARDWARE_CURSORS = "1";
   };
   systemd.services = {
 		"nv-power-limit" = {

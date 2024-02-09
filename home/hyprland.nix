@@ -52,11 +52,11 @@
 		systemd.enable = true;
 		settings = {
 			env = [
-				#"WLR_DRM_DEVICES,/dev/dri/card0"
+				"WLR_DRM_DEVICES,/dev/dri/card0"
 				"XCURSOR_SIZE,24"
 			];
 			monitor = [
-				"DP-2,3840x2160@144,0x0,1"
+				"DP-1,3840x2160@144,0x0,1"
 				"HDMI-A-2,1360x768@60,-1360x0,1"
 				"eDP-1,1920x1080@165.009995,0x0,1,bitdepth,10"
 				",preferred,auto,1,mirror,eDP-1"
