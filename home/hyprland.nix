@@ -1,12 +1,12 @@
 { pkgs, ... }:
 {
-    programs = {
-        wofi.enable = true;
-        swaylock = {
+  programs = {
+    wofi.enable = true;
+		swaylock = {
 			enable = true;
 			package = pkgs.swaylock-effects;
 		};
-        waybar = {
+    waybar = {
 			enable = true;
 			settings = [{
 				modules-left = [ "hyprland/workspaces" ];
@@ -45,9 +45,9 @@
 				};
 			}];
 		};
-    };
+  };
 
-    wayland.windowManager.hyprland = {
+  wayland.windowManager.hyprland = {
 		enable = true;
 		systemd.enable = true;
 		settings = {
@@ -56,8 +56,8 @@
 				"XCURSOR_SIZE,24"
 			];
 			monitor = [
-				"DP-1,3840x2160@144,0x0,1"
-				"HDMI-A-2,1360x768@60,-1360x0,1"
+				"DP-1,3840x2160@144,0x0,1,bitdepth,10"
+				"HDMI-A-2,1360x768@60,-1360x0,1,bitdepth,10"
 				"eDP-1,1920x1080@165.009995,0x0,1,bitdepth,10"
 				",preferred,auto,1,mirror,eDP-1"
 			];
@@ -159,20 +159,20 @@
 				",XF86AudioNext, exec, ${pkgs.playerctl}/bin/playerctl next"
 				",XF86AudioPrev, exec, ${pkgs.playerctl}/bin/playerctl previous"
 			] ++ (
-        		# workspaces
-        		# binds $mod + [shift +] {1..10} to [move to] workspace {1..10}
-        		builtins.concatLists (builtins.genList (
-            	x: let
-              		ws = let
-                		c = (x + 1) / 10;
-              		in
-                		builtins.toString (x + 1 - (c * 10));
-            		in [
-              			"$mod, ${ws}, workspace, ${toString (x + 1)}"
-              			"$mod SHIFT, ${ws}, movetoworkspace, ${toString (x + 1)}"
-            		])
-          	    10)
-            );
+      # workspaces
+      # binds $mod + [shift +] {1..10} to [move to] workspace {1..10}
+      builtins.concatLists (builtins.genList (
+       	x: let
+       		ws = let
+         		c = (x + 1) / 10;
+         	in
+          	builtins.toString (x + 1 - (c * 10));
+         	in [
+         		"$mod, ${ws}, workspace, ${toString (x + 1)}"
+         		"$mod SHIFT, ${ws}, movetoworkspace, ${toString (x + 1)}"
+         	])
+        10)
+      );
 		};
 	};
 }
