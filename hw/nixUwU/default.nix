@@ -1,4 +1,4 @@
-{ ... }:
+{ inputs, ... }:
 {
   imports = [
       ./boot.nix
@@ -8,12 +8,27 @@
       ../../common
   ];
   environment.sessionVariables = {
-		#LIBVA_DRIVER_NAME = "nvidia";
-		#GBM_BACKEND = "nvidia-drm";
-		#__GLX_VENDOR_LIBRARY_NAME = "nvidia";
-		#VK_DRIVER_FILES = "/run/opengl-driver/share/vulkan/icd.d/intel_icd.x86_64.json";
-		#WLR_NO_HARDWARE_CURSORS = "1";
+		__NV_PRIME_RENDER_OFFLOAD="1";
+		__NV_PRIME_RENDER_OFFLOAD_PROVIDER="NVIDIA-G0";
+		__GLX_VENDOR_LIBRARY_NAME = "nvidia";
+		__VK_LAYER_NV_optimus="NVIDIA_only";
   };
+
+	nix.settings = {
+    # add binary caches
+    trusted-public-keys = [
+      "cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY="
+      "nixpkgs-wayland.cachix.org-1:3lwxaILxMRkVhehr5StQprHdEo4IrE8sRho9R9HOLYA="
+    ];
+    substituters = [
+      "https://cache.nixos.org"
+      "https://nixpkgs-wayland.cachix.org"
+    ];
+  };
+
+  nixpkgs.overlays = [ inputs.nixpkgs-wayland.overlay ];
+
+
   systemd.services = {
 		"nv-power-limit" = {
 			enable = false;

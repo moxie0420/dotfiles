@@ -25,16 +25,14 @@ in
 			fritzing
 			qbittorrent
 			heroic
-		    r2modman
+		  r2modman
 			lutris
 			vulkan-tools
 			yubikey-manager
 			# to be thinned when laptop is added
-      		pavucontrol
-	      	(pkgs.prismlauncher.override {
-				additionalPrograms = with pkgs; [ gamescope ];
-			})
-      		hyprpaper
+      pavucontrol
+	    prismlauncher
+      hyprpaper
 
 			# for pandoc
 			texliveFull
@@ -108,8 +106,8 @@ in
 		obs-studio = {
 			enable = true;
 			plugins = with pkgs.obs-studio-plugins; [
-     			    wlrobs
-    			]; 
+     		wlrobs
+			]; 
 		};
 
 		# coding stuff

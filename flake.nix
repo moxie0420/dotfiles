@@ -5,6 +5,12 @@
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
     chaotic.url = "github:chaotic-cx/nyx/nyxpkgs-unstable";
     hyprland.url = "github:hyprwm/Hyprland";
+    
+    # beta wayland packages
+    nixpkgs-wayland = {
+      url = "github:nix-community/nixpkgs-wayland";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
 
     # user config
     home-manager = {
@@ -12,7 +18,7 @@
     	inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    # secure boo
+    # secure boot
     lanzaboote = {
 			url = "github:nix-community/lanzaboote";
 			inputs.nixpkgs.follows = "nixpkgs";
@@ -31,7 +37,7 @@
     };
   };
 
-  outputs = { nixpkgs, lanzaboote, hyprland, home-manager, spicetify-nix, chaotic, stylix, disko, ... } @ inputs: rec {
+  outputs = { nixpkgs, lanzaboote, hyprland, home-manager, spicetify-nix, chaotic, stylix, disko, nixpkgs-wayland, ... } @ inputs: rec {
     nixosConfigurations = {
       # home desktop
       nixUwU = nixpkgs.lib.nixosSystem {
