@@ -3,6 +3,7 @@
 	environment.systemPackages = with pkgs; [
 		grim
 		slurp
+		wl-clipboard
 	];
 	fonts.packages = with pkgs; [
 		noto-fonts

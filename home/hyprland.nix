@@ -145,6 +145,8 @@
 				"$mod, up, 	  movefocus, u"
 				"$mod, down,  movefocus, d"
 
+				"$mod, Print, exec, grim -g \"$(${pkgs.slurp}/bin/slurp)\" - | wl-copy "
+
 				"$shiftMod, Left,  movewindow, left,  visible"
 				"$shiftMod, Right, movewindow, right, visible"
 				"$shiftMod, Up,    movewindow, up,    visible"
