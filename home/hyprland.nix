@@ -81,8 +81,8 @@
 			};
 			decoration = {
 				rounding = 10;
-
 				drop_shadow = true;
+				#blur_new_optimizations = true;
 			};
 			dwindle = {
 				pseudotile = true;
