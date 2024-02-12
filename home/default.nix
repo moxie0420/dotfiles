@@ -3,7 +3,7 @@ let
 	spicePkgs = spicetify-nix.packages.${pkgs.system}.default;
 in
 {
-	imports = [ 
+	imports = [
 		spicetify-nix.homeManagerModule
 		./hyprland.nix
 		./style.nix

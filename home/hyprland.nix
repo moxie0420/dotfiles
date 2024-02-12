@@ -1,12 +1,12 @@
 { pkgs, ... }:
 {
-  programs = {
-    wofi.enable = true;
-		swaylock = {
+	programs = {
+    	wofi.enable = true;
+			swaylock = {
 			enable = true;
 			package = pkgs.swaylock-effects;
 		};
-    waybar = {
+    	waybar = {
 			enable = true;
 			settings = [{
 				modules-left = [ "hyprland/workspaces" ];
@@ -16,12 +16,12 @@
 				"hyprland/workspaces" = { format = "{name}"; };
 				"hyprland/window" = {
 					format = "{title}";
-    					max-length = 50;
-    					rewrite = {
-							"(.*) — Mozilla Firefox" = "🌎 $1";
-					        "vim (.*)" = " $1";
-							"sudo vim (.*)" = " $1";
-    					};
+    				max-length = 50;
+    				rewrite = {
+						"(.*) — Mozilla Firefox" = "🌎 $1";
+				        "vim (.*)" = " $1";
+						"sudo vim (.*)" = " $1";
+    				};
 				};
 				"wireplumber" = {
 					format-muted = "muted";
@@ -45,9 +45,9 @@
 				};
 			}];
 		};
-  };
+	};
 
-  wayland.windowManager.hyprland = {
+	wayland.windowManager.hyprland = {
 		enable = true;
 		systemd.enable = true;
 		settings = {
