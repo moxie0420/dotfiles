@@ -119,7 +119,8 @@
 					background: #f5c2e7;
 				}
 				#workspaces button:hover {
-    			border-top: 3px solid #cba6f7;
+    			border: 3px solid #cba6f7;
+					border-radius: 20px;
     			transition: none;
     			box-shadow: inherit;
     			text-shadow: inherit;
