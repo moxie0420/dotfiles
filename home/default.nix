@@ -50,7 +50,12 @@ in
 		feh.enable = true;
 
 		# terminal config
-		fish.enable = true;
+		fish = {
+			enable = true;
+			shellInit = ''
+				export XDG_DATA_HOME="$HOME/.local/share"
+			'';
+		};
 		kitty = {
 			enable = true;
 			shellIntegration.enableFishIntegration = true;

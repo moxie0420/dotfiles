@@ -1,12 +1,11 @@
 { config, lib, pkgs, ... }:
 {
-
-  	nixpkgs = {
+  nixpkgs = {
 		hostPlatform = lib.mkDefault "x86_64-linux";
 		config.allowUnfree = true;
 	};
 
-    systemd.targets = {
+  systemd.targets = {
 		sleep.enable = false;
 		suspend.enable = false;
 		hibernate.enable = false;
@@ -37,6 +36,7 @@
 						enable = true;
 						enableOffloadCmd = true;
 					};
+					reverseSync.enable = true;
 					sync.enable = false;
 
 					intelBusId = "PCI:0:2:0";
