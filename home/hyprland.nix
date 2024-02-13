@@ -52,7 +52,7 @@
 		systemd.enable = true;
 		settings = {
 			env = [
-				"WLR_DRM_DEVICES,/dev/dri/card0"
+				#"WLR_DRM_DEVICES,/dev/dri/card1"
 				"XCURSOR_SIZE,24"
 			];
 			monitor = [
