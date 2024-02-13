@@ -19,5 +19,9 @@
 			serif = config.stylix.fonts.monospace;
     		sansSerif = config.stylix.fonts.monospace;
 		};
+		targets.waybar = {
+			enable = true;
+			enableCenterBackColors = false;
+		};
     };
 }

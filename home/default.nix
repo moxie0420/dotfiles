@@ -1,9 +1,9 @@
-{ pkgs, spicetify-nix, ... }:
+{ pkgs, spicetify-nix, lib, ... }:
 let
 	spicePkgs = spicetify-nix.packages.${pkgs.system}.default;
 in
 {
-	imports = [ 
+	imports = [
 		spicetify-nix.homeManagerModule
 		./hyprland.nix
 		./style.nix
@@ -25,14 +25,14 @@ in
 			fritzing
 			qbittorrent
 			heroic
-		  r2modman
+			r2modman
 			lutris
 			vulkan-tools
 			yubikey-manager
 			# to be thinned when laptop is added
-      pavucontrol
-	    prismlauncher
-      hyprpaper
+			pavucontrol
+			prismlauncher
+			hyprpaper
 
 			# for pandoc
 			texliveFull
@@ -59,6 +59,9 @@ in
 		kitty = {
 			enable = true;
 			shellIntegration.enableFishIntegration = true;
+			settings = {
+				background_opacity = lib.mkForce "0.50";
+			};
 		};
 
 		# school
@@ -111,7 +114,7 @@ in
 		obs-studio = {
 			enable = true;
 			plugins = with pkgs.obs-studio-plugins; [
-     		wlrobs
+     			wlrobs
 			]; 
 		};
 
@@ -222,7 +225,13 @@ in
 			createDirectories = true;
 		};
 		configFile = {
-			
+			"hypr/hyprpaper.conf" = {
+				enable = true;
+				text = ''
+					preload = /etc/nixos/wallpapers/lain.jpg
+					wallpaper = eDP-1,/etc/nixos/wallpapers/lain.jpg
+				'';
+			};
 		};
 	};
 }
