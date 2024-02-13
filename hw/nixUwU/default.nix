@@ -35,7 +35,7 @@
 
   systemd.services = {
 		"nv-power-limit" = {
-			enable = false;
+			enable = true;
 			description = "set nvidia gpu power to max";
 			script = ''
 				/run/current-system/sw/bin/nvidia-smi -pm ENABLED

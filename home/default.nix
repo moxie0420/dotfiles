@@ -177,6 +177,7 @@ in
 			events = [
 				{ event = "before-sleep"; command = "pkill swaylock; ${pkgs.swaylock-effects}/bin/swaylock -S --clock --indicator-idle-visible --effect-blur 5x7"; }
 				{ event = "lock"; command = "pkill swaylock; ${pkgs.swaylock-effects}/bin/swaylock -S --clock --indicator-idle-visible --effect-blur 5x7"; }
+				{ event = "unlock"; command = "pkill swaylock"; }
 			];
 		};
 	};
