@@ -40,7 +40,7 @@ with lib;
 		};
 		tpm2 = {
 			enable = true;
-			pkcs11.enable = true;
+			pkcs11.enable = false;
 			tctiEnvironment.enable = true;
 		};
 	};
