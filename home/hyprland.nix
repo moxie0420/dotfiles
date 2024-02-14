@@ -14,15 +14,52 @@
 			};
 			settings = [
 				{
-					output = [ "eDP-1" "DP-1"];
+					output = [ "DP-1"];
 					modules-left = [ "hyprland/workspaces" ];
 					modules-center = [ "hyprland/window" ];
-					modules-right = [ "wireplumber" "memory" "disk" "cpu" "temperature" "backlight" "battery" "clock" "tray" ];
+					modules-right = [ "wireplumber" "memory" "disk" "cpu" "temperature" "clock" "tray" ];
+					"hyprland/workspaces" = { format = "{name}"; };
+					"hyprland/window" = {
+						format = " {title} ";
+    					max-length = 50;
+    					rewrite = {
+							"(.*) — Mozilla Firefox" = "🌎 $1";
+			      			"vim (.*)" = " $1";
+							"sudo vim (.*)" = " $1";
+    					};
+					};
+					"wireplumber" = {
+						format = "volume: {volume}%";
+						format-muted = " muted ";
+						on-click = "pavucontrol";
+					};
+					"memory" = { format = "RAM: {percentage}%";	};
+					"disk" = { format = "{percentage_free}% remaining on /";};
+					"cpu" = { format = "CPU: {usage}%"; };
+					"backlight" = {
+						format = "{percent}% {icon}";
+						format-icons = ["" ""];
+					};
+					"battery" = {
+						format = "{capacity}%";
+						format-icons = ["" "" "" "" ""];
+					};
+					"tray" = {
+						icon-size = 21;
+						show-passive-items = true;
+						spacing = 5;
+					};
+				}
+				{
+					output = [ "eDP-1" ];
+					modules-left = [ "hyprland/workspaces" ];
+					modules-center = [ "hyprland/window" ];
+					modules-right = [ "wireplumber" "memory" "cpu" "temperature" "backlight" "battery" "clock" "tray" ];
 					"hyprland/workspaces" = { format = "{name}"; };
 					"hyprland/window" = {
 						format = " {title} ";
     				max-length = 50;
-    				rewrite = {
+    					rewrite = {
 							"(.*) — Mozilla Firefox" = "🌎 $1";
 			      	"vim (.*)" = " $1";
 							"sudo vim (.*)" = " $1";
@@ -30,7 +67,7 @@
 					};
 					"wireplumber" = {
 						format = "volume: {volume}%";
-						format-muted = " muted ";
+						format-muted = "muted";
 						on-click = "pavucontrol";
 					};
 					"memory" = { format = "RAM: {percentage}%";	};
@@ -133,8 +170,6 @@
 
 				#window {
 					border-radius: 20px;
-					padding-left: 10px;
-    			padding-right: 10px;
 					background: rgba(30, 30, 46, 0.85);
 				}
 
@@ -168,6 +203,24 @@
 				}
 				#temperature.critical {
 					color: #f38ba8;
+				}
+
+				#battery {
+					margin-left: 4px;
+    			margin-right: 4px;
+					border-radius: 20px;
+					padding-left: 10px;
+    			padding-right: 10px;
+					background: rgba(30, 30, 46, 0.85);
+				}
+
+				#backlight {
+					margin-left: 4px;
+    			margin-right: 4px;
+					border-radius: 20px;
+					padding-left: 10px;
+    			padding-right: 10px;
+					background: rgba(30, 30, 46, 0.85);
 				}
 
 				#cpu {
