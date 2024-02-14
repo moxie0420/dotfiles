@@ -11,18 +11,22 @@
     :exclusive false
     :focusable false
 )
-(defwidget volume
+(defpoll volume
+    :interval "1s"
+    "wpctl get-volume 53 | sed -n 's/.*\([0-9][0-9][0-9]*\).*/\1/p' "
+)
+(defwidget volume-level
     (box 
         :spacing 5
         :orientation "v"
         :space-evenly false
         (image 
-            :path "./images/volume."
-            :image-width
-            :image-height
+            :path "./images/audio-volume-${ (volume >= 75) ? //true  'high' : // false ((volume >= 50) ? 'medium' : 'low') }.svg"
+            :image-width 48
+            :image-height 48
         )
         (progress
-            :value "wpctl get-volume 53 | sed -n 's/.*\([0-9][0-9][0-9]*\).*/\1/p'  "
+            :value volume
             :orientation "v"
         )
     )
