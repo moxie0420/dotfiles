@@ -20,7 +20,7 @@
 					modules-right = [ "wireplumber" "memory" "disk" "cpu" "temperature" "backlight" "battery" "clock" "tray" ];
 					"hyprland/workspaces" = { format = "{name}"; };
 					"hyprland/window" = {
-						format = "{title}";
+						format = " {title} ";
     				max-length = 50;
     				rewrite = {
 							"(.*) — Mozilla Firefox" = "🌎 $1";
@@ -29,7 +29,8 @@
     				};
 					};
 					"wireplumber" = {
-						format-muted = "muted";
+						format = "volume: {volume}%";
+						format-muted = " muted ";
 						on-click = "pavucontrol";
 					};
 					"memory" = { format = "RAM: {percentage}%";	};
@@ -46,7 +47,7 @@
 					"tray" = {
 						icon-size = 21;
 						show-passive-items = true;
-						spacing = 5;
+						spacing = 8;
 					};
 				}
 				{
@@ -137,51 +138,6 @@
 					background: rgba(30, 30, 46, 0.85);
 				}
 
-				#clock {
-					margin-left: 4px;
-    			margin-right: 4px;
-					border-radius: 20px;
-					padding-left: 10px;
-    			padding-right: 10px;
-					background: rgba(30, 30, 46, 0.85);
-				}
-
-				#cpu {
-					margin-left: 4px;
-    			margin-right: 4px;
-					border-radius: 20px;
-					padding-left: 10px;
-    			padding-right: 10px;
-					background: rgba(30, 30, 46, 0.85);
-				}
-
-				#disk {
-					margin-left: 4px;
-    			margin-right: 4px;
-					border-radius: 20px;
-					padding-left: 10px;
-    			padding-right: 10px;
-					background: rgba(30, 30, 46, 0.85);
-				}
-
-				#memory {
-					margin-left: 4px;
-    			margin-right: 4px;
-					border-radius: 20px;
-					padding-left: 10px;
-    			padding-right: 10px;
-					background: rgba(30, 30, 46, 0.85);
-				}
-
-				#network {
-					margin-left: 4px;
-    			margin-right: 4px;
-					border-radius: 20px;
-					padding-left: 10px;
-    			padding-right: 10px;
-					background: rgba(30, 30, 46, 0.85);
-				}
-
 				#tray {
 					margin-left: 4px;
     			margin-right: 4px;
@@ -191,6 +147,16 @@
 					background: rgba(30, 30, 46, 0.85);
 				}
 
+				#clock {
+					margin-left: 4px;
+    			margin-right: 4px;
+					border-radius: 20px;
+					padding-left: 10px;
+    			padding-right: 10px;
+					background: rgba(30, 30, 46, 0.85);
+					color: #89b4fa;
+				}
+
 				#temperature {
 					margin-left: 4px;
     			margin-right: 4px;
@@ -198,6 +164,40 @@
 					padding-left: 10px;
     			padding-right: 10px;
 					background: rgba(30, 30, 46, 0.85);
+					color: #89dceb;
+				}
+				#temperature.critical {
+					color: #f38ba8;
+				}
+
+				#cpu {
+					margin-left: 4px;
+    			margin-right: 4px;
+					border-radius: 20px;
+					padding-left: 10px;
+    			padding-right: 10px;
+					background: rgba(30, 30, 46, 0.85);
+					color: #cba6f7;
+				}
+
+				#disk {
+					margin-left: 4px;
+    			margin-right: 4px;
+					border-radius: 20px;
+					padding-left: 10px;
+    			padding-right: 10px;
+					background: rgba(30, 30, 46, 0.85);
+					color: #f5c2e7;
+				}
+
+				#memory {
+					margin-left: 4px;
+    			margin-right: 4px;
+					border-radius: 20px;
+					padding-left: 10px;
+    			padding-right: 10px;
+					background: rgba(30, 30, 46, 0.85);
+					color: #f2cdcd;
 				}
 
 				#wireplumber {
@@ -207,6 +207,7 @@
 					padding-left: 10px;
     			padding-right: 10px;
 					background: rgba(30, 30, 46, 0.85);
+					color: #eba0ac;
 				}
 			'';
 		};
