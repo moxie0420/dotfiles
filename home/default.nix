@@ -42,6 +42,7 @@ in
 			blender
 
 			#(callPackage ../pkgs/ue5.nix {})
+			cmatrix
 		];
 
 		stateVersion = "23.11";
@@ -50,7 +51,12 @@ in
 		feh.enable = true;
 
 		# terminal config
-		fish.enable = true;
+		fish = {
+			enable = true;
+			shellInit = ''
+				export XDG_DATA_HOME="$HOME/.local/share"
+			'';
+		};
 		kitty = {
 			enable = true;
 			shellIntegration.enableFishIntegration = true;
@@ -125,12 +131,12 @@ in
 			];
 			package = pkgs.vscode;
 			userSettings = {
-         			"window.titleBarStyle" = "custom";
-					"git.enableSmartCommit" = true;
-					"git.confirmSync" = false;
-					"git.terminalAuthentication" = true;
-  					"workbench.iconTheme" = "catppuccin-mocha";
-      		};
+        "window.titleBarStyle" = "custom";
+				"git.enableSmartCommit" = true;
+				"git.confirmSync" = false;
+				"git.terminalAuthentication" = true;
+  			"workbench.iconTheme" = "catppuccin-mocha";
+      };
 		};
 		git = {
 			enable = true;
@@ -171,6 +177,7 @@ in
 			events = [
 				{ event = "before-sleep"; command = "pkill swaylock; ${pkgs.swaylock-effects}/bin/swaylock -S --clock --indicator-idle-visible --effect-blur 5x7"; }
 				{ event = "lock"; command = "pkill swaylock; ${pkgs.swaylock-effects}/bin/swaylock -S --clock --indicator-idle-visible --effect-blur 5x7"; }
+				{ event = "unlock"; command = "pkill swaylock"; }
 			];
 		};
 	};
@@ -222,9 +229,13 @@ in
 		configFile = {
 			"hypr/hyprpaper.conf" = {
 				enable = true;
-				text = ''
-					preload = /etc/nixos/wallpapers/lain.jpg
-					wallpaper = eDP-1,/etc/nixos/wallpapers/lain.jpg
+				text = let 
+					my_wallpaper = /etc/nixos/wallpapers/lain.jpg;
+				in ''
+					preload = ${my_wallpaper}
+					wallpaper = eDP-1,${my_wallpaper}
+					wallpaper = DP-1,${my_wallpaper}
+					wallpaper = HDMI-A-2,${my_wallpaper}
 				'';
 			};
 		};
