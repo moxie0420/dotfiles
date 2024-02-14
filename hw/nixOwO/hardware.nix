@@ -36,7 +36,7 @@
 				amdgpuBusId = "PCI:5:0:0";
 			};
 			powerManagement = {
-				enable = false;
+				enable = true;
 				finegrained = true;
 			};
 		};

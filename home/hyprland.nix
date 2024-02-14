@@ -1,12 +1,19 @@
 { pkgs, ... }:
 {
+	services.mako = {
+        enable = true;
+    };
 	programs = {
-    wofi.enable = true;
+    	wofi.enable = true;
+		eww = {
+        	enable = true;
+        	configDir = ./eww;
+    	};
 		swaylock = {
 			enable = true;
 			package = pkgs.swaylock-effects;
 		};
-    waybar = {
+    	waybar = {
 			enable = true;
 			systemd = {
 				enable = true;
@@ -17,7 +24,40 @@
 					output = [ "DP-1"];
 					modules-left = [ "hyprland/workspaces" ];
 					modules-center = [ "hyprland/window" ];
-					modules-right = [ "wireplumber" "memory" "disk" "cpu" "temperature" "clock" "tray" ];
+					modules-right = [ "memory" "disk" "cpu" "temperature" "clock" "tray" ];
+					"hyprland/workspaces" = { format = "{name}"; };
+					"hyprland/window" = {
+						format = " {title} ";
+    					max-length = 50;
+    					rewrite = {
+							"(.*) — Mozilla Firefox" = "🌎 $1";
+			      			"vim (.*)" = " $1";
+							"sudo vim (.*)" = " $1";
+    					};
+					};
+					"memory" = { format = "RAM: {percentage}%";	};
+					"disk" = { format = "{percentage_free}% remaining on /";};
+					"cpu" = { format = "CPU: {usage}%"; };
+					"backlight" = {
+						format = "{percent}% {icon}";
+						format-icons = ["" ""];
+					};
+					"battery" = {
+						format = "{capacity}%";
+						format-icons = ["" "" "" "" ""];
+					};
+					"tray" = {
+						icon-size = 21;
+						show-passive-items = true;
+						spacing = 5;
+					};
+				}
+				{
+					layer = "top";
+					output = [ "eDP-1" ];
+					modules-left = [ "hyprland/workspaces" ];
+					modules-center = [ "hyprland/window" ];
+					modules-right = [ "wireplumber" "memory" "cpu" "temperature" "backlight" "battery" "clock" "tray" ];
 					"hyprland/workspaces" = { format = "{name}"; };
 					"hyprland/window" = {
 						format = " {title} ";
@@ -30,7 +70,7 @@
 					};
 					"wireplumber" = {
 						format = "volume: {volume}%";
-						format-muted = " muted ";
+						format-muted = "Muted";
 						on-click = "pavucontrol";
 					};
 					"memory" = { format = "RAM: {percentage}%";	};
@@ -42,44 +82,10 @@
 					};
 					"battery" = {
 						format = "{capacity}%";
-						format-icons = ["" "" "" "" ""];
-					};
-					"tray" = {
-						icon-size = 21;
-						show-passive-items = true;
-						spacing = 5;
-					};
-				}
-				{
-					output = [ "eDP-1" ];
-					modules-left = [ "hyprland/workspaces" ];
-					modules-center = [ "hyprland/window" ];
-					modules-right = [ "wireplumber" "memory" "cpu" "temperature" "backlight" "battery" "clock" "tray" ];
-					"hyprland/workspaces" = { format = "{name}"; };
-					"hyprland/window" = {
-						format = " {title} ";
-    				max-length = 50;
-    					rewrite = {
-							"(.*) — Mozilla Firefox" = "🌎 $1";
-			      	"vim (.*)" = " $1";
-							"sudo vim (.*)" = " $1";
-    				};
-					};
-					"wireplumber" = {
-						format = "volume: {volume}%";
-						format-muted = "muted";
-						on-click = "pavucontrol";
-					};
-					"memory" = { format = "RAM: {percentage}%";	};
-					"disk" = { format = "{percentage_free}% remaining on /";};
-					"cpu" = { format = "CPU: {usage}%"; };
-					"backlight" = {
-						format = "{percent}% {icon}";
-						format-icons = ["" ""];
-					};
-					"battery" = {
-						format = "{capacity}%";
-						format-icons = ["" "" "" "" ""];
+						states = {
+							warning = 35;
+							critical  = 20;
+						};
 					};
 					"tray" = {
 						icon-size = 21;
@@ -92,32 +98,19 @@
 					modules-left = [ "hyprland/workspaces" ];
 					modules-center = [ "hyprland/window" ];
 					modules-right = [ "memory" "cpu" "temperature" "clock" "tray" ];
-
 					"hyprland/workspaces" = { format = "{name}"; };
 					"hyprland/window" = {
 						format = "{title}";
-    				max-length = 50;
-    				rewrite = {
+    					max-length = 50;
+    					rewrite = {
 							"(.*) — Mozilla Firefox" = "🌎 $1";
-			      	"vim (.*)" = " $1";
+			      			"vim (.*)" = " $1";
 							"sudo vim (.*)" = " $1";
-    				};
-					};
-					"wireplumber" = {
-						format-muted = "muted";
-						on-click = "pavucontrol";
+    					};
 					};
 					"memory" = { format = "RAM: {percentage}%";	};
 					"disk" = { format = "{percentage_free}% remaining on /";};
 					"cpu" = { format = "CPU: {usage}%"; };
-					"backlight" = {
-						format = "{percent}% {icon}";
-						format-icons = ["" ""];
-					};
-					"battery" = {
-						format = "{capacity}%";
-						format-icons = ["" "" "" "" ""];
-					};
 					"tray" = {
 						icon-size = 21;
 						show-passive-items = true;
@@ -127,28 +120,28 @@
 			];
 			style = ''
 				* {
-    			border:        none;
-    			border-radius: 0;
-    			font-size:     17px;
-    			font-weight:     bold;
-    			box-shadow:    none;
-    			text-shadow:   none;
-    			transition-duration: 0s;
+    				border:        none;
+    				border-radius: 0;
+    				font-size:     17px;
+    				font-weight:     bold;
+    				box-shadow:    none;
+    				text-shadow:   none;
+    				transition-duration: 0s;
 				}
 				window#waybar {
 					margin-top: 4px;
-    			background: transparent;
+    				background: transparent;
 				}
 				#workspaces {
 					padding: 5px;
-    			border-radius: 20px;
-    			background: rgba(30, 30, 46, 0.8);
-    			transition: none;
+    				border-radius: 20px;
+    				background: rgba(30, 30, 46, 0.8);
+    				transition: none;
 				}
 				#workspaces button {
-    			transition: none;
-    			color:      rgba(205, 214, 244, 0.8);
-    			background: transparent;
+    				transition: none;
+    				color:      rgba(205, 214, 244, 0.8);
+    				background: transparent;
 				}
 				#workspaces button.active {
 					border:        none;
@@ -157,15 +150,15 @@
 					background: #f5c2e7;
 				}
 				#workspaces button:hover {
-    			border: 3px solid #cba6f7;
+    				border: 3px solid #cba6f7;
 					border-radius: 20px;
-    			transition: none;
-    			box-shadow: inherit;
-    			text-shadow: inherit;
-    			color: #cba6f7;
+    				transition: none;
+    				box-shadow: inherit;
+    				text-shadow: inherit;
+    				color: #cba6f7;
 				}
 				#workspaces button.urgent {
-    			color:      rgba(180, 190, 254, 1);
+    				color:      rgba(180, 190, 254, 1);
 				}
 
 				#window {
@@ -175,29 +168,29 @@
 
 				#tray {
 					margin-left: 4px;
-    			margin-right: 4px;
+    				margin-right: 4px;
 					border-radius: 20px;
 					padding-left: 10px;
-    			padding-right: 10px;
+    				padding-right: 10px;
 					background: rgba(30, 30, 46, 0.85);
 				}
 
 				#clock {
 					margin-left: 4px;
-    			margin-right: 4px;
+    				margin-right: 4px;
 					border-radius: 20px;
 					padding-left: 10px;
-    			padding-right: 10px;
+    				padding-right: 10px;
 					background: rgba(30, 30, 46, 0.85);
 					color: #89b4fa;
 				}
 
 				#temperature {
 					margin-left: 4px;
-    			margin-right: 4px;
+    				margin-right: 4px;
 					border-radius: 20px;
 					padding-left: 10px;
-    			padding-right: 10px;
+    				padding-right: 10px;
 					background: rgba(30, 30, 46, 0.85);
 					color: #89dceb;
 				}
@@ -207,58 +200,66 @@
 
 				#battery {
 					margin-left: 4px;
-    			margin-right: 4px;
+    				margin-right: 4px;
 					border-radius: 20px;
 					padding-left: 10px;
-    			padding-right: 10px;
+    				padding-right: 10px;
 					background: rgba(30, 30, 46, 0.85);
+					color: #a6e3a1;
+				}
+				#battery.warning {
+					color: #f9e2af;
+				}
+				#battery.critical {
+					color: #f38ba8;
 				}
 
 				#backlight {
 					margin-left: 4px;
-    			margin-right: 4px;
+    				margin-right: 4px;
 					border-radius: 20px;
 					padding-left: 10px;
-    			padding-right: 10px;
+    				padding-right: 10px;
 					background: rgba(30, 30, 46, 0.85);
+					color: #f5e0dc;
 				}
 
 				#cpu {
 					margin-left: 4px;
-    			margin-right: 4px;
+    				margin-right: 4px;
 					border-radius: 20px;
 					padding-left: 10px;
-    			padding-right: 10px;
+    				padding-right: 10px;
 					background: rgba(30, 30, 46, 0.85);
 					color: #cba6f7;
 				}
 
 				#disk {
 					margin-left: 4px;
-    			margin-right: 4px;
+    				margin-right: 4px;
 					border-radius: 20px;
 					padding-left: 10px;
-    			padding-right: 10px;
+    				padding-right: 10px;
 					background: rgba(30, 30, 46, 0.85);
 					color: #f5c2e7;
 				}
 
 				#memory {
 					margin-left: 4px;
-    			margin-right: 4px;
+    				margin-right: 4px;
 					border-radius: 20px;
 					padding-left: 10px;
-    			padding-right: 10px;
+    				padding-right: 10px;
 					background: rgba(30, 30, 46, 0.85);
 					color: #f2cdcd;
 				}
 
 				#wireplumber {
 					margin-left: 4px;
-    			margin-right: 4px;
+    				margin-right: 4px;
 					border-radius: 20px;
 					padding-left: 10px;
-    			padding-right: 10px;
+    				padding-right: 10px;
 					background: rgba(30, 30, 46, 0.85);
 					color: #eba0ac;
 				}
@@ -283,6 +284,7 @@
 			input = {
 				kb_layout = "us";
 				follow_mouse = 1;
+				mouse_refocus = false;
 				touchpad = {
 					natural_scroll = false;
 				};
