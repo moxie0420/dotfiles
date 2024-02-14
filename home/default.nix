@@ -131,12 +131,12 @@ in
 			];
 			package = pkgs.vscode;
 			userSettings = {
-        "window.titleBarStyle" = "custom";
+        		"window.titleBarStyle" = "custom";
 				"git.enableSmartCommit" = true;
 				"git.confirmSync" = false;
 				"git.terminalAuthentication" = true;
-  			"workbench.iconTheme" = "catppuccin-mocha";
-      };
+  				"workbench.iconTheme" = "catppuccin-mocha";
+      		};
 		};
 		git = {
 			enable = true;
@@ -163,7 +163,7 @@ in
     	};
 	};
 	services = {
-		dunst.enable = true;
+		dunst.enable = false;
 		gpg-agent = {
 			enable = true;
 			enableSshSupport = true;
