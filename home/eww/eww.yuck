@@ -1,0 +1,29 @@
+(defwindow popup
+    :monitor "<primary>"
+    :geometry ( geometry 
+        :x "0%"
+        :y "0%"
+        :width "12%"
+        :height "10%"
+        :anchor "bottom center"
+    )
+    :stacking "overlay"
+    :exclusive false
+    :focusable false
+)
+(defwidget volume
+    (box 
+        :spacing 5
+        :orientation "v"
+        :space-evenly false
+        (image 
+            :path "./images/volume."
+            :image-width
+            :image-height
+        )
+        (progress
+            :value "wpctl get-volume 53 | sed -n 's/.*\([0-9][0-9][0-9]*\).*/\1/p'  "
+            :orientation "v"
+        )
+    )
+) 

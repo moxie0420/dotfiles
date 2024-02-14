@@ -2,6 +2,8 @@
 {
 	services.mako = {
         enable = true;
+		borderRadius = 20;
+		textColor = "#cdd6f4";
     };
 	programs = {
     	wofi.enable = true;
