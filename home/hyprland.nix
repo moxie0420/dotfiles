@@ -181,7 +181,21 @@
 				}
 
 				#battery {
-					
+					margin-left: 4px;
+    				margin-right: 4px;
+					border-radius: 20px;
+					padding-left: 10px;
+    				padding-right: 10px;
+					background: rgba(30, 30, 46, 0.85);
+				}
+
+				#backlight {
+					margin-left: 4px;
+    				margin-right: 4px;
+					border-radius: 20px;
+					padding-left: 10px;
+    				padding-right: 10px;
+					background: rgba(30, 30, 46, 0.85);
 				}
 
 				#cpu {
