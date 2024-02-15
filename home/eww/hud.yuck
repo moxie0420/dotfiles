@@ -1,5 +1,4 @@
 (defwindow hud
-    :class "popup"
     :monitor 0
     :geometry ( geometry 
         :x "0%"
@@ -8,9 +7,9 @@
         :height "25%"
         :anchor "center"
     )
-    :stacking "overlay"
-    :exclusive false
-    :focusable true
+    :stacking "fg"
+    :exclusive true
+    :focusable false
     (HUD)
 )
 
@@ -20,31 +19,85 @@
 )
 (defpoll gpu
     :interval "1s"
+    "nvidia-smi --query-gpu=utilization.gpu --format=csv | awk 'NR==2 {print $1}'"
 )
 (defpoll mem
     :interval "1s"
+    "free -m | awk '/Mem/ {print $3/$2}'"
 )
 (defpoll swap
     :interval "1s"
+    "free -m | awk '/Swap/ {print $3/$2}'"
 )
-(defwidget  HUD[]
+(defwidget HUD[]
     (box
         :spacing 1
         :orientation "h"
         (box
+            :class "calendar-box"
             :spacing 1
             :orientation "v"
-            (calendar)
+            (calendar :class "cal")
         )
         (box
+            :class "graph-box"
             :spacing 1
             :orientation "v"
-            (graph
-                :value cpu
-                :time-range 60
-                :min 0
-                :max 100
-                :dynamic false
+            (box
+                :class "box"
+                :orientation "v"
+                "CPU Usage"
+                (graph
+                    :class "cpu"
+                    :value cpu
+                    :time-range 60
+                    :min 0
+                    :max 100
+                    :dynamic false
+                    :class "cpu"
+                )
+            )
+            (box
+                :class "box"
+                :orientation "v"
+                "GPU Usage"
+                (graph
+                    :class "gpu"
+                    :value gpu
+                    :time-range 60
+                    :min 0
+                    :max 100
+                    :dynamic false
+                    :class "gpu"
+                )
+            )
+            (box
+                :class "box"
+                :orientation "v"
+                "Memory Usage"
+                (graph
+                    :class "gpu"
+                    :value gpu
+                    :time-range 60
+                    :min 0
+                    :max 100
+                    :dynamic false
+                    :class "gpu"
+                )
+            )
+            (box
+                :class "box"
+                :orientation "v"
+                "Swap Usage"
+                (graph
+                    :class "gpu"
+                    :value gpu
+                    :time-range 60
+                    :min 0
+                    :max 100
+                    :dynamic false
+                    :class "gpu"
+                )
             )
         )
     )

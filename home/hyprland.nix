@@ -314,9 +314,9 @@
 			};
 			exec = [
 				"pkill hyprpaper; hyprpaper"
+				"pkill eww; eww daemon"
 			];
 			exec-once = [
-				"${pkgs.eww}/bin/eww daemon"
 				"hyprctl setcursor Catppuccin-Mocha-Pink-Cursors 24"
 				"gpg-agent --daemon"
 				"[silent] vesktop"
