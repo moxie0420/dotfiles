@@ -1,0 +1,51 @@
+(defwindow hud
+    :class "popup"
+    :monitor 0
+    :geometry ( geometry 
+        :x "0%"
+        :y "0%"
+        :width "25%"
+        :height "25%"
+        :anchor "center"
+    )
+    :stacking "overlay"
+    :exclusive false
+    :focusable true
+    (HUD)
+)
+
+(defpoll cpu
+    :interval "1s"
+    "top -bn1 | grep 'Cpu(s)' | sed 's/.*, *\([0-9.]*\)%* id.*/\1/' | awk '{print 100 - $1}'"
+)
+(defpoll gpu
+    :interval "1s"
+)
+(defpoll mem
+    :interval "1s"
+)
+(defpoll swap
+    :interval "1s"
+)
+(defwidget  HUD[]
+    (box
+        :spacing 1
+        :orientation "h"
+        (box
+            :spacing 1
+            :orientation "v"
+            (calendar)
+        )
+        (box
+            :spacing 1
+            :orientation "v"
+            (graph
+                :value cpu
+                :time-range 60
+                :min 0
+                :max 100
+                :dynamic false
+            )
+        )
+    )
+)
