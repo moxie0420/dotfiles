@@ -10,6 +10,7 @@
 		eww = {
         	enable = true;
         	configDir = ./eww;
+			package = pkgs.eww-wayland;
     	};
 		swaylock = {
 			enable = true;
@@ -315,6 +316,7 @@
 				"pkill hyprpaper; hyprpaper"
 			];
 			exec-once = [
+				"${pkgs.eww}/bin/eww daemon"
 				"hyprctl setcursor Catppuccin-Mocha-Pink-Cursors 24"
 				"gpg-agent --daemon"
 				"[silent] vesktop"

@@ -1,33 +1,37 @@
 (defwindow popup
-    :monitor "<primary>"
+    :class "popup"
+    :monitor 0
     :geometry ( geometry 
         :x "0%"
         :y "0%"
-        :width "12%"
-        :height "10%"
+        :width "10%"
+        :height "7%"
         :anchor "bottom center"
     )
     :stacking "overlay"
     :exclusive false
     :focusable false
+    (volume-level)
 )
 (defpoll volume
     :interval "1s"
-    "wpctl get-volume 53 | sed -n 's/.*\([0-9][0-9][0-9]*\).*/\1/p' "
+   './scripts/volume.sh'
 )
-(defwidget volume-level
+(defwidget volume-level []
     (box 
         :spacing 5
         :orientation "v"
         :space-evenly false
         (image 
-            :path "./images/audio-volume-${ (volume >= 75) ? //true  'high' : // false ((volume >= 50) ? 'medium' : 'low') }.svg"
-            :image-width 48
-            :image-height 48
+            :path "./images/audio-volume-${ (volume >= 75) ? 'high' :  ((volume >= 50) ? 'medium' : 'low') }.svg"
+            :image-width 96
+            :image-height 96
         )
         (progress
+            :class "bar"
             :value volume
-            :orientation "v"
+            :orientation "h"
         )
+        "Volume  ${volume}"
     )
 ) 
