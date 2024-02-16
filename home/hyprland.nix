@@ -1,17 +1,19 @@
 { pkgs, ... }:
 {
 	services.mako = {
-        enable = true;
+    enable = true;
+		anchor = "bottom-right";
 		borderRadius = 20;
 		textColor = "#cdd6f4";
-    };
+		defaultTimeout = 3000;
+  };
 	programs = {
-    	wofi.enable = true;
+    wofi.enable = true;
 		eww = {
-        	enable = true;
-        	configDir = ./eww;
+    	enable = true;
+    	configDir = ./eww;
 			package = pkgs.eww-wayland;
-    	};
+  	};
 		swaylock = {
 			enable = true;
 			package = pkgs.swaylock-effects;
@@ -24,6 +26,7 @@
 			};
 			settings = [
 				{
+					layer = "top";
 					output = [ "DP-1"];
 					modules-left = [ "hyprland/workspaces" ];
 					modules-center = [ "hyprland/window" ];
@@ -33,9 +36,9 @@
 						format = " {title} ";
     					max-length = 50;
     					rewrite = {
-							"(.*) — Mozilla Firefox" = "🌎 $1";
-			      			"vim (.*)" = " $1";
-							"sudo vim (.*)" = " $1";
+								"(.*) — Mozilla Firefox" = "🌎 $1";
+			      		"vim (.*)" = " $1";
+								"sudo vim (.*)" = " $1";
     					};
 					};
 					"memory" = { format = "RAM: {percentage}%";	};
@@ -97,6 +100,7 @@
 					};
 				}
 				{
+					layer = "top";
 					output = ["HDMI-A-2"];
 					modules-left = [ "hyprland/workspaces" ];
 					modules-center = [ "hyprland/window" ];
