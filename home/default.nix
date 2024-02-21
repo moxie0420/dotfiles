@@ -91,6 +91,13 @@ in
 
 		# show off stuff
 		bottom.enable = true;
+		btop = {
+			enable = true;
+			settings = {
+				color_theme = "TTY";
+  			theme_background = false;
+			};
+		};
 		hyfetch = {
 			enable = true;
 			settings = {
@@ -115,7 +122,8 @@ in
 		obs-studio = {
 			enable = true;
 			plugins = with pkgs.obs-studio-plugins; [
-     			wlrobs
+				obs-vkcapture
+				wlrobs
 			]; 
 		};
 
