@@ -1,12 +1,12 @@
 { pkgs, ... }:
 {
 	services.mako = {
-    enable = true;
+    	enable = true;
 		anchor = "bottom-right";
-		borderRadius = 20;
+		borderRadius = 15;
 		textColor = "#cdd6f4";
 		defaultTimeout = 3000;
-  };
+	};
 	programs = {
     wofi.enable = true;
 		eww = {
@@ -303,12 +303,12 @@
 			general = {
 				gaps_in = 9;
 				gaps_out = 12;
-				border_size = 1;
+				border_size = 2;
 
 				layout = "dwindle";
 			};
 			decoration = {
-				rounding = 10;
+				rounding = 15;
 				drop_shadow = true;
 				#blur_new_optimizations = true;
 			};
