@@ -6,14 +6,14 @@
 	};
 
   systemd.targets = {
-		sleep.enable = false;
-		suspend.enable = false;
-		hibernate.enable = false;
-		hybrid-sleep.enable = false;
+		sleep.enable = true;
+		suspend.enable = true;
+		hibernate.enable = true;
+		hybrid-sleep.enable = true;
 	};
   	
 	powerManagement.cpuFreqGovernor = lib.mkDefault "performance";
-	powerManagement.enable = false;
+	powerManagement.enable = true;
 
 	services.xserver.videoDrivers = [ "intel" "nvidia" ];
 	hardware = {
@@ -33,7 +33,7 @@
 				package = config.boot.kernelPackages.nvidiaPackages.beta;
 				prime = {
 					offload = {
-						enable = true;
+						enable = false;
 						enableOffloadCmd = true;
 					};
 					reverseSync.enable = true;
