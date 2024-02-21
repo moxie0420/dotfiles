@@ -4,6 +4,12 @@
 		grim
 		slurp
 		wl-clipboard
+		(pkgs.catppuccin-gtk.override
+			{
+				accents = [ "pink" ];
+				variant = "mocha";
+			}
+		)
 	];
 	fonts.packages = with pkgs; [
 		noto-fonts
@@ -22,11 +28,13 @@
 			package = pkgs.openrgb-with-all-plugins;
 		};
 		xserver = {
-			enable = true;
-			displayManager.gdm = {
-				enable = true;
-				wayland = true;
-				autoSuspend = false;
+			enable = false;
+			displayManager = {
+				gdm = {
+					enable = false;
+					wayland = true;
+					autoSuspend = false;
+				};
 			};
 		};
 		dbus = {
@@ -35,6 +43,25 @@
 		};
 	};
 	programs = {
+		regreet = {
+			enable = true;
+			settings = {
+				background = {
+					path = "/etc/nixos/wallpapers/lain.jpg";
+				};
+				GTK = {
+					application_prefer_dark_theme = true;
+					cursor_theme_name = "Catppuccin-Mocha-Pink-Cursors";
+					font_name = "ComicShannsMono";
+					theme_name = "Catppuccin-Mocha-Standard-Pink-Dark";
+					icon_theme_name = "Catppuccin-Mocha-Standard-Pink-Dark";
+				};
+				commands = {
+					reboot = [ "systemctl" "reboot" ];
+					poweroff = [ "systemctl" "poweroff"  ];
+				};
+			};
+		};
 		hyprland = {
 			enable = true;
 			xwayland.enable = true;

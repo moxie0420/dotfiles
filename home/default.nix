@@ -43,6 +43,7 @@ in
 
 			#(callPackage ../pkgs/ue5.nix {})
 			cmatrix
+			libreoffice-fresh
 		];
 
 		stateVersion = "23.11";
