@@ -27,16 +27,6 @@
 			enable = true;
 			package = pkgs.openrgb-with-all-plugins;
 		};
-		xserver = {
-			enable = false;
-			displayManager = {
-				gdm = {
-					enable = false;
-					wayland = true;
-					autoSuspend = false;
-				};
-			};
-		};
 		dbus = {
 			enable = true;
 			packages = with pkgs; [dconf];
@@ -45,6 +35,7 @@
 	programs = {
 		regreet = {
 			enable = true;
+			cageArgs = [ "-s" "-m" "first" ];
 			settings = {
 				background = {
 					path = "/etc/nixos/wallpapers/lain.jpg";
@@ -116,7 +107,6 @@
 	xdg.portal = {
 		enable = true;
 		extraPortals = with pkgs; [
-		   xdg-desktop-portal-gtk 
 		];
 	};
 }
