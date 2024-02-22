@@ -131,12 +131,16 @@ in
 		# coding stuff
 		vscode = {
 			enable = true;
+			enableExtensionUpdateCheck = false;
+			enableUpdateCheck = false;
+			mutableExtensionsDir = false;
 			extensions = with pkgs.vscode-extensions; [
 				catppuccin.catppuccin-vsc
 				catppuccin.catppuccin-vsc-icons
 				mkhl.direnv
 				ms-vscode.makefile-tools
 				ms-vscode.cpptools
+				bbenoist.nix
 			];
 			package = pkgs.vscode;
 			userSettings = {
@@ -155,6 +159,9 @@ in
 			extraConfig = {
 				safe = {
 					directory = "*";
+				};
+				init = {
+					defaultBranch = "master";
 				};
 			};
 		};
@@ -225,6 +232,9 @@ in
 				"application/xhtml+xml" = [ "firefox.dektop" ];
 				"application/x-extension-xhtml" = [ "firefox.dektop" ];
 				"application/x-extension-xht" = [ "firefox.dektop" ];
+				"application/zip" = [ "org.gnome.FileRoller.desktop" ];
+				"application/7zip" = [ "org.gnome.FileRoller.desktop" ];
+				"application/rar" = [ "org.gnome.FileRoller.desktop" ];
 			};
 			associations.added = {
 				"text/x-ms-regedit" = [ "wine-extension-txt.desktop" "nvim.desktop" ];
