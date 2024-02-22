@@ -35,7 +35,7 @@
 	programs = {
 		regreet = {
 			enable = true;
-			cageArgs = [ "-s" "-m" "first" ];
+			cageArgs = [ "-s" "-m" "last" ];
 			settings = {
 				background = {
 					path = "/etc/nixos/wallpapers/lain.jpg";
@@ -77,15 +77,6 @@
 		file-roller.enable = true;
 	};
 	environment = {
-		etc = {
-			"10-cursor-setting" = {
-				enable = true;
-				text = ''
-					[org/gnome/desktop/interface]
-					cursor-theme='Catppuccin-Mocha-Pink-Cursors'
-				'';
-			};
-		};
 		sessionVariables = {
 			QT_QPA_PLATFORM = "wayland;xcb";
 			ANKI_WAYLAND = "1";
@@ -103,10 +94,5 @@
 			SDL_VIDEODRIVER = "wayland";
 			CLUTTER_BACKEND = "wayland";
 		};
-	};
-	xdg.portal = {
-		enable = true;
-		extraPortals = with pkgs; [
-		];
 	};
 }
