@@ -148,6 +148,7 @@ in
 				"git.enableSmartCommit" = true;
 				"git.confirmSync" = false;
 				"git.terminalAuthentication" = true;
+				"workbench.colorTheme" = lib.mkForce "Catppuccin Mocha";
   				"workbench.iconTheme" = "catppuccin-mocha";
       		};
 		};
