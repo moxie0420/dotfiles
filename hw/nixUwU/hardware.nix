@@ -13,7 +13,7 @@
 	};
   	
 	powerManagement.cpuFreqGovernor = lib.mkDefault "performance";
-	powerManagement.enable = true;
+	powerManagement.enable = false;
 
 	services.xserver.videoDrivers = [ "intel" "nvidia" ];
 	hardware = {
