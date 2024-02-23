@@ -81,8 +81,6 @@
 			QT_QPA_PLATFORM = "wayland;xcb";
 			ANKI_WAYLAND = "1";
 			NIXOS_OZONE_WL = "1";
-			__GL_GSYNC_ALLOWED = "1";
-			__GL_VRR_ALLOWED = "1";
 			_JAVA_AWT_WM_NONEREPARENTING = "1";
 			DISABLE_QT5_COMPAT = "0";
 			GDK_BACKEND = "wayland,x11";

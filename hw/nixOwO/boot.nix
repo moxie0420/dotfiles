@@ -17,7 +17,7 @@
 			"fbcon=nodefer"
 			"amd_pstate=active"
 			"resume_offset=474218496"
-			#"nvidia.NVreg_PreserveVideoMemoryAllocations=1"
+			"nvidia.NVreg_PreserveVideoMemoryAllocations=1"
 			#"nvidia.NVreg_RegistryDwords=EnableBrightnessControl=1"
 			#"amdgpu.backlight=0"
 		];
