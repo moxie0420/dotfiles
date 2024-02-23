@@ -35,6 +35,9 @@
       url = "github:nix-community/disko";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+
+    # extra home-manager modules
+    xhmm.url = "github:schuelermine/xhmm";
   };
 
   outputs = { nixpkgs, lanzaboote, hyprland, home-manager, spicetify-nix, chaotic, stylix, disko, nixpkgs-wayland, ... } @ inputs: rec {
