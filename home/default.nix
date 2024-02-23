@@ -1,4 +1,4 @@
-{ pkgs, spicetify-nix, lib, ... }:
+{config, pkgs, spicetify-nix, lib, ... }:
 let
 	spicePkgs = spicetify-nix.packages.${pkgs.system}.default;
 in
@@ -95,7 +95,7 @@ in
 		btop = {
 			enable = true;
 			settings = {
-				color_theme = "TTY";
+				#color_theme = "TTY";
   			theme_background = false;
 			};
 		};
@@ -150,6 +150,32 @@ in
 				"git.terminalAuthentication" = true;
 				"workbench.colorTheme" = lib.mkForce "Catppuccin Mocha";
   				"workbench.iconTheme" = "catppuccin-mocha";
+				"telemetry.enableTelemetry" = false;
+				"search.exclude" = {
+					"**/node_modules" = true;
+    				"**/bower_components" = true;
+					"**/env" = true;
+    				"**/venv" = true;
+				};
+				"files.watcherExclude" = {
+					"**/.git/objects/**" = true;
+					"**/.git/subtree-cache/**" = true;
+    				"**/node_modules/**" = true; 
+    				"**/env/**" = true;
+    				"**/venv/**" = true;
+    				"env-*" = true;
+				};
+				"files.exclude" = {
+					"**/.git" = true;
+    				"**/.DS_Store" = true;
+    				"**/.vscode" = true;
+    				"**/__pycache__" = true;
+    				"**/.pytest_cache" = true;
+    				"**/node_modules" = true;
+    				"venv" = true;
+					"*.sublime-*" = true;
+    				"env*" = true;
+  				};
       		};
 		};
 		git = {
