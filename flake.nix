@@ -40,7 +40,7 @@
     xhmm.url = "github:schuelermine/xhmm";
   };
 
-  outputs = { nixpkgs, lanzaboote, hyprland, home-manager, spicetify-nix, chaotic, stylix, disko, nixpkgs-wayland, ... } @ inputs: rec {
+  outputs = { nixpkgs, lanzaboote, hyprland, home-manager, spicetify-nix, chaotic, stylix, disko, nixpkgs-wayland, xhmm, ... } @ inputs: rec {
     nixosConfigurations = {
       # home desktop
       nixUwU = nixpkgs.lib.nixosSystem {
