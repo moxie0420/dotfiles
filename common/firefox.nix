@@ -9,11 +9,6 @@
 			"en-US"
 			"de"
 		];
-		package = pkgs.firefox-devedition;
-		wrapperConfig = {
-			mozillaCfg = ''
-				ac_add_options --enable-replace-malloc
-			'';
-		};
+		package = pkgs.firefox-devedition-bin;
 	};
 }

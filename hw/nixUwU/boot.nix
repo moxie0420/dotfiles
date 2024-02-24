@@ -35,11 +35,12 @@
 		];
 		kernelParams = [
 			"nvme_core.default_ps_max_latency_us=0" 
-			"nvidia-drm.fbdev=1"
+			#"nvidia-drm.fbdev=1"
 			"v4l2loopback.exclusive_caps=1"
 			"nvidia.NVreg_EnablePCIeGen3=1"
 			"nvidia.NVreg_UsePageAttributeTable=1"
-			"nvidia-modeset.hdmi_deepcolor=1"
+			"video=DP-1:3840x2160@144D"
+			"video=HDMI-A-2:1360x768@60D"
 		];
 		kernelPackages = pkgs.linuxPackages_cachyos;
 		kernel.sysctl = {
