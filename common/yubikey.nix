@@ -7,7 +7,7 @@
 	programs.gnupg.agent = {
 		enable = true;
 		enableSSHSupport = true;
-		pinentryFlavor = "qt";
+		pinentryFlavor = "gtk";
 	};
 	environment.shellInit = ''
     	export SSH_AUTH_SOCK=$(gpgconf --list-dirs agent-ssh-socket)
