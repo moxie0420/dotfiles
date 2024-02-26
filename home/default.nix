@@ -4,7 +4,6 @@ let
 in
 {
 	imports = [
-		spicetify-nix.homeManagerModule
 		./hyprland.nix
 		./style.nix
 		./thunderbird.nix
@@ -209,13 +208,13 @@ in
 			enable = true;
 			backgrounds = [{
 					monitor = "eDP-1";
-					path = "/etc/nixos/wallpapers/lain.png"
+					path = "/etc/nixos/wallpapers/lain.png";
 			}];
 			input-fields = [
 				{
 					monitor = "eDP-1";
 				}
-			]
+			];
 		};
 	};
 	services = {

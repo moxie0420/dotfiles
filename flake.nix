@@ -50,7 +50,20 @@ description = "Moxie's nix config";
     hypridle, hyprlock, hyprpaper,
     home-manager, spicetify-nix, chaotic,
     stylix, disko, nixpkgs-wayland, xhmm, ... 
-    } @ inputs: rec {
+    } @ inputs:  let
+      pkgs = import nixpkgs { system = "x86_64-linux"; };
+    in {
+    homeConfigurations."moxie" = home-manager.lib.homeManagerConfiguration {
+      extraSpecialArgs = {inherit inputs;};
+      useGlobalPkgs = true;
+      useUserPackages = true;
+      modules = [
+        hyprland.homeManagerModules.default
+        hypridle.homeManagerModules
+        hyprlock.homeManagerModules
+        ./home
+      ];
+    };
     nixosConfigurations = {
       # home desktop
       nixUwU = nixpkgs.lib.nixosSystem {
@@ -61,12 +74,6 @@ description = "Moxie's nix config";
           hyprland.nixosModules.default
           stylix.nixosModules.stylix
 	        chaotic.nixosModules.default
-	        home-manager.nixosModules.home-manager {
-	          home-manager.extraSpecialArgs = {inherit spicetify-nix;};
-	          home-manager.useGlobalPkgs = true;
-            home-manager.useUserPackages = true;
-            home-manager.users.moxie = import ./home;
-	        }
         ];
       };
 
@@ -96,20 +103,7 @@ description = "Moxie's nix config";
           disko.nixosModules.disko
         ];
       };
-
-      piTime = nixpkgs.lib.nixosSystem {
-        modules = [
-          (nixpkgs + /nixos/modules/installer/sd-card/sd-image-aarch64.nix)
-          {
-            nixpkgs.config.allowUnsupportedSystem = true;
-            nixpkgs.hostPlatform.system = "aarch64-linux";
-            nixpkgs.buildPlatform.system = "x86_64-linux";
-          }
-          ./hw/piTime
-        ];
-      };
     };
-    images.piTime = nixosConfigurations.piTime.config.system.build.sdImage;
   };
 }
 
