@@ -1,10 +1,15 @@
 {
-  description = "Moxie's nix config";
+description = "Moxie's nix config";
 
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
     chaotic.url = "github:chaotic-cx/nyx/nyxpkgs-unstable";
+    
+    # Hyprland and utils
     hyprland.url = "github:hyprwm/Hyprland";
+    hyprpaper.url = "github:hyprwm/hyprpaper";
+    hyprlock.url = "github:hyprwm/hyprlock";
+    hypridle.url = "github:hyprwm/hypridle";
     
     # beta wayland packages
     nixpkgs-wayland = {
@@ -40,7 +45,12 @@
     xhmm.url = "github:schuelermine/xhmm";
   };
 
-  outputs = { nixpkgs, lanzaboote, hyprland, home-manager, spicetify-nix, chaotic, stylix, disko, nixpkgs-wayland, xhmm, ... } @ inputs: rec {
+  outputs = { 
+    nixpkgs, lanzaboote, hyprland,
+    hypridle, hyprlock, hyprpaper,
+    home-manager, spicetify-nix, chaotic,
+    stylix, disko, nixpkgs-wayland, xhmm, ... 
+    } @ inputs: rec {
     nixosConfigurations = {
       # home desktop
       nixUwU = nixpkgs.lib.nixosSystem {
