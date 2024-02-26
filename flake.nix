@@ -45,25 +45,14 @@ description = "Moxie's nix config";
     xhmm.url = "github:schuelermine/xhmm";
   };
 
-  outputs = { 
+  outputs = { self,
     nixpkgs, lanzaboote, hyprland,
     hypridle, hyprlock, hyprpaper,
     home-manager, spicetify-nix, chaotic,
     stylix, disko, nixpkgs-wayland, xhmm, ... 
-    } @ inputs:  let
-      pkgs = import nixpkgs { system = "x86_64-linux"; };
+    } @ inputs: let
+      inherit (self) outputs;
     in {
-    homeConfigurations."moxie" = home-manager.lib.homeManagerConfiguration {
-      extraSpecialArgs = {inherit inputs;};
-      useGlobalPkgs = true;
-      useUserPackages = true;
-      modules = [
-        hyprland.homeManagerModules.default
-        hypridle.homeManagerModules
-        hyprlock.homeManagerModules
-        ./home
-      ];
-    };
     nixosConfigurations = {
       # home desktop
       nixUwU = nixpkgs.lib.nixosSystem {
@@ -74,6 +63,12 @@ description = "Moxie's nix config";
           hyprland.nixosModules.default
           stylix.nixosModules.stylix
 	        chaotic.nixosModules.default
+          home-manager.nixosModules.home-manager {
+            home-manager.extraSpecialArgs = {inherit inputs outputs;};
+					  home-manager.useGlobalPkgs = true;
+           	home-manager.useUserPackages = true;
+					  home-manager.users.moxie = import ./home;
+				  }
         ];
       };
 
@@ -87,7 +82,7 @@ description = "Moxie's nix config";
 				  stylix.nixosModules.stylix
 				  chaotic.nixosModules.default
 				  home-manager.nixosModules.home-manager {
-            home-manager.extraSpecialArgs = {inherit spicetify-nix;};
+            home-manager.extraSpecialArgs = {inherit inputs outputs;};
 					  home-manager.useGlobalPkgs = true;
            	home-manager.useUserPackages = true;
 					  home-manager.users.moxie = import ./home;

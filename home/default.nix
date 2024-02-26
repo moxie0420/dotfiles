@@ -1,9 +1,13 @@
-{config, pkgs, spicetify-nix, lib, ... }:
+{config, pkgs, inputs, lib, ... }:
 let
-	spicePkgs = spicetify-nix.packages.${pkgs.system}.default;
+	spicePkgs = inputs.spicetify-nix.packages.${pkgs.system}.default;
 in
 {
 	imports = [
+		inputs.hyprland.homeManagerModules.default
+        inputs.hypridle.homeManagerModules.default
+        inputs.hyprlock.homeManagerModules.default
+		inputs.spicetify-nix.homeManagerModules.default
 		./hyprland.nix
 		./style.nix
 		./thunderbird.nix
@@ -38,7 +42,6 @@ in
 
 			vesktop
 			osu-lazer-bin
-			blender
 
 			#(callPackage ../pkgs/ue5.nix {})
 			cmatrix
@@ -48,6 +51,7 @@ in
 		stateVersion = "23.11";
 	};
 	programs = {
+		home-manager.enable = true;
 		feh.enable = true;
 
 		# terminal config
@@ -206,10 +210,12 @@ in
 
 		hyprlock = {
 			enable = true;
-			backgrounds = [{
+			backgrounds = [
+				{
 					monitor = "eDP-1";
 					path = "/etc/nixos/wallpapers/lain.png";
-			}];
+				}
+			];
 			input-fields = [
 				{
 					monitor = "eDP-1";
@@ -228,16 +234,9 @@ in
 		};
 		hypridle = {
 			enable = true;
-			lockCmd = "${pkgs.hyprlock}/bin/hyprlock";
-		};
-		swayidle = {
-			enable = false;
-			systemdTarget = "hyprland-session.target";
-			events = [
-				{ event = "before-sleep"; command = "pkill swaylock; ${pkgs.swaylock-effects}/bin/swaylock -S --clock --indicator-idle-visible --effect-blur 5x7"; }
-				{ event = "lock"; command = "pkill swaylock; ${pkgs.swaylock-effects}/bin/swaylock -S --clock --indicator-idle-visible --effect-blur 5x7"; }
-				{ event = "unlock"; command = "pkill swaylock"; }
-			];
+			lockCmd = "${inputs.hyprlock.packages.x86_64-linux.hyprlock}/bin/hyprlock";
+			unlockCmd = "pkill hyprlock";
+			beforeSleepCmd = "${pkgs.systemd}/bin/loginctl lock-session";
 		};
 	};
 	xdg = {
