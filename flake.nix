@@ -1,10 +1,15 @@
 {
-  description = "Moxie's nix config";
+description = "Moxie's nix config";
 
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
     chaotic.url = "github:chaotic-cx/nyx/nyxpkgs-unstable";
+    
+    # Hyprland and utils
     hyprland.url = "github:hyprwm/Hyprland";
+    hyprpaper.url = "github:hyprwm/hyprpaper";
+    hyprlock.url = "github:hyprwm/hyprlock";
+    hypridle.url = "github:hyprwm/hypridle";
     
     # beta wayland packages
     nixpkgs-wayland = {
@@ -40,7 +45,14 @@
     xhmm.url = "github:schuelermine/xhmm";
   };
 
-  outputs = { nixpkgs, lanzaboote, hyprland, home-manager, spicetify-nix, chaotic, stylix, disko, nixpkgs-wayland, xhmm, ... } @ inputs: rec {
+  outputs = { self,
+    nixpkgs, lanzaboote, hyprland,
+    hypridle, hyprlock, hyprpaper,
+    home-manager, spicetify-nix, chaotic,
+    stylix, disko, nixpkgs-wayland, xhmm, ... 
+    } @ inputs: let
+      inherit (self) outputs;
+    in {
     nixosConfigurations = {
       # home desktop
       nixUwU = nixpkgs.lib.nixosSystem {
@@ -51,12 +63,12 @@
           hyprland.nixosModules.default
           stylix.nixosModules.stylix
 	        chaotic.nixosModules.default
-	        home-manager.nixosModules.home-manager {
-	          home-manager.extraSpecialArgs = {inherit spicetify-nix;};
-	          home-manager.useGlobalPkgs = true;
-            home-manager.useUserPackages = true;
-            home-manager.users.moxie = import ./home;
-	        }
+          home-manager.nixosModules.home-manager {
+            home-manager.extraSpecialArgs = {inherit inputs outputs;};
+					  home-manager.useGlobalPkgs = true;
+           	home-manager.useUserPackages = true;
+					  home-manager.users.moxie = import ./home;
+				  }
         ];
       };
 
@@ -70,7 +82,7 @@
 				  stylix.nixosModules.stylix
 				  chaotic.nixosModules.default
 				  home-manager.nixosModules.home-manager {
-            home-manager.extraSpecialArgs = {inherit spicetify-nix;};
+            home-manager.extraSpecialArgs = {inherit inputs outputs;};
 					  home-manager.useGlobalPkgs = true;
            	home-manager.useUserPackages = true;
 					  home-manager.users.moxie = import ./home;
@@ -86,20 +98,7 @@
           disko.nixosModules.disko
         ];
       };
-
-      piTime = nixpkgs.lib.nixosSystem {
-        modules = [
-          (nixpkgs + /nixos/modules/installer/sd-card/sd-image-aarch64.nix)
-          {
-            nixpkgs.config.allowUnsupportedSystem = true;
-            nixpkgs.hostPlatform.system = "aarch64-linux";
-            nixpkgs.buildPlatform.system = "x86_64-linux";
-          }
-          ./hw/piTime
-        ];
-      };
     };
-    images.piTime = nixosConfigurations.piTime.config.system.build.sdImage;
   };
 }
 
