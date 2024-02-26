@@ -204,6 +204,19 @@ in
         		hidePodcasts
       		];
     	};
+
+		hyprlock = {
+			enable = true;
+			backgrounds = [{
+					monitor = "eDP-1";
+					path = "/etc/nixos/wallpapers/lain.png"
+			}];
+			input-fields = [
+				{
+					monitor = "eDP-1";
+				}
+			]
+		};
 	};
 	services = {
 		dunst.enable = false;
@@ -214,8 +227,12 @@ in
 				"C02F30F9FD65E05531A321C8491E3EFE1C0C7383"
 			];
 		};
-		swayidle = {
+		hypridle = {
 			enable = true;
+			lockCmd = "${pkgs.hyprlock}/bin/hyprlock";
+		};
+		swayidle = {
+			enable = false;
 			systemdTarget = "hyprland-session.target";
 			events = [
 				{ event = "before-sleep"; command = "pkill swaylock; ${pkgs.swaylock-effects}/bin/swaylock -S --clock --indicator-idle-visible --effect-blur 5x7"; }
