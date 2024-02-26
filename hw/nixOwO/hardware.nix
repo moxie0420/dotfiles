@@ -15,7 +15,6 @@
 		};
 		opentabletdriver.enable = true;
 		ksm.enable = true;
-		deviceTree.enable = false;
 
 		opengl = {
 			enable = true;
@@ -23,7 +22,7 @@
 			driSupport32Bit = true;
 		};
 		nvidia = {
-			open = true;
+			open = false;
 			nvidiaSettings = false;
 			modesetting.enable = true;
 			package = config.boot.kernelPackages.nvidiaPackages.beta;

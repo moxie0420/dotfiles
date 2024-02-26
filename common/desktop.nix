@@ -1,4 +1,4 @@
-{ pkgs, inputs, ... }:
+{ pkgs, inputs, lib, config, ... }:
 {
 	environment.systemPackages = with pkgs; [
 		grim
@@ -25,6 +25,7 @@
 		udisks2.enable = true;
 		hardware.openrgb = {
 			enable = true;
+			motherboard = if config.networking.hostName == "nixOwO" then "amd" else "intel";
 			package = pkgs.openrgb-with-all-plugins;
 		};
 		dbus = {
