@@ -373,7 +373,7 @@
 				"$mod, up, 	  movefocus, u"
 				"$mod, down,  movefocus, d"
 
-				"$mod, Print, exec, grim -g \"$(${pkgs.slurp}/bin/slurp)\" - | wl-copy "
+				"$mod, Print, exec, grim -g \"$(${pkgs.slurp}/bin/slurp)\" -t png -o $(xdg-user-dir PICTURES)/$(date +'%s_grim.png')"
 
 				"$shiftMod, Left,  movewindow, left,  visible"
 				"$shiftMod, Right, movewindow, right, visible"
