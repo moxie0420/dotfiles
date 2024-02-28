@@ -320,6 +320,7 @@
 				"pkill eww; eww daemon"
 			];
 			exec-once = [
+				 "${pkgs.openrgb-with-all-plugins}/bin/openrgb -p /home/moxie/.config/OpenRGB/default.orp"
 				"hyprctl setcursor Catppuccin-Mocha-Pink-Cursors 24"
 				"gpg-agent --daemon"
 				"[silent] vesktop"
