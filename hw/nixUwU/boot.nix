@@ -31,7 +31,7 @@
 			v4l2loopback
 		];
 		blacklistedKernelModules = [
-			"nouveau"
+			#"nouveau"
 		];
 		kernelParams = [
 			"nvme_core.default_ps_max_latency_us=0" 
