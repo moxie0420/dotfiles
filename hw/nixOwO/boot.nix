@@ -18,8 +18,10 @@
 			"amd_pstate=active"
 			"resume_offset=474218496"
 			"nvidia.NVreg_PreserveVideoMemoryAllocations=1"
-			"nvidia.NVreg_RegistryDwords=EnableBrightnessControl=1"
-			"amdgpu.backlight=0"
+			"nvidia.NVreg_EnableBacklightHandler=1"
+			"nvidia.NVreg_UsePageAttributeTable=1"
+			"nvidia.NVreg_EnableStreamMemOPs=1"
+			"acpi_backlight=nvidia_wmi_ec"
 		];
 		blacklistedKernelModules = [ 
 			#"nouveau"
@@ -74,11 +76,11 @@
 			enable = true;
 		};
 		logind = {
-			lidSwitch = "suspend-then-hibernate";
+			lidSwitch = "suspend";
 			extraConfig = ''
 				HandlePowerKey=hibernate
 				HandlePowerKeyLongPress=shutdown
-				NAutoVTs=1
+				NAutoVTs=2
 			'';
 		};
 	};
