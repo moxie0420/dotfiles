@@ -21,7 +21,7 @@
 		};
 		initrd = {
 			availableKernelModules = [ "xhci_pci" "ahci" "nvme" "usb_storage" "usbhid" "uas" "sd_mod" ];
-  			kernelModules = [ ];
+  			kernelModules = [ "nvidia" "nvidia_modeset" "nvidia_uvm" "nvidia_drm" ];
 			compressor = "lz4";
 			systemd.enable = true;
 		};
