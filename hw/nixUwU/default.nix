@@ -16,6 +16,8 @@
 		#__GLX_VENDOR_LIBRARY_NAME = "nvidia";
 		WLR_NO_HARDWARE_CURSORS = "1";
 		__VK_LAYER_NV_optimus="NVIDIA_only";
+    WLR_DRM_DEVICES = "/dev/dri/card0";
+    WLR_RENDERER = "vulkan";
   };
 
 	nix.settings = {
