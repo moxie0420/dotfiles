@@ -33,13 +33,6 @@
 			packages = with pkgs; [dconf];
 		};
 	};
-	nixpkgs.overlays = [
-		(final: prev: { 
-			wlroots = prev.wlroots.overrideAttrs (old: {
-				patches = (old.patches or []) ++ [./patches/wlroots-nvidia.patch];	
-			});
-		})
-	];
 	programs = {
 		regreet = {
 			enable = true;

@@ -10,14 +10,12 @@ description = "Moxie's nix config";
     hyprpaper.url = "github:hyprwm/hyprpaper";
     hyprlock.url = "github:hyprwm/hyprlock";
     hypridle.url = "github:hyprwm/hypridle";
-    
-    # beta wayland packages
+
     nixpkgs-wayland.url = "github:nix-community/nixpkgs-wayland";
 
     # user config
     home-manager = {
     	url = "github:nix-community/home-manager";
-    	inputs.nixpkgs.follows = "nixpkgs";
     };
 
     # secure boot
