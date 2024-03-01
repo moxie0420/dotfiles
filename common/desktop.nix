@@ -33,6 +33,13 @@
 			packages = with pkgs; [dconf];
 		};
 	};
+	nixpkgs.overlays = [
+		(final: prev: { 
+			wlroots = prev.wlroots.overrideAttrs (old: {
+				patches = (old.patches or []) ++ [./patches/wlroots-nvidia.patch];	
+			});
+		})
+	];
 	programs = {
 		regreet = {
 			enable = true;
@@ -57,9 +64,7 @@
 		hyprland = {
 			enable = true;
 			xwayland.enable = true;
-			package = inputs.hyprland.packages.${pkgs.system}.hyprland.overrideAttrs {
-				patches = [./patches/wlroots-nvidia.patch];
-			};
+			package = inputs.hyprland.packages.${pkgs.system}.hyprland;
 		};
 		thunar = {
 			enable = true;

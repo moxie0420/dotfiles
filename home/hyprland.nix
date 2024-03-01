@@ -12,7 +12,7 @@
 		eww = {
     	enable = true;
     	configDir = ./eww;
-			package = pkgs.eww-wayland;
+			package = pkgs.eww;
   	};
 		swaylock = {
 			enable = true;
