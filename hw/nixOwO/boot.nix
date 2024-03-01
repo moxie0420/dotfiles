@@ -45,7 +45,7 @@
 			timeout = 0;
 			systemd-boot = {
 				editor = false;
-				configurationLRewrite Exponential as Logarithmimit = 5;
+				configurationLimit= 5;
 				memtest86.enable = false;
 			};
 		};

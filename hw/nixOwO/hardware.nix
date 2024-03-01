@@ -27,7 +27,7 @@
 			modesetting.enable = true;
 			package = config.boot.kernelPackages.nvidiaPackages.beta;
 
-			prime = {nouveau
+			prime = {
 				reverseSync.enable = true;
 				offload.enable = true;
 				sync.enable = false;
