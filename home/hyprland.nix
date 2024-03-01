@@ -8,11 +8,16 @@
 		defaultTimeout = 3000;
 	};
 	programs = {
-    wofi.enable = true;
+    	wofi = {
+			enable = true;
+			settings = {
+				insensitive = true;
+			};
+		};
 		eww = {
     	enable = true;
     	configDir = ./eww;
-			package = pkgs.eww-wayland;
+			package = pkgs.eww;
   	};
 		swaylock = {
 			enable = true;
@@ -361,7 +366,7 @@
 				"$mod, Return, exec, kitty -1"
 				"$shiftMod, Q, killactive, 	i"
 				"$mod, Space,  togglefloating,"
-				"$mod, D,      exec, wofi --show drun -I"
+				"$mod, D,      exec, wofi --show drun -I -W 576 -H 270"
 
 				"$mod, L, exec, loginctl lock-session"
 
