@@ -79,8 +79,9 @@ in
 					lang = "en-US";
 				};
 				pdf-engine = "xelatex";
-				citeproc = true;
+				citeproc = false;
 			};
+			citationStyles = [ ./modern-language-association.csl ];
 		};
 		neovim = {
 			extraConfig = ''
