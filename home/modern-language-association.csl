@@ -335,6 +335,7 @@
           <text macro="container2-location"/>
         </group>
         <text macro="accessed"/>
+        <text variable="note"/>
       </group>
     </layout>
   </bibliography>
