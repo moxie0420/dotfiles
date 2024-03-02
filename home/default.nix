@@ -108,7 +108,7 @@ in
 			enable = true;
 			settings = {
 				preset = "transgender";
-    				mode = "rgb";
+    			mode = "rgb";
 				light_dark = "dark";
 				lightness = 0.75;
 				color_align = {
@@ -226,7 +226,6 @@ in
 		};
 	};
 	services = {
-		dunst.enable = false;
 		gpg-agent = {
 			enable = true;
 			enableSshSupport = true;
