@@ -79,8 +79,9 @@ in
 					lang = "en-US";
 				};
 				pdf-engine = "xelatex";
-				citeproc = true;
+				citeproc = false;
 			};
+			citationStyles = [ ./modern-language-association.csl ];
 		};
 		neovim = {
 			extraConfig = ''
@@ -107,7 +108,7 @@ in
 			enable = true;
 			settings = {
 				preset = "transgender";
-    				mode = "rgb";
+    			mode = "rgb";
 				light_dark = "dark";
 				lightness = 0.75;
 				color_align = {
@@ -225,7 +226,6 @@ in
 		};
 	};
 	services = {
-		dunst.enable = false;
 		gpg-agent = {
 			enable = true;
 			enableSshSupport = true;

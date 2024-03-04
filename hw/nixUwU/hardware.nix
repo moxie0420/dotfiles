@@ -15,7 +15,7 @@
 	powerManagement.cpuFreqGovernor = lib.mkDefault "performance";
 	powerManagement.enable = true;
 
-	services.xserver.videoDrivers = [ "intel" "nvidia" ];
+	services.xserver.videoDrivers = [ "nvidia" ];
 	hardware = {
   		enableAllFirmware = true;
   		cpu.intel.updateMicrocode = lib.mkDefault config.hardware.enableRedistributableFirmware;
