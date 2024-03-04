@@ -6,6 +6,15 @@
 		hardwareScan = true;
 		bootspec.enable = true;
 		
+		 boot.extraModulePackages = let 
+			nvidia-wmi-ec-backlight = pkgs.callPackage ../../pkgs/nvidia-wmi-sc.nix {
+				kernel = config.boot.kernelPackages.kernel;
+			};
+		in [
+			(nvidia-wmi-ec-backlight.overrideAttrs  {
+				patches = [../../pkgs/nvidia-patch.diff];
+			})
+		];
 		kernelModules = [ 
 			"kvm_amd"
 			"acpi_call"
