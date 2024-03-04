@@ -19,6 +19,7 @@
 		nerdfonts
 	];
 	services = {
+		xserver.displayManager.gdm.enable = false;
 		gvfs.enable = true;
 		tumbler.enable = true;
 		flatpak.enable = true;
