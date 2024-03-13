@@ -10,6 +10,7 @@
 				variant = "mocha";
 			}
 		)
+		vesktop
 	];
 	fonts.packages = with pkgs; [
 		noto-fonts

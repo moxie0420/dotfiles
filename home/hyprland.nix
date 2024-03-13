@@ -11,7 +11,21 @@
     	wofi = {
 			enable = true;
 			settings = {
-				insensitive = true;
+				width=600;
+				height=420;
+				location="center";
+				show="drun";
+				prompt="Search...";
+				filter_rate=100;
+				allow_markup=true;
+				no_actions=true;
+				halign="fill";
+				orientation="vertical";
+				content_halign="fill";
+				insensitive=true;
+				allow_images=true;
+				image_size=32;
+				gtk_dark=true;
 			};
 		};
 		eww = {
@@ -285,13 +299,19 @@
 		settings = {
 			env = [
 				"XCURSOR_SIZE,24"
+				"XDG_CURRENT_DESKTOP=Hyprland"
+				"XDG_SESSION_TYPE=wayland"
+				"XDG_SESSION_DESKTOP=Hyprland"
 			];
 			monitor = [
-				"DP-1,3840x2160@144,0x0,1"
+				"DP-1,3840x2160@120,0x0,1,bitdepth,10"
 				"HDMI-A-2,1360x768@60,-1360x0,1"
 				"eDP-1,1920x1080@165.009995,0x0,1"
 				",preferred,auto,1,mirror,eDP-1"
 			];
+			misc = {
+				vrr = 1;
+			};
 			input = {
 				kb_layout = "us";
 				follow_mouse = 1;
