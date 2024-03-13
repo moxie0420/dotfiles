@@ -9,8 +9,9 @@
 		./style.nix
 		./wireshark.nix
 		./yubikey.nix
+		./vm.nix
  	];
-
+	programs.adb.enable = true;
 	users.users.moxie = {
 		isNormalUser = true;
 		extraGroups = [ 
@@ -20,6 +21,7 @@
 			"pipewire"
 			"plugdev"
 			"wireshark"
+			"adbusers"
 		];
 		shell = pkgs.fish;
 	};

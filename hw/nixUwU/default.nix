@@ -8,16 +8,13 @@
       ../../common
   ];
   environment.sessionVariables = {
-		#__NV_PRIME_RENDER_OFFLOAD="1";
-		#__NV_PRIME_RENDER_OFFLOAD_PROVIDER="NVIDIA-G0";
 		LIBVA_DRIVER_NAME = "nvidia";
-		#XDG_SESSION_TYPE = "wayland";
 		GBM_BACKEND = "nvidia-drm";
 		__GLX_VENDOR_LIBRARY_NAME = "nvidia";
 		WLR_NO_HARDWARE_CURSORS = "1";
-		#__VK_LAYER_NV_optimus="NVIDIA_only";
     WLR_DRM_DEVICES = "/dev/dri/card0";
     WLR_RENDERER = "vulkan";
+    __GL_GSYNC_ALLOWED = "1";
   };
 
 	nix.settings = {
@@ -32,7 +29,10 @@
     ];
   };
 
-  nixpkgs.overlays = [ inputs.nixpkgs-wayland.overlay ];
+  nixpkgs = {
+    overlays = [ inputs.nixpkgs-wayland.overlay ];
+    config.permittedInsecurePackages = [ "nix-2.15.3" ];
+  };
 
 
   systemd.services = {

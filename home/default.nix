@@ -40,13 +40,18 @@ in
 			# for pandoc
 			texliveFull
 
-			vesktop
 			osu-lazer-bin
 
 			#(callPackage ../pkgs/ue5.nix {})
 			cmatrix
 			libreoffice-fresh
 			stress
+
+			(pkgs.discord.override {
+				# remove any overrides that you don't want
+				withOpenASAR = true;
+				withVencord = true;
+			})
 		];
 
 		stateVersion = "23.11";
