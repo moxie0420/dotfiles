@@ -1,6 +1,7 @@
 { config, pkgs, ... }:
 { 
-  boot = {
+	boot = {
+		boot.hardwareScan = true;
 		loader = {
 			timeout = 0;
 			systemd-boot = {
@@ -31,9 +32,9 @@
 			systemd.enable = true;
 		};
   		kernelModules = [ "kvm-intel" "v4l2loopback"];
-		extraModulePackages = with config.boot.kernelPackages; [
+		extraModulePackages = with pkgs.linuxKernel.packages; [
 			#callPackage ./ch340.nix {}; 
-			v4l2loopback
+			#linux_6_8.v4l2loopback
 		];
 		blacklistedKernelModules = [
 			#"nouveau"
@@ -48,10 +49,11 @@
 			"video=HDMI-A-2:1360x768@60D"
 			#"nouveau.config=NvGspRm=1"
 		];
-		kernelPackages = pkgs.linuxPackages_cachyos;
+		kernelPackages = pkgs.linuxPackages_latest;
 		kernel.sysctl = {
 			"vm.max_map_count" = 2147483642;
 		};
+		supportedFilesystems = [ "ntfs" ];
 	};
 	environment.systemPackages =  [ pkgs.scx ];
 }

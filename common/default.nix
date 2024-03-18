@@ -22,6 +22,7 @@
 			"plugdev"
 			"wireshark"
 			"adbusers"
+			"vboxusers"
 		];
 		shell = pkgs.fish;
 	};
