@@ -24,7 +24,6 @@ in
 		homeDirectory = "/home/moxie";
 
 		packages = with pkgs; [
-			rnix-lsp
 			fritzing
 			qbittorrent
 			heroic
@@ -151,6 +150,9 @@ in
 				ms-vscode.makefile-tools
 				ms-vscode.cpptools
 				bbenoist.nix
+
+				bradlc.vscode-tailwindcss
+				prisma.prisma
 			];
 			package = pkgs.vscode;
 			userSettings = {

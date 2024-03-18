@@ -299,9 +299,9 @@
 		settings = {
 			env = [
 				"XCURSOR_SIZE,24"
-				"XDG_CURRENT_DESKTOP=Hyprland"
-				"XDG_SESSION_TYPE=wayland"
-				"XDG_SESSION_DESKTOP=Hyprland"
+				"XDG_CURRENT_DESKTOP,Hyprland"
+				"XDG_SESSION_TYPE,wayland"
+				"XDG_SESSION_DESKTOP,Hyprland"
 			];
 			monitor = [
 				"DP-1,3840x2160@120,0x0,1,bitdepth,10"
@@ -330,6 +330,8 @@
 				border_size = 2;
 
 				layout = "dwindle";
+
+				allow_tearing = true;
 			};
 			decoration = {
 				rounding = 15;
@@ -369,6 +371,7 @@
 				"workspace 9 silent, class:(discord)"
 				"workspace 9 silent, class:(vesktop)"
 				"workspace 10 silent, title:(Spotify)"
+				#"immediate, class:(steam_app_1091500)"
 			];
 			workspace = [
 				"1,monitor:DP-1"
