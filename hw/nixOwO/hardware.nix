@@ -5,8 +5,8 @@
 		cpuFreqGovernor = "powersave";
 		powertop.enable = true;
 	};
-	services.xserver.videoDrivers = [ "amdgpu" /*"nvidia"*/ "nouveau" ];
-	chaotic.mesa-git.enable = true;
+	services.xserver.videoDrivers = [ "amdgpu" "nvidia" ];
+	chaotic.mesa-git.enable = false;
 	hardware = {
 		enableAllFirmware = true;
 		cpu.amd = {
@@ -36,7 +36,7 @@
 			};
 			powerManagement = {
 				enable = true;
-				finegrained = true;
+				finegrained = false;
 			};
 		};
 	};
