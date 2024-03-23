@@ -45,12 +45,6 @@ in
 			cmatrix
 			libreoffice-fresh
 			stress
-
-			(pkgs.discord.override {
-				# remove any overrides that you don't want
-				withOpenASAR = true;
-				withVencord = true;
-			})
 		];
 
 		stateVersion = "23.11";
@@ -285,6 +279,7 @@ in
 				"application/zip" = [ "org.gnome.FileRoller.desktop" ];
 				"application/7zip" = [ "org.gnome.FileRoller.desktop" ];
 				"application/rar" = [ "org.gnome.FileRoller.desktop" ];
+				"application/x-partial-download" = [ "org.gnome.FileRoller.desktop" ];
 			};
 			associations.added = {
 				"text/x-ms-regedit" = [ "wine-extension-txt.desktop" "nvim.desktop" ];

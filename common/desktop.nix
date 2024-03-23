@@ -4,12 +4,6 @@
 		grim
 		slurp
 		wl-clipboard
-		(pkgs.catppuccin-gtk.override
-			{
-				accents = [ "pink" ];
-				variant = "mocha";
-			}
-		)
 		vesktop
 	];
 	fonts.packages = with pkgs; [
@@ -25,20 +19,37 @@
 		tumbler.enable = true;
 		flatpak.enable = true;
 		udisks2.enable = true;
+
+		udev.extraRules = lib.mkIf (config.networking.hostName == "nixOwO") ''
+			SUBSYSTEMS=="usb|hidraw", ATTRS{idVendor}=="0b05", ATTRS{idProduct}=="18a3", TAG+="uaccess", TAG+="ASUS_Aura_Motherboard"
+		'';
 		hardware.openrgb = {
 			enable = true;
 			motherboard = if config.networking.hostName == "nixOwO" then "amd" else "intel";
 			package = pkgs.openrgb-with-all-plugins;
 		};
+
 		dbus = {
 			enable = true;
 			packages = with pkgs; [dconf];
 		};
+
+		# use aternate wm for regreet
+		greetd.settings.default_session.command = lib.mkForce "${pkgs.dbus}/bin/dbus-run-session ${lib.getExe pkgs.sway} --unsupported-gpu";
 	};
+	environment.etc."sway/config".text = ''
+		set $mod Mod1
+
+		output DP-1 resolution 3840x2160@120 position 0,0
+		output HDMI-A-2 resolution 1360x768@60 position -1360,0
+
+		exec systemctl --user import-environment
+		exec "${lib.getExe pkgs.greetd.regreet}; swaymsg exit"
+	'';
 	programs = {
 		regreet = {
 			enable = true;
-			cageArgs = [ "-s" "-m" "last" ];
+			#cageArgs = [ "-s" "-m" "last" ];
 			settings = {
 				background = {
 					path = "/etc/nixos/wallpapers/lain.jpg";

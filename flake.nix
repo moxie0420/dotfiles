@@ -44,7 +44,7 @@ description = "Moxie's nix config";
     nixpkgs, lanzaboote, hyprland,
     hypridle, hyprlock, hyprpaper,
     home-manager, spicetify-nix, chaotic,
-    stylix, disko, nixpkgs-wayland, xhmm, ... 
+    stylix, disko, xhmm, nixpkgs-wayland, ... 
     } @ inputs: let
       inherit (self) outputs;
     in {
