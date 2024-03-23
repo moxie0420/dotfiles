@@ -39,6 +39,7 @@
 		};
     	waybar = {
 			enable = true;
+			package = pkgs.waybar;
 			systemd = {
 				enable = true;
 				target = "hyprland-session.target";
@@ -82,7 +83,7 @@
 					output = [ "eDP-1" ];
 					modules-left = [ "hyprland/workspaces" ];
 					modules-center = [ "hyprland/window" ];
-					modules-right = [ "wireplumber" "memory" "cpu" "temperature" "backlight" "battery" "clock" "tray" ];
+					modules-right = [ /*"wireplumber"*/ "memory" "cpu" "temperature" "backlight" "battery" "clock" "tray" ];
 					"hyprland/workspaces" = { format = "{name}"; };
 					"hyprland/window" = {
 						format = " {title} ";
