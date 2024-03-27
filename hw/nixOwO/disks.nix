@@ -1,6 +1,7 @@
 { ...}:
 
 {
+	services.fstrim.enable = true;
 	fileSystems = {
 		"/" = {
 			device = "/dev/mapper/nixroot";
@@ -9,8 +10,6 @@
 			options = [
 				"defaults"
 				"noatime"
-				"data=journal"
-				"journal_async_commit"
 			];
 		};
 		"/boot" = {

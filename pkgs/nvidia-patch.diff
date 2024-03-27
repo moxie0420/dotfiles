@@ -1,5 +1,5 @@
 diff --git a/drivers/platform/x86/nvidia-wmi-ec-backlight.c b/drivers/platform/x86/nvidia-wmi-ec-backlight.c
-index 61e37194df70..95e1ddf780fc 100644
+index 1b572c9..eb556ca 100644
 --- a/drivers/platform/x86/nvidia-wmi-ec-backlight.c
 +++ b/drivers/platform/x86/nvidia-wmi-ec-backlight.c
 @@ -3,8 +3,12 @@
@@ -14,10 +14,10 @@ index 61e37194df70..95e1ddf780fc 100644
 +#include <linux/fixp-arith.h>
  #include <linux/mod_devicetable.h>
  #include <linux/module.h>
- #include <linux/types.h>
-@@ -75,6 +79,73 @@ struct wmi_brightness_args {
- 	u32 ignored[3];
- };
+ #include <linux/platform_data/x86/nvidia-wmi-ec-backlight.h>
+@@ -16,6 +20,73 @@ static bool force;
+ module_param(force, bool, 0444);
+ MODULE_PARM_DESC(force, "Force loading (disable acpi_backlight=xxx checks");
  
 +/**
 + * struct nvidia_wmi_ec_backlight_priv - driver private data
@@ -89,13 +89,13 @@ index 61e37194df70..95e1ddf780fc 100644
  /**
   * wmi_brightness_notify() - helper function for calling WMI-wrapped ACPI method
   * @w:    Pointer to the struct wmi_device identified by %WMI_BRIGHTNESS_GUID
-@@ -119,9 +190,30 @@ static int wmi_brightness_notify(struct wmi_device *w, enum wmi_brightness_metho
+@@ -60,9 +131,30 @@ static int wmi_brightness_notify(struct wmi_device *w, enum wmi_brightness_metho
  	return 0;
  }
  
 +/* Scale the current brightness level of 'from' to the range of 'to'. */
 +static int scale_backlight_level(const struct backlight_device *from,
-+				 const struct backlight_device *to)
++				const struct backlight_device *to)
 +{
 +	int from_max = from->props.max_brightness;
 +	int from_level = from->props.brightness;
@@ -119,8 +119,8 @@ index 61e37194df70..95e1ddf780fc 100644
 +	}
  
  	return wmi_brightness_notify(wdev, WMI_BRIGHTNESS_METHOD_LEVEL,
- 	                             WMI_BRIGHTNESS_MODE_SET,
-@@ -147,13 +239,78 @@ static const struct backlight_ops nvidia_wmi_ec_backlight_ops = {
+ 	                            WMI_BRIGHTNESS_MODE_SET,
+@@ -88,12 +180,78 @@ static const struct backlight_ops nvidia_wmi_ec_backlight_ops = {
  	.get_brightness = nvidia_wmi_ec_backlight_get_brightness,
  };
  
@@ -128,11 +128,11 @@ index 61e37194df70..95e1ddf780fc 100644
 +{
 +
 +	/*
-+	 * On some systems, the EC backlight level gets reset to 100% when
-+	 * resuming from suspend, but the backlight device state still reflects
-+	 * the pre-suspend value. Refresh the existing state to sync the EC's
-+	 * state back up with the kernel's.
-+	 */
++	* On some systems, the EC backlight level gets reset to 100% when
++	* resuming from suspend, but the backlight device state still reflects
++	* the pre-suspend value. Refresh the existing state to sync the EC's
++	* state back up with the kernel's.
++	*/
 +	if (event == PM_POST_SUSPEND) {
 +		struct nvidia_wmi_ec_backlight_priv *p;
 +		int ret;
@@ -162,13 +162,13 @@ index 61e37194df70..95e1ddf780fc 100644
 +	struct nvidia_wmi_ec_backlight_priv *priv;
  	struct backlight_properties props = {};
 -	struct backlight_device *bdev;
- 	u32 source;
++	u32 source;
  	int ret;
  
 +	/*
-+	 * Check quirks tables to see if this system needs any of the firmware
-+	 * bug workarounds.
-+	 */
++	* Check quirks tables to see if this system needs any of the firmware
++	* bug workarounds.
++	*/
 +	dmi_check_system(quirks_table);
 +
 +	if (backlight_proxy_target && backlight_proxy_target[0]) {
@@ -178,15 +178,15 @@ index 61e37194df70..95e1ddf780fc 100644
 +
 +		if (target) {
 +			ret = devm_add_action_or_reset(&wdev->dev, putdev,
-+						       &target->dev);
++						     &target->dev);
 +			if (ret)
 +				return ret;
 +		} else {
 +			/*
-+			 * The target backlight device might not be ready;
-+			 * try again and disable backlight proxying if it
-+			 * fails too many times.
-+			 */
++			* The target backlight device might not be ready;
++			* try again and disable backlight proxying if it
++			* fails too many times.
++			*/
 +			if (num_reprobe_attempts < max_reprobe_attempts) {
 +				num_reprobe_attempts++;
 +				return -EPROBE_DEFER;
@@ -197,13 +197,13 @@ index 61e37194df70..95e1ddf780fc 100644
 +		}
 +	}
 +
- 	ret = wmi_brightness_notify(wdev, WMI_BRIGHTNESS_METHOD_SOURCE,
- 	                           WMI_BRIGHTNESS_MODE_GET, &source);
- 	if (ret)
-@@ -188,7 +345,41 @@ static int nvidia_wmi_ec_backlight_probe(struct wmi_device *wdev, const void *ct
- 					      &wdev->dev, wdev,
- 					      &nvidia_wmi_ec_backlight_ops,
- 					      &props);
+ 	/* drivers/acpi/video_detect.c also checks that SOURCE == EC */
+ 	if (!force && acpi_video_get_backlight_type() != acpi_backlight_nvidia_wmi_ec)
+ 		return -ENODEV;
+@@ -120,7 +278,41 @@ static int nvidia_wmi_ec_backlight_probe(struct wmi_device *wdev, const void *ct
+ 					     &wdev->dev, wdev,
+ 					     &nvidia_wmi_ec_backlight_ops,
+ 					     &props);
 -	return PTR_ERR_OR_ZERO(bdev);
 +
 +	if (IS_ERR(bdev))
@@ -242,8 +242,8 @@ index 61e37194df70..95e1ddf780fc 100644
 +		unregister_pm_notifier(&priv->nb);
  }
  
- #define WMI_BRIGHTNESS_GUID "603E9613-EF25-4338-A3D0-C46177516DB7"
-@@ -204,6 +395,7 @@ static struct wmi_driver nvidia_wmi_ec_backlight_driver = {
+ static const struct wmi_device_id nvidia_wmi_ec_backlight_id_table[] = {
+@@ -134,6 +326,7 @@ static struct wmi_driver nvidia_wmi_ec_backlight_driver = {
  		.name = "nvidia-wmi-ec-backlight",
  	},
  	.probe = nvidia_wmi_ec_backlight_probe,
