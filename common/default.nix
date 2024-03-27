@@ -9,8 +9,9 @@
 		./style.nix
 		./wireshark.nix
 		./yubikey.nix
+		./vm.nix
  	];
-
+	programs.adb.enable = true;
 	users.users.moxie = {
 		isNormalUser = true;
 		extraGroups = [ 
@@ -20,6 +21,8 @@
 			"pipewire"
 			"plugdev"
 			"wireshark"
+			"adbusers"
+			"vboxusers"
 		];
 		shell = pkgs.fish;
 	};
@@ -30,8 +33,15 @@
 
 	nix = {
 		settings = {
-			substituters = ["https://hyprland.cachix.org"];
-			trusted-public-keys = ["hyprland.cachix.org-1:a7pgxzMz7+chwVL3/pzj6jIBMioiJM7ypFP8PwtkuGc="];
+			allowed-users = [
+				"@wheel"
+			];
+			substituters = [
+				"https://hyprland.cachix.org"
+			];
+			trusted-public-keys = [
+				"hyprland.cachix.org-1:a7pgxzMz7+chwVL3/pzj6jIBMioiJM7ypFP8PwtkuGc="
+			];
 
 			experimental-features = [ "nix-command" "flakes" ];
 		};

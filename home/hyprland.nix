@@ -11,7 +11,21 @@
     	wofi = {
 			enable = true;
 			settings = {
-				insensitive = true;
+				width=600;
+				height=420;
+				location="center";
+				show="drun";
+				prompt="Search...";
+				filter_rate=100;
+				allow_markup=true;
+				no_actions=true;
+				halign="fill";
+				orientation="vertical";
+				content_halign="fill";
+				insensitive=true;
+				allow_images=true;
+				image_size=32;
+				gtk_dark=true;
 			};
 		};
 		eww = {
@@ -25,6 +39,7 @@
 		};
     	waybar = {
 			enable = true;
+			package = pkgs.waybar;
 			systemd = {
 				enable = true;
 				target = "hyprland-session.target";
@@ -68,7 +83,7 @@
 					output = [ "eDP-1" ];
 					modules-left = [ "hyprland/workspaces" ];
 					modules-center = [ "hyprland/window" ];
-					modules-right = [ "wireplumber" "memory" "cpu" "temperature" "backlight" "battery" "clock" "tray" ];
+					modules-right = [ /*"wireplumber"*/ "memory" "cpu" "temperature" "backlight" "battery" "clock" "tray" ];
 					"hyprland/workspaces" = { format = "{name}"; };
 					"hyprland/window" = {
 						format = " {title} ";
@@ -285,13 +300,19 @@
 		settings = {
 			env = [
 				"XCURSOR_SIZE,24"
+				"XDG_CURRENT_DESKTOP,Hyprland"
+				"XDG_SESSION_TYPE,wayland"
+				"XDG_SESSION_DESKTOP,Hyprland"
 			];
 			monitor = [
-				"DP-1,3840x2160@144,0x0,1"
+				"DP-1,3840x2160@120,0x0,1,bitdepth,10"
 				"HDMI-A-2,1360x768@60,-1360x0,1"
 				"eDP-1,1920x1080@165.009995,0x0,1"
 				",preferred,auto,1,mirror,eDP-1"
 			];
+			misc = {
+				vrr = 1;
+			};
 			input = {
 				kb_layout = "us";
 				follow_mouse = 1;
@@ -310,6 +331,8 @@
 				border_size = 2;
 
 				layout = "dwindle";
+
+				allow_tearing = true;
 			};
 			decoration = {
 				rounding = 15;
@@ -349,6 +372,7 @@
 				"workspace 9 silent, class:(discord)"
 				"workspace 9 silent, class:(vesktop)"
 				"workspace 10 silent, title:(Spotify)"
+				#"immediate, class:(steam_app_1091500)"
 			];
 			workspace = [
 				"1,monitor:DP-1"

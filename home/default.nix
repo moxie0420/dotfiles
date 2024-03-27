@@ -24,7 +24,6 @@ in
 		homeDirectory = "/home/moxie";
 
 		packages = with pkgs; [
-			rnix-lsp
 			fritzing
 			qbittorrent
 			heroic
@@ -40,7 +39,6 @@ in
 			# for pandoc
 			texliveFull
 
-			vesktop
 			osu-lazer-bin
 
 			#(callPackage ../pkgs/ue5.nix {})
@@ -146,6 +144,9 @@ in
 				ms-vscode.makefile-tools
 				ms-vscode.cpptools
 				bbenoist.nix
+
+				bradlc.vscode-tailwindcss
+				prisma.prisma
 				prisma.prisma
 			];
 			package = pkgs.vscode;
@@ -278,6 +279,7 @@ in
 				"application/zip" = [ "org.gnome.FileRoller.desktop" ];
 				"application/7zip" = [ "org.gnome.FileRoller.desktop" ];
 				"application/rar" = [ "org.gnome.FileRoller.desktop" ];
+				"application/x-partial-download" = [ "org.gnome.FileRoller.desktop" ];
 			};
 			associations.added = {
 				"text/x-ms-regedit" = [ "wine-extension-txt.desktop" "nvim.desktop" ];
