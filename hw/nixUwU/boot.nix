@@ -1,6 +1,7 @@
 { config, pkgs, ... }:
 { 
-  boot = {
+	boot = {
+		hardwareScan = true;
 		loader = {
 			timeout = 0;
 			systemd-boot = {
@@ -22,7 +23,7 @@
 		};
 		initrd = {
 			availableKernelModules = [ "xhci_pci" "ahci" "nvme" "usb_storage" "usbhid" "uas" "sd_mod" ];
-  			kernelModules = [ "nouveau" "nvidia" "nvidia_modeset" "nvidia_uvm" "nvidia_drm" ];
+  			kernelModules = [ "nvidia" "nvidia_modeset" "nvidia_uvm" "nvidia_drm" ];
 			compressor = "zstd";
 			compressorArgs = [
 				"-19"
@@ -31,27 +32,26 @@
 			systemd.enable = true;
 		};
   		kernelModules = [ "kvm-intel" "v4l2loopback"];
-		extraModulePackages = with config.boot.kernelPackages; [
+		extraModulePackages = with pkgs.linuxKernel.packages; [
 			#callPackage ./ch340.nix {}; 
-			v4l2loopback
+			linux_6_8.v4l2loopback
 		];
 		blacklistedKernelModules = [
-			#"nouveau"
+			"nouveau"
 		];
 		kernelParams = [
-			"nvme_core.default_ps_max_latency_us=0" 
 			"nvidia-drm.fbdev=1"
 			"v4l2loopback.exclusive_caps=1"
 			"nvidia.NVreg_EnablePCIeGen3=1"
 			"nvidia.NVreg_UsePageAttributeTable=1"
 			"video=DP-1:3840x2160@144D"
-			"video=HDMI-A-2:1360x768@60D"
 			#"nouveau.config=NvGspRm=1"
 		];
-		kernelPackages = pkgs.linuxPackages_cachyos;
+		kernelPackages = pkgs.linuxPackages_6_8;
 		kernel.sysctl = {
 			"vm.max_map_count" = 2147483642;
 		};
+		supportedFilesystems = [ "ntfs" ];
 	};
 	environment.systemPackages =  [ pkgs.scx ];
 }

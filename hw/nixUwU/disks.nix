@@ -11,7 +11,7 @@
 			fsType = "vfat";
   		};
 		"/media/ryan-gosling" = {
-			device = "/dev/disk/by-uuid/4d89cb96-1b0c-4293-ba28-61994dec3095";
+			device = "/dev/disk/by-uuid/250dc6f8-6cf8-4dc1-ae12-9cd37f36f6fd";
 			fsType = "ext4";
 			options = [ "defaults" "noatime" ];
 		};
