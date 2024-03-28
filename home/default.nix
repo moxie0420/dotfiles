@@ -147,6 +147,7 @@ in
 
 				bradlc.vscode-tailwindcss
 				prisma.prisma
+				prisma.prisma
 			];
 			package = pkgs.vscode;
 			userSettings = {
@@ -174,7 +175,6 @@ in
 				"files.exclude" = {
 					"**/.git" = true;
     				"**/.DS_Store" = true;
-    				"**/.vscode" = true;
     				"**/__pycache__" = true;
     				"**/.pytest_cache" = true;
     				"**/node_modules" = true;
@@ -237,7 +237,7 @@ in
 		hypridle = {
 			enable = true;
 			lockCmd = "${inputs.hyprlock.packages.x86_64-linux.hyprlock}/bin/hyprlock";
-			unlockCmd = "pkill hyprlock";
+			unlockCmd = "pkill -USR1 hyprlock";
 			beforeSleepCmd = "${pkgs.systemd}/bin/loginctl lock-session";
 		};
 	};

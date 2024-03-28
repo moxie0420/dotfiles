@@ -6,6 +6,9 @@
 		hardwareScan = true;
 		bootspec.enable = true;
 		
+		extraModulePackages = [
+			config.boot.kernelPackages.acpi_call
+		];
 		kernelModules = [ 
 			"kvm_amd"
 			"acpi_call"
@@ -15,27 +18,24 @@
 			"debugfs=off"
 			"logo.nologo"
 			"fbcon=nodefer"
-			"amd_pstate=active"
 			"resume_offset=474218496"
-			"nvidia.NVreg_EnableBacklightHandler=1"
-			"nvidia.NVreg_UsePageAttributeTable=1"
-			"nvidia.NVreg_EnableStreamMemOPs=1"
-			"nvidia.NVreg_RegistryDwords=EnableBrightnessControl=1"
-			#"acpi_backlight=nvidia_wmi_ec"
 			"acpi_backlight=native"
-			"amdgpu.backlight=1"
 		];
 		blacklistedKernelModules = [ 
 			"nouveau"
+			"nvidia"
+			"nvidia_drm"
+			"nvidia_modeset"
 		];
+		extraModprobeConfig = ''
+			blacklist nouveau
+			options nouveau modeset=0
+		'';
 		
 		kernelPackages = lib.mkDefault pkgs.linuxPackages_latest;
 		kernel.sysctl = {
 			"kernel.kexec_load_disabled" = lib.mkDefault true;
 		};
-		extraModulePackages = with config.boot.kernelPackages; [ 
-			acpi_call
-		];
 
 		tmp.cleanOnBoot = true;
 		lanzaboote = {
