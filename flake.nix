@@ -38,13 +38,16 @@ description = "Moxie's nix config";
 
     # extra home-manager modules
     xhmm.url = "github:schuelermine/xhmm";
+
+    pnpm2nix.url = "github:nzbr/pnpm2nix-nzbr";
   };
 
   outputs = { self,
     nixpkgs, lanzaboote, hyprland,
     hypridle, hyprlock, hyprpaper,
     home-manager, spicetify-nix, chaotic,
-    stylix, disko, xhmm, nixpkgs-wayland, ... 
+    stylix, disko, xhmm, nixpkgs-wayland
+    , ... 
     } @ inputs: let
       inherit (self) outputs;
     in {
