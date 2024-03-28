@@ -4,7 +4,9 @@
 		grim
 		slurp
 		wl-clipboard
-		vesktop
+		#vesktop
+		(callPackage ../pkgs/vesktop {})
+		electron
 	];
 	fonts.packages = with pkgs; [
 		noto-fonts
@@ -19,6 +21,7 @@
 		tumbler.enable = true;
 		flatpak.enable = true;
 		udisks2.enable = true;
+		fwupd.enable = true;
 
 		udev.extraRules = lib.mkIf (config.networking.hostName == "nixOwO") ''
 			SUBSYSTEMS=="usb|hidraw", ATTRS{idVendor}=="0b05", ATTRS{idProduct}=="18a3", TAG+="uaccess", TAG+="ASUS_Aura_Motherboard"
