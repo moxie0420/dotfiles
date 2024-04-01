@@ -1,10 +1,13 @@
 { pkgs, inputs, lib, config, ... }:
 {
+	imports = [
+		./audio.nix
+	];
 	environment.systemPackages = with pkgs; [
 		grim
 		slurp
 		wl-clipboard
-		vesktop
+		callPackage ../../pkgs/vesktop {}
 	];
 	fonts.packages = with pkgs; [
 		noto-fonts

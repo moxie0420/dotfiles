@@ -1,15 +1,10 @@
 { pkgs, ... }:
 {
 	imports = [
-		./audio.nix
-		./desktop.nix
-		./steam.nix
-		./firefox.nix
+		./desktop
 		./polkit.nix
 		./style.nix
-		./wireshark.nix
-		./yubikey.nix
-		./vm.nix
+		./hardware
  	];
 	programs.adb.enable = true;
 	users.users.moxie = {
