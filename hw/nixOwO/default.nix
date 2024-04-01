@@ -9,8 +9,8 @@
 		./boot.nix
 		../../common
 		../../common/harden.nix
-		../../common/laptop.nix
-		../../common/wiki.nix
+		../../common/hardware/laptop.nix
+		../../common/desktop/applications/wiki.nix
 		./disks.nix
 		./hardware.nix
 		./network.nix
