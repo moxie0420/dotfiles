@@ -17,7 +17,7 @@
 , jq
 , moreutils
 , cacert
-, nodePackages_latest
+, nodePackages
 , speechd
 , withTTS ? true
 }:
@@ -28,14 +28,61 @@ stdenv.mkDerivation (finalAttrs: {
   src = fetchFromGitHub {
     owner = "Vencord";
     repo = "Vesktop";
-    rev = "v${finalAttrs.version}";
-    hash = "sha256-Ot2O5J1wUZAWgdpJNaEUSwtbcNqDdGhzuCtx8Qg+4gg=";
+    rev = "v1.5.1";
+    hash = "sha256-OyAGzlwwdEKBbJJ7h3glwx/THy2VvUn/kA/Df3arWQU=";
   };
-  
+
+  # NOTE: This requires pnpm 8.10.0 or newer
+  # https://github.com/pnpm/pnpm/pull/7214
+  pnpmDeps =
+    assert lib.versionAtLeast nodePackages.pnpm.version "8.10.0";
+    stdenvNoCC.mkDerivation {
+      pname = "${finalAttrs.pname}-pnpm-deps";
+      inherit (finalAttrs) src version patches ELECTRON_SKIP_BINARY_DOWNLOAD;
+
+      nativeBuildInputs = [
+        jq
+        moreutils
+        nodePackages.pnpm
+        cacert
+      ];
+
+      pnpmPatch = builtins.toJSON {
+        pnpm.supportedArchitectures = {
+          os = [ "linux" ];
+          cpu = [ "x64" "arm64" ];
+        };
+      };
+
+      postPatch = ''
+        mv package.json package.json.orig
+        jq --raw-output ". * $pnpmPatch" package.json.orig > package.json
+      '';
+
+      # https://github.com/NixOS/nixpkgs/blob/763e59ffedb5c25774387bf99bc725df5df82d10/pkgs/applications/misc/pot/default.nix#L56
+      installPhase = ''
+        export HOME=$(mktemp -d)
+
+        pnpm config set store-dir $out
+        pnpm install --frozen-lockfile --ignore-script
+
+        rm -rf $out/v3/tmp
+        for f in $(find $out -name "*.json"); do
+          sed -i -E -e 's/"checkedAt":[0-9]+,//g' $f
+          jq --sort-keys . $f | sponge $f
+        done
+      '';
+
+      dontBuild = true;
+      dontFixup = true;
+      outputHashMode = "recursive";
+      outputHash = "sha256-JLjJZYFMH4YoIFuyXbGUp6lIy+VlYZtmwk2+oUwtTxQ=";
+    };
+
   nativeBuildInputs = [
     copyDesktopItems
-    nodePackages_latest.pnpm
-    nodePackages_latest.nodejs
+    nodePackages.pnpm
+    nodePackages.nodejs
     makeWrapper
   ];
 
@@ -91,7 +138,7 @@ stdenv.mkDerivation (finalAttrs: {
         install -Dm0644 $file $out/share/icons/hicolor/''${file_suffix//x32.png}/apps/vencorddesktop.png
       done
 
-      makeWrapper ${electron}/bin/electron $out/bin/vencorddesktop \
+      makeWrapper ${electron}/bin/electron $out/bin/vesktop \
         --prefix LD_LIBRARY_PATH : ${libPath} \
         --add-flags $out/opt/Vesktop/resources/app.asar \
         ${lib.optionalString withTTS "--add-flags \"--enable-speech-dispatcher\""} \
@@ -102,9 +149,9 @@ stdenv.mkDerivation (finalAttrs: {
 
   desktopItems = [
     (makeDesktopItem {
-      name = "vencorddesktop";
+      name = "Vesktop";
       desktopName = "Vesktop";
-      exec = "vencorddesktop %U";
+      exec = "vesktop %U";
       icon = "vencorddesktop";
       startupWMClass = "VencordDesktop";
       genericName = "Internet Messenger";
@@ -112,6 +159,10 @@ stdenv.mkDerivation (finalAttrs: {
       categories = [ "Network" "InstantMessaging" "Chat" ];
     })
   ];
+
+  passthru = {
+    inherit (finalAttrs) pnpmDeps;
+  };
 
   meta = with lib; {
     description = "An alternate client for Discord with Vencord built-in";

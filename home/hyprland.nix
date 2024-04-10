@@ -1,4 +1,4 @@
-{ pkgs, ... }:
+{ pkgs, lib, ... }:
 {
 	services.mako = {
     	enable = true;
@@ -381,8 +381,8 @@
 				"4,monitor:DP-1"
 				"5,monitor:DP-1"
 				"6,monitor:DP-1"
-				"7,monitor:DP-1"
-				"8,monitor:DP-1"
+				"7,monitor:HDMI-A-2, gapsout:10"
+				"8,monitor:HDMI-A-2, gapsout:10"
 				"9,monitor:HDMI-A-2, gapsout:10"
 				"10,monitor:HDMI-A-2, gapsout:10"
 			];
