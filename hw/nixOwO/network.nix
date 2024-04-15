@@ -9,7 +9,7 @@
 			enable = true;
 			settings = {
 				general = {
-						EnableNetworkConfiguration = true;
+						EnableNetworkConfiguration = false;
 				};
 			};
 		};

@@ -7,7 +7,7 @@
 		grim
 		slurp
 		wl-clipboard
-		callPackage ../../pkgs/vesktop {}
+		(callPackage ../../pkgs/vesktop {})
 	];
 	fonts.packages = with pkgs; [
 		noto-fonts
