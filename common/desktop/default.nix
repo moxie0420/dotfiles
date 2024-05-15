@@ -1,27 +1,33 @@
-{ pkgs, inputs, lib, config, ... }:
 {
-	imports = [
-		./audio.nix
-	];
-	environment.systemPackages = with pkgs; [
-		grim
-		slurp
-		wl-clipboard
-		(callPackage ../../pkgs/vesktop {})
-	];
-	fonts.packages = with pkgs; [
-		noto-fonts
-		noto-fonts-cjk
-		noto-fonts-emoji
-		noto-fonts-extra
-		nerdfonts
-	];
-	services = {
-		xserver.displayManager.gdm.enable = false;
-		gvfs.enable = true;
-		tumbler.enable = true;
-		flatpak.enable = true;
-		udisks2.enable = true;
+  pkgs,
+  inputs,
+  lib,
+  config,
+  ...
+}: {
+  imports = [
+    ./audio.nix
+    ./applications
+  ];
+  environment.systemPackages = with pkgs; [
+    grim
+    slurp
+    wl-clipboard
+    (callPackage ../../pkgs/vesktop {})
+  ];
+  fonts.packages = with pkgs; [
+    noto-fonts
+    noto-fonts-cjk
+    noto-fonts-emoji
+    noto-fonts-extra
+    nerdfonts
+  ];
+  services = {
+    xserver.displayManager.gdm.enable = false;
+    gvfs.enable = true;
+    tumbler.enable = true;
+    flatpak.enable = true;
+    udisks2.enable = true;
 
     udev.extraRules = lib.mkIf (config.networking.hostName == "nixOwO") ''
       SUBSYSTEMS=="usb|hidraw", ATTRS{idVendor}=="0b05", ATTRS{idProduct}=="18a3", TAG+="uaccess", TAG+="ASUS_Aura_Motherboard"

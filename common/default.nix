@@ -1,26 +1,25 @@
-{ pkgs, ... }:
-{
-	imports = [
-		./desktop
-		./polkit.nix
-		./style.nix
-		./hardware
- 	];
-	programs.adb.enable = true;
-	users.users.moxie = {
-		isNormalUser = true;
-		extraGroups = [ 
-			"wheel"
-			"audio"
-			"video"
-			"pipewire"
-			"plugdev"
-			"wireshark"
-			"adbusers"
-			"vboxusers"
-		];
+{pkgs, ...}: {
+  imports = [
+    ./desktop
+    ./polkit.nix
+    ./style.nix
+    ./hardware
+  ];
+  programs.adb.enable = true;
+  users.users.moxie = {
+    isNormalUser = true;
+    extraGroups = [
+      "wheel"
+      "audio"
+      "video"
+      "pipewire"
+      "plugdev"
+      "wireshark"
+      "adbusers"
+      "docker"
+    ];
     shell = pkgs.nushellFull;
-	};
+  };
 
   time.timeZone = "America/Chicago";
 
@@ -32,7 +31,7 @@
         "@wheel"
       ];
       trusted-users = [
-	      "@wheel"
+        "@wheel"
       ];
       substituters = [
         "https://hyprland.cachix.org"

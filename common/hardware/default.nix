@@ -1,7 +1,6 @@
-{ ... }:
-{
-    imports = [
-        ./udisks.nix
-        ./yubikey.nix
-    ];
+{...}: {
+  imports = [
+    ./udisks.nix
+    ./yubikey.nix
+  ];
 }
