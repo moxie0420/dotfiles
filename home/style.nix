@@ -28,5 +28,6 @@
 			enable = true;
 			enableCenterBackColors = false;
 		};
+		targets.vscode.enable = false;
     };
 }
