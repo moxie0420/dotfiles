@@ -1,49 +1,48 @@
-{ config, lib, pkgs, ... }:
 {
+  config,
+  lib,
+  pkgs,
+  ...
+}: {
   nixpkgs = {
-		hostPlatform = lib.mkDefault "x86_64-linux";
-		config.allowUnfree = true;
-	};
+    hostPlatform = lib.mkDefault "x86_64-linux";
+    config.allowUnfree = true;
+  };
 
   systemd.targets = {
-		sleep.enable = true;
-		suspend.enable = true;
-		hibernate.enable = true;
-		hybrid-sleep.enable = true;
-	};
-  	
-	powerManagement.cpuFreqGovernor = lib.mkDefault "performance";
-	powerManagement.enable = true;
+    sleep.enable = true;
+    suspend.enable = true;
+    hibernate.enable = true;
+    hybrid-sleep.enable = true;
+  };
 
-	services.xserver.videoDrivers = [ "nvidia" ];
-	hardware = {
-  		enableAllFirmware = true;
-  		cpu.intel.updateMicrocode = lib.mkDefault config.hardware.enableRedistributableFirmware;
+  powerManagement = {
+    powertop.enable = true;
+    cpuFreqGovernor = lib.mkDefault "performance";
+    enable = false;
+  };
 
-  		opengl = {
-				enable = true;
-				driSupport = true;
-				driSupport32Bit = true;
-  		};
+  services.xserver.videoDrivers = ["nvidia"];
+  hardware = {
+    enableAllFirmware = true;
+    cpu.intel.updateMicrocode = lib.mkDefault config.hardware.enableRedistributableFirmware;
 
-  		nvidia = {
-				modesetting.enable = true;
-				open = true;
-				nvidiaSettings = true;
-				package = config.boot.kernelPackages.nvidiaPackages.beta;
-				prime = {
-					offload = {
-						enable = false;
-						enableOffloadCmd = true;
-					};
-					reverseSync.enable = true;
-					sync.enable = false;
+    opengl = {
+      enable = true;
+      driSupport = true;
+      driSupport32Bit = true;
+      extraPackages = with pkgs; [
+        nvidia-vaapi-driver
+      ];
+    };
 
-					intelBusId = "PCI:0:2:0";
-					nvidiaBusId = "PCI:1:0:0";
-				};
-  		};
-  		opentabletdriver.enable = true;
-	};
-	chaotic.mesa-git.enable = false;
+    nvidia = {
+      modesetting.enable = true;
+      open = false;
+      nvidiaSettings = true;
+      package = config.boot.kernelPackages.nvidiaPackages.beta;
+    };
+    opentabletdriver.enable = true;
+  };
+  chaotic.mesa-git.enable = false;
 }
