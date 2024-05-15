@@ -10,8 +10,7 @@ in {
   imports = [
     inputs.hyprland.homeManagerModules.default
     #inputs.hypridle.homeManagerModules.default
-    inputs.hyprlock.homeManagerModules.default
-    inputs.hyprpaper.homeManagerModules.default
+    #inputs.hyprlock.homeManagerModules.default
     inputs.spicetify-nix.homeManagerModules.default
     ./hyprland.nix
     ./style.nix
@@ -219,7 +218,8 @@ in {
       ];
     };
 
-    hyprlock = {
+    /*
+      hyprlock = {
       enable = true;
       backgrounds = [
         {
@@ -233,6 +233,7 @@ in {
         }
       ];
     };
+    */
   };
   services = {
     gpg-agent = {

@@ -11,15 +11,6 @@
       textColor = "#cdd6f4";
       defaultTimeout = 3000;
     };
-    hyprpaper = {
-      enable = true;
-      preloads = [
-        "/etc/nixos/wallpapers/lain.jpg"
-      ];
-      wallpapers = [
-        "DP-1,/etc/nixos/wallpapers/lain.jpg"
-      ];
-    };
   };
   programs = {
     wofi = {
