@@ -67,7 +67,7 @@
 			};
 		};
 		plymouth = {
-			enable = true;
+			enable = false;
 			themePackages = [ pkgs.catppuccin-plymouth ];
 		};
 		resumeDevice = "/dev/mapper/nixroot";
