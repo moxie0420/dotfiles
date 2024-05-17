@@ -40,6 +40,9 @@
     xhmm.url = "github:schuelermine/xhmm";
 
     pnpm2nix.url = "github:nzbr/pnpm2nix-nzbr";
+
+    nix-ld.url = "github:Mic92/nix-ld";
+    nix-ld.inputs.nixpkgs.follows = "nixpkgs";
   };
 
   outputs = {
@@ -57,6 +60,7 @@
     disko,
     xhmm,
     nixpkgs-wayland,
+    nix-ld,
     ...
   } @ inputs: let
     inherit (self) outputs;
@@ -71,6 +75,8 @@
           hyprland.nixosModules.default
           stylix.nixosModules.stylix
           chaotic.nixosModules.default
+          nix-ld.nixosModules.nix-ld
+          {programs.nix-ld.dev.enable = true;}
           home-manager.nixosModules.home-manager
           {
             home-manager.extraSpecialArgs = {inherit inputs outputs;};

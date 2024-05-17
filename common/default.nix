@@ -28,10 +28,11 @@
   nix = {
     settings = {
       allowed-users = [
+        "moxie"
         "@wheel"
       ];
       trusted-users = [
-        "@wheel"
+        "moxie"
       ];
       substituters = [
         "https://hyprland.cachix.org"
