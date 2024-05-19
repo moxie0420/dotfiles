@@ -8,14 +8,16 @@
       enable = true;
       remotePlay.openFirewall = true;
       gamescopeSession.enable = false;
+      localNetworkGameTransfers.openFirewall = true;
+      extest.enable = false;
     };
     gamescope = {
-      enable = false;
+      enable = true;
       capSysNice = true;
     };
     gamemode = {
-      enable = false;
-      enableRenice = false;
+      enable = true;
+      enableRenice = true;
     };
   };
   environment.systemPackages = with pkgs; [
@@ -23,6 +25,8 @@
     winetricks
     protontricks
     protonup-qt
+    steamcmd
+    steam-tui
   ];
   hardware.steam-hardware.enable = true;
 }

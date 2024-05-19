@@ -327,6 +327,7 @@
       ];
       misc = {
         vrr = 2;
+        force_default_wallpaper = 2;
       };
       input = {
         kb_layout = "us";
@@ -373,7 +374,7 @@
 
       bindm = [
         "$mod, mouse:272, movewindow"
-        "$mod, mouse:273, resizewindow"
+        "$shiftMod, mouse:272, resizewindow"
       ];
       windowrule = [
         "workspace 8, classs:(com.obsproject.Studio)"

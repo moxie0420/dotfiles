@@ -53,6 +53,9 @@
       "vm.max_map_count" = 2147483642;
       "kernel.sysrq" = 1;
     };
+    extraModprobeConfig = ''
+      options nvidia NVreg_RegistryDwords="PowerMizerEnable=0x1; PerfLevelSrc=0x2222; PowerMizerLevel=0x3; PowerMizerDefault=0x3; PowerMizerDefaultAC=0x3"
+    '';
     supportedFilesystems = ["ntfs"];
   };
   environment.systemPackages = [pkgs.scx];
