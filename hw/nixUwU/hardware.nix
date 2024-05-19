@@ -9,17 +9,10 @@
     config.allowUnfree = true;
   };
 
-  systemd.targets = {
-    sleep.enable = true;
-    suspend.enable = true;
-    hibernate.enable = true;
-    hybrid-sleep.enable = true;
-  };
-
   powerManagement = {
     powertop.enable = true;
     cpuFreqGovernor = lib.mkDefault "performance";
-    enable = false;
+    enable = true;
   };
 
   services.xserver.videoDrivers = ["nvidia"];
@@ -38,7 +31,7 @@
 
     nvidia = {
       modesetting.enable = true;
-      open = false;
+      open = true;
       nvidiaSettings = true;
       package = config.boot.kernelPackages.nvidiaPackages.beta;
     };
