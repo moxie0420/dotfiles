@@ -368,8 +368,6 @@
 
       "$mod" = "SUPER";
       "$shiftMod" = "SUPER_SHIFT";
-      "$mod" = "SUPER";
-      "$shiftMod" = "SUPER_SHIFT";
 
       bindm = [
         "$mod, mouse:272, movewindow"

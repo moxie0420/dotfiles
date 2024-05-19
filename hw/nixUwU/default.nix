@@ -30,8 +30,6 @@
     config.permittedInsecurePackages = ["nix-2.15.3"];
   };
 
-  virtualisation.docker.enable = true;
-
   systemd.services = {
     "nv-power-limit" = {
       enable = false;
