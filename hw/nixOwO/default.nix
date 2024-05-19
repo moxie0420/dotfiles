@@ -120,19 +120,6 @@
 		'';
 	};
 
-	users = {
-		defaultUserShell = pkgs.fish;
-		users.moxie = {
-			isNormalUser = true;
-			extraGroups = [
-				"wheel"
-				"plugdev"
-				"tss"
-			];
-			home = "/home/moxie";
-		};
-	};
-	
 	nix.settings = {
 		experimental-features = [ "nix-command" "flakes" ];
 	};

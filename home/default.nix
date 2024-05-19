@@ -188,6 +188,7 @@ in {
           "*.sublime-*" = true;
           "env*" = true;
         };
+        "circleci.hostUrl" = "";
       };
     };
     git = {

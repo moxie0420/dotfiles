@@ -6,9 +6,9 @@
 		powertop.enable = true;
 	};
 	services = {
+		libinput.enable = true;
 		xserver = {
 			videoDrivers = [ "amdgpu" "nvidia" ];
-			libinput.enable = true;
 		};
 		udev.extraRules = ''
 			 # Remove NVIDIA USB xHCI Host Controller devices, if present
