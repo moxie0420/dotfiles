@@ -24,7 +24,6 @@
 			serif = config.stylix.fonts.monospace;
     		sansSerif = config.stylix.fonts.monospace;
 		};
-		targets.vscode.enable = false;
 		targets.waybar = {
 			enable = true;
 			enableCenterBackColors = false;
