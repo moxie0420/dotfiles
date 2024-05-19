@@ -1,41 +1,41 @@
-{ lib
-, stdenv
-, stdenvNoCC
-, gcc13Stdenv
-, fetchFromGitHub
-, fetchpatch
-, substituteAll
-, makeWrapper
-, makeDesktopItem
-, copyDesktopItems
-, vencord
-, electron
-, pipewire
-, libpulseaudio
-, libicns
-, libnotify
-, jq
-, moreutils
-, cacert
-, nodePackages
-, speechd
-, withTTS ? true
+{
+  lib,
+  stdenv,
+  stdenvNoCC,
+  gcc13Stdenv,
+  fetchFromGitHub,
+  fetchpatch,
+  substituteAll,
+  makeWrapper,
+  makeDesktopItem,
+  copyDesktopItems,
+  vencord,
+  electron,
+  pipewire,
+  libpulseaudio,
+  libicns,
+  libnotify,
+  jq,
+  moreutils,
+  cacert,
+  nodePackages,
+  speechd,
+  withTTS ? true,
 }:
 stdenv.mkDerivation (finalAttrs: {
   pname = "vesktop";
-  version = "1.5.1";
+  version = "1.5.2";
 
   src = fetchFromGitHub {
     owner = "Vencord";
     repo = "Vesktop";
-    rev = "v1.5.1";
-    hash = "sha256-OyAGzlwwdEKBbJJ7h3glwx/THy2VvUn/kA/Df3arWQU=";
+    rev = "v1.5.2";
+    hash = "sha256-cZOyydwpIW9Xq716KVi1RGtSlgVnOP3w8vXDwouS70E=";
   };
 
   # NOTE: This requires pnpm 8.10.0 or newer
   # https://github.com/pnpm/pnpm/pull/7214
-  pnpmDeps =
-    assert lib.versionAtLeast nodePackages.pnpm.version "8.10.0";
+  pnpmDeps = assert lib.versionAtLeast nodePackages.pnpm.version "8.10.0";
     stdenvNoCC.mkDerivation {
       pname = "${finalAttrs.pname}-pnpm-deps";
       inherit (finalAttrs) src version patches ELECTRON_SKIP_BINARY_DOWNLOAD;
@@ -49,8 +49,8 @@ stdenv.mkDerivation (finalAttrs: {
 
       pnpmPatch = builtins.toJSON {
         pnpm.supportedArchitectures = {
-          os = [ "linux" ];
-          cpu = [ "x64" "arm64" ];
+          os = ["linux"];
+          cpu = ["x64" "arm64"];
         };
       };
 
@@ -76,7 +76,7 @@ stdenv.mkDerivation (finalAttrs: {
       dontBuild = true;
       dontFixup = true;
       outputHashMode = "recursive";
-      outputHash = "sha256-JLjJZYFMH4YoIFuyXbGUp6lIy+VlYZtmwk2+oUwtTxQ=";
+      outputHash = " sha256-6ezEBeYmK5va3gCh00YnJzZ77V/Ql7A3l/+csohkz68=";
     };
 
   nativeBuildInputs = [
@@ -87,7 +87,10 @@ stdenv.mkDerivation (finalAttrs: {
   ];
 
   patches = [
-    (substituteAll { inherit vencord; src = ./use_system_vencord.patch; })
+    (substituteAll {
+      inherit vencord;
+      src = ./use_system_vencord.patch;
+    })
   ];
 
   ELECTRON_SKIP_BINARY_DOWNLOAD = 1;
@@ -115,37 +118,36 @@ stdenv.mkDerivation (finalAttrs: {
 
   # this is consistent with other nixpkgs electron packages and upstream, as far as I am aware
   # yes, upstream really packages it as "vesktop" but uses "vencorddesktop" file names
-  installPhase =
-    let
-      # this is mainly required for venmic
-      libPath = lib.makeLibraryPath ([
+  installPhase = let
+    # this is mainly required for venmic
+    libPath = lib.makeLibraryPath ([
         libpulseaudio
         libnotify
         pipewire
         gcc13Stdenv.cc.cc.lib
-      ] ++ lib.optional withTTS speechd);
-    in
-    ''
-      runHook preInstall
+      ]
+      ++ lib.optional withTTS speechd);
+  in ''
+    runHook preInstall
 
-      mkdir -p $out/opt/Vesktop/resources
-      cp dist/linux-*unpacked/resources/app.asar $out/opt/Vesktop/resources
+    mkdir -p $out/opt/Vesktop/resources
+    cp dist/linux-*unpacked/resources/app.asar $out/opt/Vesktop/resources
 
-      pushd build
-      ${libicns}/bin/icns2png -x icon.icns
-      for file in icon_*x32.png; do
-        file_suffix=''${file//icon_}
-        install -Dm0644 $file $out/share/icons/hicolor/''${file_suffix//x32.png}/apps/vencorddesktop.png
-      done
+    pushd build
+    ${libicns}/bin/icns2png -x icon.icns
+    for file in icon_*x32.png; do
+      file_suffix=''${file//icon_}
+      install -Dm0644 $file $out/share/icons/hicolor/''${file_suffix//x32.png}/apps/vencorddesktop.png
+    done
 
-      makeWrapper ${electron}/bin/electron $out/bin/vesktop \
-        --prefix LD_LIBRARY_PATH : ${libPath} \
-        --add-flags $out/opt/Vesktop/resources/app.asar \
-        ${lib.optionalString withTTS "--add-flags \"--enable-speech-dispatcher\""} \
-        --add-flags "\''${NIXOS_OZONE_WL:+\''${WAYLAND_DISPLAY:+--ozone-platform-hint=auto --enable-features=WaylandWindowDecorations}}"
+    makeWrapper ${electron}/bin/electron $out/bin/vesktop \
+      --prefix LD_LIBRARY_PATH : ${libPath} \
+      --add-flags $out/opt/Vesktop/resources/app.asar \
+      ${lib.optionalString withTTS "--add-flags \"--enable-speech-dispatcher\""} \
+      --add-flags "\''${NIXOS_OZONE_WL:+\''${WAYLAND_DISPLAY:+--ozone-platform-hint=auto --enable-features=WaylandWindowDecorations}}"
 
-      runHook postInstall
-    '';
+    runHook postInstall
+  '';
 
   desktopItems = [
     (makeDesktopItem {
@@ -155,8 +157,8 @@ stdenv.mkDerivation (finalAttrs: {
       icon = "vencorddesktop";
       startupWMClass = "VencordDesktop";
       genericName = "Internet Messenger";
-      keywords = [ "discord" "vencord" "electron" "chat" ];
-      categories = [ "Network" "InstantMessaging" "Chat" ];
+      keywords = ["discord" "vencord" "electron" "chat"];
+      categories = ["Network" "InstantMessaging" "Chat"];
     })
   ];
 
@@ -168,8 +170,8 @@ stdenv.mkDerivation (finalAttrs: {
     description = "An alternate client for Discord with Vencord built-in";
     homepage = "https://github.com/Vencord/Vesktop";
     license = licenses.gpl3Only;
-    maintainers = with maintainers; [ getchoo Scrumplex vgskye pluiedev ];
-    platforms = [ "x86_64-linux" "aarch64-linux" ];
+    maintainers = with maintainers; [getchoo Scrumplex vgskye pluiedev];
+    platforms = ["x86_64-linux" "aarch64-linux"];
     mainProgram = "vencorddesktop";
   };
 })

@@ -3,14 +3,12 @@
   lib,
   ...
 }: {
-  services = {
-    mako = {
-      enable = true;
-      anchor = "bottom-right";
-      borderRadius = 15;
-      textColor = "#cdd6f4";
-      defaultTimeout = 3000;
-    };
+  services.mako = {
+    enable = true;
+    anchor = "bottom-right";
+    borderRadius = 15;
+    textColor = "#cdd6f4";
+    defaultTimeout = 3000;
   };
   programs = {
     wofi = {
@@ -39,7 +37,7 @@
       package = pkgs.eww;
     };
     swaylock = {
-      enable = true;
+      enable = false;
       package = pkgs.swaylock-effects;
     };
     waybar = {
