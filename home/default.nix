@@ -35,7 +35,9 @@ in {
       heroic
       r2modman
       lutris
-      prismlauncher
+      (prismlauncher.overrideAttrs {
+        withWaylandGLFW = true;
+      })
 
       yubikey-manager
       pavucontrol
