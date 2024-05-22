@@ -189,6 +189,7 @@ in {
           "env*" = true;
         };
         "circleci.hostUrl" = "";
+        "telemetry.enableTelemetry" = false;
       };
     };
     git = {
