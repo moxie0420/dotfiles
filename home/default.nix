@@ -165,7 +165,6 @@ in {
         "git.terminalAuthentication" = true;
         "workbench.colorTheme" = lib.mkForce "Catppuccin Mocha";
         "workbench.iconTheme" = "catppuccin-mocha";
-        "telemetry.enableTelemetry" = false;
         "search.exclude" = {
           "**/node_modules" = true;
           "**/bower_components" = true;
@@ -191,7 +190,6 @@ in {
           "env*" = true;
         };
         "circleci.hostUrl" = "";
-        "telemetry.enableTelemetry" = false;
       };
     };
     git = {
