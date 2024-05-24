@@ -1,6 +1,7 @@
 {inputs, ...}: {
   imports = [
     ./boot.nix
+    ./bt.nix
     ./disks.nix
     ./hardware.nix
     ./network.nix
