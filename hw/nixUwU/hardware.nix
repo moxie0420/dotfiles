@@ -16,6 +16,7 @@
   };
 
   services.xserver.videoDrivers = ["nvidia"];
+
   hardware = {
     enableAllFirmware = true;
     cpu.intel.updateMicrocode = lib.mkDefault config.hardware.enableRedistributableFirmware;

@@ -29,7 +29,7 @@
       kernelModules = ["kvm-intel"];
       systemd.enable = true;
     };
-    kernelModules = [];
+    kernelModules = ["coretemp" "nct6775"];
     extraModulePackages = with pkgs.linuxKernel.packages; [
       #callPackage ./ch340.nix {};
       linux_testing.v4l2loopback
