@@ -7,7 +7,16 @@
     steam = {
       enable = true;
       remotePlay.openFirewall = true;
-      gamescopeSession.enable = false;
+      gamescopeSession = {
+        enable = false;
+        args = ["-e -f"];
+        env = {
+          SCREEN_HEIGHT = "2160";
+          SCREEN_WIDTH = "3840";
+
+          CLIENTCMD = "steam -steamos -pipewire-dmabuf";
+        };
+      };
       localNetworkGameTransfers.openFirewall = true;
       extest.enable = false;
     };
@@ -16,7 +25,7 @@
       capSysNice = true;
     };
     gamemode = {
-      enable = true;
+      enable = false;
       enableRenice = true;
     };
   };

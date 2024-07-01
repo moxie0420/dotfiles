@@ -18,7 +18,7 @@
       "adbusers"
       "docker"
     ];
-    shell = pkgs.nushellFull;
+    shell = pkgs.nushell;
   };
 
   time.timeZone = "America/Chicago";
