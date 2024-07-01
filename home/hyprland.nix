@@ -320,7 +320,7 @@
         "XDG_SESSION_DESKTOP,Hyprland"
       ];
       monitor = [
-        "DP-1,3840x2160@144,0x0,1,vrr,2"
+        "DP-1,3840x2160@98,0x0,1,vrr,2,bitdepth,10"
         "eDP-1,1920x1080@165.009995,0x0,1"
         #",preferred,auto,1,mirror,eDP-1"
       ];

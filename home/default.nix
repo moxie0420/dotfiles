@@ -9,9 +9,8 @@
 in {
   imports = [
     inputs.hyprland.homeManagerModules.default
-    #inputs.hypridle.homeManagerModules.default
-    #inputs.hyprlock.homeManagerModules.default
     inputs.spicetify-nix.homeManagerModules.default
+    ./obs.nix
     ./hyprland.nix
     ./style.nix
     ./thunderbird.nix
@@ -54,12 +53,16 @@ in {
 
       devenv
       coder
+
+      unityhub
     ];
 
     stateVersion = "23.11";
   };
   programs = {
-    home-manager.enable = true;
+    home-manager = {
+      enable = true;
+    };
     feh.enable = true;
 
     # terminal config
@@ -72,7 +75,7 @@ in {
     };
     nushell = {
       enable = true;
-      package = pkgs.nushellFull;
+      package = pkgs.nushell;
       envFile.text = ''
         zoxide init nushell | save -f ~/.zoxide.nu
       '';
@@ -141,14 +144,6 @@ in {
         pride_month_shown = [];
         pride_month_disable = false;
       };
-    };
-
-    # obs
-    obs-studio = {
-      enable = true;
-      plugins = with pkgs.obs-studio-plugins; [
-        wlrobs
-      ];
     };
 
     # coding stuff
