@@ -1,8 +1,4 @@
-{
-  pkgs,
-  lib,
-  ...
-}: {
+{pkgs, ...}: {
   services.mako = {
     enable = true;
     anchor = "bottom-right";

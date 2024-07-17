@@ -58,5 +58,5 @@
     '';
     supportedFilesystems = ["ntfs"];
   };
-  chaotic.scx.enable = true;
+  chaotic.scx.enable = false;
 }
