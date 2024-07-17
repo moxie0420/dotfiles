@@ -50,23 +50,17 @@
     nixpkgs,
     lanzaboote,
     hyprland,
-    hypridle,
-    hyprlock,
-    hyprpaper,
     home-manager,
     spicetify-nix,
     chaotic,
     stylix,
-    disko,
     xhmm,
-    nixpkgs-wayland,
-    nix-ld,
     ...
   } @ inputs: let
     inherit (self) outputs;
   in {
     nixosConfigurations = {
-      # home desktop
+      # desktop
       nixUwU = nixpkgs.lib.nixosSystem {
         specialArgs = {inherit inputs;};
         system = "x86_64-linux";
@@ -75,8 +69,6 @@
           hyprland.nixosModules.default
           stylix.nixosModules.stylix
           chaotic.nixosModules.default
-          nix-ld.nixosModules.nix-ld
-          {programs.nix-ld.dev.enable = true;}
           home-manager.nixosModules.home-manager
           {
             home-manager.extraSpecialArgs = {inherit inputs outputs;};
@@ -88,7 +80,7 @@
         ];
       };
 
-      # school laptop
+      # laptop
       nixOwO = nixpkgs.lib.nixosSystem {
         specialArgs = {inherit inputs;};
         system = "x86_64-linux";
@@ -104,15 +96,6 @@
             home-manager.useUserPackages = true;
             home-manager.users.moxie = import ./home;
           }
-        ];
-      };
-
-      "jbod" = nixpkgs.lib.nixosSystem {
-        specialArgs = {inherit inputs;};
-        system = "x86_64-linux";
-        modules = [
-          ./hw/jbod
-          disko.nixosModules.disko
         ];
       };
     };

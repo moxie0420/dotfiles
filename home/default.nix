@@ -1,5 +1,4 @@
 {
-  config,
   pkgs,
   inputs,
   lib,
@@ -10,7 +9,6 @@ in {
   imports = [
     inputs.hyprland.homeManagerModules.default
     inputs.spicetify-nix.homeManagerModules.default
-    ./obs.nix
     ./hyprland.nix
     ./style.nix
     ./thunderbird.nix
@@ -44,15 +42,12 @@ in {
       # for pandoc
       texliveFull
 
-      osu-lazer-bin
-
       #(callPackage ../pkgs/ue5.nix {})
       cmatrix
       libreoffice-fresh
       reaper
 
       devenv
-      coder
 
       unityhub
     ];
@@ -65,9 +60,21 @@ in {
     };
     feh.enable = true;
 
+    obs-studio = {
+      enable = true;
+      plugins = with pkgs.obs-studio-plugins; [
+        wlrobs
+        input-overlay
+        obs-vkcapture
+        obs-multi-rtmp
+        obs-rgb-levels-filter
+        obs-gradient-source
+      ];
+    };
+
     # terminal config
     fish = {
-      enable = true;
+      enable = false;
       shellInit = ''
         export XDG_DATA_HOME="$HOME/.local/share"
         zoxide init fish  --cmd cd | source
@@ -149,43 +156,7 @@ in {
     # coding stuff
     vscode = {
       enable = true;
-      enableExtensionUpdateCheck = true;
-      enableUpdateCheck = false;
-      mutableExtensionsDir = lib.mkForce true;
       package = pkgs.vscode;
-      userSettings = {
-        "window.titleBarStyle" = "custom";
-        "git.enableSmartCommit" = true;
-        "git.confirmSync" = false;
-        "git.terminalAuthentication" = true;
-        "workbench.colorTheme" = lib.mkForce "Catppuccin Mocha";
-        "workbench.iconTheme" = "catppuccin-mocha";
-        "search.exclude" = {
-          "**/node_modules" = true;
-          "**/bower_components" = true;
-          "**/env" = true;
-          "**/venv" = true;
-        };
-        "files.watcherExclude" = {
-          "**/.git/objects/**" = true;
-          "**/.git/subtree-cache/**" = true;
-          "**/node_modules/**" = true;
-          "**/env/**" = true;
-          "**/venv/**" = true;
-          "env-*" = true;
-        };
-        "files.exclude" = {
-          "**/.git" = true;
-          "**/.DS_Store" = true;
-          "**/__pycache__" = true;
-          "**/.pytest_cache" = true;
-          "**/node_modules" = true;
-          "venv" = true;
-          "*.sublime-*" = true;
-          "env*" = true;
-        };
-        "circleci.hostUrl" = "";
-      };
     };
     git = {
       enable = true;
@@ -213,23 +184,6 @@ in {
         hidePodcasts
       ];
     };
-
-    /*
-      hyprlock = {
-      enable = true;
-      backgrounds = [
-        {
-          monitor = "eDP-1";
-          path = "/etc/nixos/wallpapers/lain.png";
-        }
-      ];
-      input-fields = [
-        {
-          monitor = "eDP-1";
-        }
-      ];
-    };
-    */
   };
   services = {
     gpg-agent = {
@@ -239,12 +193,6 @@ in {
         "C02F30F9FD65E05531A321C8491E3EFE1C0C7383"
       ];
     };
-    #hypridle = {
-    #  enable = true;
-    #  lockCmd = "${inputs.hyprlock.packages.x86_64-linux.hyprlock}/bin/hyprlock";
-    #  unlockCmd = "pkill -USR1 hyprlock";
-    #  beforeSleepCmd = "${pkgs.systemd}/bin/loginctl lock-session";
-    #};
   };
   xdg = {
     enable = true;
