@@ -24,7 +24,10 @@
   time.timeZone = "America/Chicago";
 
   programs.direnv.enable = true;
-  virtualisation.docker.enable = true;
+  virtualisation.docker = {
+    enable = true;
+    liveRestore = false;
+  };
 
   nix = {
     settings = {
