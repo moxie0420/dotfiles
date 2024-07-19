@@ -25,24 +25,13 @@
     };
 
     # spotify themeing
-    spicetify-nix.url = "github:the-argus/spicetify-nix";
-
-    # nix themeing
-    stylix.url = "github:danth/stylix";
-
-    #declareative disk partitioning
-    disko = {
-      url = "github:nix-community/disko";
+    spicetify-nix = {
+      url = "github:Gerg-L/spicetify-nix";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    # extra home-manager modules
-    xhmm.url = "github:schuelermine/xhmm";
-
-    pnpm2nix.url = "github:nzbr/pnpm2nix-nzbr";
-
-    nix-ld.url = "github:Mic92/nix-ld";
-    nix-ld.inputs.nixpkgs.follows = "nixpkgs";
+    # nix themeing
+    stylix.url = "github:danth/stylix";
   };
 
   outputs = {
@@ -54,7 +43,6 @@
     spicetify-nix,
     chaotic,
     stylix,
-    xhmm,
     ...
   } @ inputs: let
     inherit (self) outputs;

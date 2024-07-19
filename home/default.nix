@@ -4,7 +4,7 @@
   lib,
   ...
 }: let
-  spicePkgs = inputs.spicetify-nix.packages.${pkgs.system}.default;
+  spicePkgs = inputs.spicetify-nix.legacyPackages.${pkgs.system};
 in {
   imports = [
     inputs.hyprland.homeManagerModules.default
@@ -182,6 +182,12 @@ in {
         fullAppDisplay
         shuffle # shuffle+ (special characters are sanitized out of ext names)
         hidePodcasts
+
+        # Community extensions
+        groupSession
+        fullAlbumDate
+        hidePodcasts
+        volumePercentage
       ];
     };
   };

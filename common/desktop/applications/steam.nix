@@ -6,6 +6,7 @@
   programs = {
     steam = {
       enable = true;
+      protontricks.enable = true;
       remotePlay.openFirewall = true;
       gamescopeSession = {
         enable = false;
@@ -19,6 +20,13 @@
       };
       localNetworkGameTransfers.openFirewall = true;
       extest.enable = false;
+      package = pkgs.steam.override {
+        extraEnv = {
+          OBS_VKCAPTURE = true;
+          PROTON_HIDE_NVIDIA_GPU = false;
+          PROTON_ENABLE_NVAPI = true;
+        };
+      };
     };
     gamescope = {
       enable = true;
@@ -34,8 +42,6 @@
     winetricks
     protontricks
     protonup-qt
-    steamcmd
-    steam-tui
   ];
   hardware.steam-hardware.enable = true;
 }

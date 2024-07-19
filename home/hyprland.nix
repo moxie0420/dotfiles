@@ -28,7 +28,7 @@
       };
     };
     eww = {
-      enable = true;
+      enable = false;
       configDir = ./eww;
       package = pkgs.eww;
     };
