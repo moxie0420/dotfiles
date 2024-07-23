@@ -46,7 +46,7 @@
       settings = [
         {
           layer = "top";
-          output = ["DP-1"];
+          output = ["DP-1" "HDMI-A-1"];
           modules-left = ["hyprland/workspaces"];
           modules-center = ["hyprland/window"];
           modules-right = ["memory" "disk" "cpu" "temperature" "clock" "tray"];
@@ -127,31 +127,6 @@
             icon-size = 21;
             show-passive-items = true;
             spacing = 8;
-          };
-        }
-        {
-          layer = "top";
-          output = ["HDMI-A-2"];
-          modules-left = ["hyprland/workspaces"];
-          modules-center = ["hyprland/window"];
-          modules-right = ["memory" "cpu" "temperature" "clock" "tray"];
-          "hyprland/workspaces" = {format = "{name}";};
-          "hyprland/window" = {
-            format = "{title}";
-            max-length = 50;
-            rewrite = {
-              "(.*) — Mozilla Firefox" = "🌎 $1";
-              "vim (.*)" = " $1";
-              "sudo vim (.*)" = " $1";
-            };
-          };
-          "memory" = {format = "RAM: {percentage}%";};
-          "disk" = {format = "{percentage_free}% remaining on /";};
-          "cpu" = {format = "CPU: {usage}%";};
-          "tray" = {
-            icon-size = 21;
-            show-passive-items = true;
-            spacing = 5;
           };
         }
       ];
@@ -317,11 +292,11 @@
       ];
       monitor = [
         "DP-1,3840x2160@98,0x0,1,vrr,2,bitdepth,10"
+        "HDMI-A-1,1920x1080@60,auto-up,auto"
         "eDP-1,1920x1080@165.009995,0x0,1"
         #",preferred,auto,1,mirror,eDP-1"
       ];
       misc = {
-        vrr = 2;
         force_default_wallpaper = 2;
       };
       input = {
@@ -378,12 +353,13 @@
         "workspace 2, class:(code-url-handler)"
         "workspace 3 silent, class:(steam)"
         "workspace 3 silent, class:(lutris)"
-        "workspace 9 silent, class:(discord)"
         "workspace 9 silent, class:(vesktop)"
         "workspace 10 silent, title:(Spotify)"
-        #"immediate, class:(steam_app_1091500)"
       ];
       workspace = [
+        "8, monitor:HDMI-A-1"
+        "9, monitor:HDMI-A-1"
+        "10, monitor:HDMI-A-1"
       ];
       bind =
         [
