@@ -7,7 +7,6 @@
   spicePkgs = inputs.spicetify-nix.legacyPackages.${pkgs.system};
 in {
   imports = [
-    inputs.hyprland.homeManagerModules.default
     inputs.spicetify-nix.homeManagerModules.default
     ./hyprland.nix
     ./style.nix
