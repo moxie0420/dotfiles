@@ -15,6 +15,7 @@
     #WLR_DRM_DEVICES = "/dev/dri/card1";
     __GL_GSYNC_ALLOWED = "1";
     NVD_BACKEND = "direct";
+    NIXOS_OZONE_WL = 1;
   };
 
   nix.settings = {
