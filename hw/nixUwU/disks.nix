@@ -14,10 +14,16 @@
       fsType = "ext4";
       options = ["defaults" "noatime"];
     };
-    "/media/zoomer" = {
-      device = "/dev/disk/by-uuid/d033e2a3-fb9c-4d5b-813b-93296b3b9b90";
-      fsType = "ext4";
-      options = ["defaults" "noatime"];
+    "/media/The_Store" = {
+      label = "The Store";
+      device = "/dev/disk/by-uuid/bc5ec750-0252-4151-9c43-1a9a23e92803";
+      fsType = "btrfs";
+      options = ["nofail" "compress=zstd"];
+    };
+    "/media/steam" = {
+      device = "/dev/disk/by-uuid/2e12ea4b-e269-4b6e-b592-e4954ba694e7";
+      fsType = "f2fs";
+      options = ["noatime"];
     };
   };
   swapDevices = [

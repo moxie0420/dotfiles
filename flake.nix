@@ -5,12 +5,6 @@
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
     chaotic.url = "github:chaotic-cx/nyx/nyxpkgs-unstable";
 
-    # Hyprland and utils
-    hyprland.url = "git+https://github.com/hyprwm/Hyprland?submodules=1";
-    hyprpaper.url = "github:hyprwm/hyprpaper";
-    hyprlock.url = "github:hyprwm/hyprlock";
-    hypridle.url = "github:hyprwm/hypridle";
-
     nixpkgs-wayland.url = "github:nix-community/nixpkgs-wayland";
 
     # user config
@@ -32,17 +26,19 @@
 
     # nix themeing
     stylix.url = "github:danth/stylix";
+
+    musnix.url = "github:musnix/musnix";
   };
 
   outputs = {
     self,
     nixpkgs,
     lanzaboote,
-    hyprland,
     home-manager,
     spicetify-nix,
     chaotic,
     stylix,
+    musnix,
     ...
   } @ inputs: let
     inherit (self) outputs;
@@ -54,9 +50,9 @@
         system = "x86_64-linux";
         modules = [
           ./hw/nixUwU
-          hyprland.nixosModules.default
           stylix.nixosModules.stylix
           chaotic.nixosModules.default
+          musnix.nixosModules.musnix
           home-manager.nixosModules.home-manager
           {
             home-manager.extraSpecialArgs = {inherit inputs outputs;};
