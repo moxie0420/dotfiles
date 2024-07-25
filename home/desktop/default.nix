@@ -11,6 +11,12 @@
 
   xdg = {
     enable = true;
+    dataFile = {
+      "icons/rose-pine-hyprcursor" = {
+        recursive = true;
+        source = ./files/rose-pine-hyprcursor;
+      };
+    };
     desktopEntries = {
       feh = {
         name = "Feh";
