@@ -1,7 +1,13 @@
-{...}: {
+{pkgs, ...}: {
   imports = [
     ./hyprland.nix
   ];
+
+  home = {
+    packages = with pkgs; [
+      nwg-look
+    ];
+  };
 
   dconf = {
     enable = true;
@@ -15,6 +21,34 @@
       "icons/rose-pine-hyprcursor" = {
         recursive = true;
         source = ./files/rose-pine-hyprcursor;
+      };
+      "icons/rose-pine" = {
+        recursive = true;
+        source = ./files/rose-pine;
+      };
+      "icons/default" = {
+        recursive = true;
+        source = ./files/rose-pine;
+      };
+    };
+    configFile = {
+      "gtk-2.0/settings.ini" = {
+        text = ''
+          [Settings]
+          gtk-cursor-theme-name=rose-pine
+        '';
+      };
+      "gtk-3.0/settings.ini" = {
+        text = ''
+          [Settings]
+          gtk-cursor-theme-name=rose-pine
+        '';
+      };
+      "gtk-4.0/settings.ini" = {
+        text = ''
+          [Settings]
+          gtk-cursor-theme-name=rose-pine
+        '';
       };
     };
     desktopEntries = {
