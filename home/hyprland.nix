@@ -289,6 +289,7 @@
         "XDG_CURRENT_DESKTOP,Hyprland"
         "XDG_SESSION_TYPE,wayland"
         "XDG_SESSION_DESKTOP,Hyprland"
+        "ELECTRON_OZONE_PLATFORM_HINT,auto"
       ];
       monitor = [
         "DP-1,3840x2160@98,0x0,1,vrr,2,bitdepth,10"

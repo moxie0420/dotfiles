@@ -10,7 +10,7 @@ in {
     inputs.spicetify-nix.homeManagerModules.default
     ./hyprland.nix
     ./style.nix
-    ./thunderbird.nix
+    ./applications
   ];
 
   dconf = {
@@ -35,11 +35,7 @@ in {
         withWaylandGLFW = true;
       })
 
-      yubikey-manager
       pavucontrol
-
-      # for pandoc
-      texliveFull
 
       #(callPackage ../pkgs/ue5.nix {})
       cmatrix
@@ -54,9 +50,7 @@ in {
     stateVersion = "23.11";
   };
   programs = {
-    home-manager = {
-      enable = true;
-    };
+    home-manager.enable = true;
     feh.enable = true;
 
     obs-studio = {
@@ -97,31 +91,6 @@ in {
       };
     };
     zoxide.enable = true;
-
-    # school
-    pandoc = {
-      enable = true;
-      defaults = {
-        metadata = {
-          author = "Moxie Benavides";
-          lang = "en-US";
-        };
-        pdf-engine = "xelatex";
-        citeproc = false;
-      };
-      citationStyles = [./modern-language-association.csl];
-    };
-    neovim = {
-      extraConfig = ''
-        set tabstop=4
-        set softtabstop=0 noexpandtab
-        set shiftwidth=4
-      '';
-      plugins = with pkgs.vimPlugins; [
-        vim-pandoc
-        vim-pandoc-syntax
-      ];
-    };
 
     # show off stuff
     bottom.enable = true;
