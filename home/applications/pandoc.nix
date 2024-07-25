@@ -3,7 +3,7 @@
     texliveFull
   ];
 
-  pandoc = {
+  programs.pandoc = {
     enable = true;
     defaults = {
       metadata = {
