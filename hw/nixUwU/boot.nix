@@ -30,9 +30,9 @@
       systemd.enable = true;
     };
     kernelModules = ["coretemp" "nct6775"];
-    extraModulePackages = with pkgs.linuxKernel.packages; [
+    extraModulePackages = with config.boot.kernelPackages; [
       #callPackage ./ch340.nix {};
-      linux_testing.v4l2loopback
+      v4l2loopback
     ];
     blacklistedKernelModules = [
       "nouveau"
@@ -48,7 +48,7 @@
       #"nouveau.config=NvGspRm=1"
       "kernel.sysrq=1"
     ];
-    kernelPackages = pkgs.linuxPackages_testing;
+    kernelPackages = pkgs.linuxPackages_cachyos;
     kernel.sysctl = {
       "vm.max_map_count" = 2147483642;
       "kernel.sysrq" = 1;
@@ -58,5 +58,5 @@
     '';
     supportedFilesystems = ["ntfs"];
   };
-  environment.systemPackages = [pkgs.scx];
+  chaotic.scx.enable = false;
 }

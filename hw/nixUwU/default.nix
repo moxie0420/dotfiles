@@ -1,4 +1,4 @@
-{inputs, ...}: {
+{...}: {
   imports = [
     ./boot.nix
     ./bt.nix
@@ -11,19 +11,18 @@
     LIBVA_DRIVER_NAME = "nvidia";
     GBM_BACKEND = "nvidia-drm";
     __GLX_VENDOR_LIBRARY_NAME = "nvidia";
-    WLR_NO_HARDWARE_CURSORS = "1";
-    WLR_DRM_DEVICES = "/dev/dri/card1";
+    #WLR_NO_HARDWARE_CURSORS = "1";
+    #WLR_DRM_DEVICES = "/dev/dri/card1";
     __GL_GSYNC_ALLOWED = "1";
     NVD_BACKEND = "direct";
+    NIXOS_OZONE_WL = 1;
   };
 
   nix.settings = {
     # add binary caches
     trusted-public-keys = [
-      "nixpkgs-wayland.cachix.org-1:3lwxaILxMRkVhehr5StQprHdEo4IrE8sRho9R9HOLYA="
     ];
     substituters = [
-      "https://nixpkgs-wayland.cachix.org"
     ];
   };
 
@@ -31,16 +30,10 @@
     config.permittedInsecurePackages = ["nix-2.15.3"];
   };
 
-  systemd.services = {
-    "nv-power-limit" = {
-      enable = false;
-      description = "set nvidia gpu power to max";
-      script = ''
-        /run/current-system/sw/bin/nvidia-smi -pm ENABLED
-        /run/current-system/sw/bin/nvidia-smi -pl 269
-      '';
-      wantedBy = ["multi-user.target"];
-    };
+  programs.coolercontrol = {
+    enable = true;
+    nvidiaSupport = true;
   };
+
   system.stateVersion = "23.05";
 }

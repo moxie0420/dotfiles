@@ -5,12 +5,6 @@
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
     chaotic.url = "github:chaotic-cx/nyx/nyxpkgs-unstable";
 
-    # Hyprland and utils
-    hyprland.url = "git+https://github.com/hyprwm/Hyprland?submodules=1";
-    hyprpaper.url = "github:hyprwm/hyprpaper";
-    hyprlock.url = "github:hyprwm/hyprlock";
-    hypridle.url = "github:hyprwm/hypridle";
-
     nixpkgs-wayland.url = "github:nix-community/nixpkgs-wayland";
 
     # user config
@@ -25,69 +19,52 @@
     };
 
     # spotify themeing
-    spicetify-nix.url = "github:the-argus/spicetify-nix";
+    spicetify-nix = {
+      url = "github:Gerg-L/spicetify-nix";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
 
     # nix themeing
     stylix.url = "github:danth/stylix";
 
-    #declareative disk partitioning
-    disko = {
-      url = "github:nix-community/disko";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-
-    # extra home-manager modules
-    xhmm.url = "github:schuelermine/xhmm";
-
-    pnpm2nix.url = "github:nzbr/pnpm2nix-nzbr";
-
-    nix-ld.url = "github:Mic92/nix-ld";
-    nix-ld.inputs.nixpkgs.follows = "nixpkgs";
+    musnix.url = "github:musnix/musnix";
   };
 
   outputs = {
     self,
     nixpkgs,
     lanzaboote,
-    hyprland,
-    hypridle,
-    hyprlock,
-    hyprpaper,
     home-manager,
     spicetify-nix,
     chaotic,
     stylix,
-    disko,
-    xhmm,
-    nixpkgs-wayland,
-    nix-ld,
+    musnix,
     ...
   } @ inputs: let
     inherit (self) outputs;
   in {
     nixosConfigurations = {
-      # home desktop
+      # desktop
       nixUwU = nixpkgs.lib.nixosSystem {
         specialArgs = {inherit inputs;};
         system = "x86_64-linux";
         modules = [
           ./hw/nixUwU
-          hyprland.nixosModules.default
           stylix.nixosModules.stylix
           chaotic.nixosModules.default
-          nix-ld.nixosModules.nix-ld
-          {programs.nix-ld.dev.enable = true;}
+          musnix.nixosModules.musnix
           home-manager.nixosModules.home-manager
           {
             home-manager.extraSpecialArgs = {inherit inputs outputs;};
             home-manager.useGlobalPkgs = true;
             home-manager.useUserPackages = true;
             home-manager.users.moxie = import ./home;
+            home-manager.backupFileExtension = "bak";
           }
         ];
       };
 
-      # school laptop
+      # laptop
       nixOwO = nixpkgs.lib.nixosSystem {
         specialArgs = {inherit inputs;};
         system = "x86_64-linux";
@@ -104,15 +81,6 @@
             home-manager.backupFileExtension = "bak";
             home-manager.users.moxie = import ./home;
           }
-        ];
-      };
-
-      "jbod" = nixpkgs.lib.nixosSystem {
-        specialArgs = {inherit inputs;};
-        system = "x86_64-linux";
-        modules = [
-          ./hw/jbod
-          disko.nixosModules.disko
         ];
       };
     };
