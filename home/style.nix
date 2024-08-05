@@ -7,8 +7,6 @@
     base16Scheme = "${pkgs.base16-schemes}/share/themes/catppuccin-mocha.yaml";
     polarity = "dark";
 
-    image = ../wallpapers/lain.jpg;
-
     cursor = {
       package = pkgs.catppuccin-cursors.mochaPink;
       name = "Catppuccin-Mocha-Pink-Cursors";
