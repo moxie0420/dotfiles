@@ -1,13 +1,12 @@
-{  ... }:
-{
-    programs.thunderbird = {
-        enable = true;
+{...}: {
+  programs.thunderbird = {
+    enable = true;
 
-        profiles = {
-            moxie = {
-                isDefault = true;
-                withExternalGnupg = true;
-            };
-        };
+    profiles = {
+      moxie = {
+        isDefault = true;
+        withExternalGnupg = true;
+      };
     };
+  };
 }
