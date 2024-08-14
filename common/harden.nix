@@ -40,7 +40,7 @@ with lib; {
         login.u2fAuth = true;
         sudo.u2fAuth = true;
         swaylock.u2fAuth = true;
-        hyprlock.u2fAuth = true;
+        hyprlock = {};
       };
     };
     tpm2 = {
@@ -53,8 +53,6 @@ with lib; {
     kernel.sysctl = {
       # Hide kptrs even for processes with CAP_SYSLOG
       "kernel.kptr_restrict" = mkOverride 500 2;
-      # Disable bpf() JIT (to eliminate spray attacks)
-      "net.core.bpf_jit_enable" = mkDefault false;
       # Disable ftrace debugging
       "kernel.ftrace_enabled" = mkDefault false;
       # Enable strict reverse path filtering (that is, do not attempt to route
@@ -100,7 +98,7 @@ with lib; {
       "erofs"
       "exofs"
       "freevxfs"
-      "f2fs"
+
       "hfs"
       "hpfs"
       "jfs"

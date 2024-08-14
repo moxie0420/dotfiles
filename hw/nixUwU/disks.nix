@@ -1,4 +1,7 @@
 {...}: {
+  systemd.tmpfiles.rules = [
+    "d /media/The_Store 0770 moxie users -"
+  ];
   fileSystems = {
     "/" = {
       device = "/dev/disk/by-uuid/c0de85f9-7225-44d9-a30f-4d039b73968d";
@@ -15,15 +18,14 @@
       options = ["defaults" "noatime"];
     };
     "/media/The_Store" = {
-      label = "The Store";
-      device = "/dev/disk/by-uuid/bc5ec750-0252-4151-9c43-1a9a23e92803";
+      device = "/dev/sda";
       fsType = "btrfs";
-      options = ["nofail" "compress=zstd"];
+      options = ["defaults" "nofail" "compress=zstd" "noatime"];
     };
     "/media/steam" = {
       device = "/dev/disk/by-uuid/2e12ea4b-e269-4b6e-b592-e4954ba694e7";
       fsType = "f2fs";
-      options = ["noatime"];
+      options = ["defaults" "noatime"];
     };
   };
   swapDevices = [

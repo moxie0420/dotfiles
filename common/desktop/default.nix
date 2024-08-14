@@ -14,6 +14,7 @@
     slurp
     wl-clipboard
     vesktop
+    nixd
   ];
   fonts.packages = with pkgs; [
     noto-fonts
