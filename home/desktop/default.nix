@@ -1,6 +1,7 @@
 {pkgs, ...}: {
   imports = [
     ./hyprland.nix
+    ./lockscreen.nix
   ];
 
   home = {

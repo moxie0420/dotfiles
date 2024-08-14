@@ -2,6 +2,7 @@
   imports = [
     ./waybar.nix
   ];
+
   services.mako = {
     enable = true;
     anchor = "bottom-right";
@@ -55,6 +56,9 @@
         "eDP-1,1920x1080@165.009995,0x0,1"
         #",preferred,auto,1,mirror,eDP-1"
       ];
+      cursor = {
+        default_monitor = "DP-1";
+      };
       misc = {
         force_default_wallpaper = 2;
       };
@@ -82,7 +86,6 @@
       decoration = {
         rounding = 15;
         drop_shadow = true;
-        #blur_new_optimizations = true;
       };
       dwindle = {
         pseudotile = true;
@@ -92,6 +95,7 @@
       ];
       exec-once = [
         "${pkgs.openrgb-with-all-plugins}/bin/openrgb -p /home/moxie/.config/OpenRGB/default.orp"
+        "${pkgs.clipse}/bin/clipse -listen"
         "gpg-agent --daemon"
         "[silent] vesktop"
         "[silent] spotify"
@@ -113,6 +117,8 @@
         "workspace 3 silent, class:(lutris)"
         "workspace 9 silent, class:(vesktop)"
         "workspace 10 silent, title:(Spotify)"
+        "float, class:(clipse)"
+        "size 622 652, class:(clipse)"
       ];
       workspace = [
         "8, monitor:HDMI-A-1"
@@ -135,6 +141,8 @@
           "$mod, right, movefocus, r"
           "$mod, up, 	  movefocus, u"
           "$mod, down,  movefocus, d"
+
+          "$mod, P, exec, ${pkgs.kitty}/bin/kitty --class clipse -e ${pkgs.clipse}/bin/clipse"
 
           "$mod, Print, exec, grim -g \"$(${pkgs.slurp}/bin/slurp)\" -t png -o $(xdg-user-dir PICTURES)/$(date +'%s_grim.png')"
 

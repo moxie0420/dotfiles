@@ -6,6 +6,7 @@
     ./hardware.nix
     ./network.nix
     ../../common
+    ../../common/harden.nix
   ];
   environment.sessionVariables = {
     LIBVA_DRIVER_NAME = "nvidia";
@@ -25,6 +26,8 @@
     substituters = [
     ];
   };
+
+  hardware.keyboard.qmk.enable = true;
 
   nixpkgs = {
     config.permittedInsecurePackages = ["nix-2.15.3"];
