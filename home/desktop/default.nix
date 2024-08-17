@@ -7,15 +7,9 @@
   home = {
     packages = with pkgs; [
       nwg-look
+      nautilus
     ];
   };
-
-  dconf = {
-    enable = true;
-    settings = {
-    };
-  };
-
   xdg = {
     enable = true;
     dataFile = {

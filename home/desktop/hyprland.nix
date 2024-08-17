@@ -18,30 +18,25 @@
       systemdTarget = "hyprland-session.target";
     };
   };
-  programs = {
-    wofi = {
-      enable = true;
-      settings = {
-        width = 600;
-        height = 420;
-        location = "center";
-        show = "drun";
-        prompt = "Search...";
-        filter_rate = 100;
-        allow_markup = true;
-        no_actions = true;
-        halign = "fill";
-        orientation = "vertical";
-        content_halign = "fill";
-        insensitive = true;
-        allow_images = true;
-        image_size = 32;
-        gtk_dark = true;
-      };
-    };
-    swaylock = {
-      enable = false;
-      package = pkgs.swaylock-effects;
+
+  programs.wofi = {
+    enable = true;
+    settings = {
+      width = 600;
+      height = 420;
+      location = "center";
+      show = "drun";
+      prompt = "Search...";
+      filter_rate = 100;
+      allow_markup = true;
+      no_actions = true;
+      halign = "fill";
+      orientation = "vertical";
+      content_halign = "fill";
+      insensitive = true;
+      allow_images = true;
+      image_size = 32;
+      gtk_dark = true;
     };
   };
 
@@ -110,15 +105,12 @@
         "gpg-agent --daemon"
         "[silent] vesktop"
         "[silent] spotify"
+        "[workspace SPECIAL silent] kitty"
       ];
 
       "$mod" = "SUPER";
       "$shiftMod" = "SUPER_SHIFT";
 
-      bindm = [
-        "$mod, mouse:272, movewindow"
-        "$shiftMod, mouse:272, resizewindow"
-      ];
       windowrule = [
         "workspace 8, classs:(com.obsproject.Studio)"
       ];
@@ -136,38 +128,48 @@
         "9, monitor:HDMI-A-1"
         "10, monitor:HDMI-A-1"
       ];
+      bindel = [
+        ",XF86AudioRaiseVolume, exec, ${pkgs.wireplumber}/bin/wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%+"
+        ",XF86AudioLowerVolume, exec, ${pkgs.wireplumber}/bin/wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%-"
+      ];
+      bindl = [
+        ",switch:Lid Switch, exec, loginctl lock-session"
+        ",XF86AudioMute, exec, ${pkgs.wireplumber}/bin/wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle"
+        ",XF86AudioPlay, exec, ${pkgs.playerctl}/bin/playerctl play-pause"
+        ",XF86AudioStop, exec, ${pkgs.playerctl}/bin/playerctl stop"
+        ",XF86AudioNext, exec, ${pkgs.playerctl}/bin/playerctl next"
+        ",XF86AudioPrev, exec, ${pkgs.playerctl}/bin/playerctl previous"
+      ];
+      bindm = [
+        "$mod, mouse:272, movewindow"
+        "$shiftMod, mouse:272, resizewindow"
+      ];
+      "$terminal" = "${pkgs.kitty}/bin/kitty -1";
       bind =
         [
-          "$mod, Return, exec, kitty -1"
+          "$mod, Return, exec, $terminal"
           "$shiftMod, Q, killactive, 	i"
           "$mod, Space,  togglefloating,"
           "$mod, D,      exec, wofi --show drun -I -W 576 -H 270"
 
           "$mod, L, exec, loginctl lock-session"
 
-          "$mod, F,      fullscreen"
-          "$shiftMod, F, fakefullscreen"
+          "$mod, F, fullscreen"
+          "$shiftMod, F, fullscreenstate"
 
           "$mod, left,  movefocus, l"
           "$mod, right, movefocus, r"
           "$mod, up, 	  movefocus, u"
           "$mod, down,  movefocus, d"
 
+          "$shiftMod, Left,  moveactive, left,  visible"
+          "$shiftMod, Right, moveactive, right, visible"
+          "$shiftMod, Up,    moveactive, up,    visible"
+          "$shiftMod, Down,  moveactive, down,  visible"
+
+          "$mod,Plus,togglespecialworkspace, SPECIAL"
+
           "$mod, Print, exec, grim -g \"$(${pkgs.slurp}/bin/slurp)\" -t png -o $(xdg-user-dir PICTURES)/$(date +'%s_grim.png')"
-
-          "$shiftMod, Left,  movewindow, left,  visible"
-          "$shiftMod, Right, movewindow, right, visible"
-          "$shiftMod, Up,    movewindow, up,    visible"
-          "$shiftMod, Down,  movewindow, down,  visible"
-
-          ",XF86AudioRaiseVolume, exec, ${pkgs.wireplumber}/bin/wpctl set-volume 53 5%+"
-          ",XF86AudioLowerVolume, exec, ${pkgs.wireplumber}/bin/wpctl set-volume 53 5%-"
-          ",XF86AudioMute, exec, ${pkgs.wireplumber}/bin/wpctl set-mute 53 toggle"
-          ",XF86AudioMicMute, exec, ${pkgs.wireplumber}/bin/wpctl set-mute 54 toggle"
-          ",XF86AudioPlay, exec, ${pkgs.playerctl}/bin/playerctl play-pause"
-          ",XF86AudioStop, exec, ${pkgs.playerctl}/bin/playerctl stop"
-          ",XF86AudioNext, exec, ${pkgs.playerctl}/bin/playerctl next"
-          ",XF86AudioPrev, exec, ${pkgs.playerctl}/bin/playerctl previous"
         ]
         ++ (
           # workspaces

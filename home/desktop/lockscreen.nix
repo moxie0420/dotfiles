@@ -10,6 +10,7 @@
       };
       background = [
         {
+          monitor = "";
           path = "screenshot";
           blur_passes = 3;
           blur_size = 8;
@@ -37,12 +38,32 @@
     settings = {
       general = {
         lock_cmd = "pidof ${pkgs.hyprlock}/bin/hyprlock || ${pkgs.hyprlock}/bin/hyprlock ";
-        before_sleep_cmd = "loginctl lock-session";
+        before_sleep_cmd = "${pkgs.systemd}/bin/loginctl lock-session";
+        after_sleep_cmd = "${pkgs.hyprland}/bin/hyprctl dispatch dpms on";
       };
       listener = [
         {
-          timeout = 300;
-          on-timeout = "loginctl lock-session";
+          timeout = 60;
+          on-timeout = "${pkgs.brightnessctl}/bin/brightnessctl -s set 10";
+          on-resume = "${pkgs.brightnessctl}/bin/brightnessctl - r";
+        }
+        {
+          timeout = 60;
+          on-timeout = "openrgb -d 0 -c 000000";
+          on-resume = "openrgb -d 0 -p /home/moxie/.config/OpenRGB/default.orp";
+        }
+        {
+          timeout = 120;
+          on-timeout = "${pkgs.systemd}/bin/loginctl lock-session";
+        }
+        {
+          timeout = 150;
+          on-timeout = "${pkgs.hyprland}/bin/hyprctl dispatch dpms off";
+          on-resume = "${pkgs.hyprland}/bin/hyprctl dispatch dpms on";
+        }
+        {
+          timeout = 180;
+          on-timeout = "systemctl suspend";
         }
       ];
     };
