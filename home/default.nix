@@ -39,9 +39,7 @@
   };
 
   programs = {
-    home-manager = {
-      enable = true;
-    };
+    home-manager.enable = true;
     feh.enable = true;
 
     obs-studio = {

@@ -8,19 +8,18 @@
   boot = {
     hardwareScan = true;
     bootspec.enable = true;
-
-    extraModulePackages = [
-      config.boot.kernelPackages.acpi_call
-    ];
     kernelModules = [
       "kvm_amd"
-      "acpi_call"
     ];
     kernelParams = [
+      "quiet"
+      "splash"
+      "boot.shell_on_fail"
+      "loglevel=3"
+      "rd.systemd.show_status=false"
+      "rd.udev.log_level=3"
+      "udev.log_priority=3"
       "rootflags=noatime"
-      "debugfs=off"
-      "logo.nologo"
-      "fbcon=nodefer"
       "resume_offset=474218496"
       "acpi_backlight=native"
     ];
@@ -51,7 +50,6 @@
       systemd-boot = {
         editor = false;
         configurationLimit = 5;
-        memtest86.enable = false;
       };
     };
     initrd = {
@@ -71,7 +69,6 @@
     };
     plymouth = {
       enable = true;
-      themePackages = [pkgs.catppuccin-plymouth];
     };
     resumeDevice = "/dev/mapper/nixroot";
     enableContainers = true;
@@ -80,24 +77,14 @@
     fwupd = {
       enable = true;
     };
-    logind = {
-      lidSwitch = "suspend";
-      extraConfig = ''
-        HandlePowerKey=hibernate
-        HandlePowerKeyLongPress=shutdown
-        NAutoVTs=2
-      '';
-    };
-  };
-  systemd = {
-    extraConfig = ''
-      HibernateDelaySec=10m
+    logind.extraConfig = ''
+      HandlePowerKey=shutdown
     '';
-    tmpfiles.settings = {
-      "hibernate file" = {
-        "/sys/power/image_size" = {
-          w.argument = "64";
-        };
+  };
+  systemd.tmpfiles.settings = {
+    "hibernate file" = {
+      "/sys/power/image_size" = {
+        w.argument = "64";
       };
     };
   };
