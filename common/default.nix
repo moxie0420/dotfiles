@@ -1,10 +1,29 @@
-{pkgs, ...}: {
+{
+  pkgs,
+  lib,
+  ...
+}: {
   imports = [
     ./desktop
     ./polkit.nix
     ./style.nix
     ./hardware
+    ./harden.nix
   ];
+  environment = {
+    systemPackages = with pkgs; [
+      sbctl
+      brightnessctl
+    ];
+  };
+  documentation = {
+    enable = true;
+    man = {
+      enable = true;
+      generateCaches = true;
+    };
+    dev.enable = true;
+  };
   programs.adb.enable = true;
   users.users.moxie = {
     isNormalUser = true;
@@ -22,13 +41,20 @@
   };
 
   time.timeZone = "America/Chicago";
+  i18n.defaultLocale = "en_US.UTF-8";
+  console = {
+    enable = false;
+    earlySetup = false;
+    keyMap = lib.mkDefault "us";
+    useXkbConfig = true; # use xkbOptions in tty.
+  };
 
-  programs.direnv.enable = true;
   virtualisation.docker = {
     enable = true;
     liveRestore = false;
   };
 
+  nixpkgs.config.allowUnfree = true;
   nix = {
     settings = {
       allowed-users = [
@@ -38,13 +64,6 @@
       trusted-users = [
         "moxie"
       ];
-      substituters = [
-        "https://hyprland.cachix.org"
-      ];
-      trusted-public-keys = [
-        "hyprland.cachix.org-1:a7pgxzMz7+chwVL3/pzj6jIBMioiJM7ypFP8PwtkuGc="
-      ];
-
       experimental-features = ["nix-command" "flakes"];
     };
     gc = {

@@ -5,9 +5,4 @@
     pulse.enable = true;
     systemWide = true;
   };
-  musnix = {
-    enable = true;
-    rtcqs.enable = true;
-    das_watchdog.enable = true;
-  };
 }

@@ -15,6 +15,12 @@
     wl-clipboard
     vesktop
     nixd
+    (pkgs.catppuccin-sddm.override
+      {
+        flavor = "mocha";
+        font = "Noto Sans";
+        fontSize = "9";
+      })
   ];
   fonts.packages = with pkgs; [
     noto-fonts
@@ -23,16 +29,26 @@
     noto-fonts-extra
     nerdfonts
   ];
+
   services = {
-    xserver.displayManager.gdm.enable = false;
+    printing.enable = true;
     gvfs.enable = true;
     tumbler.enable = true;
+    thermald.enable = true;
     flatpak.enable = true;
-    udisks2.enable = true;
+    fstrim.enable = true;
+    dbus.packages = with pkgs; [dconf];
 
-    udev.extraRules = lib.mkIf (config.networking.hostName == "nixOwO") ''
-      SUBSYSTEMS=="usb|hidraw", ATTRS{idVendor}=="0b05", ATTRS{idProduct}=="18a3", TAG+="uaccess", TAG+="ASUS_Aura_Motherboard"
-    '';
+    udisks2 = {
+      enable = true;
+      mountOnMedia = true;
+    };
+    displayManager.sddm = {
+      enable = true;
+      theme = "catppuccin-mocha";
+      package = pkgs.kdePackages.sddm;
+      wayland.enable = true;
+    };
     hardware.openrgb = {
       enable = true;
       motherboard =
@@ -41,55 +57,16 @@
         else "intel";
       package = pkgs.openrgb-with-all-plugins;
     };
-
-    dbus = {
-      enable = true;
-      packages = with pkgs; [dconf];
-    };
   };
   programs = {
-    regreet = {
-      enable = true;
-      cageArgs = ["-s" "-m" "last"];
-      settings = {
-        background = {
-          path = "/etc/nixos/wallpapers/lain.jpg";
-        };
-        GTK = {
-          application_prefer_dark_theme = true;
-          cursor_theme_name = "Catppuccin-Mocha-Pink-Cursors";
-          font_name = "ComicShannsMono";
-          theme_name = "Catppuccin-Mocha-Standard-Pink-Dark";
-          icon_theme_name = "Catppuccin-Mocha-Standard-Pink-Dark";
-        };
-        commands = {
-          reboot = ["systemctl" "reboot"];
-          poweroff = ["systemctl" "poweroff"];
-        };
-      };
-    };
-    hyprland = {
-      enable = true;
-      xwayland.enable = true;
-      package = pkgs.hyprland;
-    };
-    thunar = {
-      enable = true;
-      plugins = with pkgs.xfce; [
-        thunar-archive-plugin
-        thunar-volman
-        thunar-media-tags-plugin
-      ];
-    };
-    neovim = {
-      enable = true;
-      vimAlias = true;
-      viAlias = true;
-    };
+    hyprland.enable = true;
     dconf.enable = true;
     gnome-disks.enable = true;
-    fish.enable = true;
     file-roller.enable = true;
+    ns-usbloader.enable = true;
+    git.enable = true;
+    htop.enable = true;
+    direnv.enable = true;
   };
   environment = {
     sessionVariables = {

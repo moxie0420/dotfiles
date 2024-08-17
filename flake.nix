@@ -52,7 +52,6 @@
           ./hw/nixUwU
           stylix.nixosModules.stylix
           chaotic.nixosModules.default
-          musnix.nixosModules.musnix
           home-manager.nixosModules.home-manager
           {
             home-manager.extraSpecialArgs = {inherit inputs outputs;};
