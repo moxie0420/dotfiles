@@ -6,7 +6,6 @@
   imports = [
     ./desktop
     ./polkit.nix
-    ./style.nix
     ./hardware
     ./harden.nix
   ];

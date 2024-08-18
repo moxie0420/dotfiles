@@ -67,6 +67,7 @@
         default_monitor = "DP-1";
       };
       misc = {
+	    vfr = false;
         force_default_wallpaper = 2;
       };
       input = {
