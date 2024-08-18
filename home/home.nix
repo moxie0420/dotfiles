@@ -32,8 +32,9 @@
       libreoffice-fresh
 
       devenv
-
       unityhub
+
+      nextcloud-client
     ];
 
     stateVersion = "23.11";

@@ -92,6 +92,18 @@
     mime.enable = true;
     mimeApps = {
       enable = true;
+      associations.added = {
+        "x-scheme-handler/mailto" = "userapp-Thunderbird-JLKXS2.desktop";
+        "x-scheme-handler/mid" = "userapp-Thunderbird-JLKXS2.desktop";
+        "x-scheme-handler/news" = "userapp-Thunderbird-767TS2.desktop";
+        "x-scheme-handler/snews" = "userapp-Thunderbird-767TS2.desktop";
+        "x-scheme-handler/nntp" = "userapp-Thunderbird-767TS2.desktop";
+        "x-scheme-handler/feed" = "userapp-Thunderbird-HY90S2.desktop";
+        "application/rss+xml" = "userapp-Thunderbird-HY90S2.desktop";
+        "application/x-extension-rss" = "userapp-Thunderbird-HY90S2.desktop";
+        "x-scheme-handler/webcal" = "userapp-Thunderbird-SB92S2.desktop";
+        "x-scheme-handler/webcals" = "userapp-Thunderbird-SB92S2.desktop";
+      };
       defaultApplications = {
         "x-scheme-handler/bsplaylist" = ["BeatSaberModManager-url-bsplaylist.desktop"];
         "x-scheme-handler/modelsaber" = ["BeatSaberModManager-url-modelsaber.desktop"];
@@ -120,6 +132,20 @@
         "application/zip" = ["org.gnome.FileRoller.desktop"];
         "application/7zip" = ["org.gnome.FileRoller.desktop"];
         "application/rar" = ["org.gnome.FileRoller.desktop"];
+
+        "x-scheme-handler/mailto" = ["userapp-Thunderbird-JLKXS2.desktop"];
+        "message/rfc822" = ["userapp-Thunderbird-JLKXS2.desktop"];
+        "x-scheme-handler/mid" = ["userapp-Thunderbird-JLKXS2.desktop"];
+        "x-scheme-handler/news" = ["userapp-Thunderbird-767TS2.desktop"];
+        "x-scheme-handler/snews" = ["userapp-Thunderbird-767TS2.desktop"];
+        "x-scheme-handler/nntp" = ["userapp-Thunderbird-767TS2.desktop"];
+        "x-scheme-handler/feed" = ["userapp-Thunderbird-HY90S2.desktop"];
+        "application/rss+xml" = ["userapp-Thunderbird-HY90S2.desktop"];
+        "application/x-extension-rss" = ["userapp-Thunderbird-HY90S2.desktop"];
+        "x-scheme-handler/webcal" = ["userapp-Thunderbird-SB92S2.desktop"];
+        "text/calendar" = ["userapp-Thunderbird-SB92S2.desktop"];
+        "application/x-extension-ics" = ["userapp-Thunderbird-SB92S2.desktop"];
+        "x-scheme-handler/webcals" = ["userapp-Thunderbird-SB92S2.desktop"];
       };
     };
     userDirs = {
