@@ -44,11 +44,9 @@
       "v4l2loopback.exclusive_caps=1"
       "nvidia.NVreg_EnablePCIeGen3=1"
       "nvidia.NVreg_UsePageAttributeTable=1"
-      "video=DP-1:3840x2160@144D"
-      #"nouveau.config=NvGspRm=1"
       "kernel.sysrq=1"
     ];
-    kernelPackages = pkgs.linuxPackages_cachyos;
+    kernelPackages = pkgs.linuxPackages_latest;
     kernel.sysctl = {
       "vm.max_map_count" = 2147483642;
       "kernel.sysrq" = 1;
@@ -57,6 +55,6 @@
       options nvidia NVreg_RegistryDwords="PowerMizerEnable=0x1; PerfLevelSrc=0x2222; PowerMizerLevel=0x3; PowerMizerDefault=0x3; PowerMizerDefaultAC=0x3"
     '';
     supportedFilesystems = ["ntfs"];
+    enableContainers = true;
   };
-  chaotic.scx.enable = false;
 }

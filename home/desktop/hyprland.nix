@@ -3,13 +3,22 @@
     ./waybar.nix
   ];
 
-  services.mako = {
-    enable = true;
-    anchor = "bottom-right";
-    borderRadius = 15;
-    textColor = "#cdd6f4";
-    defaultTimeout = 3000;
+  services = {
+    mako = {
+      enable = true;
+      anchor = "bottom-right";
+      backgroundColor = "#1e1e2e";
+      borderColor = "#45475a";
+      borderRadius = 15;
+      textColor = "#cdd6f4";
+      defaultTimeout = 3000;
+    };
+    copyq = {
+      enable = true;
+      systemdTarget = "hyprland-session.target";
+    };
   };
+
   programs.wofi = {
     enable = true;
     settings = {
@@ -33,7 +42,11 @@
 
   wayland.windowManager.hyprland = {
     enable = true;
-    systemd.enable = true;
+    xwayland.enable = true;
+    systemd = {
+      enable = true;
+      enableXdgAutostart = true;
+    };
     settings = {
       env = [
         "WLR_NO_HARDWARE_CURSORS,0"
@@ -54,6 +67,7 @@
         default_monitor = "DP-1";
       };
       misc = {
+	    vfr = false;
         force_default_wallpaper = 2;
       };
       input = {
@@ -89,7 +103,6 @@
       ];
       exec-once = [
         "${pkgs.openrgb-with-all-plugins}/bin/openrgb -p /home/moxie/.config/OpenRGB/default.orp"
-        "${pkgs.clipse}/bin/clipse -listen"
         "gpg-agent --daemon"
         "[silent] vesktop"
         "[silent] spotify"
