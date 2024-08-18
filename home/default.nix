@@ -4,7 +4,6 @@
   ...
 }: {
   imports = [
-    ./style.nix
     ./desktop
     ./applications
   ];

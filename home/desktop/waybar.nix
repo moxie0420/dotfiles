@@ -16,6 +16,7 @@
           modules-right = ["memory" "disk" "cpu" "temperature" "clock" "tray"];
           "hyprland/workspaces" = {format = "{name}";};
           "hyprland/window" = {
+            seperate-outputs = true;
             format = " {title} ";
             max-length = 50;
             rewrite = {
