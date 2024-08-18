@@ -3,9 +3,12 @@
     ./thunderbird.nix
     ./pandoc.nix
     ./neovim.nix
-    ./nextcloud.nix
     ./terminal.nix
     ./spotify.nix
     ./coding.nix
   ];
+  services.nextcloud-client = {
+    enable = true;
+    startInBackground = true;
+  };
 }
