@@ -10,6 +10,8 @@
     bootspec.enable = true;
     kernelModules = [
       "kvm_amd"
+      "amdgpu"
+      "nvme"
     ];
     kernelParams = [
       "quiet"
@@ -29,12 +31,7 @@
       "nvidia_drm"
       "nvidia_modeset"
     ];
-    extraModprobeConfig = ''
-      blacklist nouveau
-      options nouveau modeset=0
-    '';
-
-    kernelPackages = lib.mkDefault pkgs.linuxPackages_latest;
+    kernelPackages = pkgs.linuxPackages_latest;
     kernel.sysctl = {
       "kernel.kexec_load_disabled" = lib.mkDefault true;
     };
@@ -47,21 +44,19 @@
     loader = {
       efi.canTouchEfiVariables = true;
       timeout = 0;
-      systemd-boot = {
-        editor = false;
-        configurationLimit = 5;
-      };
+      systemd-boot.editor = false;
     };
     initrd = {
       compressor = "zstd";
       verbose = false;
       availableKernelModules = [
-        "nvme"
         "xhci_pci"
         "usbhid"
         "sdhci_pci"
+        "cryptd"
+        "aesni_intel"
+        "xhci_hcd"
       ];
-      kernelModules = ["amdgpu" "cryptd" "aesni_intel" "xhci_hcd"];
       systemd = {
         enable = true;
         dbus.enable = true;
@@ -74,9 +69,7 @@
     enableContainers = true;
   };
   services = {
-    fwupd = {
-      enable = true;
-    };
+    fwupd.enable = true;
     logind.extraConfig = ''
       HandlePowerKey=shutdown
     '';

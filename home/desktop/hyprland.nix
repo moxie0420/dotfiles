@@ -7,10 +7,6 @@
     mako = {
       enable = true;
       anchor = "bottom-right";
-      backgroundColor = "#1e1e2e";
-      borderColor = "#45475a";
-      borderRadius = 15;
-      textColor = "#cdd6f4";
       defaultTimeout = 3000;
     };
     copyq = {
@@ -43,31 +39,26 @@
   wayland.windowManager.hyprland = {
     enable = true;
     xwayland.enable = true;
+    catppuccin = {
+      enable = true;
+      accent = "pink";
+      flavor = "mocha";
+    };
     systemd = {
       enable = true;
       enableXdgAutostart = true;
     };
     settings = {
-      env = [
-        "WLR_NO_HARDWARE_CURSORS,0"
-        "XDG_CURRENT_DESKTOP,Hyprland"
-        "XDG_SESSION_TYPE,wayland"
-        "XDG_SESSION_DESKTOP,Hyprland"
-        "ELECTRON_OZONE_PLATFORM_HINT,auto"
-        "XCURSOR_THEME,rose-pine"
-        "XCURSOR_SIZE,24"
-      ];
       monitor = [
         "DP-1,3840x2160@98,0x0,1,vrr,2,bitdepth,10"
         "HDMI-A-1,1920x1080@60,auto-up,auto"
         "eDP-1,1920x1080@165.009995,0x0,1"
-        #",preferred,auto,1,mirror,eDP-1"
       ];
       cursor = {
         default_monitor = "DP-1";
       };
       misc = {
-	    vfr = false;
+        vfr = false;
         force_default_wallpaper = 2;
       };
       input = {
@@ -106,7 +97,6 @@
         "gpg-agent --daemon"
         "[silent] vesktop"
         "[silent] spotify"
-        "[workspace SPECIAL silent] kitty"
       ];
 
       "$mod" = "SUPER";

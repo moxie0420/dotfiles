@@ -7,10 +7,16 @@
     ./desktop
     ./applications
   ];
-
   home = {
     username = "moxie";
     homeDirectory = "/home/moxie";
+
+    sessionVariables = {
+      WLR_NO_HARDWARE_CURSORS = 0;
+      ELECTRON_OZONE_PLATFORM_HINT = "auto";
+      XCURSOR_THEME = "rose-pine";
+      XCURSOR_SIZE = 24;
+    };
 
     packages = with pkgs; [
       alejandra
@@ -20,14 +26,10 @@
       heroic
       r2modman
       lutris
-      (prismlauncher.overrideAttrs {
-        withWaylandGLFW = true;
-      })
+      prismlauncher
 
       pavucontrol
-      cmatrix
       libreoffice-fresh
-      reaper
 
       devenv
 

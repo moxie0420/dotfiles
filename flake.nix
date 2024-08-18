@@ -7,7 +7,7 @@
     # user config
     home-manager = {
       url = "github:nix-community/home-manager";
-	  inputs.nixpkgs.follows="nixpkgs";
+      inputs.nixpkgs.follows = "nixpkgs";
     };
 
     # secure boot
@@ -21,6 +21,7 @@
       url = "github:Gerg-L/spicetify-nix";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    catppuccin.url = "github:catppuccin/nix";
   };
 
   outputs = {
@@ -29,6 +30,7 @@
     lanzaboote,
     home-manager,
     spicetify-nix,
+    catppuccin,
     ...
   } @ inputs: let
     inherit (self) outputs;
@@ -40,13 +42,26 @@
         system = "x86_64-linux";
         modules = [
           ./hw/nixUwU
+          catppuccin.nixosModules.catppuccin
           home-manager.nixosModules.home-manager
           {
-            home-manager.extraSpecialArgs = {inherit inputs outputs;};
-            home-manager.useGlobalPkgs = true;
-            home-manager.useUserPackages = true;
-            home-manager.users.moxie = import ./home;
-            home-manager.backupFileExtension = "bak";
+            home-manager = {
+              useGlobalPkgs = true;
+              useUserPackages = true;
+              backupFileExtension = "bak";
+              extraSpecialArgs = {inherit inputs outputs;};
+              users.moxie.imports = [
+                ./home/home.nix
+                catppuccin.homeManagerModules.catppuccin
+              ];
+            };
+          }
+          {
+            catppuccin = {
+              enable = true;
+              accent = "pink";
+              flavor = "mocha";
+            };
           }
         ];
       };
@@ -58,13 +73,26 @@
         modules = [
           ./hw/nixOwO
           lanzaboote.nixosModules.lanzaboote
+          catppuccin.nixosModules.catppuccin
           home-manager.nixosModules.home-manager
           {
-            home-manager.extraSpecialArgs = {inherit inputs outputs;};
-            home-manager.useGlobalPkgs = true;
-            home-manager.useUserPackages = true;
-            home-manager.backupFileExtension = "bak";
-            home-manager.users.moxie = import ./home;
+            home-manager = {
+              useGlobalPkgs = true;
+              useUserPackages = true;
+              backupFileExtension = "bak";
+              extraSpecialArgs = {inherit inputs outputs;};
+              users.moxie.imports = [
+                ./home/home.nix
+                catppuccin.homeManagerModules.catppuccin
+              ];
+            };
+          }
+          {
+            catppuccin = {
+              enable = true;
+              accent = "pink";
+              flavor = "mocha";
+            };
           }
         ];
       };

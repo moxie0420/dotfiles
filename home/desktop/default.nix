@@ -1,14 +1,47 @@
-{pkgs, ...}: {
+{
+  pkgs,
+  lib,
+  ...
+}: {
   imports = [
     ./hyprland.nix
     ./lockscreen.nix
   ];
+  catppuccin = {
+    enable = true;
+    accent = "pink";
+    flavor = "mocha";
+    pointerCursor.enable = lib.mkForce false;
+  };
 
-  home = {
-    packages = with pkgs; [
-      nwg-look
-      nautilus
-    ];
+  home.packages = with pkgs; [
+    nemo-with-extensions
+  ];
+
+  qt.style.catppuccin = {
+    enable = true;
+    accent = "pink";
+    flavor = "mocha";
+  };
+  gtk = {
+    enable = true;
+    catppuccin = {
+      enable = true;
+      accent = "pink";
+      flavor = "mocha";
+      icon = {
+        enable = true;
+        accent = "pink";
+        flavor = "mocha";
+      };
+    };
+  };
+  dconf = {
+    enable = true;
+    settings = {
+      "org/gnome/desktop/interface".color-scheme = "prefer-dark";
+      "org/cinnamon/desktop/default-applications/terminal".exec = "kitty";
+    };
   };
   xdg = {
     enable = true;
@@ -37,6 +70,7 @@
         text = ''
           [Settings]
           gtk-cursor-theme-name=rose-pine
+          gtk-application-prefer-dark-theme=1
         '';
       };
       "gtk-4.0/settings.ini" = {
@@ -64,11 +98,14 @@
         "x-scheme-handler/beatsaver" = ["BeatSaberModManager-url-beatsaver.desktop"];
         "x-scheme-handler/everest" = ["Olympus.desktop"];
         "x-scheme-handler/ror2mm" = ["r2modman.desktop"];
+
         "image/png" = ["feh.desktop"];
         "image/jpeg" = ["feh.desktop"];
         "image/gif" = ["feh.desktop"];
         "application/pdf" = ["firefox.desktop"];
-        "inode/directory" = ["thunar.desktop"];
+        "inode/directory" = ["nemo.desktop"];
+        "application/x-gnome-saved-search" = ["nemo.desktop"];
+
         "x-scheme-handler/http" = ["firefox.dektop"];
         "x-scheme-handler/https" = ["firefox.dektop"];
         "x-scheme-handler/chrome" = ["firefox.dektop"];
@@ -79,14 +116,10 @@
         "application/xhtml+xml" = ["firefox.dektop"];
         "application/x-extension-xhtml" = ["firefox.dektop"];
         "application/x-extension-xht" = ["firefox.dektop"];
+
         "application/zip" = ["org.gnome.FileRoller.desktop"];
         "application/7zip" = ["org.gnome.FileRoller.desktop"];
         "application/rar" = ["org.gnome.FileRoller.desktop"];
-        "application/x-partial-download" = ["org.gnome.FileRoller.desktop"];
-      };
-      associations.added = {
-        "text/x-ms-regedit" = ["wine-extension-txt.desktop" "nvim.desktop"];
-        "application/zip" = ["org.gnome.FileRoller.desktop"];
       };
     };
     userDirs = {
