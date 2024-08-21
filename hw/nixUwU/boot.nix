@@ -4,20 +4,15 @@
   ...
 }: {
   boot = {
+    lanzaboote = {
+      enable = true;
+      pkiBundle = "/etc/secureboot";
+    };
     hardwareScan = true;
     loader = {
       timeout = 0;
       systemd-boot = {
-        enable = true;
-        editor = true;
-        configurationLimit = 5;
-        memtest86.enable = true;
-      };
-      grub = {
         enable = false;
-        device = "nodev";
-        efiSupport = true;
-        useOSProber = true;
       };
       efi = {
         canTouchEfiVariables = true;
@@ -49,6 +44,7 @@
     kernelPackages = pkgs.linuxPackages_latest;
     kernel.sysctl = {
       "vm.max_map_count" = 2147483642;
+      "fs.inotify.max_user_watches" = 10000000;
       "kernel.sysrq" = 1;
     };
     extraModprobeConfig = ''

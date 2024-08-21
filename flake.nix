@@ -35,66 +35,44 @@
   } @ inputs: let
     inherit (self) outputs;
   in {
-    nixosConfigurations = {
+    nixosConfigurations = let
+      home = {
+        catppuccin = {
+          enable = true;
+          accent = "pink";
+          flavor = "mocha";
+        };
+        home-manager = {
+          useGlobalPkgs = true;
+          useUserPackages = true;
+          backupFileExtension = "bak";
+          extraSpecialArgs = {inherit inputs outputs;};
+          users.moxie.imports = [
+            ./home/home.nix
+            catppuccin.homeManagerModules.catppuccin
+          ];
+        };
+      };
+
+      commonModules = [
+        catppuccin.nixosModules.catppuccin
+        home-manager.nixosModules.home-manager
+        lanzaboote.nixosModules.lanzaboote
+        home
+      ];
+    in {
       # desktop
       nixUwU = nixpkgs.lib.nixosSystem {
         specialArgs = {inherit inputs;};
         system = "x86_64-linux";
-        modules = [
-          ./hw/nixUwU
-          catppuccin.nixosModules.catppuccin
-          home-manager.nixosModules.home-manager
-          {
-            home-manager = {
-              useGlobalPkgs = true;
-              useUserPackages = true;
-              backupFileExtension = "bak";
-              extraSpecialArgs = {inherit inputs outputs;};
-              users.moxie.imports = [
-                ./home/home.nix
-                catppuccin.homeManagerModules.catppuccin
-              ];
-            };
-          }
-          {
-            catppuccin = {
-              enable = true;
-              accent = "pink";
-              flavor = "mocha";
-            };
-          }
-        ];
+        modules = [./hw/nixUwU] ++ commonModules;
       };
 
       # laptop
       nixOwO = nixpkgs.lib.nixosSystem {
         specialArgs = {inherit inputs;};
         system = "x86_64-linux";
-        modules = [
-          ./hw/nixOwO
-          lanzaboote.nixosModules.lanzaboote
-          catppuccin.nixosModules.catppuccin
-          home-manager.nixosModules.home-manager
-          {
-            home-manager = {
-              useGlobalPkgs = true;
-              useUserPackages = true;
-              backupFileExtension = "bak";
-              extraSpecialArgs = {inherit inputs outputs;};
-              users.moxie.imports = [
-                ./home/home.nix
-                catppuccin.homeManagerModules.catppuccin
-              ];
-            };
-          }
-          {
-            catppuccin = {
-              enable = true;
-              accent = "pink";
-              flavor = "mocha";
-            };
-          }
-        ];
+        modules = [./hw/nixOwO] ++ commonModules;
       };
     };
   };

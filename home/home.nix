@@ -35,6 +35,8 @@
       unityhub
 
       nextcloud-client
+
+	  jetbrains.webstorm
     ];
 
     stateVersion = "23.11";
