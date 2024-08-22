@@ -36,7 +36,7 @@
 
       nextcloud-client
 
-	  jetbrains.webstorm
+      jetbrains-toolbox
     ];
 
     stateVersion = "23.11";
