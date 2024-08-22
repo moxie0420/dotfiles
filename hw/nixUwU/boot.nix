@@ -41,7 +41,7 @@
       "nvidia.NVreg_UsePageAttributeTable=1"
       "kernel.sysrq=1"
     ];
-    kernelPackages = pkgs.linuxPackages_latest;
+    kernelPackages = pkgs.linuxPackages_zen;
     kernel.sysctl = {
       "vm.max_map_count" = 2147483642;
       "fs.inotify.max_user_watches" = 10000000;

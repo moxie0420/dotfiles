@@ -7,7 +7,7 @@
 }: {
   imports = [
     ./audio.nix
-    ./applications
+    ./steam.nix
   ];
   environment.systemPackages = with pkgs; [
     grim
