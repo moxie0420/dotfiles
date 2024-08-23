@@ -24,6 +24,7 @@
     dev.enable = true;
   };
   programs.adb.enable = true;
+  programs.nix-ld.enable = true;
   users.users.moxie = {
     isNormalUser = true;
     extraGroups = [
