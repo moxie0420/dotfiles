@@ -18,7 +18,7 @@
       options = ["defaults" "noatime"];
     };
     "/media/The_Store" = {
-      device = "/dev/sda";
+      device = "/dev/disk/by-uuid/bc5ec750-0252-4151-9c43-1a9a23e92803";
       fsType = "btrfs";
       options = ["defaults" "nofail" "compress=zstd" "noatime"];
     };
@@ -30,7 +30,7 @@
   };
   swapDevices = [
     {
-      device = "/dev/disk/by-uuid/c9947b18-c60d-4b5f-adce-0d336f7e7f9f";
+      device = "/dev/disk/by-uuid/a85b10e8-36dd-47c0-a836-3c5fe29c7b4d";
     }
   ];
 }

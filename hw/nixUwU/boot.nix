@@ -3,6 +3,13 @@
   pkgs,
   ...
 }: {
+  systemd.tmpfiles.settings = {
+    "hibernate file" = {
+      "/sys/power/image_size" = {
+        w.argument = "160000000000";
+      };
+    };
+  };
   boot = {
     lanzaboote = {
       enable = true;

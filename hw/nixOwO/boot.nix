@@ -77,7 +77,7 @@
   systemd.tmpfiles.settings = {
     "hibernate file" = {
       "/sys/power/image_size" = {
-        w.argument = "64";
+        w.argument = "320000000000";
       };
     };
   };
