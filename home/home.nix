@@ -35,6 +35,8 @@
       unityhub
 
       nextcloud-client
+
+      jetbrains-toolbox
     ];
 
     stateVersion = "23.11";
