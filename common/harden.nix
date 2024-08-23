@@ -115,10 +115,12 @@ with lib; {
   programs.firejail = {
     enable = true;
     wrappedBinaries = {
-      firefox = {
+      /*
+        firefox = {
         executable = "${pkgs.firefox-devedition}/bin/firefox-devedition";
         profile = "${pkgs.firejail}/etc/firejail/firefox-developer-edition.profile";
       };
+      */
     };
   };
 }

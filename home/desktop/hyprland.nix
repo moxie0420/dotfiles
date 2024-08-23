@@ -127,7 +127,7 @@
       bindl = [
         ",XF86MonBrightnessUp,exec,brightnessctl set 5%+ "
         ",XF86MonBrightnessDown,exec,brightnessctl set 5%- "
-        ",switch:Lid Switch, exec, loginctl lock-session"
+        ",switch:Lid Switch, exec, systemctl suspend"
         ",XF86AudioMute, exec, ${pkgs.wireplumber}/bin/wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle"
         ",XF86AudioPlay, exec, ${pkgs.playerctl}/bin/playerctl play-pause"
         ",XF86AudioStop, exec, ${pkgs.playerctl}/bin/playerctl stop"

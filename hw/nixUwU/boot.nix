@@ -3,21 +3,23 @@
   pkgs,
   ...
 }: {
+  systemd.tmpfiles.settings = {
+    "hibernate file" = {
+      "/sys/power/image_size" = {
+        w.argument = "160000000000";
+      };
+    };
+  };
   boot = {
+    lanzaboote = {
+      enable = true;
+      pkiBundle = "/etc/secureboot";
+    };
     hardwareScan = true;
     loader = {
       timeout = 0;
       systemd-boot = {
-        enable = true;
-        editor = true;
-        configurationLimit = 5;
-        memtest86.enable = true;
-      };
-      grub = {
         enable = false;
-        device = "nodev";
-        efiSupport = true;
-        useOSProber = true;
       };
       efi = {
         canTouchEfiVariables = true;
@@ -46,9 +48,10 @@
       "nvidia.NVreg_UsePageAttributeTable=1"
       "kernel.sysrq=1"
     ];
-    kernelPackages = pkgs.linuxPackages_latest;
+    kernelPackages = pkgs.linuxPackages_zen;
     kernel.sysctl = {
       "vm.max_map_count" = 2147483642;
+      "fs.inotify.max_user_watches" = 10000000;
       "kernel.sysrq" = 1;
     };
     extraModprobeConfig = ''
