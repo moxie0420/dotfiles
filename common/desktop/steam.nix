@@ -35,6 +35,8 @@
     mangohud
     winetricks
     protonup-qt
+    vkbasalt
+    goverlay
   ];
   hardware.steam-hardware.enable = true;
 }
