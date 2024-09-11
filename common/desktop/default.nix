@@ -1,7 +1,6 @@
 {
   pkgs,
   inputs,
-  lib,
   config,
   ...
 }: {
@@ -15,6 +14,7 @@
     wl-clipboard
     vesktop
     nixd
+    inputs.zen-browser.packages."${system}".specific
     (pkgs.catppuccin-sddm.override
       {
         flavor = "mocha";
