@@ -14,7 +14,7 @@
     wl-clipboard
     vesktop
     nixd
-    inputs.zen-browser.packages."${system}".specific
+    inputs.zen-browser.packages."${system}".generic
     (pkgs.catppuccin-sddm.override
       {
         flavor = "mocha";
@@ -59,6 +59,7 @@
     };
   };
   programs = {
+    adb.enable = true;
     hyprland.enable = true;
     dconf.enable = true;
     gnome-disks.enable = true;

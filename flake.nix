@@ -4,6 +4,12 @@
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
 
+    systems.url = "github:nix-systems/x86_64-linux";
+    flake-utils = {
+      url = "github:numtide/flake-utils";
+      inputs.systems.follows = "systems";
+    };
+
     # user config
     home-manager = {
       url = "github:nix-community/home-manager";
@@ -32,10 +38,16 @@
     home-manager,
     spicetify-nix,
     catppuccin,
+    flake-utils,
     ...
-  } @ inputs: let
-    inherit (self) outputs;
-  in {
+  } @ inputs: {
+    templates = {
+      "devshell-basic" = {
+        path = ./templates/devshell-basic;
+        description = "a basic devshell using flake-utils";
+      };
+    };
+
     nixosConfigurations = let
       home = {
         catppuccin = {
@@ -47,7 +59,7 @@
           useGlobalPkgs = true;
           useUserPackages = true;
           backupFileExtension = "bak";
-          extraSpecialArgs = {inherit inputs outputs;};
+          extraSpecialArgs = {inherit inputs;};
           users.moxie.imports = [
             ./home/home.nix
             catppuccin.homeManagerModules.catppuccin
@@ -65,14 +77,12 @@
       # desktop
       nixUwU = nixpkgs.lib.nixosSystem {
         specialArgs = {inherit inputs;};
-        system = "x86_64-linux";
         modules = [./hw/nixUwU] ++ commonModules;
       };
 
       # laptop
       nixOwO = nixpkgs.lib.nixosSystem {
         specialArgs = {inherit inputs;};
-        system = "x86_64-linux";
         modules = [./hw/nixOwO] ++ commonModules;
       };
     };
