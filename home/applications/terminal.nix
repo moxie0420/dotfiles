@@ -8,18 +8,29 @@
       enable = true;
       package = pkgs.nushell;
       envFile.text = ''
-        $env.config = {
-          hooks: {
-            pre_prompt: [{ ||
-              if (which direnv | is-empty) {
-                return
-              }
+             $env.config = {
+               hooks: {
+           env_change: {
+        	PWD: [
+        		{ ||
+        	    	if (which direnv | is-empty) {
+        	        	return
+        	    	}
 
-              direnv export json | from json | default {} | load-env
-            }]
-          }
+        			direnv export json | from json | default {} | load-env
+        		}
+        	]
         }
-        zoxide init nushell  --cmd cd | save -f ~/.zoxide.nu
+                 pre_prompt: [{ ||
+                   if (which direnv | is-empty) {
+                     return
+                   }
+
+                   direnv export json | from json | default {} | load-env
+                 }]
+               }
+             }
+             zoxide init nushell  --cmd cd | save -f ~/.zoxide.nu
       '';
       configFile.text = ''
         source ~/.zoxide.nu

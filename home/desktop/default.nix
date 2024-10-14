@@ -114,20 +114,20 @@
         "image/png" = ["feh.desktop"];
         "image/jpeg" = ["feh.desktop"];
         "image/gif" = ["feh.desktop"];
-        "application/pdf" = ["firefox.desktop"];
+        "application/pdf" = ["zen.desktop"];
         "inode/directory" = ["nemo.desktop"];
         "application/x-gnome-saved-search" = ["nemo.desktop"];
 
-        "x-scheme-handler/http" = ["firefox.dektop"];
-        "x-scheme-handler/https" = ["firefox.dektop"];
-        "x-scheme-handler/chrome" = ["firefox.dektop"];
-        "text/html" = ["firefox.desktop"];
-        "application/x-extension-htm" = ["firefox.dektop"];
-        "application/x-extension-html" = ["firefox.dektop"];
-        "application/x-extension-shtml" = ["firefox.dektop"];
-        "application/xhtml+xml" = ["firefox.dektop"];
-        "application/x-extension-xhtml" = ["firefox.dektop"];
-        "application/x-extension-xht" = ["firefox.dektop"];
+        "x-scheme-handler/http" = ["zen.dektop"];
+        "x-scheme-handler/https" = ["zen.dektop"];
+        "x-scheme-handler/chrome" = ["zen.dektop"];
+        "text/html" = ["zen.desktop"];
+        "application/x-extension-htm" = ["zen.dektop"];
+        "application/x-extension-html" = ["zen.dektop"];
+        "application/x-extension-shtml" = ["zen.dektop"];
+        "application/xhtml+xml" = ["zen.dektop"];
+        "application/x-extension-xhtml" = ["zen.dektop"];
+        "application/x-extension-xht" = ["zen.dektop"];
 
         "application/zip" = ["org.gnome.FileRoller.desktop"];
         "application/7zip" = ["org.gnome.FileRoller.desktop"];

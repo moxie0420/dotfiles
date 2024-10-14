@@ -22,7 +22,9 @@
       heroic
       r2modman
       lutris
-      prismlauncher
+      (pkgs.prismlauncher.override {
+        jdks = with pkgs; [temurin-bin-21 temurin-bin-17 temurin-bin-8];
+      })
 
       pavucontrol
       libreoffice-fresh
