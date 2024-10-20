@@ -6,6 +6,7 @@
   imports = [
     ./hyprland.nix
     ./lockscreen.nix
+    ./vr.nix
   ];
   catppuccin = {
     enable = true;

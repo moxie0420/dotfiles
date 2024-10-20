@@ -36,6 +36,8 @@
       package = config.boot.kernelPackages.nvidiaPackages.beta;
       powerManagement.enable = true;
     };
+
     opentabletdriver.enable = true;
+    ckb-next.enable = true;
   };
 }
