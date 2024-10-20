@@ -15,7 +15,7 @@
   };
 
   home.packages = with pkgs; [
-    nemo-with-extensions
+    nautilus
   ];
 
   qt.style.catppuccin = {
@@ -115,8 +115,8 @@
         "image/jpeg" = ["feh.desktop"];
         "image/gif" = ["feh.desktop"];
         "application/pdf" = ["zen.desktop"];
-        "inode/directory" = ["nemo.desktop"];
-        "application/x-gnome-saved-search" = ["nemo.desktop"];
+        "inode/directory" = ["nautilus.desktop"];
+        "application/x-gnome-saved-search" = ["nautilus.desktop"];
 
         "x-scheme-handler/http" = ["zen.dektop"];
         "x-scheme-handler/https" = ["zen.dektop"];

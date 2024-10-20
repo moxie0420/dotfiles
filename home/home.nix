@@ -32,9 +32,7 @@
       devenv
       unityhub
 
-      nextcloud-client
-
-      jetbrains-toolbox
+      jetbrains.idea-ultimate
     ];
 
     stateVersion = "23.11";
@@ -50,7 +48,6 @@
         wlrobs
         input-overlay
         obs-vkcapture
-        obs-multi-rtmp
         obs-rgb-levels-filter
         obs-gradient-source
       ];

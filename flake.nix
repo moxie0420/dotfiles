@@ -58,7 +58,7 @@
         home-manager = {
           useGlobalPkgs = true;
           useUserPackages = true;
-          backupFileExtension = "bak";
+          backupFileExtension = "backup";
           extraSpecialArgs = {inherit inputs;};
           users.moxie.imports = [
             ./home/home.nix
