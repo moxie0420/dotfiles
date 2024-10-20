@@ -6,6 +6,7 @@
     ./hardware.nix
     ./network.nix
     ../../common
+    ./vr.nix
   ];
   environment.sessionVariables = {
     LIBVA_DRIVER_NAME = "nvidia";

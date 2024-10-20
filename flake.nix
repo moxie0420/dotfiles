@@ -29,9 +29,15 @@
     };
     catppuccin.url = "github:catppuccin/nix";
     zen-browser.url = "github:MarceColl/zen-browser-flake";
+
+    alejandra = {
+      url = "github:kamadorueda/alejandra/3.0.0";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
   outputs = {
+    alejandra,
     self,
     nixpkgs,
     lanzaboote,
@@ -47,6 +53,8 @@
         description = "a basic devshell using flake-utils";
       };
     };
+
+    formatter."x86_64-linux" = alejandra.defaultPackage."x86_64-linux";
 
     nixosConfigurations = let
       home = {
