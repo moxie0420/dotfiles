@@ -56,6 +56,7 @@
       ];
       cursor = {
         default_monitor = "DP-1";
+        allow_dumb_copy = true;
       };
       misc = {
         vfr = false;
