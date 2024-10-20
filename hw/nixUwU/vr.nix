@@ -1,4 +1,7 @@
-{...}: {
+{pkgs, ...}: {
+  environment.systemPackages = [
+    pkgs.wlx-overlay-s
+  ];
   services.monado = {
     enable = true;
     defaultRuntime = true; # Register as default OpenXR runtime
