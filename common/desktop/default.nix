@@ -8,20 +8,25 @@
     ./audio.nix
     ./steam.nix
   ];
-  environment.systemPackages = with pkgs; [
-    grim
-    slurp
-    wl-clipboard
-    vesktop
-    nixd
-    inputs.zen-browser.packages."${system}".generic
-    (pkgs.catppuccin-sddm.override
-      {
-        flavor = "mocha";
-        font = "Noto Sans";
-        fontSize = "9";
-      })
-  ];
+  environment = {
+    pathsToLink = ["share/thumbnailers"];
+    systemPackages = with pkgs; [
+      libheif
+      libheif.out
+      grim
+      slurp
+      wl-clipboard
+      vesktop
+      nixd
+      inputs.zen-browser.packages."${system}".generic
+      (pkgs.catppuccin-sddm.override
+        {
+          flavor = "mocha";
+          font = "Noto Sans";
+          fontSize = "9";
+        })
+    ];
+  };
   fonts.packages = with pkgs; [
     noto-fonts
     noto-fonts-cjk
