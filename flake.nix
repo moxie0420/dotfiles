@@ -10,6 +10,8 @@
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
 
     # other inputs in alphabetical order
+    agenix-rekey.url = "github:oddlama/agenix-rekey";
+
     catppuccin.url = "github:catppuccin/nix";
 
     home-manager = {
@@ -40,10 +42,6 @@
             path = ./templates/devshell-basic;
             description = "a basic devshell using flake-utils";
           };
-        };
-        nixosModules.default = {...}: {
-          imports = [
-          ];
         };
       };
 
