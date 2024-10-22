@@ -18,7 +18,26 @@
         desktop
         ++ [
           ./nixUwU
-          "${mod}/core/lanzeboot.nix"
+          "${mod}/hardware/vr.nix"
+
+          "${mod}/network/spotify.nix"
+
+          {
+            catppuccin = {
+              enable = true;
+              accent = "pink";
+              flavor = "mocha";
+            };
+            home-manager = {
+              users.moxie.imports = [
+                "${self}/home"
+                inputs.catppuccin.homeManagerModules.catppuccin
+              ];
+              extraSpecialArgs = specialArgs;
+            };
+          }
+
+          inputs.catppuccin.nixosModules.catppuccin
         ];
     };
 
@@ -29,7 +48,6 @@
         laptop
         ++ [
           ./nixOwO
-          "${mod}/core/lanzeboot.nix"
         ];
     };
   };

@@ -1,30 +1,24 @@
-{
-  self,
-  inputs,
-  ...
-}: let
-  specialArgs = {inherit inputs self;};
-
+let
   desktop = [
     ./core
     ./core/boot.nix
+    ./core/lanzeboot.nix
 
     ./hardware/bluetooth.nix
+    ./hardware/fwupd.nix
+    ./hardware/graphics.nix
     ./hardware/udisks.nix
 
-    ./harden.nix
+    ./network
+    ./network/avahi.nix
 
     ./polkit.nix
 
     ./programs
 
     ./services
-    {
-      home-manager = {
-        users.moxie.imports = "${self}/home/profiles";
-        extraSpecialArgs = specialArgs;
-      };
-    }
+    ./services/gnome-services.nix
+    ./services/pipewire.nix
   ];
 
   laptop =

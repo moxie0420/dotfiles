@@ -31,24 +31,15 @@
   };
 
   services = {
-    printing.enable = true;
-
-    tumbler.enable = true;
-    thermald.enable = true;
     flatpak.enable = true;
-    fstrim.enable = true;
-    dbus.packages = with pkgs; [dconf];
 
-    udisks2 = {
-      enable = true;
-      mountOnMedia = true;
-    };
     displayManager.sddm = {
       enable = true;
       theme = "catppuccin-mocha";
       package = pkgs.kdePackages.sddm;
       wayland.enable = true;
     };
+
     hardware.openrgb = {
       enable = true;
       motherboard =
