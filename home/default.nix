@@ -4,7 +4,6 @@
   ...
 }: {
   imports = [
-    ./desktop
     ./hyprland.nix
     ./programs
     ./services

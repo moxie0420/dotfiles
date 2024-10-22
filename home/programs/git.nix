@@ -1,4 +1,4 @@
-{
+{pkgs, ...}: {
   programs.git = {
     enable = true;
     lfs.enable = true;
@@ -11,6 +11,9 @@
       init = {
         defaultBranch = "master";
       };
+      credential.helper = "${
+        pkgs.git.override {withLibsecret = true;}
+      }/bin/git-credential-libsecret";
     };
   };
 }
