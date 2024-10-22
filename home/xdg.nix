@@ -1,36 +1,8 @@
 {
   pkgs,
-  lib,
+  config,
   ...
 }: {
-  imports = [
-    ./hyprland.nix
-    ./lockscreen.nix
-    ./vr.nix
-  ];
-  catppuccin = {
-    enable = true;
-    accent = "pink";
-    flavor = "mocha";
-    pointerCursor.enable = lib.mkForce false;
-  };
-
-  home.packages = with pkgs; [
-    nautilus
-  ];
-
-  qt.style.catppuccin = {
-    enable = true;
-    accent = "pink";
-    flavor = "mocha";
-  };
-  dconf = {
-    enable = true;
-    settings = {
-      "org/gnome/desktop/interface".color-scheme = "prefer-dark";
-      "org/cinnamon/desktop/default-applications/terminal".exec = "kitty";
-    };
-  };
   xdg = {
     enable = true;
     dataFile = {
@@ -67,6 +39,34 @@
           gtk-cursor-theme-name=rose-pine
         '';
       };
+      "openvr/openvrpaths.vrpath".text = ''
+        {
+          "config" :
+          [
+            "${config.xdg.dataHome}/Steam/config"
+          ],
+          "external_drivers" : null,
+          "jsonid" : "vrpathreg",
+          "log" :
+          [
+            "${config.xdg.dataHome}/Steam/logs"
+          ],
+          "runtime" :
+          [
+            "${pkgs.opencomposite}/lib/opencomposite"
+          ],
+          "version" : 1
+        }
+      '';
+      "openxr/1/active_runtime.json".text = ''
+        {
+          "file_format_version": "1.0.0",
+          "runtime": {
+              "name": "Monado",
+              "library_path": "${pkgs.monado}/lib/libopenxr_monado.so"
+          }
+        }
+      '';
     };
     desktopEntries = {
       feh = {

@@ -13,6 +13,6 @@
       pdf-engine = "xelatex";
       citeproc = false;
     };
-    citationStyles = [./files/modern-language-association.csl];
+    citationStyles = [../files/modern-language-association.csl];
   };
 }
