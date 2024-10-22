@@ -1,4 +1,11 @@
 {pkgs, ...}: {
+  environment = {
+    pathsToLink = ["share/thumbnailers"];
+    systemPackages = with pkgs; [
+      libheif
+      libheif.out
+    ];
+  };
   services = {
     xserver.displayManager.gdm.enable = true;
     # needed for GNOME services outside of GNOME Desktop
@@ -10,13 +17,5 @@
     gnome.gnome-keyring.enable = true;
 
     gvfs.enable = true;
-
-    environment = {
-      pathsToLink = ["share/thumbnailers"];
-      systemPackages = with pkgs; [
-        libheif
-        libheif.out
-      ];
-    };
   };
 }
