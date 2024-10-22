@@ -1,41 +1,4 @@
 {pkgs, ...}: {
-  imports = [
-    ./waybar.nix
-  ];
-
-  services = {
-    mako = {
-      enable = true;
-      anchor = "bottom-right";
-      defaultTimeout = 3000;
-    };
-    copyq = {
-      enable = true;
-      systemdTarget = "hyprland-session.target";
-    };
-  };
-
-  programs.wofi = {
-    enable = true;
-    settings = {
-      width = 600;
-      height = 420;
-      location = "center";
-      show = "drun";
-      prompt = "Search...";
-      filter_rate = 100;
-      allow_markup = true;
-      no_actions = true;
-      halign = "fill";
-      orientation = "vertical";
-      content_halign = "fill";
-      insensitive = true;
-      allow_images = true;
-      image_size = 32;
-      gtk_dark = true;
-    };
-  };
-
   wayland.windowManager.hyprland = {
     enable = true;
     xwayland.enable = true;

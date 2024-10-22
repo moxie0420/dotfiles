@@ -5,8 +5,21 @@
 }: {
   imports = [
     ./desktop
-    ./applications
+    ./hyprland.nix
+    ./programs
+    ./services
+    ./theme.nix
+    ./xdg.nix
   ];
+
+  dconf = {
+    enable = true;
+    settings = {
+      "org/gnome/desktop/interface".color-scheme = "prefer-dark";
+      "org/cinnamon/desktop/default-applications/terminal".exec = "kitty";
+    };
+  };
+
   home = {
     username = "moxie";
     homeDirectory = "/home/moxie";
@@ -39,39 +52,9 @@
       jetbrains.idea-ultimate
       inputs.zen-browser.packages."${system}".default
       vesktop
+      nautilus
     ];
 
     stateVersion = "23.11";
-  };
-
-  programs = {
-    direnv = {
-      enable = true;
-      nix-direnv.enable = true;
-    };
-    home-manager.enable = true;
-    feh.enable = true;
-
-    obs-studio = {
-      enable = true;
-      plugins = with pkgs.obs-studio-plugins; [
-        wlrobs
-        input-overlay
-        obs-vkcapture
-        obs-rgb-levels-filter
-        obs-gradient-source
-      ];
-    };
-  };
-
-  services = {
-    gpg-agent = {
-      enable = true;
-      enableSshSupport = true;
-      enableExtraSocket = true;
-      sshKeys = [
-        "C02F30F9FD65E05531A321C8491E3EFE1C0C7383"
-      ];
-    };
   };
 }
