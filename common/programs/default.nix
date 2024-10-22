@@ -9,6 +9,13 @@
 
   programs = {
     # make HM-managed GTK stuff work
-    dconf.enable = true;
+    dconf = {
+      enable = true;
+      settings = {
+        "org/gnome/desktop/interface".color-scheme = "prefer-dark";
+      };
+    };
   };
+
+  services.xserver.displayManager.gdm.enable = true;
 }

@@ -6,13 +6,10 @@ let
 
     ./hardware/bluetooth.nix
     ./hardware/fwupd.nix
-    ./hardware/graphics.nix
     ./hardware/udisks.nix
 
     ./network
     ./network/avahi.nix
-
-    ./polkit.nix
 
     ./programs
 

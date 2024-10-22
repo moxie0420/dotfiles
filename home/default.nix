@@ -1,4 +1,8 @@
-{pkgs, ...}: {
+{
+  pkgs,
+  inputs,
+  ...
+}: {
   imports = [
     ./desktop
     ./applications
@@ -33,6 +37,8 @@
       unityhub
 
       jetbrains.idea-ultimate
+      inputs.zen-browser.packages."${system}".default
+      vesktop
     ];
 
     stateVersion = "23.11";

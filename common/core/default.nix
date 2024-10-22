@@ -11,7 +11,7 @@
 
   i18n.defaultLocale = "en_US.UTF-8";
 
-  system.stateVersion = lib.mkDefault "23.05";
+  system.stateVersion = lib.mkDefault "23.11";
 
   time.timeZone = lib.mkDefault "America/Chicago";
 
