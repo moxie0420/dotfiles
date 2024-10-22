@@ -5,9 +5,11 @@
   ...
 }: {
   imports = [
-    ./audio.nix
-    ./steam.nix
+    ./security.nix
+    ./users.nix
+    ./nix-ld.nix
   ];
+
   environment = {
     pathsToLink = ["share/thumbnailers"];
     systemPackages = with pkgs; [
@@ -27,17 +29,10 @@
         })
     ];
   };
-  fonts.packages = with pkgs; [
-    noto-fonts
-    noto-fonts-cjk
-    noto-fonts-emoji
-    noto-fonts-extra
-    nerdfonts
-  ];
 
   services = {
     printing.enable = true;
-    gvfs.enable = true;
+
     tumbler.enable = true;
     thermald.enable = true;
     flatpak.enable = true;

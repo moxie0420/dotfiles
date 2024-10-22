@@ -28,64 +28,61 @@
       url = "github:kamadorueda/alejandra/3.0.0";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+
+    flake-parts.url = "github:hercules-ci/flake-parts";
+    nix-gaming.url = "github:fufexan/nix-gaming";
   };
 
-  outputs = {
-    alejandra,
-    self,
-    nixpkgs,
-    lanzaboote,
-    home-manager,
-    spicetify-nix,
-    catppuccin,
-    ...
-  } @ inputs: {
-    templates = {
-      "devshell-basic" = {
-        path = ./templates/devshell-basic;
-        description = "a basic devshell using flake-utils";
-      };
-    };
-
-    formatter."x86_64-linux" = alejandra.defaultPackage."x86_64-linux";
-
-    nixosConfigurations = let
-      home = {
-        catppuccin = {
-          enable = true;
-          accent = "pink";
-          flavor = "mocha";
+  outputs = inputs @ {flake-parts, ...}:
+    flake-parts.lib.mkFlake {inherit inputs;} {
+      flake = {
+        templates = {
+          "devshell-basic" = {
+            path = ./templates/devshell-basic;
+            description = "a basic devshell using flake-utils";
+          };
         };
-        home-manager = {
-          useGlobalPkgs = true;
-          useUserPackages = true;
-          backupFileExtension = "backup";
-          extraSpecialArgs = {inherit inputs;};
-          users.moxie.imports = [
-            ./home/home.nix
-            catppuccin.homeManagerModules.catppuccin
+        nixosModules.default = {...}: {
+          imports = [
+            inputs.catppuccin.nixosModules.catppuccin
+            inputs.home-manager.nixosModules.home-manager
+            inputs.lanzaboote.nixosModules.lanzaboote
+            ./modules/common
           ];
         };
+        nixosConfigurations = let
+          home = {
+            catppuccin = {
+              enable = true;
+              accent = "pink";
+              flavor = "mocha";
+            };
+            home-manager = {
+              useGlobalPkgs = true;
+              useUserPackages = true;
+              backupFileExtension = "backup";
+              extraSpecialArgs = {inherit inputs;};
+              users.moxie.imports = [
+                ./home/home.nix
+                inputs.catppuccin.homeManagerModules.catppuccin
+              ];
+            };
+          };
+        in {
+        };
       };
 
-      commonModules = [
-        catppuccin.nixosModules.catppuccin
-        home-manager.nixosModules.home-manager
-        lanzaboote.nixosModules.lanzaboote
-        home
+      systems = [
+        "x86_64-linux"
       ];
-    in {
-      # desktop
-      nixUwU = nixpkgs.lib.nixosSystem {
-        specialArgs = {inherit inputs;};
-        modules = [./hw/nixUwU] ++ commonModules;
-      };
 
-      # laptop
-      nixOwO = nixpkgs.lib.nixosSystem {
-        specialArgs = {inherit inputs;};
-        modules = [./hw/nixOwO] ++ commonModules;
+      imports = [
+        ./hosts
+        ./common
+      ];
+
+      perSystem = {config, ...}: {
+        formatter = inputs.alejandra.defaultPackage;
       };
     };
-  };
 }
