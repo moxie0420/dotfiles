@@ -30,7 +30,7 @@
             };
             home-manager = {
               users.moxie.imports = [
-                "${self}/home"
+                ../home
                 inputs.catppuccin.homeManagerModules.catppuccin
               ];
               extraSpecialArgs = specialArgs;

@@ -7,12 +7,60 @@
   ...
 }: {
   imports = [
-    ./boot.nix
     ./disks.nix
     ./hardware.nix
     ./network.nix
-    ../../common
   ];
+
+  environment.variables.FLAKE = "/etc/nixos";
+
+  services = {
+    fstrim.enable = true;
+  };
+
+  boot = {
+    blacklistedKernelModules = [
+      "nouveau"
+      "nvidia"
+      "nvidia_drm"
+      "nvidia_modeset"
+    ];
+    initrd = {
+      compressor = "zstd";
+      verbose = false;
+      availableKernelModules = [
+        "xhci_pci"
+        "usbhid"
+        "sdhci_pci"
+        "cryptd"
+        "aesni_intel"
+        "xhci_hcd"
+      ];
+      systemd = {
+        enable = true;
+        dbus.enable = true;
+      };
+    };
+    kernelModules = [
+      "kvm_amd"
+      "amdgpu"
+      "nvme"
+    ];
+    kernelParams = [
+      "quiet"
+      "splash"
+      "boot.shell_on_fail"
+      "loglevel=3"
+      "rd.systemd.show_status=false"
+      "rd.udev.log_level=3"
+      "udev.log_priority=3"
+      "rootflags=noatime"
+      "resume_offset=474218496"
+      "acpi_backlight=native"
+    ];
+    plymouth.enable = true;
+    resumeDevice = "/dev/mapper/nixroot";
+  };
 
   services = {
     udev.extraRules = ''
@@ -31,5 +79,7 @@
       	RUN+="${pkgs.systemd}/bin/loginctl unlock-sessions"
     '';
   };
-  system.stateVersion = "23.05";
+  system.stateVersion = "23.11";
+
+  nixpkgs.hostPlatform = lib.mkDefault "x86_64-linux";
 }

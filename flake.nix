@@ -5,10 +5,7 @@
     # importand inputs
     systems.url = "github:nix-systems/default-linux";
 
-    flake-parts = {
-      url = "github:hercules-ci/flake-parts";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
+    flake-parts.url = "github:hercules-ci/flake-parts";
 
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
 
