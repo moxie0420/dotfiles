@@ -24,19 +24,6 @@
     accent = "pink";
     flavor = "mocha";
   };
-  gtk = {
-    enable = true;
-    catppuccin = {
-      enable = true;
-      accent = "pink";
-      flavor = "mocha";
-      icon = {
-        enable = true;
-        accent = "pink";
-        flavor = "mocha";
-      };
-    };
-  };
   dconf = {
     enable = true;
     settings = {

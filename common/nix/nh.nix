@@ -6,5 +6,6 @@
       enable = true;
       extraArgs = "--keep-since 30d";
     };
+    flake = "/etc/nixos";
   };
 }
