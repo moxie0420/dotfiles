@@ -48,6 +48,7 @@
         laptop
         ++ [
           ./nixOwO
+          "${mod}/hardware/specialisations.nix"
         ];
     };
   };
