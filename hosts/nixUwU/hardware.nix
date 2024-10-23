@@ -15,15 +15,12 @@
     enable = true;
   };
 
-  services.xserver.videoDrivers = ["nvidia"];
+  #services.xserver.videoDrivers = ["nvidia"];
 
   hardware = {
     enableAllFirmware = true;
-    cpu.intel.updateMicrocode = lib.mkDefault config.hardware.enableRedistributableFirmware;
 
     graphics = {
-      enable = true;
-      enable32Bit = true;
       extraPackages = with pkgs; [
         nvidia-vaapi-driver
       ];

@@ -6,6 +6,7 @@ let
 
     ./hardware/bluetooth.nix
     ./hardware/fwupd.nix
+    ./hardware/mesa.nix
     ./hardware/udisks.nix
 
     ./network
