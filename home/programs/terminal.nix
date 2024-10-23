@@ -32,7 +32,7 @@
       enable = true;
       shellIntegration.enableFishIntegration = true;
       settings = {
-        background_opacity = lib.mkForce "0.50";
+        background_opacity = lib.mkForce "0.0";
       };
     };
     nushell = {

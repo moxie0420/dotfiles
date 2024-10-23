@@ -1,4 +1,11 @@
-{pkgs, ...}: {
+{
+  inputs,
+  pkgs,
+  ...
+}: {
+  imports = [
+    inputs.nix-gaming.nixosModules.platformOptimizations
+  ];
   programs = {
     gamescope = {
       enable = true;
@@ -11,6 +18,7 @@
     steam = {
       enable = true;
 
+      platformOptimizations.enable = true;
       protontricks.enable = true;
       remotePlay.openFirewall = true;
 
