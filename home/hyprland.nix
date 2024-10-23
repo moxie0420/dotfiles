@@ -1,7 +1,13 @@
-{pkgs, ...}: {
+{
+  inputs,
+  pkgs,
+  ...
+}: {
   wayland.windowManager.hyprland = {
     enable = true;
-    xwayland.enable = true;
+
+    package = inputs.hyprland.packages.${pkgs.system}.default;
+
     catppuccin = {
       enable = true;
       accent = "pink";
@@ -36,6 +42,7 @@
       };
       gestures = {
         workspace_swipe = true;
+        workspace_swipe_forever = true;
       };
       general = {
         gaps_in = 9;
@@ -45,18 +52,55 @@
         layout = "dwindle";
 
         allow_tearing = false;
+        resize_on_border = true;
       };
       decoration = {
-        rounding = 15;
+        rounding = 16;
+
+        blur = {
+          enabled = true;
+          brightness = 1.0;
+          contrast = 1.0;
+          noise = 0.01;
+
+          vibrancy = 0.2;
+          vibrancy_darkness = 0.5;
+
+          passes = 4;
+          size = 7;
+
+          popups = true;
+          popups_ignorealpha = 0.2;
+        };
+
         drop_shadow = true;
+        shadow_ignore_window = true;
+        shadow_offset = "0 15";
+        shadow_range = 100;
+        shadow_render_power = 2;
+        shadow_scale = 0.97;
       };
+      animations = {
+        enabled = true;
+        animation = [
+          "border, 1, 2, default"
+          "fade, 1, 4, default"
+          "windows, 1, 3, default, popin 80%"
+          "workspaces, 1, 2, default, slide"
+        ];
+      };
+
       dwindle = {
         pseudotile = true;
         preserve_split = true;
       };
+
+      xwayland.force_zero_scaling = true;
+
       exec = [
       ];
       exec-once = [
+        "${pkgs.clipboard-jh}/bin/cb"
         "${pkgs.openrgb-with-all-plugins}/bin/openrgb -p /home/moxie/.config/OpenRGB/default.orp"
         "gpg-agent --daemon"
         "[silent] vesktop"
@@ -75,8 +119,13 @@
         "workspace 3 silent, class:(lutris)"
         "workspace 9 silent, class:(vesktop)"
         "workspace 10 silent, title:(Spotify)"
-        "float, class:(clipse)"
-        "size 622 652, class:(clipse)"
+
+        "float, title:^(Picture-in-Picture)$"
+        "pin, title:^(Picture-in-Picture)$"
+
+        "idleinhibit focus, class:^(mpv|.+exe|celluloid)$"
+        "idleinhibit focus, class:^(zen)$, title:^(.*YouTube.*)$"
+        "idleinhibit fullscreen, class:^(zen)$"
       ];
       workspace = [
         "8, monitor:HDMI-A-1"

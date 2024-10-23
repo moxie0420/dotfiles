@@ -19,6 +19,28 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
+    hyprland.url = "github:hyprwm/hyprland";
+
+    hypridle = {
+      url = "github:hyprwm/hypridle";
+      inputs = {
+        hyprlang.follows = "hyprland/hyprlang";
+        hyprutils.follows = "hyprland/hyprutils";
+        nixpkgs.follows = "hyprland/nixpkgs";
+        systems.follows = "hyprland/systems";
+      };
+    };
+
+    hyprlock = {
+      url = "github:hyprwm/hyprlock";
+      inputs = {
+        hyprlang.follows = "hyprland/hyprlang";
+        hyprutils.follows = "hyprland/hyprutils";
+        nixpkgs.follows = "hyprland/nixpkgs";
+        systems.follows = "hyprland/systems";
+      };
+    };
+
     lanzaboote = {
       url = "github:nix-community/lanzaboote";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -31,7 +53,7 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    zen-browser.url = "github:MarceColl/zen-browser-flake";
+    zen-browser.url = "github:fufexan/zen-browser-flake";
   };
 
   outputs = inputs @ {flake-parts, ...}:
