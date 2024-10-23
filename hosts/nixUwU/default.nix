@@ -1,6 +1,7 @@
 {
   config,
   lib,
+  pkgs,
   ...
 }: {
   imports = [
@@ -46,16 +47,28 @@
     };
   };
 
-  # set a static ip
-  systemd.network.networks."10-wan" = {
-    matchConfig.Name = "eno2";
-    address = [
-      "172.31.11.103"
-    ];
-    routes = [
-      {Gateway = "172.31.11.1";}
-    ];
-    linkConfig.RequiredForOnline = "routable";
+  systemd = {
+    # set a static ip
+    network.networks."10-wan" = {
+      matchConfig.Name = "eno2";
+      address = [
+        "172.31.11.103"
+      ];
+      routes = [
+        {Gateway = "172.31.11.1";}
+      ];
+      linkConfig.RequiredForOnline = "routable";
+    };
+
+    services.tty-fix = {
+      enable = true;
+      wantedBy = ["multi-user.target"];
+      description = "fixes tty resolution";
+      serviceConfig = {
+        Type = "simple";
+        ExecStart = "${pkgs.fbset}/bin/fbset -xres 3840 -yres 2160";
+      };
+    };
   };
 
   nixpkgs.hostPlatform = lib.mkDefault "x86_64-linux";
