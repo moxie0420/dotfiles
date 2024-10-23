@@ -30,6 +30,10 @@
         vaapiVdpau
       ];
     };
+    amdgpu = {
+      initrd.enable = true;
+      opencl.enable = true;
+    };
     nvidia = {
       open = true;
       nvidiaSettings = true;
