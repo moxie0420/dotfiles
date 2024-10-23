@@ -15,7 +15,8 @@
   };
 
   programs = {
-    gnome-disks.enable = true;
     file-roller.enable = true;
+    gnome-disks.enable = true;
+    seahorse.enable = true;
   };
 }

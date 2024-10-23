@@ -24,29 +24,20 @@
     homeDirectory = "/home/moxie";
 
     sessionVariables = {
-      WLR_NO_HARDWARE_CURSORS = 0;
-      ELECTRON_OZONE_PLATFORM_HINT = "auto";
+      NIXOS_OZONE_WL = 1;
       XCURSOR_THEME = "rose-pine";
       XCURSOR_SIZE = 24;
     };
 
     packages = with pkgs; [
       alejandra
-      qbittorrent
-
-      #gaming
+      clipboard-jh
       heroic
-      r2modman
       lutris
       (pkgs.prismlauncher.override {
         jdks = with pkgs; [temurin-bin-21 temurin-bin-17 temurin-bin-8];
       })
-
-      pavucontrol
-      libreoffice-fresh
-
-      devenv
-      unityhub
+      r2modman
 
       jetbrains.idea-ultimate
       inputs.zen-browser.packages."${system}".default
