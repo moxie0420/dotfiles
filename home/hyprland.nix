@@ -3,6 +3,9 @@
   pkgs,
   ...
 }: {
+  home.packages = [
+    pkgs.hyprpicker
+  ];
   wayland.windowManager.hyprland = {
     enable = true;
 
@@ -59,7 +62,7 @@
 
         blur = {
           enabled = true;
-          brightness = 1.0;
+          brightness = 0.75;
           contrast = 1.0;
           noise = 0.01;
 
@@ -67,7 +70,7 @@
           vibrancy_darkness = 0.5;
 
           passes = 4;
-          size = 7;
+          size = 3;
 
           popups = true;
           popups_ignorealpha = 0.2;
@@ -100,7 +103,6 @@
       exec = [
       ];
       exec-once = [
-        "${pkgs.clipboard-jh}/bin/cb"
         "${pkgs.openrgb-with-all-plugins}/bin/openrgb -p /home/moxie/.config/OpenRGB/default.orp"
         "gpg-agent --daemon"
         "[silent] vesktop"
