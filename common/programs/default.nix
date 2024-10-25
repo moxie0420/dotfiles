@@ -3,6 +3,7 @@
     ./fonts.nix
     ./gamemode.nix
     ./games.nix
+    ./hyprland.nix
     ./home-manager.nix
     ./xdg.nix
   ];
