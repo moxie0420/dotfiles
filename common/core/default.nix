@@ -1,7 +1,6 @@
 {lib, ...}: {
   imports = [
     ./console.nix
-    ./hyprland.nix
     ./security.nix
     ./users.nix
     ./nix-ld.nix
