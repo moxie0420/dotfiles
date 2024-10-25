@@ -1,5 +1,8 @@
 {...}: {
+  boot.resumeDevice = "/dev/mapper/nixroot";
+
   services.fstrim.enable = true;
+
   systemd.tmpfiles.rules = [
     "w /sys/power/image_size - - - 320000000000"
   ];

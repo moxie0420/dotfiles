@@ -3,7 +3,10 @@
     bootspec.enable = true;
 
     initrd = {
-      systemd.enable = true;
+      systemd = {
+        enable = true;
+        dbus.enable = true;
+      };
       supportedFilesystems = ["ext4"];
     };
 
@@ -27,5 +30,6 @@
       };
       timeout = 0;
     };
+    plymouth.enable = true;
   };
 }
