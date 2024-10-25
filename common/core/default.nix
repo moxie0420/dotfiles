@@ -1,5 +1,7 @@
 {lib, ...}: {
   imports = [
+    ./console.nix
+    ./hyprland.nix
     ./security.nix
     ./users.nix
     ./nix-ld.nix
@@ -15,5 +17,8 @@
 
   time.timeZone = lib.mkDefault "America/Chicago";
 
-  zramSwap.enable = true;
+  zramSwap = {
+    enable = true;
+    memoryPercent = 20;
+  };
 }
