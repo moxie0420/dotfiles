@@ -25,6 +25,7 @@
         editor = false;
         enable = true;
       };
+      timeout = 0;
     };
   };
 }
