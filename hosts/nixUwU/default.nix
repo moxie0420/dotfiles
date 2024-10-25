@@ -17,12 +17,17 @@
 
   services.fstrim.enable = true;
 
-  environment.sessionVariables = {
-    LIBVA_DRIVER_NAME = "nvidia";
-    GBM_BACKEND = "nvidia-drm";
-    __GLX_VENDOR_LIBRARY_NAME = "nvidia";
-    __GL_GSYNC_ALLOWED = "1";
-    NVD_BACKEND = "direct";
+  environment = {
+    loginShellInit = ''
+      ${pkgs.fbset}/bin/fbset -xres 3840 -yres 2160
+    '';
+    sessionVariables = {
+      LIBVA_DRIVER_NAME = "nvidia";
+      GBM_BACKEND = "nvidia-drm";
+      __GLX_VENDOR_LIBRARY_NAME = "nvidia";
+      __GL_GSYNC_ALLOWED = "1";
+      NVD_BACKEND = "direct";
+    };
   };
 
   boot = {
@@ -61,13 +66,18 @@
     };
 
     services.tty-fix = {
-      enable = true;
+      enable = false;
       wantedBy = ["multi-user.target"];
       description = "fixes tty resolution";
       serviceConfig = {
         Type = "simple";
         ExecStart = "${pkgs.fbset}/bin/fbset -xres 3840 -yres 2160";
       };
+    };
+
+    watchdog = {
+      device = "/dev/watchdog";
+      rebootTime = "5m";
     };
   };
 
