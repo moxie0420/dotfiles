@@ -24,7 +24,7 @@
           inputs.nix-index-database.hmModules.nix-index
           self.homeManagerModules.rosePine
           {
-            rose-pine.enable = true;
+            rose-pine.vesktop.enable = true;
           }
         ];
         extraSpecialArgs = specialArgs;

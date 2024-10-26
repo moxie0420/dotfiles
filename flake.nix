@@ -80,7 +80,7 @@
 
       imports = [
         ./hosts
-        ./modules
+        ./modules/rose-pine
         ./packages
         ./templates
         inputs.git-hooks-nix.flakeModule
