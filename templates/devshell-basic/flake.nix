@@ -8,30 +8,27 @@
     nixpkgs.url = "github:nixos/nixpkgs?ref=nixos-unstable";
   };
 
-  outputs = inputs @ {
-    nixpkgs,
-    flake-parts,
-    ...
-  }: {
-    imports = [
-      inputs.devshell.flakeModule
-      inputs.mkdocs-flake.flakeModule
-    ];
-    perSystem = {pkgs, ...}: {
-      systems = ["x86_64-linux"];
+  outputs = inputs @ {flake-parts, ...}:
+    flake-parts.lib.mkFlake {inherit inputs;} {
+      imports = [
+        inputs.devshell.flakeModule
+        inputs.mkdocs-flake.flakeModule
+      ];
+      perSystem = {
+        systems = ["x86_64-linux"];
 
-      devshell.default = {
-        name = "generic devshell";
-        motd = ''
-          Welcome to you dev flake\n
-          Checkout ./flake.nix to get started
-        '';
-        env = [];
-        commands = [];
-        packages = [];
+        devshell.default = {
+          name = "generic devshell";
+          motd = ''
+            Welcome to you dev flake\n
+            Checkout ./flake.nix to get started
+          '';
+          env = [];
+          commands = [];
+          packages = [];
+        };
+
+        documentation.mkdocs-root = ./docs;
       };
-
-      documentation.mkdocs-root = ./docs;
     };
-  };
 }

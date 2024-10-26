@@ -1,8 +1,4 @@
-{
-  config,
-  pkgs,
-  ...
-}: {
+{pkgs, ...}: {
   # smooth backlight control
   hardware.brillo.enable = true;
   services.hardware.openrgb = {

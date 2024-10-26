@@ -92,14 +92,29 @@
         inputs.git-hooks-nix.flakeModule
       ];
 
-      perSystem = {pkgs, ...}: {
+      perSystem = {
+        pkgs,
+        config,
+        ...
+      }: {
         formatter = pkgs.alejandra;
+
+        devShells.default = pkgs.mkShell {
+          DIRENV_LOG_FORMAT = "";
+          packages = with pkgs; [
+            alejandra
+            git
+          ];
+          shellHook = ''
+            ${config.pre-commit.installationScript}
+          '';
+        };
 
         pre-commit = {
           settings.hooks = {
-            alejandra = true;
-            deadnix = true;
-            flake-checker = true;
+            alejandra.enable = true;
+            deadnix.enable = true;
+            flake-checker.enable = true;
           };
         };
       };
