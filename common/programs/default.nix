@@ -9,15 +9,16 @@
   ];
 
   programs = {
-    # make HM-managed GTK stuff work
-    dconf = {
-      enable = true;
-    };
-  };
-
-  programs = {
+    dconf.enable = true;
     file-roller.enable = true;
     gnome-disks.enable = true;
+
+    nautilus-open-any-terminal = {
+      enable = true;
+      terminal = "kitty";
+    };
+
     seahorse.enable = true;
+    thefuck.enable = true;
   };
 }

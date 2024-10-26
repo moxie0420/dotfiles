@@ -35,6 +35,7 @@
         background_opacity = lib.mkForce "0.0";
       };
     };
+    nix-index.enable = true;
     nushell = {
       enable = true;
       extraConfig = ''

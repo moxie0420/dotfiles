@@ -10,6 +10,22 @@
     inherit (import mod) desktop laptop;
 
     specialArgs = {inherit inputs self;};
+
+    shared = {
+      catppuccin = {
+        enable = true;
+        accent = "pink";
+        flavor = "mocha";
+      };
+      home-manager = {
+        users.moxie.imports = [
+          ../home
+          inputs.catppuccin.homeManagerModules.catppuccin
+          inputs.nix-index-database.hmModules.nix-index
+        ];
+        extraSpecialArgs = specialArgs;
+      };
+    };
   in {
     # desktop
     nixUwU = nixosSystem {
@@ -22,22 +38,10 @@
 
           "${mod}/network/spotify.nix"
 
-          {
-            catppuccin = {
-              enable = true;
-              accent = "pink";
-              flavor = "mocha";
-            };
-            home-manager = {
-              users.moxie.imports = [
-                ../home
-                inputs.catppuccin.homeManagerModules.catppuccin
-              ];
-              extraSpecialArgs = specialArgs;
-            };
-          }
+          shared
 
           inputs.catppuccin.nixosModules.catppuccin
+          inputs.nix-index-database.nixosModules.nix-index
         ];
     };
 
@@ -49,6 +53,11 @@
         ++ [
           ./nixOwO
           "${mod}/hardware/specialisations.nix"
+
+          shared
+
+          inputs.catppuccin.nixosModules.catppuccin
+          inputs.nix-index-database.nixosModules.nix-index
         ];
     };
   };
