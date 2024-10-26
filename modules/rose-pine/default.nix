@@ -22,11 +22,8 @@
             "vesktop/themes/rose-pine-moon.theme.css".source = "${self.packages.x86_64-linux.rosePineVesktop}/rose-pine-moon.theme.css";
           };
           programs.starship.settings = mkIf cfg.starship.enable (mkForce {
-            format = ''
-              $username$directory$git_branch$git_status$fill$c$elixir$elm$golang$haskell$java$julia$nodejs$nim$rust$scala$python
-              $time
-              [󱞪](fg:iris)
-            '';
+            format = "$username$directory$git_branch$git_status$nix_shell\n[󱞪](fg:iris) ";
+            right_format = "$c$elixir$elm$golang$haskell$java$julia$nodejs$nim$rust$scala$python$time";
 
             palette = "rose-pine";
 
@@ -51,10 +48,6 @@
                 Pictures = " ";
               };
             };
-            fill = {
-              style = "fg:overlay";
-              symbol = " ";
-            };
             git_branch = {
               format = "[](fg:overlay)[ $symbol $branch ]($style)[](fg:overlay)";
               style = "bg:overlay fg:foam";
@@ -78,6 +71,11 @@
               show_always = true;
               style_root = "bg:overlay fg:iris";
               style_user = "bg:overlay fg:iris";
+            };
+            nix_shell = {
+              disabled = false;
+              format = "[](fg:overlay)[ 󱄅 $name - $state  ]($style)[](fg:overlay)";
+              style = "bg:overlay fg:iris";
             };
 
             # Languages

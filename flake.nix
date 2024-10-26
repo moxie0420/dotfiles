@@ -93,7 +93,11 @@
       }: {
         formatter = pkgs.alejandra;
 
-        devShells.default = config.pre-commit.devShell;
+        devShells.default = pkgs.mkShell {
+          name = "Config";
+          packages = [pkgs.jq];
+          shellHook = config.pre-commit.installationScript;
+        };
 
         pre-commit.settings.hooks = {
           alejandra.enable = true;
