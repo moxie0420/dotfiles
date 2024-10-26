@@ -22,6 +22,10 @@
           ../home
           inputs.catppuccin.homeManagerModules.catppuccin
           inputs.nix-index-database.hmModules.nix-index
+          self.homeManagerModules.rosePine
+          {
+            rose-pine.enable = true;
+          }
         ];
         extraSpecialArgs = specialArgs;
       };

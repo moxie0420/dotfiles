@@ -81,6 +81,7 @@
       imports = [
         ./hosts
         ./modules
+        ./packages
         ./templates
         inputs.git-hooks-nix.flakeModule
       ];
@@ -94,12 +95,10 @@
 
         devShells.default = config.pre-commit.devShell;
 
-        pre-commit = {
-          settings.hooks = {
-            alejandra.enable = true;
-            deadnix.enable = true;
-            flake-checker.enable = true;
-          };
+        pre-commit.settings.hooks = {
+          alejandra.enable = true;
+          deadnix.enable = true;
+          flake-checker.enable = true;
         };
       };
     };

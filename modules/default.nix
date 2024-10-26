@@ -1,5 +1,5 @@
 {
-  flake.nixosModules = {
-    rose-pine = import ./rose-pine;
+  flake.homeManagerModules = {
+    rosePine = import ./rose-pine;
   };
 }

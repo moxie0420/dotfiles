@@ -6,6 +6,6 @@
       enable = true;
       extraArgs = "--keep-since 30d";
     };
-    flake = "/etc/nixos";
+    flake = "/home/moxie/dotfiles";
   };
 }
