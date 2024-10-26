@@ -1,16 +1,16 @@
-{pkgs, ...}: {
+{
+  pkgs,
+  self,
+  ...
+}: {
   fonts = {
-    fontconfig.defaultFonts = {
-      serif = ["Comic Shanns Mono" "Liberation Serif"];
-      sansSerif = ["Comic Shanns Mono" "Ubuntu" "Vazirmatn"];
-      monospace = ["Comic Shanns Mono" "Ubuntu Mono"];
-    };
     packages = with pkgs; [
       material-symbols
 
       noto-fonts
       noto-fonts-cjk-sans
       noto-fonts-emoji
+      noto-fonts-color-emoji
       noto-fonts-extra
       roboto
 
@@ -18,7 +18,8 @@
       jetbrains-mono
 
       # nerdfonts
-      (nerdfonts.override {fonts = ["NerdFontsSymbolsOnly" "ComicShannsMono"];})
+      (nerdfonts.override {fonts = ["NerdFontsSymbolsOnly"];})
+      (self.packages.x86_64-linux.comicMono)
     ];
   };
 }

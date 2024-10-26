@@ -31,6 +31,7 @@
 
     packages = with pkgs; [
       alejandra
+      cachix
       clipboard-jh
       heroic
       lutris

@@ -79,7 +79,7 @@
     };
     mime.enable = true;
     mimeApps = {
-      enable = true;
+      enable = false;
       associations.added = {
         "x-scheme-handler/mailto" = "userapp-Thunderbird-JLKXS2.desktop";
         "x-scheme-handler/mid" = "userapp-Thunderbird-JLKXS2.desktop";

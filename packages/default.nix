@@ -1,5 +1,6 @@
 {
   imports = [
-    ./rosePineVencord.nix
+    ./comicMono.nix
+    ./rosePineVesktop.nix
   ];
 }

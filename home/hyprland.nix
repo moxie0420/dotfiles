@@ -12,7 +12,7 @@
     package = inputs.hyprland.packages.${pkgs.system}.default;
 
     catppuccin = {
-      enable = true;
+      enable = false;
       accent = "pink";
       flavor = "mocha";
     };

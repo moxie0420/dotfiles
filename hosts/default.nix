@@ -13,7 +13,7 @@
 
     shared = {
       catppuccin = {
-        enable = true;
+        enable = false;
         accent = "pink";
         flavor = "mocha";
       };
@@ -24,7 +24,10 @@
           inputs.nix-index-database.hmModules.nix-index
           self.homeManagerModules.rosePine
           {
-            rose-pine.vesktop.enable = true;
+            rose-pine = {
+              vesktop.enable = true;
+              starship.enable = true;
+            };
           }
         ];
         extraSpecialArgs = specialArgs;
