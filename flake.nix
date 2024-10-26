@@ -74,21 +74,14 @@
 
   outputs = inputs @ {flake-parts, ...}:
     flake-parts.lib.mkFlake {inherit inputs;} {
-      flake = {
-        templates = {
-          "devshell-basic" = {
-            path = ./templates/devshell-basic;
-            description = "a basic devshell using flake-utils";
-          };
-        };
-      };
-
       systems = [
         "x86_64-linux"
       ];
 
       imports = [
         ./hosts
+        ./modules
+        ./templates
         inputs.git-hooks-nix.flakeModule
       ];
 
@@ -99,16 +92,7 @@
       }: {
         formatter = pkgs.alejandra;
 
-        devShells.default = pkgs.mkShell {
-          DIRENV_LOG_FORMAT = "";
-          packages = with pkgs; [
-            alejandra
-            git
-          ];
-          shellHook = ''
-            ${config.pre-commit.installationScript}
-          '';
-        };
+        devShells.default = config.pre-commit.devShell;
 
         pre-commit = {
           settings.hooks = {
