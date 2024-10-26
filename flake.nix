@@ -91,6 +91,14 @@
 
       perSystem = {pkgs, ...}: {
         formatter = pkgs.alejandra;
+
+        pre-commit = {
+          settings.hooks = {
+            alejandra = true;
+            deadnix = true;
+            flake-checker = true;
+          };
+        };
       };
     };
 }
