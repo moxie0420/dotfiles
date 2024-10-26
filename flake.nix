@@ -14,6 +14,8 @@
 
     catppuccin.url = "github:catppuccin/nix";
 
+    git-hooks-nix.url = "github:cachix/git-hooks.nix";
+
     home-manager = {
       url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -87,6 +89,7 @@
 
       imports = [
         ./hosts
+        inputs.git-hooks-nix.flakeModule
       ];
 
       perSystem = {pkgs, ...}: {
