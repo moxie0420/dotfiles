@@ -95,7 +95,6 @@
 
         devShells.default = pkgs.mkShell {
           name = "Config";
-          packages = [pkgs.jq];
           shellHook = config.pre-commit.installationScript;
         };
 
