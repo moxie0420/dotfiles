@@ -21,12 +21,17 @@
         };
 
         config.xdg.configFile =
-          mkIf cfg.vesktop.enable {
+          mkIf
+          cfg.vesktop.enable {
             "vesktop/themes/rose-pine.theme.css".source = "${self.packages.x86_64-linux.rosePineVesktop}/rose-pine.theme.css";
             "vesktop/themes/rose-pine-moon.theme.css".source = "${self.packages.x86_64-linux.rosePineVesktop}/rose-pine-moon.theme.css";
           }
-          ++ mkIf cfg.kitty.enable {
+          // mkIf cfg.kitty.enable {
+            "kitty/themes/".source = "${self.packages.x86_64-linux.rosePineKitty}/themes";
+            "kitty/icons/".source = "${self.packages.x86_64-linux.rosePineKitty}/icons";
           };
+
+        config.programs.kitty.extraConfig = mkIf cfg.kitty.enable "include rose-pine.conf";
       };
   };
 }

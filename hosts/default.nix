@@ -27,6 +27,7 @@
             rose-pine = {
               vesktop.enable = true;
               starship.enable = true;
+              kitty.enable = true;
             };
           }
         ];
