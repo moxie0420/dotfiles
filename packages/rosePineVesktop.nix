@@ -2,7 +2,6 @@
   perSystem = {pkgs, ...}: {
     packages.rosePineVesktop = pkgs.stdenv.mkDerivation {
       name = "rosePineVesktop";
-      version = "1.0.0";
       src = pkgs.fetchFromGitHub {
         owner = "rose-pine";
         repo = "discord";

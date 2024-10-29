@@ -11,11 +11,6 @@
 
     package = inputs.hyprland.packages.${pkgs.system}.default;
 
-    catppuccin = {
-      enable = false;
-      accent = "pink";
-      flavor = "mocha";
-    };
     systemd = {
       enable = true;
       enableXdgAutostart = true;

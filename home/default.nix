@@ -25,8 +25,6 @@
 
     sessionVariables = {
       NIXOS_OZONE_WL = 1;
-      XCURSOR_THEME = "rose-pine";
-      XCURSOR_SIZE = 24;
     };
 
     packages = with pkgs; [

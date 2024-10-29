@@ -5,40 +5,7 @@
 }: {
   xdg = {
     enable = true;
-    dataFile = {
-      "icons/rose-pine-hyprcursor" = {
-        recursive = true;
-        source = ./files/rose-pine-hyprcursor;
-      };
-      "icons/rose-pine" = {
-        recursive = true;
-        source = ./files/rose-pine;
-      };
-      "icons/default" = {
-        recursive = true;
-        source = ./files/rose-pine;
-      };
-    };
     configFile = {
-      "gtk-2.0/settings.ini" = {
-        text = ''
-          [Settings]
-          gtk-cursor-theme-name=rose-pine
-        '';
-      };
-      "gtk-3.0/settings.ini" = {
-        text = ''
-          [Settings]
-          gtk-cursor-theme-name=rose-pine
-          gtk-application-prefer-dark-theme=1
-        '';
-      };
-      "gtk-4.0/settings.ini" = {
-        text = ''
-          [Settings]
-          gtk-cursor-theme-name=rose-pine
-        '';
-      };
       "openvr/openvrpaths.vrpath".text = ''
         {
           "config" :

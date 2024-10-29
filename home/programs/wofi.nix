@@ -16,7 +16,7 @@
       insensitive = true;
       allow_images = true;
       image_size = 32;
-      gtk_dark = true;
+      gtk_dark = false;
     };
   };
 }

@@ -43,6 +43,17 @@
       };
     };
 
+    hyprpaper = {
+      url = "github:hyprwm/hyprpaper";
+      inputs = {
+        hyprlang.follows = "hyprland/hyprlang";
+        hyprutils.follows = "hyprland/hyprutils";
+        nixpkgs.follows = "hyprland/nixpkgs";
+        systems.follows = "hyprland/systems";
+        hyprwayland-scanner.follows = "hyprland/hyprwayland-scanner";
+      };
+    };
+
     hyprpolkitagent = {
       url = "github:hyprwm/hyprpolkitagent";
       inputs = {
@@ -63,6 +74,8 @@
       url = "github:nix-community/nix-index-database";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+
+    rose-pine-hyprcursor.url = "github:ndom91/rose-pine-hyprcursor";
 
     spicetify-nix = {
       url = "github:Gerg-L/spicetify-nix";

@@ -2,7 +2,6 @@
   perSystem = {pkgs, ...}: {
     packages.rosePineKitty = pkgs.stdenv.mkDerivation {
       name = "rosePineKitty";
-      version = "1.0.0";
       src = pkgs.fetchFromGitHub {
         owner = "rose-pine";
         repo = "kitty";
