@@ -36,7 +36,7 @@
     x11.enable = true;
     name = "rose-pine";
     package = self.packages.x86_64-linux.rosePineCursor;
-    size = 24;
+    size = 16;
   };
   home.sessionVariables.XCURSOR_THEME = "rose-pine";
 

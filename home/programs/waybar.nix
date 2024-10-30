@@ -78,40 +78,6 @@
         }
         {
           layer = "top";
-          output = ["HDMI-A-1"];
-          modules-left = ["hyprland/workspaces"];
-          modules-center = ["hyprland/window"];
-          modules-right = ["memory" "disk" "cpu" "temperature" "clock" "tray"];
-          "hyprland/workspaces" = {format = "{name}";};
-          "hyprland/window" = {
-            seperate-outputs = true;
-            format = " {title} ";
-            max-length = 50;
-            rewrite = {
-              "(.*) — Mozilla Firefox" = "🌎 $1";
-              "vim (.*)" = " $1";
-              "sudo vim (.*)" = " $1";
-            };
-          };
-          "memory" = {format = "RAM: {percentage}%";};
-          "disk" = {format = "{percentage_free}% remaining on /";};
-          "cpu" = {format = "CPU: {usage}%";};
-          "backlight" = {
-            format = "{percent}% {icon}";
-            format-icons = ["" ""];
-          };
-          "battery" = {
-            format = "{capacity}%";
-            format-icons = ["" "" "" "" ""];
-          };
-          "tray" = {
-            icon-size = 21;
-            show-passive-items = true;
-            spacing = 5;
-          };
-        }
-        {
-          layer = "top";
           output = ["eDP-1"];
           modules-left = ["hyprland/workspaces"];
           modules-center = ["hyprland/window"];
