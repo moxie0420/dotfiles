@@ -68,6 +68,8 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
+    mkdocs-flake.url = "github:applicative-systems/mkdocs-flake";
+
     nix-gaming.url = "github:fufexan/nix-gaming";
 
     nix-index-database = {
@@ -97,6 +99,7 @@
         ./packages
         ./templates
         inputs.git-hooks-nix.flakeModule
+        inputs.mkdocs-flake.flakeModule
       ];
 
       perSystem = {
@@ -108,8 +111,11 @@
 
         devShells.default = pkgs.mkShell {
           name = "Config";
+          packages = [pkgs.mkdocs];
           shellHook = config.pre-commit.installationScript;
         };
+
+        documentation.mkdocs-root = ./.;
 
         pre-commit.settings.hooks = {
           alejandra.enable = true;
