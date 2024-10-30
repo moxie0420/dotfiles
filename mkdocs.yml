@@ -1,1 +1,11 @@
-site_name: My Docs
+site_name: Moxies nix Docs
+nav:
+  - Home: index.md
+  - Dotfiles:
+    - Common: common.md
+    - Home Manager: home.md
+    - Modules: modules.md
+    - Packages: packages.md
+    - Devshells: templates.md
+  - Nix Book: nix.md
+
