@@ -3,15 +3,15 @@
     packages.rosePineWofi = pkgs.stdenv.mkDerivation {
       name = "rosePineWofi";
       src = pkgs.fetchFromGitHub {
-        owner = "rose-pine";
-        repo = "rofi";
-        rev = "414bb2538713a874dbb357f19212c96a011e1ac8";
-        hash = "sha256-PnXk3t0Ce8ButnSsZFe7Id9SqgsnVUUXGSlTAO1wcaY=";
+        owner = "cement-drinker";
+        repo = "wofi-rose-pine";
+        rev = "fe18b328511f5929dfa27dec6ffe8e2253b4bb5b";
+        hash = "sha256-c97ivCgggRyaTiwzKVVKJLWRLgCRQxT58q+AhKNXETg=";
       };
 
       installPhase = ''
         mkdir -p $out
-        cp rose-pine* $out
+        cp -r * $out
       '';
     };
   };

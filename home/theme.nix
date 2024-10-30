@@ -23,7 +23,7 @@
   };
 
   # application launcher
-  programs.wofi.settings.stylesheet = "${self.packages.x86_64-linux.rosePineWofi}/rose-pine.rasi";
+  programs.wofi.settings.stylesheet = "${self.packages.x86_64-linux.rosePineWofi}/rosepine/style.css";
 
   # Hyprland
   wayland.windowManager.hyprland.settings.source = ["${self.packages.x86_64-linux.rosePineHyprland}/rose-pine.conf"];
@@ -53,4 +53,12 @@
   gtk.theme.package = pkgs.rose-pine-gtk-theme;
   gtk.iconTheme.name = "rose-pine-icons";
   gtk.iconTheme.package = pkgs.rose-pine-icon-theme;
+
+  # spotify
+  programs.spicetify.theme = inputs.spicetify-nix.legacyPackages.${pkgs.system}.themes.ziro;
+  programs.spicetify.colorScheme = "rose-pine";
+
+  # zen
+  home.file.".zen/8combnke.Default Profile/chrome/userChrome.css".source = "${self.packages.x86_64-linux.rosePineZen}/userChrome.css";
+  home.file.".zen/8combnke.Default Profile/chrome/rose-pine-main.css".source = "${self.packages.x86_64-linux.rosePineZen}/rose-pine-main.css";
 }

@@ -7,5 +7,6 @@
     ./rosePineVesktop.nix
     ./rosePineWallpapers.nix
     ./rosePineWofi.nix
+    ./rosePineZen.nix
   ];
 }

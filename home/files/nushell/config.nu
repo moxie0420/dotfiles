@@ -71,3 +71,5 @@ $env.PATH = (
   prepend /home/moxie/.apps |
   append /usr/bin/env
 )
+
+$env.LS_COLORS = (vivid generate molokai | str trim)
