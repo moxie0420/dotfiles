@@ -8,16 +8,18 @@
   services.hyprpaper = {
     enable = true;
     package = inputs.hyprpaper.packages.${pkgs.system}.default;
-    settings = {
+    settings = let
+      bay = "${self.packages.x86_64-linux.rosePineWallpapers}/share/wallpapers/bay.JPG";
+    in {
       ipc = "on";
       splash = true;
       splash_offset = 2.0;
 
-      preload = ["${self.packages.x86_64-linux.rosePineWallpapers}/bay.JPG"];
+      preload = [bay];
 
       wallpaper = [
-        "DP-1,${self.packages.x86_64-linux.rosePineWallpapers}/bay.JPG"
-        "HDMI-A-1,${self.packages.x86_64-linux.rosePineWallpapers}/bay.JPG"
+        "DP-1,${bay}"
+        "HDMI-A-1,${bay}"
       ];
     };
   };

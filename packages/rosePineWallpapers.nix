@@ -1,6 +1,6 @@
 {
   perSystem = {pkgs, ...}: {
-    packages.rosePineWallpapers = pkgs.stdenv.mkDerivation {
+    packages.rosePineWallpapers = pkgs.stdenvNoCC.mkDerivation {
       name = "rosePineWallpapers";
       src = pkgs.fetchFromGitHub {
         owner = "rose-pine";
@@ -9,11 +9,14 @@
         hash = "sha256-7jaFqVXs6T3S818IBD3CLjNgDYuc5/ibMWCCnlbtUHw=";
       };
 
+      dontConfigure = true;
+      dontBuild = true;
+
       installPhase = ''
-        mkdir -p $out
-        cp *.png $out
-        cp *.jpg $out
-        cp *.JPG $out
+        mkdir -p $out/share/wallpapers
+        cp *.png $out/share/wallpapers
+        cp *.jpg $out/share/wallpapers
+        cp *.JPG $out/share/wallpapers
       '';
     };
   };
