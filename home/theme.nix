@@ -4,25 +4,7 @@
   self,
   ...
 }: {
-  # walpaper
-  services.hyprpaper = {
-    enable = true;
-    package = inputs.hyprpaper.packages.${pkgs.system}.default;
-    settings = let
-      bay = "${self.packages.x86_64-linux.rosePineWallpapers}/share/wallpapers/bay.JPG";
-    in {
-      ipc = "on";
-      splash = true;
-      splash_offset = 2.0;
-
-      preload = [bay];
-
-      wallpaper = [
-        "DP-1,${bay}"
-        "HDMI-A-1,${bay}"
-      ];
-    };
-  };
+  # wallpaper
 
   # application launcher
   programs.wofi.settings.stylesheet = "${self.packages.x86_64-linux.rosePineWofi}/rosepine/style.css";
@@ -41,6 +23,7 @@
     size = 16;
   };
   home.sessionVariables.XCURSOR_THEME = "rose-pine";
+  home.sessionVariables.XCURSOR_SIZE = "16";
 
   # Hyprcursor
   home.packages = [inputs.rose-pine-hyprcursor.packages.${pkgs.system}.default self.packages.x86_64-linux.rosePineCursor];

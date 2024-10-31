@@ -12,23 +12,12 @@
     specialArgs = {inherit inputs self;};
 
     shared = {
-      catppuccin = {
-        enable = false;
-        accent = "pink";
-        flavor = "mocha";
-      };
       home-manager = {
         users.moxie.imports = [
           ../home
-          inputs.catppuccin.homeManagerModules.catppuccin
-          inputs.nix-index-database.hmModules.nix-index
-          self.homeManagerModules.rosePine
+          self.homeManagerModules.rose-pine
           {
-            rose-pine = {
-              vesktop.enable = true;
-              starship.enable = true;
-              kitty.enable = true;
-            };
+            rose-pine.enable = true;
           }
         ];
         extraSpecialArgs = specialArgs;
@@ -43,13 +32,8 @@
         ++ [
           ./nixUwU
           "${mod}/hardware/vr.nix"
-
           "${mod}/network/spotify.nix"
-
           shared
-
-          inputs.catppuccin.nixosModules.catppuccin
-          inputs.nix-index-database.nixosModules.nix-index
         ];
     };
 
@@ -61,11 +45,7 @@
         ++ [
           ./nixOwO
           "${mod}/hardware/specialisations.nix"
-
           shared
-
-          inputs.catppuccin.nixosModules.catppuccin
-          inputs.nix-index-database.nixosModules.nix-index
         ];
     };
   };

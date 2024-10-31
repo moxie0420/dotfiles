@@ -7,7 +7,7 @@
     ./hyprland.nix
     ./programs
     ./services
-    ./theme.nix
+    # ./theme.nix
     ./xdg.nix
   ];
 

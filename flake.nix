@@ -10,10 +10,6 @@
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
 
     # other inputs in alphabetical order
-    agenix-rekey.url = "github:oddlama/agenix-rekey";
-
-    catppuccin.url = "github:catppuccin/nix";
-
     git-hooks-nix.url = "github:cachix/git-hooks.nix";
 
     home-manager = {
@@ -72,11 +68,6 @@
 
     nix-gaming.url = "github:fufexan/nix-gaming";
 
-    nix-index-database = {
-      url = "github:nix-community/nix-index-database";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-
     rose-pine-hyprcursor.url = "github:ndom91/rose-pine-hyprcursor";
 
     spicetify-nix = {
@@ -95,7 +86,7 @@
 
       imports = [
         ./hosts
-        ./modules/rose-pine
+        ./modules
         ./packages
         ./templates
         inputs.git-hooks-nix.flakeModule

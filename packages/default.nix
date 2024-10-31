@@ -1,12 +1,34 @@
-{
+{inputs, ...}: {
   imports = [
-    ./comicMono.nix
-    ./rosePineCursor.nix
-    ./rosePineHyprland.nix
-    ./rosePineKitty.nix
-    ./rosePineVesktop.nix
-    ./rosePineWallpapers.nix
-    ./rosePineWofi.nix
-    ./rosePineZen.nix
+    inputs.flake-parts.flakeModules.easyOverlay
   ];
+  perSystem = {
+    config,
+    pkgs,
+    ...
+  }: {
+    overlayAttrs = {
+      inherit
+        (config.packages)
+        comicMono
+        rosePineCursor
+        rosePineHyprland
+        rosePineKitty
+        rosePineVesktop
+        rosePineWallpapers
+        rosePineWofi
+        rosePineZen
+        ;
+    };
+    packages = with pkgs; {
+      comicMono = callPackage ./comicMono.nix {};
+      rosePineCursor = callPackage ./rosePineCursor.nix {};
+      rosePineHyprland = callPackage ./rosePineHyprland.nix {};
+      rosePineKitty = callPackage ./rosePineKitty.nix {};
+      rosePineVesktop = callPackage ./rosePineVesktop.nix {};
+      rosePineWallpapers = callPackage ./rosePineWallpapers.nix {};
+      rosePineWofi = callPackage ./rosePineWofi.nix {};
+      rosePineZen = callPackage ./rosePineZen.nix {};
+    };
+  };
 }

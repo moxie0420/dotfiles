@@ -1,9 +1,16 @@
 {
   inputs,
   pkgs,
+  self,
   ...
 }: let
-  gtkcss = builtins.readFile ./gtkgreet.css;
+  gtkcss = pkgs.writeText "gtkgreet.css" ''
+    window {
+      background-image: url("file://${self.packages.x86_64-linux.rosePineWallpapers}/share/wallpapers/bay.JPG");
+      background-size: cover;
+      background-position: center;
+    }
+  '';
   swayConfig = pkgs.writeText "greetd-sway-config" ''
     exec "${pkgs.greetd.gtkgreet}/bin/gtkgreet -l -s ${gtkcss}; swaymsg exit"
 
@@ -14,6 +21,9 @@
       -b 'Reboot' 'systemctl reboot'
   '';
 in {
+  environment.systemPackages = [
+    self.packages.x86_64-linux.rosePineWallpapers
+  ];
   services.greetd = {
     enable = true;
     package = pkgs.greetd.gtkgreet;

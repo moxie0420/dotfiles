@@ -1,37 +1,43 @@
 {
-  flake.homeManagerModules = {
-    rosePine = {
-      config,
-      lib,
-      pkgs,
-      self,
-      ...
-    }:
-      with lib; let
-        cfg = config.rose-pine;
-      in {
-        imports = [
-          ./starship.nix
-        ];
-        options.rose-pine = {
-          enable = mkEnableOption "enable rose-pine for all detected programs";
-          starship.enable = mkEnableOption "enable rose-pine for starship";
-          vesktop.enable = mkEnableOption "enable rose-pine for vencord";
-          kitty.enable = mkEnableOption "enable rose-pine for kitty";
-        };
+  config,
+  lib,
+  ...
+}: let
+  cfg = config.rose-pine;
+in {
+  imports = [
+    ./Cursor.nix
+    ./hyprland.nix
+    ./hyprpaper.nix
+    ./kitty.nix
+    ./spotify.nix
+    ./starship.nix
+    ./vesktop.nix
+    ./wofi.nix
+    ./zen.nix
+  ];
+  options.rose-pine = {
+    enable = lib.mkEnableOption "enable rose-pine for all detected programs";
+    cursor.enable = lib.mkEnableOption "enable rose-pine for xcursor and hyprcursor";
+    hyprland.enable = lib.mkEnableOption "enable rose-pine for Hyprland";
+    hyprpaper.enable = lib.mkEnableOption "enable rose-pine for Hyprpaper";
+    kitty.enable = lib.mkEnableOption "enable rose-pine for Kitty";
+    spotify.enable = lib.mkEnableOption "enable rose-pine for spotify";
+    starship.enable = lib.mkEnableOption "enable rose-pine for Starship";
+    vesktop.enable = lib.mkEnableOption "enable rose-pine for Vesktop";
+    wofi.enable = lib.mkEnableOption "enable rose-pine for Wofi";
+    zen.enable = lib.mkEnableOption "enable rose-pine for Zen";
+  };
 
-        config.xdg.configFile =
-          mkIf
-          cfg.vesktop.enable {
-            "vesktop/themes/rose-pine.theme.css".source = "${self.packages.x86_64-linux.rosePineVesktop}/rose-pine.theme.css";
-            "vesktop/themes/rose-pine-moon.theme.css".source = "${self.packages.x86_64-linux.rosePineVesktop}/rose-pine-moon.theme.css";
-          }
-          // mkIf cfg.kitty.enable {
-            "kitty/themes/".source = "${self.packages.x86_64-linux.rosePineKitty}/themes";
-            "kitty/icons/".source = "${self.packages.x86_64-linux.rosePineKitty}/icons";
-          };
-
-        config.programs.kitty.extraConfig = mkIf cfg.kitty.enable "include rose-pine.conf";
-      };
+  config.rose-pine = lib.mkIf cfg.enable {
+    cursor.enable = lib.mkDefault true;
+    hyprland.enable = lib.mkDefault true;
+    hyprpaper.enable = lib.mkDefault true;
+    kitty.enable = lib.mkDefault true;
+    spotify.enable = lib.mkDefault true;
+    starship.enable = lib.mkDefault true;
+    vesktop.enable = lib.mkDefault true;
+    wofi.enable = lib.mkDefault true;
+    zen.enable = lib.mkDefault true;
   };
 }
