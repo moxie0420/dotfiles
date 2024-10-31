@@ -42,6 +42,7 @@
       inputs.zen-browser.packages."${system}".default
       vesktop
       nautilus
+      nixd
     ];
 
     stateVersion = "23.11";

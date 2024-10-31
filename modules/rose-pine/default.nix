@@ -23,6 +23,7 @@ in {
     hyprland.enable = lib.mkEnableOption "enable rose-pine for Hyprland";
     hyprpaper.enable = lib.mkEnableOption "enable rose-pine for Hyprpaper";
     kitty.enable = lib.mkEnableOption "enable rose-pine for Kitty";
+    mako.enable = lib.mkEnableOption "enable rose-pine for Mako";
     spotify.enable = lib.mkEnableOption "enable rose-pine for spotify";
     starship.enable = lib.mkEnableOption "enable rose-pine for Starship";
     vesktop.enable = lib.mkEnableOption "enable rose-pine for Vesktop";
