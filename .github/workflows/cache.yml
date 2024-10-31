@@ -21,8 +21,11 @@ jobs:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         CONFIG_FILE: ./mkdocs.yml
 
-    - run: nix flake archive --json | jq -r '.path,(.inputs|to_entries[].value.path)' | cachix push moxies-dotfiles
-    - run: nix build --json .#comicMono | jq -r '.[].outputs | to_entries[].value' | cachix push moxies-dotfiles
-    - run: nix build --json .#rosePineVesktop | jq -r '.[].outputs | to_entries[].value' | cachix push moxies-dotfiles
-    - run: nix develop --profile config-shell -c true
-    - run: cachix push moxies-dotfiles config-shell
+    - run: nix build .#comicMono
+    - run: nix build .#rosePineCursor
+    - run: nix build .#rosePineHyprland
+    - run: nix build .#rosePineKitty
+    - run: nix build .#rosePineVesktop
+    - run: nix build .#rosePineWallpapers
+    - run: nix build .#rosePineWofi
+    - run: nix build .#rosePineZen
