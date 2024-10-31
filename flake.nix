@@ -1,8 +1,46 @@
 {
   description = "Moxie's nix config";
 
+  outputs = inputs @ {flake-parts, ...}:
+    flake-parts.lib.mkFlake {inherit inputs;} {
+      systems = [
+        "x86_64-linux"
+      ];
+
+      imports = [
+        ./hosts
+        ./modules
+        ./packages
+        ./templates
+        inputs.git-hooks-nix.flakeModule
+        inputs.mkdocs-flake.flakeModule
+      ];
+
+      perSystem = {
+        pkgs,
+        config,
+        ...
+      }: {
+        formatter = pkgs.alejandra;
+
+        devShells.default = pkgs.mkShell {
+          name = "Config";
+          packages = [pkgs.mkdocs];
+          shellHook = config.pre-commit.installationScript;
+        };
+
+        documentation.mkdocs-root = ./.;
+
+        pre-commit.settings.hooks = {
+          alejandra.enable = true;
+          deadnix.enable = true;
+          flake-checker.enable = true;
+        };
+      };
+    };
+
   inputs = {
-    # importand inputs
+    # important inputs
     systems.url = "github:nix-systems/default-linux";
 
     flake-parts.url = "github:hercules-ci/flake-parts";
@@ -77,42 +115,4 @@
 
     zen-browser.url = "github:fufexan/zen-browser-flake";
   };
-
-  outputs = inputs @ {flake-parts, ...}:
-    flake-parts.lib.mkFlake {inherit inputs;} {
-      systems = [
-        "x86_64-linux"
-      ];
-
-      imports = [
-        ./hosts
-        ./modules
-        ./packages
-        ./templates
-        inputs.git-hooks-nix.flakeModule
-        inputs.mkdocs-flake.flakeModule
-      ];
-
-      perSystem = {
-        pkgs,
-        config,
-        ...
-      }: {
-        formatter = pkgs.alejandra;
-
-        devShells.default = pkgs.mkShell {
-          name = "Config";
-          packages = [pkgs.mkdocs];
-          shellHook = config.pre-commit.installationScript;
-        };
-
-        documentation.mkdocs-root = ./.;
-
-        pre-commit.settings.hooks = {
-          alejandra.enable = true;
-          deadnix.enable = true;
-          flake-checker.enable = true;
-        };
-      };
-    };
 }

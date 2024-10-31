@@ -7,7 +7,6 @@
     ./hyprland.nix
     ./programs
     ./services
-    # ./theme.nix
     ./xdg.nix
   ];
 
@@ -18,6 +17,7 @@
       "org/cinnamon/desktop/default-applications/terminal".exec = "kitty";
     };
   };
+  gtk.enable = true;
 
   home = {
     username = "moxie";

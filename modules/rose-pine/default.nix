@@ -19,6 +19,7 @@ in {
   options.rose-pine = {
     enable = lib.mkEnableOption "enable rose-pine for all detected programs";
     cursor.enable = lib.mkEnableOption "enable rose-pine for xcursor and hyprcursor";
+    gtk.enable = lib.mkEnableOption "enable rose-pine for gtk";
     hyprland.enable = lib.mkEnableOption "enable rose-pine for Hyprland";
     hyprpaper.enable = lib.mkEnableOption "enable rose-pine for Hyprpaper";
     kitty.enable = lib.mkEnableOption "enable rose-pine for Kitty";
