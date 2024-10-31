@@ -18,6 +18,7 @@
         rosePineWallpapers
         rosePineWofi
         rosePineZen
+        sgx-software-enable
         ;
     };
     packages = with pkgs; {
@@ -29,6 +30,7 @@
       rosePineWallpapers = callPackage ./rosePineWallpapers.nix {};
       rosePineWofi = callPackage ./rosePineWofi.nix {};
       rosePineZen = callPackage ./rosePineZen.nix {};
+      sgx-software-enable = callPackage ./sgx-software-enable.nix {};
     };
   };
 }
