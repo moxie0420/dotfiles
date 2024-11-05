@@ -15,10 +15,11 @@
       home-manager = {
         users.moxie.imports = [
           ../home
-          self.homeManagerModules.rose-pine
+          self.hmModules.rose-pine
           {
             rose-pine.enable = true;
           }
+          inputs.nix-index-database.hmModules.nix-index
         ];
         extraSpecialArgs = specialArgs;
       };
@@ -34,6 +35,8 @@
           "${mod}/hardware/vr.nix"
           "${mod}/network/spotify.nix"
           shared
+
+          inputs.nix-index-database.nixosModules.nix-index
         ];
     };
 
@@ -46,6 +49,8 @@
           ./nixOwO
           "${mod}/hardware/specialisations.nix"
           shared
+
+          inputs.nix-index-database.nixosModules.nix-index
         ];
     };
   };
