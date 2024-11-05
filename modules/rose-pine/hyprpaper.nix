@@ -46,8 +46,7 @@ in {
       preload = [rose-wallpaper];
 
       wallpaper = [
-        "DP-1,${rose-wallpaper}"
-        "HDMI-A-1,${rose-wallpaper}"
+        ",${rose-wallpaper}"
       ];
     };
   };
