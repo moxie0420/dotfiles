@@ -1,5 +1,6 @@
 {...}: {
   imports = [
+    ./ags.nix
     ./cava.nix
     ./direnv.nix
     ./feh.nix

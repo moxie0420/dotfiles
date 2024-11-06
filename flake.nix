@@ -48,6 +48,8 @@
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
 
     # other inputs in alphabetical order
+    ags.url = "github:Aylur/ags";
+
     git-hooks-nix.url = "github:cachix/git-hooks.nix";
 
     home-manager = {
