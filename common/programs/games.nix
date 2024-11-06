@@ -15,9 +15,13 @@
         "--expose-wayland"
       ];
     };
+
+    ns-usbloader.enable = true;
+
     steam = {
       enable = true;
 
+      localNetworkGameTransfers.openFirewall = true;
       platformOptimizations.enable = true;
       protontricks.enable = true;
       remotePlay.openFirewall = true;

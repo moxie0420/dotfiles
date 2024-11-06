@@ -71,12 +71,13 @@
           popups_ignorealpha = 0.2;
         };
 
-        drop_shadow = true;
-        shadow_ignore_window = true;
-        shadow_offset = "0 15";
-        shadow_range = 100;
-        shadow_render_power = 2;
-        shadow_scale = 0.97;
+        shadow = {
+          range = 100;
+          render_power = 2;
+
+          offset = "0 15";
+          scale = 0.97;
+        };
       };
       animations = {
         enabled = true;

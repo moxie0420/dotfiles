@@ -9,12 +9,12 @@
       };
       listener = [
         {
-          timeout = 60;
+          timeout = 120;
           on-timeout = "${pkgs.brightnessctl}/bin/brightnessctl -s set 10";
           on-resume = "${pkgs.brightnessctl}/bin/brightnessctl - r";
         }
         {
-          timeout = 60;
+          timeout = 120;
           on-timeout = "openrgb -d 0 -c 000000";
           on-resume = "openrgb -d 0 -p /home/moxie/.config/OpenRGB/default.orp";
         }
@@ -23,12 +23,12 @@
           on-timeout = "${pkgs.systemd}/bin/loginctl lock-session";
         }
         {
-          timeout = 150;
+          timeout = 900;
           on-timeout = "${pkgs.hyprland}/bin/hyprctl dispatch dpms off";
           on-resume = "${pkgs.hyprland}/bin/hyprctl dispatch dpms on";
         }
         {
-          timeout = 300;
+          timeout = 1800;
           on-timeout = "${pkgs.systemd}/bin/systemctl suspend";
         }
       ];

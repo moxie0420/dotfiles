@@ -7,20 +7,14 @@
     inherit (inputs.nixpkgs.lib) nixosSystem;
 
     mod = "${self}/common";
+
     inherit (import mod) desktop laptop;
 
     specialArgs = {inherit inputs self;};
 
     shared = {
       home-manager = {
-        users.moxie.imports = [
-          ../home
-          self.hmModules.rose-pine
-          {
-            rose-pine.enable = true;
-          }
-          inputs.nix-index-database.hmModules.nix-index
-        ];
+        users.moxie = import ../home;
         extraSpecialArgs = specialArgs;
       };
     };

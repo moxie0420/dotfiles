@@ -1,4 +1,8 @@
 {
+  pkgs,
+  self,
+  ...
+}: {
   programs.hyprlock = {
     enable = true;
     settings = {
@@ -10,15 +14,13 @@
       };
       background = [
         {
-          path = "screenshot";
-          blur_passes = 3;
-          blur_size = 8;
+          monitor = "";
+          path = "${self.packages.${pkgs.system}.rosePineWallpapers}/share/wallpapers/bay.png";
         }
       ];
       input-field = [
         {
           size = "200, 50";
-          position = "0, -80";
           monitor = "";
           dots_center = true;
           fade_on_empty = false;
@@ -28,6 +30,18 @@
           outline_thickness = 5;
           placeholder_text = "Password...";
           shadow_passes = 2;
+        }
+      ];
+      label = [
+        {
+          monitor = "";
+          text = "$TIME";
+          text_align = "center";
+          font_size = 25;
+
+          position = "0, 80";
+          halign = "center";
+          valign = "center";
         }
       ];
     };

@@ -1,12 +1,17 @@
 {
   config,
+  inputs,
   lib,
   pkgs,
   ...
 }: {
+  imports = [inputs.nix-index-database.hmModules.nix-index];
+
   home.packages = [pkgs.vivid];
+
   programs = {
     bottom.enable = true;
+
     btop = {
       enable = true;
       settings = {
@@ -14,7 +19,9 @@
         theme_background = false;
       };
     };
+
     carapace.enable = true;
+
     hyfetch = {
       enable = true;
       settings = {
@@ -25,6 +32,7 @@
         };
       };
     };
+
     kitty = {
       enable = true;
       shellIntegration.enableFishIntegration = true;
@@ -32,10 +40,14 @@
         background_opacity = lib.mkForce "0.0";
       };
     };
+
     nix-index.enable = true;
+
     nushell = {
       enable = true;
+
       envFile.source = ../files/nushell/env.nu;
+
       extraConfig = let
         cfg = config.programs.command-not-found;
         commandNotFound = pkgs.substituteAll {
@@ -59,9 +71,12 @@
           )
         }
       '';
+
       configFile.source = ../files/nushell/config.nu;
     };
+
     starship.enable = true;
+
     zoxide.enable = true;
   };
 }

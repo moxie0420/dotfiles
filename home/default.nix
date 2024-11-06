@@ -4,6 +4,7 @@
   ...
 }: {
   imports = [
+    ./theme.nix
     ./hyprland.nix
     ./programs
     ./services
