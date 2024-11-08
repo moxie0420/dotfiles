@@ -135,8 +135,8 @@
         ",XF86AudioLowerVolume, exec, ${pkgs.wireplumber}/bin/wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%-"
       ];
       bindl = [
-        ",XF86MonBrightnessUp,exec,brightnessctl set 5%+ "
-        ",XF86MonBrightnessDown,exec,brightnessctl set 5%- "
+        ",XF86MonBrightnessUp,exec,${pkgs.brillo}/bin/brillo -A 5"
+        ",XF86MonBrightnessDown,exec,${pkgs.brillo}/bin/brillo -U 5"
         ",switch:Lid Switch, exec, systemctl suspend"
         ",XF86AudioMute, exec, ${pkgs.wireplumber}/bin/wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle"
         ",XF86AudioPlay, exec, ${pkgs.playerctl}/bin/playerctl play-pause"
