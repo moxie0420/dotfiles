@@ -56,6 +56,10 @@ let base16_theme = {
     shape_custom: {attr: b}
 }
 
+def devshellInit [] {
+  nix flake init --template $'($env.flake)#devshell-basic'
+}
+
 $env.config  = {
   table: {
     mode: rounded,
