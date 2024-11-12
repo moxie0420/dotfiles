@@ -18,7 +18,7 @@
       systems = ["x86_64-linux"];
 
       perSystem = {
-        devshell.default = {
+        devshells.default = {
           name = "generic devshell";
           motd = ''
             Welcome to you dev flake\n
