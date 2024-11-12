@@ -14,9 +14,10 @@
         inputs.devshell.flakeModule
         inputs.mkdocs-flake.flakeModule
       ];
-      perSystem = {pkgs, ...}: {
-        systems = ["x86_64-linux"];
 
+      systems = ["x86_64-linux"];
+
+      perSystem = {pkgs, ...}: {
         devshell.default = {
           name = "generic devshell";
           motd = ''
