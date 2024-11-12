@@ -10,11 +10,11 @@
     enable = true;
 
     package = inputs.hyprland.packages.${pkgs.system}.default;
+    plugins = [
+      inputs.split-monitor-workspaces.packages.${pkgs.system}.split-monitor-workspaces
+    ];
 
-    systemd = {
-      enable = true;
-      enableXdgAutostart = true;
-    };
+    systemd .enable = false;
     settings = {
       monitor = [
         "DP-1,3840x2160@98,0x0,1,vrr,2,bitdepth,10"
@@ -96,8 +96,6 @@
 
       xwayland.force_zero_scaling = true;
 
-      exec = [
-      ];
       exec-once = [
         "${pkgs.openrgb-with-all-plugins}/bin/openrgb -p /home/moxie/.config/OpenRGB/default.orp"
         "gpg-agent --daemon"
@@ -107,14 +105,12 @@
 
       "$mod" = "SUPER";
       "$shiftMod" = "SUPER_SHIFT";
+      "$terminal" = "${pkgs.kitty}/bin/kitty -1";
 
-      windowrule = [
-        "workspace 8, classs:(com.obsproject.Studio)"
-      ];
       windowrulev2 = [
-        "workspace 2, class:(code-url-handler)"
         "workspace 3 silent, class:(steam)"
         "workspace 3 silent, class:(lutris)"
+        "workspace 8 silent, class:(com.obsproject.Studio)"
         "workspace 9 silent, class:(vesktop)"
         "workspace 10 silent, title:(Spotify)"
 
@@ -125,15 +121,18 @@
         "idleinhibit focus, class:^(zen)$, title:^(.*YouTube.*)$"
         "idleinhibit fullscreen, class:^(zen)$"
       ];
+
       workspace = [
         "8, monitor:HDMI-A-1"
         "9, monitor:HDMI-A-1"
         "10, monitor:HDMI-A-1"
       ];
+
       bindel = [
         ",XF86AudioRaiseVolume, exec, ${pkgs.wireplumber}/bin/wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%+"
         ",XF86AudioLowerVolume, exec, ${pkgs.wireplumber}/bin/wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%-"
       ];
+
       bindl = [
         ",XF86MonBrightnessUp,exec,brightnessctl set 5%+ "
         ",XF86MonBrightnessDown,exec,brightnessctl set 5%- "
@@ -144,17 +143,29 @@
         ",XF86AudioNext, exec, ${pkgs.playerctl}/bin/playerctl next"
         ",XF86AudioPrev, exec, ${pkgs.playerctl}/bin/playerctl previous"
       ];
+
       bindm = [
         "$mod, mouse:272, movewindow"
         "$shiftMod, mouse:272, resizewindow"
       ];
-      "$terminal" = "${pkgs.kitty}/bin/kitty -1";
+
+      plugin = {
+        split-monitor-workspaces = {
+          count = 10;
+          keep_focused = true;
+          enable_notifications = false;
+          enable_persistent_workspaces = 3;
+        };
+      };
+
       bind =
         [
-          "$mod, Return, exec, $terminal"
           "$shiftMod, Q, killactive, 	i"
           "$mod, Space,  togglefloating,"
-          "$mod, D,      exec, wofi --show drun -I -W 576 -H 270"
+          "$shiftMod, Alt, split-changemonitor, next"
+
+          "$mod, Return, exec, uwsm app -- $terminal"
+          "$mod, D,      exec, uwsm app -- wofi --show drun -I -W 576 -H 270"
 
           "$mod, L, exec, loginctl lock-session"
 
@@ -166,14 +177,10 @@
           "$mod, up, 	  movefocus, u"
           "$mod, down,  movefocus, d"
 
-          "$shiftMod, Left,  moveactive, left,  visible"
-          "$shiftMod, Right, moveactive, right, visible"
-          "$shiftMod, Up,    moveactive, up,    visible"
-          "$shiftMod, Down,  moveactive, down,  visible"
-
-          "$mod,Plus,togglespecialworkspace, SPECIAL"
-
-          "$mod, Print, exec, grim -g \"$(${pkgs.slurp}/bin/slurp)\" -t png -o $(xdg-user-dir PICTURES)/$(date +'%s_grim.png')"
+          "$shiftMod, Left,  movewindow, left,  visible"
+          "$shiftMod, Right, movewindow, right, visible"
+          "$shiftMod, Up,    movewindow, up,    visible"
+          "$shiftMod, Down,  movewindow, down,  visible"
         ]
         ++ (
           # workspaces
@@ -185,8 +192,8 @@
                 in
                   builtins.toString (x + 1 - (c * 10));
               in [
-                "$mod, ${ws}, workspace, ${toString (x + 1)}"
-                "$mod SHIFT, ${ws}, movetoworkspace, ${toString (x + 1)}"
+                "$mod, ${ws}, split-workspace, ${toString (x + 1)}"
+                "$mod SHIFT, ${ws}, split-movetoworkspace, ${toString (x + 1)}"
               ]
             )
             10)

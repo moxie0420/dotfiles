@@ -3,10 +3,6 @@
     waybar = {
       enable = true;
       package = pkgs.waybar;
-      systemd = {
-        enable = true;
-        target = "hyprland-session.target";
-      };
       settings = [
         {
           layer = "top";
