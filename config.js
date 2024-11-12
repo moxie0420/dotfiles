@@ -1,10 +1,10 @@
-const app_picker = Widget.Window({
-  name: 'App Picker',
+const bar = (monitor = 0) => Widget.Window({
+  name: 'Bar',
   anchor: ['top', 'left', 'right'],
 })
 
 App.config({
   windows: [
-    app_picker
+    bar
   ]
 })
