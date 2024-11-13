@@ -14,6 +14,7 @@
         rosePineCursor
         rosePineHyprland
         rosePineKitty
+        rosePineSddm
         rosePineVesktop
         rosePineWallpapers
         rosePineWofi
@@ -26,6 +27,7 @@
       rosePineCursor = callPackage ./rosePineCursor.nix {};
       rosePineHyprland = callPackage ./rosePineHyprland.nix {};
       rosePineKitty = callPackage ./rosePineKitty.nix {};
+      rosePineSddm = callPackage ./rosePineSddm.nix {};
       rosePineVesktop = callPackage ./rosePineVesktop.nix {};
       rosePineWallpapers = callPackage ./rosePineWallpapers.nix {};
       rosePineWofi = callPackage ./rosePineWofi.nix {};

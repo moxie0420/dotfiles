@@ -18,7 +18,7 @@
       systems = ["x86_64-linux"];
 
       perSystem = {pkgs, ...}: {
-        devshell.default = {
+        devshells.default = {
           name = "generic devshell";
           motd = ''
             Welcome to you dev flake\n
@@ -27,7 +27,7 @@
           env = [];
           commands = [];
           packages = with pkgs; [
-            nodejs-slim_latest
+            nodejs_latest
           ];
         };
 

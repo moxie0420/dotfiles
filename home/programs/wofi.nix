@@ -5,6 +5,7 @@
       width = 600;
       height = 420;
       location = "center";
+      lines = 5;
       show = "drun";
       prompt = "Search...";
       filter_rate = 100;

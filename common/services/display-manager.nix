@@ -1,15 +1,13 @@
-{...}: {
-  services.greetd = {
+{self, ...}: {
+  environment.systemPackages = [
+    self.packages.x86_64-linux.rosePineSddm
+  ];
+
+  services.displayManager = {
     enable = true;
-    settings = {
-      default_session = {
-        command = "uwsm start default";
-        user = "moxie";
-      };
-      initial_session = {
-        command = "uwsm start default";
-        user = "moxie";
-      };
+    sddm = {
+      enable = true;
+      wayland.enable = true;
     };
   };
 

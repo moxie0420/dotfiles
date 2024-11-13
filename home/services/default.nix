@@ -6,6 +6,4 @@
     ./mako.nix
     ./pipewireIdleInhibit.nix
   ];
-
-  services.flameshot.enable = true;
 }

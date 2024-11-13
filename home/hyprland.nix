@@ -10,16 +10,13 @@
     enable = true;
 
     package = inputs.hyprland.packages.${pkgs.system}.default;
-    plugins = [
-      inputs.split-monitor-workspaces.packages.${pkgs.system}.split-monitor-workspaces
-    ];
 
     systemd .enable = false;
     settings = {
       monitor = [
-        "DP-1,3840x2160@98,0x0,1,vrr,2,bitdepth,10"
+        "DP-1,3840x2160@98,auto,1,vrr,2"
         "HDMI-A-1,1920x1080@60,auto-up,auto"
-        "eDP-1,1920x1080@165.009995,0x0,1"
+        "eDP-1,1920x1080@165.009995,auto,1"
       ];
       cursor = {
         default_monitor = "DP-1";
@@ -96,11 +93,16 @@
 
       xwayland.force_zero_scaling = true;
 
+      exec = [
+        "pkill waybar; uwsm app -- waybar"
+      ];
+
       exec-once = [
-        "${pkgs.openrgb-with-all-plugins}/bin/openrgb -p /home/moxie/.config/OpenRGB/default.orp"
+        "uwsm app -- ${pkgs.openrgb-with-all-plugins}/bin/openrgb -p /home/moxie/.config/OpenRGB/default.orp"
         "gpg-agent --daemon"
-        "[silent] vesktop"
-        "[silent] spotify"
+
+        "[silent] uwsm app -- vesktop"
+        "[silent] uwsm app -- spotify"
       ];
 
       "$mod" = "SUPER";
@@ -149,23 +151,13 @@
         "$shiftMod, mouse:272, resizewindow"
       ];
 
-      plugin = {
-        split-monitor-workspaces = {
-          count = 10;
-          keep_focused = true;
-          enable_notifications = false;
-          enable_persistent_workspaces = 3;
-        };
-      };
-
       bind =
         [
           "$shiftMod, Q, killactive, 	i"
           "$mod, Space,  togglefloating,"
-          "$shiftMod, Alt, split-changemonitor, next"
 
           "$mod, Return, exec, uwsm app -- $terminal"
-          "$mod, D,      exec, uwsm app -- wofi --show drun -I -W 576 -H 270"
+          "$mod, D,      exec, uwsm app -- wofi"
 
           "$mod, L, exec, loginctl lock-session"
 
@@ -192,8 +184,8 @@
                 in
                   builtins.toString (x + 1 - (c * 10));
               in [
-                "$mod, ${ws}, split-workspace, ${toString (x + 1)}"
-                "$mod SHIFT, ${ws}, split-movetoworkspace, ${toString (x + 1)}"
+                "$mod, ${ws}, workspace, ${toString (x + 1)}"
+                "$mod SHIFT, ${ws}, movetoworkspace, ${toString (x + 1)}"
               ]
             )
             10)
