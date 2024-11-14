@@ -5,7 +5,7 @@
 }:
 stdenvNoCC.mkDerivation {
   pname = "rosePineHyprland";
-  version = "v1.0.0";
+  version = "1.0.0";
 
   src = fetchFromGitHub {
     owner = "rose-pine";

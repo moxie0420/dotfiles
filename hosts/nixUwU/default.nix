@@ -15,17 +15,12 @@
 
   services.fstrim.enable = true;
 
-  environment = {
-    loginShellInit = ''
-      ${pkgs.fbset}/bin/fbset -xres 3840 -yres 2160
-    '';
-    sessionVariables = {
-      LIBVA_DRIVER_NAME = "nvidia";
-      GBM_BACKEND = "nvidia-drm";
-      __GLX_VENDOR_LIBRARY_NAME = "nvidia";
-      __GL_GSYNC_ALLOWED = "1";
-      NVD_BACKEND = "direct";
-    };
+  environment.variables = {
+    LIBVA_DRIVER_NAME = "nvidia";
+    GBM_BACKEND = "nvidia-drm";
+    __GLX_VENDOR_LIBRARY_NAME = "nvidia";
+    __GL_GSYNC_ALLOWED = "1";
+    NVD_BACKEND = "direct";
   };
 
   boot = {
@@ -34,29 +29,51 @@
       options nvidia NVreg_EnablePCIeGen3=1 NVreg_UsePageAttributeTable=1 NVreg_NvAGP=1 NVreg_EnableAGPFW=1
       options v4l2loopback devices=1 video_nr=1 card_label="OBS Cam" exclusive_caps=1
     '';
-    initrd.availableKernelModules = ["xhci_pci" "ahci" "nvme" "usbhid" "sd_mod"];
+    initrd = {
+      availableKernelModules = [
+        "xhci_pci"
+        "ahci"
+        "nvme"
+        "usbhid"
+        "sd_mod"
+      ];
+      kernelModules = [
+        "nvidia"
+        "nvidia_modeset"
+        "nvidia_uvm"
+        "nvidia_drm"
+      ];
+    };
     kernel.sysctl = {
       "fs.inotify.max_user_watches" = 10000000;
     };
+    kernelParams = [
+      "video=DP-1:3840x2160@98D"
+      "video=HDMI-A-1:1920x1080@60D"
+    ];
   };
 
-  systemd = {
-    # set a static ip
-    network.networks."10-wan" = {
-      matchConfig.Name = "eno2";
-      address = [
-        "172.31.11.103"
-      ];
-      routes = [
-        {Gateway = "172.31.11.1";}
-      ];
-      linkConfig.RequiredForOnline = "routable";
+  systemd.services = {
+    "fbset" = {
+      wantedBy = ["default.target"];
+      description = "set fb size";
+      serviceConfig = {
+        Type = "simple";
+        ExecStart = "${pkgs.fbset}/bin/fbset -xres 3840 -yres 2160";
+      };
     };
+  };
 
-    watchdog = {
-      device = "/dev/watchdog";
-      rebootTime = "5m";
-    };
+  # set a static ip
+  systemd.network.networks."10-wan" = {
+    matchConfig.Name = "eno2";
+    address = [
+      "172.31.11.103"
+    ];
+    routes = [
+      {Gateway = "172.31.11.1";}
+    ];
+    linkConfig.RequiredForOnline = "routable";
   };
 
   nixpkgs.hostPlatform = lib.mkDefault "x86_64-linux";

@@ -22,33 +22,7 @@
         default_monitor = "DP-1";
         allow_dumb_copy = true;
       };
-      misc = {
-        vfr = false;
-        force_default_wallpaper = 2;
-      };
-      input = {
-        kb_layout = "us";
-        follow_mouse = 1;
-        mouse_refocus = false;
-        touchpad = {
-          natural_scroll = false;
-        };
-        sensitivity = "0";
-      };
-      gestures = {
-        workspace_swipe = true;
-        workspace_swipe_forever = true;
-      };
-      general = {
-        gaps_in = 9;
-        gaps_out = 12;
-        border_size = 2;
 
-        layout = "dwindle";
-
-        allow_tearing = false;
-        resize_on_border = true;
-      };
       decoration = {
         rounding = 16;
 
@@ -76,28 +50,48 @@
           scale = 0.97;
         };
       };
-      animations = {
-        enabled = true;
-        animation = [
-          "border, 1, 2, default"
-          "fade, 1, 4, default"
-          "windows, 1, 3, default, popin 80%"
-          "workspaces, 1, 2, default, slide"
-        ];
+
+      general = {
+        gaps_in = 9;
+        gaps_out = 12;
+        border_size = 2;
+
+        layout = "dwindle";
+
+        allow_tearing = false;
+        resize_on_border = true;
       };
 
-      dwindle = {
-        pseudotile = true;
-        preserve_split = true;
+      gestures = {
+        workspace_swipe = true;
+        workspace_swipe_forever = true;
+      };
+
+      input = {
+        kb_layout = "us";
+        follow_mouse = 1;
+        mouse_refocus = false;
+        touchpad = {
+          natural_scroll = false;
+        };
+        sensitivity = "0";
+      };
+
+      misc = {
+        vfr = false;
+        force_default_wallpaper = 2;
       };
 
       xwayland.force_zero_scaling = true;
 
       exec = [
         "pkill waybar; uwsm app -- waybar"
+        "swaync-client --reload-config"
       ];
 
       exec-once = [
+        "systemctl start --user hyprpaper"
+        "uwsm app -- GDK_BACKEND=wayland swaync"
         "uwsm app -- ${pkgs.openrgb-with-all-plugins}/bin/openrgb -p /home/moxie/.config/OpenRGB/default.orp"
         "gpg-agent --daemon"
 
@@ -124,32 +118,23 @@
         "idleinhibit fullscreen, class:^(zen)$"
       ];
 
-      workspace = [
-        "8, monitor:HDMI-A-1"
-        "9, monitor:HDMI-A-1"
-        "10, monitor:HDMI-A-1"
-      ];
-
-      bindel = [
-        ",XF86AudioRaiseVolume, exec, ${pkgs.wireplumber}/bin/wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%+"
-        ",XF86AudioLowerVolume, exec, ${pkgs.wireplumber}/bin/wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%-"
-      ];
-
-      bindl = [
-        ",XF86MonBrightnessUp,exec,${pkgs.brillo}/bin/brillo -A 5"
-        ",XF86MonBrightnessDown,exec,${pkgs.brillo}/bin/brillo -U 5"
-        ",switch:Lid Switch, exec, systemctl suspend"
-        ",XF86AudioMute, exec, ${pkgs.wireplumber}/bin/wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle"
-        ",XF86AudioPlay, exec, ${pkgs.playerctl}/bin/playerctl play-pause"
-        ",XF86AudioStop, exec, ${pkgs.playerctl}/bin/playerctl stop"
-        ",XF86AudioNext, exec, ${pkgs.playerctl}/bin/playerctl next"
-        ",XF86AudioPrev, exec, ${pkgs.playerctl}/bin/playerctl previous"
-      ];
-
-      bindm = [
-        "$mod, mouse:272, movewindow"
-        "$shiftMod, mouse:272, resizewindow"
-      ];
+      workspace =
+        [
+          "8, monitor:HDMI-A-1"
+          "9, monitor:HDMI-A-1"
+          "10, monitor:HDMI-A-1"
+        ]
+        ++ (
+          # workspaces monitor binds 1-7
+          # binds $mod + [shift +] {1..10} to [move to] workspace {1..10}
+          builtins.concatLists (builtins.genList (
+              x: [
+                "${toString (x + 1)}, monitor:DP-1"
+                "${toString (x + 1)}, monitor:eDP-1"
+              ]
+            )
+            10)
+        );
 
       bind =
         [
@@ -190,6 +175,27 @@
             )
             10)
         );
+
+      bindel = [
+        ",XF86AudioRaiseVolume, exec, ${pkgs.wireplumber}/bin/wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%+"
+        ",XF86AudioLowerVolume, exec, ${pkgs.wireplumber}/bin/wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%-"
+      ];
+
+      bindl = [
+        ",XF86MonBrightnessUp,exec,${pkgs.brillo}/bin/brillo -A 5"
+        ",XF86MonBrightnessDown,exec,${pkgs.brillo}/bin/brillo -U 5"
+        ",switch:Lid Switch, exec, systemctl suspend"
+        ",XF86AudioMute, exec, ${pkgs.wireplumber}/bin/wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle"
+        ",XF86AudioPlay, exec, ${pkgs.playerctl}/bin/playerctl play-pause"
+        ",XF86AudioStop, exec, ${pkgs.playerctl}/bin/playerctl stop"
+        ",XF86AudioNext, exec, ${pkgs.playerctl}/bin/playerctl next"
+        ",XF86AudioPrev, exec, ${pkgs.playerctl}/bin/playerctl previous"
+      ];
+
+      bindm = [
+        "$mod, mouse:272, movewindow"
+        "$shiftMod, mouse:272, resizewindow"
+      ];
     };
   };
 }

@@ -1,6 +1,6 @@
 {
   services.mako = {
-    enable = true;
+    enable = false;
     anchor = "bottom-right";
     defaultTimeout = 3000;
   };

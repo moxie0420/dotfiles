@@ -1,6 +1,10 @@
-{pkgs, ...}: {
-  console = {
-    earlySetup = true;
-    packages = with pkgs; [gpm gpm-ncurses];
+{...}: {
+  services.gpm = {
+    enable = true;
+    protocol = "pnp";
+  };
+
+  services.kmscon = {
+    enable = true;
   };
 }

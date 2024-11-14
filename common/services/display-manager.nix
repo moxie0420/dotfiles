@@ -3,10 +3,14 @@
     self.packages.x86_64-linux.rosePineSddm
   ];
 
+  services.xserver.displayManager.gdm = {
+    enable = true;
+  };
+
   services.displayManager = {
     enable = true;
     sddm = {
-      enable = true;
+      enable = false;
       wayland.enable = true;
     };
   };

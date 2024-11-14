@@ -5,5 +5,6 @@
     ./hyprpaper.nix
     ./mako.nix
     ./pipewireIdleInhibit.nix
+    ./swaync.nix
   ];
 }
