@@ -65,15 +65,18 @@
   };
 
   # set a static ip
-  systemd.network.networks."10-wan" = {
-    matchConfig.Name = "eno2";
-    address = [
-      "172.31.11.103"
+  networking = {
+    useDHCP = false;
+    interfaces.eno2.ipv4.addresses = [
+      {
+        address = "172.31.11.111";
+        prefixLength = 24;
+      }
     ];
-    routes = [
-      {Gateway = "172.31.11.1";}
-    ];
-    linkConfig.RequiredForOnline = "routable";
+    defaultGateway = {
+      address = "172.31.11.1";
+      interface = "eno2";
+    };
   };
 
   nixpkgs.hostPlatform = lib.mkDefault "x86_64-linux";
