@@ -113,17 +113,13 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
+    omnix.url = "github:juspay/omnix";
+
     rose-pine-hyprcursor.url = "github:ndom91/rose-pine-hyprcursor";
 
     spicetify-nix = {
       url = "github:Gerg-L/spicetify-nix";
       inputs.nixpkgs.follows = "nixpkgs";
-    };
-
-    # Hyprland plugin
-    split-monitor-workspaces = {
-      url = "github:Duckonaut/split-monitor-workspaces";
-      inputs.hyprland.follows = "hyprland"; # <- make sure this line is present for the plugin to work as intended
     };
 
     wayland-pipewire-idle-inhibit = {

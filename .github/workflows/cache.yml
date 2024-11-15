@@ -20,12 +20,8 @@ jobs:
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         CONFIG_FILE: ./mkdocs.yml
+    
+    - name: Install omnix
+      run: nix --accept-flake-config profile install "github:juspay/omnix"
 
-    - run: nix build .#comicMono
-    - run: nix build .#rosePineCursor
-    - run: nix build .#rosePineHyprland
-    - run: nix build .#rosePineKitty
-    - run: nix build .#rosePineVesktop
-    - run: nix build .#rosePineWallpapers
-    - run: nix build .#rosePineWofi
-    - run: nix build .#rosePineZen
+    - run: om ci
