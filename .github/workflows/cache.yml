@@ -24,8 +24,6 @@ jobs:
     - uses: DeterminateSystems/nix-installer-action@main
     - uses: DeterminateSystems/magic-nix-cache-action@main
 
-    - name: Free Disk Space (Ubuntu)
-      uses: jlumbroso/free-disk-space@v1.3.1
 
     - uses: cachix/cachix-action@v15
       with:
@@ -35,4 +33,20 @@ jobs:
     - name: Install omnix
       run: nix --accept-flake-config profile install "github:juspay/omnix"
 
-    - run: om ci
+    - name: Check health
+      run: om health
+
+    - run: nix build .#comicMono
+    - run: nix build .#rosePineCursor
+    - run: nix build .#rosePineHyprland
+    - run: nix build .#rosePineKitty
+    - run: nix build .#rosePineSddm
+    - run: nix build .#rosePineVesktop
+    - run: nix build .#rosePineWallpapers
+    - run: nix build .#rosePineWofi
+    - run: nix build .#rosePineZen
+    - run: nix build .#sgx-software-enable
+
+    - run: nix develop -c echo done
+    
+    
