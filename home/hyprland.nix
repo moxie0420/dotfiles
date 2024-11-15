@@ -20,7 +20,8 @@
       ];
       cursor = {
         default_monitor = "DP-1";
-        allow_dumb_copy = true;
+        no_hardware_cursors = 0;
+        use_cpu_buffer = true;
       };
 
       decoration = {
