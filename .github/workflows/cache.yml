@@ -24,6 +24,9 @@ jobs:
     - uses: DeterminateSystems/nix-installer-action@main
     - uses: DeterminateSystems/magic-nix-cache-action@main
 
+    - name: Free Disk Space (Ubuntu)
+      uses: jlumbroso/free-disk-space@v1.3.1
+
     - uses: cachix/cachix-action@v15
       with:
         name: moxies-dotfiles
