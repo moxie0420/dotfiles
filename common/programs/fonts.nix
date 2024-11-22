@@ -16,7 +16,7 @@
       roboto
 
       # monospace fonts
-      (self.packages.x86_64-linux.comicMono)
+      self.packages.x86_64-linux.comicMono
 
       # nerdfonts
       (nerdfonts.override {fonts = ["NerdFontsSymbolsOnly"];})

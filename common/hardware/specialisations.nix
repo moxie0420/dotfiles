@@ -1,6 +1,6 @@
 {
   specialisation = {
-    low-power.configuration = {...}: {
+    low-power.configuration = {
       boot.extraModprobeConfig = ''
         blacklist nouveau
         options nouveau modeset=0

@@ -25,7 +25,7 @@
 
         devShells.default = pkgs.mkShell {
           name = "Config";
-          packages = [pkgs.mkdocs];
+          packages = config.pre-commit.settings.enabledPackages;
           shellHook = config.pre-commit.installationScript;
         };
 
@@ -35,6 +35,7 @@
           alejandra.enable = true;
           deadnix.enable = true;
           flake-checker.enable = true;
+          statix.enable = true;
         };
       };
     };

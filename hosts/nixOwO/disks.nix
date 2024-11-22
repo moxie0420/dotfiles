@@ -1,4 +1,4 @@
-{...}: {
+{
   boot.resumeDevice = "/dev/mapper/nixroot";
 
   services.fstrim.enable = true;
