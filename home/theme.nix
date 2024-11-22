@@ -1,4 +1,4 @@
 {self, ...}: {
-  imports = [self.hmModules.rose-pine];
+  imports = [self.homeModules.rose-pine];
   rose-pine.enable = true;
 }

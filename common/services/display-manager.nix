@@ -1,19 +1,12 @@
-{self, ...}: {
-  environment.systemPackages = [
-    self.packages.x86_64-linux.rosePineSddm
-  ];
+{
+  pkgs,
+  self,
+  ...
+}: {
+  environment.systemPackages = [self.packages.${pkgs.system}.rosePineCursor];
 
+  services.displayManager.enable = true;
   services.xserver.displayManager.gdm = {
     enable = true;
   };
-
-  services.displayManager = {
-    enable = true;
-    sddm = {
-      enable = false;
-      wayland.enable = true;
-    };
-  };
-
-  security.pam.services.greetd.enableGnomeKeyring = true;
 }

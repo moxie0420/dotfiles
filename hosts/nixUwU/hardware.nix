@@ -1,7 +1,6 @@
 {
   config,
   lib,
-  pkgs,
   ...
 }: {
   nixpkgs = {
@@ -19,12 +18,6 @@
 
   hardware = {
     enableAllFirmware = true;
-
-    graphics = {
-      extraPackages = with pkgs; [
-        nvidia-vaapi-driver
-      ];
-    };
 
     nvidia = {
       modesetting.enable = true;

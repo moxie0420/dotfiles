@@ -55,7 +55,7 @@
 
   systemd.services = {
     "fbset" = {
-      wantedBy = ["default.target"];
+      wantedBy = ["basic.target"];
       description = "set fb size";
       serviceConfig = {
         Type = "simple";

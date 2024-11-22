@@ -1,5 +1,6 @@
 {
   imports = [
+    ./dconf.nix
     ./fonts.nix
     ./gamemode.nix
     ./games.nix
@@ -9,7 +10,6 @@
   ];
 
   programs = {
-    dconf.enable = true;
     file-roller.enable = true;
     gnome-disks.enable = true;
 

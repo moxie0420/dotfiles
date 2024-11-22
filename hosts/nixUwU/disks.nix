@@ -1,7 +1,53 @@
-{...}: {
+{pkgs, ...}: let
+  monitors = pkgs.writeText "monitors.xml" ''
+    <monitors version="2">
+      <configuration>
+        <layoutmode>physical</layoutmode>
+        <logicalmonitor>
+          <x>3840</x>
+          <y>0</y>
+          <scale>1</scale>
+          <monitor>
+            <monitorspec>
+              <connector>HDMI-1</connector>
+              <vendor>SAM</vendor>
+              <product>SyncMaster</product>
+              <serial>0x00000000</serial>
+            </monitorspec>
+            <mode>
+              <width>1920</width>
+              <height>1080</height>
+              <rate>60.000</rate>
+            </mode>
+          </monitor>
+        </logicalmonitor>
+        <logicalmonitor>
+          <x>0</x>
+          <y>0</y>
+          <scale>1</scale>
+          <primary>yes</primary>
+          <monitor>
+            <monitorspec>
+              <connector>DP-1</connector>
+              <vendor>AUS</vendor>
+              <product>ROG PG27U</product>
+              <serial>#ASO02hiI6a7d</serial>
+            </monitorspec>
+            <mode>
+              <width>3840</width>
+              <height>2160</height>
+              <rate>59.997</rate>
+            </mode>
+          </monitor>
+        </logicalmonitor>
+      </configuration>
+    </monitors>
+  '';
+in {
   systemd.tmpfiles.rules = [
     "d /media/The_Store 0770 moxie users -"
     "w /sys/power/image_size - - - 160000000000"
+    "L+ /var/lib/gdm/.config/monitors.xml - - - - ${monitors}"
   ];
   fileSystems = {
     "/" = {
