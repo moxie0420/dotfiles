@@ -55,21 +55,6 @@
     kernel.sysctl = {
       "fs.inotify.max_user_watches" = 10000000;
     };
-    kernelParams = [
-      "video=DP-1:3840x2160@98D"
-      "video=HDMI-A-1:1920x1080@60D"
-    ];
-  };
-
-  systemd.services = {
-    "fbset" = {
-      wantedBy = ["basic.target"];
-      description = "set fb size";
-      serviceConfig = {
-        Type = "simple";
-        ExecStart = "${pkgs.fbset}/bin/fbset -xres 3840 -yres 2160";
-      };
-    };
   };
 
   # set a static ip

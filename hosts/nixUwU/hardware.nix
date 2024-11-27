@@ -19,6 +19,19 @@
   hardware = {
     enableAllFirmware = true;
 
+    display = {
+      edid.linuxhw = {
+        ROG_PG27U = ["PG27U" "2018"];
+      };
+      outputs = {
+        "DP-1" = {
+          edid = "ROG_PG27U.bin";
+          mode = "D";
+        };
+        "HDMI-A-1".mode = "1920x1080@60D";
+      };
+    };
+
     nvidia = {
       modesetting.enable = true;
       open = true;

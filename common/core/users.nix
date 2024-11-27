@@ -1,7 +1,6 @@
 {pkgs, ...}: {
   users.users.moxie = {
-    isNormalUser = true;
-    shell = pkgs.nushell;
+    description = "Moxie P. Benavides";
     extraGroups = [
       "adbusers"
       "docker"
@@ -10,5 +9,7 @@
       "wheel"
       "wireshark"
     ];
+    isNormalUser = true;
+    shell = pkgs.nushell;
   };
 }
