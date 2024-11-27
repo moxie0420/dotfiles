@@ -5,10 +5,11 @@
   ...
 }: {
   imports = [
-    ./theme.nix
-    ./hyprland.nix
     ./programs
     ./services
+    ./editorconfig.nix
+    ./hyprland.nix
+    ./theme.nix
     ./xdg.nix
   ];
 
