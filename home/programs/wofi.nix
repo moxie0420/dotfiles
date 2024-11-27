@@ -19,10 +19,5 @@
       image_size = 32;
       gtk_dark = false;
     };
-    style = ''
-      #window {
-        border-radius: 1rem;
-      }
-    '';
   };
 }

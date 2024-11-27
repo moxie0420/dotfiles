@@ -9,7 +9,7 @@
   };
 
   powerManagement = {
-    powertop.enable = true;
+    powertop.enable = false;
     cpuFreqGovernor = lib.mkDefault "performance";
     enable = true;
   };

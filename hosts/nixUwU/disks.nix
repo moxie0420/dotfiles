@@ -4,8 +4,8 @@
       <configuration>
         <layoutmode>physical</layoutmode>
         <logicalmonitor>
-          <x>3840</x>
-          <y>0</y>
+          <x>0</x>
+          <y>2160</y>
           <scale>1</scale>
           <monitor>
             <monitorspec>

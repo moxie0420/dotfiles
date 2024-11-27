@@ -32,25 +32,28 @@
       NIXOS_OZONE_WL = 1;
     };
 
-    packages = with pkgs; [
+    packages = with pkgs; let
+      prismlauncher = pkgs.prismlauncher.override {
+        jdks = with pkgs; [temurin-bin-21 temurin-bin-17 temurin-bin-8];
+      };
+      zen-browser = inputs.zen-browser.packages."${system}".default;
+    in [
       alejandra
       cachix
       clipboard-jh
+      gnome-firmware
+      gnome-logs
+      gnome-usage
       heroic
       hwinfo
       lutris
-      (pkgs.prismlauncher.override {
-        jdks = with pkgs; [temurin-bin-21 temurin-bin-17 temurin-bin-8];
-      })
+      nautilus
+      prismlauncher
       qbittorrent-enhanced
       r2modman
-
-      wineWowPackages.staging
-
-      jetbrains.idea-ultimate
-      inputs.zen-browser.packages."${system}".default
       vesktop
-      nautilus
+      wineWowPackages.staging
+      zen-browser
     ];
 
     stateVersion = "23.11";

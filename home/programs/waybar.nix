@@ -9,7 +9,7 @@
           output = ["DP-1"];
           modules-left = ["hyprland/workspaces"];
           modules-center = ["hyprland/window"];
-          modules-right = ["memory" "disk" "cpu" "temperature" "clock" "tray"];
+          modules-right = ["memory" "disk" "cpu" "temperature" "clock" "tray" "custom/notifications"];
           "hyprland/workspaces" = {format = "{name}";};
           "hyprland/window" = {
             seperate-outputs = true;
@@ -36,6 +36,10 @@
             icon-size = 21;
             show-passive-items = true;
             spacing = 5;
+          };
+          "custom/notifications" = {
+            on-click = "${pkgs.swaynotificationcenter}/bin/swaync-client -t";
+            format = "";
           };
         }
         {
