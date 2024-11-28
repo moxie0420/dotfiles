@@ -1,6 +1,5 @@
 {
   config,
-  lib,
   pkgs,
   ...
 }: {
@@ -8,12 +7,6 @@
     ./disks.nix
     ./hardware.nix
   ];
-
-  networking.hostName = "nixUwU";
-
-  security.tpm2.enable = true;
-
-  services.fstrim.enable = true;
 
   environment = {
     systemPackages = with pkgs; [ddcutil];
@@ -58,6 +51,7 @@
   };
 
   # set a static ip
+  networking.hostName = "nixUwU";
   networking = {
     useDHCP = false;
     interfaces.eno2.ipv4.addresses = [
@@ -71,6 +65,4 @@
       interface = "eno2";
     };
   };
-
-  nixpkgs.hostPlatform = lib.mkDefault "x86_64-linux";
 }

@@ -9,7 +9,6 @@
   };
 
   powerManagement = {
-    powertop.enable = false;
     cpuFreqGovernor = lib.mkDefault "performance";
     enable = true;
   };
@@ -37,7 +36,6 @@
       open = true;
       nvidiaSettings = false;
       package = config.boot.kernelPackages.nvidiaPackages.beta;
-      powerManagement.enable = true;
     };
 
     opentabletdriver.enable = true;

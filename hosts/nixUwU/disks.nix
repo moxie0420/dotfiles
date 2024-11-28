@@ -44,6 +44,7 @@
     </monitors>
   '';
 in {
+  services.fstrim.enable = true;
   systemd.tmpfiles.rules = [
     "d /media/The_Store 0770 moxie users -"
     "w /sys/power/image_size - - - 160000000000"
