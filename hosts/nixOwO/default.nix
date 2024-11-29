@@ -6,6 +6,7 @@
     ./disks.nix
     ./hardware.nix
     ./network.nix
+    ./specialisations.nix
   ];
 
   boot = {
@@ -20,6 +21,7 @@
       "kvm_amd"
       "amdgpu"
       "nvme"
+      "pwm-lpss-platform"
     ];
     kernelParams = [
       "resume_offset=474218496"

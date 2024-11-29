@@ -3,14 +3,7 @@
   pkgs,
   ...
 }: {
-  powerManagement = {
-    cpuFreqGovernor = "powersave";
-    powertop.enable = true;
-  };
-  services = {
-    libinput.enable = true;
-    xserver.videoDrivers = ["amdgpu" "nvidia"];
-  };
+  services.xserver.videoDrivers = ["amdgpu" "nvidia"];
 
   hardware = {
     enableAllFirmware = true;

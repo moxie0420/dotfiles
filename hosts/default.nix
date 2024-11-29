@@ -41,7 +41,6 @@
         laptop
         ++ [
           ./nixOwO
-          "${mod}/hardware/specialisations.nix"
           shared
 
           inputs.nix-index-database.nixosModules.nix-index
