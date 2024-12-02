@@ -14,7 +14,7 @@ in {
         gtk.enable = true;
         x11.enable = true;
         name = "rose-pine";
-        package = self.packages.${pkgs.system}.rosePineCursor;
+        package = self.packages.${pkgs.system}.rose-pine-cursor;
         size = 16;
       };
       sessionVariables = {

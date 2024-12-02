@@ -15,7 +15,7 @@
       background = [
         {
           monitor = "";
-          path = "${self.packages.${pkgs.system}.rosePineWallpapers}/share/wallpapers/bay.png";
+          path = "${self.packages.${pkgs.system}.rose-pine-wallpapers}/share/wallpapers/bay.png";
         }
       ];
       input-field = [

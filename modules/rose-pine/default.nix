@@ -6,10 +6,12 @@
   cfg = config.rose-pine;
 in {
   imports = [
-    ./Cursor.nix
+    ./cursor.nix
     ./hyprland.nix
     ./hyprpaper.nix
     ./kitty.nix
+    ./mako.nix
+    ./qbittorrent.nix
     ./spotify.nix
     ./starship.nix
     ./vesktop.nix
@@ -24,6 +26,7 @@ in {
     hyprpaper.enable = lib.mkEnableOption "enable rose-pine for Hyprpaper";
     kitty.enable = lib.mkEnableOption "enable rose-pine for Kitty";
     mako.enable = lib.mkEnableOption "enable rose-pine for Mako";
+    qbittorrent.enable = lib.mkEnableOption "enable rose-pine for qbittorrent";
     spotify.enable = lib.mkEnableOption "enable rose-pine for spotify";
     starship.enable = lib.mkEnableOption "enable rose-pine for Starship";
     vesktop.enable = lib.mkEnableOption "enable rose-pine for Vesktop";
@@ -36,6 +39,8 @@ in {
     hyprland.enable = lib.mkDefault true;
     hyprpaper.enable = lib.mkDefault true;
     kitty.enable = lib.mkDefault true;
+    mako.enable = lib.mkDefault true;
+    qbittorrent.enable = lib.mkDefault true;
     spotify.enable = lib.mkDefault true;
     starship.enable = lib.mkDefault true;
     vesktop.enable = lib.mkDefault true;

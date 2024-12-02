@@ -2,7 +2,9 @@
   pkgs,
   self,
   ...
-}: {
+}: let
+  inherit (self.packages.x86_64-linux) comic-mono;
+in {
   fonts = {
     fontconfig.defaultFonts = {
       serif = ["Comic Mono" "Symbols Nerd Font"];
@@ -16,7 +18,7 @@
       roboto
 
       # monospace fonts
-      self.packages.x86_64-linux.comicMono
+      comic-mono
 
       # nerdfonts
       nerd-fonts.symbols-only
