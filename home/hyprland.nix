@@ -15,7 +15,7 @@
     settings = {
       monitor = [
         "DP-1,3840x2160@98,auto,1,vrr,2"
-        "HDMI-A-1,1920x1080@60,auto-up,auto"
+        "DP-2,1920x1080@60,auto-up,1"
         "eDP-1,1920x1080@165.009995,auto,1"
       ];
       cursor = {
@@ -121,9 +121,9 @@
 
       workspace =
         [
-          "8, monitor:HDMI-A-1"
-          "9, monitor:HDMI-A-1"
-          "10, monitor:HDMI-A-1"
+          "8, monitor:DP-2"
+          "9, monitor:DP-2"
+          "10, monitor:DP-2"
         ]
         ++ (
           # workspaces monitor binds 1-7

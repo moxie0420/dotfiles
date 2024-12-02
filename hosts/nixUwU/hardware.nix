@@ -27,7 +27,6 @@
           edid = "ROG_PG27U.bin";
           mode = "D";
         };
-        "HDMI-A-1".mode = "1920x1080@60D";
       };
     };
 

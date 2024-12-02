@@ -19,7 +19,7 @@
       self.packages.x86_64-linux.comicMono
 
       # nerdfonts
-      (nerdfonts.override {fonts = ["NerdFontsSymbolsOnly"];})
+      nerd-fonts.symbols-only
     ];
   };
 }

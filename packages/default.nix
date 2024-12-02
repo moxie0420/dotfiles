@@ -2,36 +2,22 @@
   imports = [
     inputs.flake-parts.flakeModules.easyOverlay
   ];
-  perSystem = {
-    config,
-    pkgs,
-    ...
-  }: {
-    overlayAttrs = {
-      inherit
-        (config.packages)
-        comicMono
-        rosePineCursor
-        rosePineHyprland
-        rosePineKitty
-        rosePineSddm
-        rosePineVesktop
-        rosePineWallpapers
-        rosePineWofi
-        rosePineZen
-        sgx-software-enable
-        ;
-    };
+  perSystem = {pkgs, ...}: {
     packages = with pkgs; {
       comicMono = callPackage ./comicMono.nix {};
-      rosePineCursor = callPackage ./rosePineCursor.nix {};
-      rosePineHyprland = callPackage ./rosePineHyprland.nix {};
-      rosePineKitty = callPackage ./rosePineKitty.nix {};
-      rosePineSddm = callPackage ./rosePineSddm.nix {};
-      rosePineVesktop = callPackage ./rosePineVesktop.nix {};
-      rosePineWallpapers = callPackage ./rosePineWallpapers.nix {};
-      rosePineWofi = callPackage ./rosePineWofi.nix {};
-      rosePineZen = callPackage ./rosePineZen.nix {};
+
+      rose-pine = {
+        cursor = callPackage ./rose-pine/cursor.nix {};
+        hyprland = callPackage ./rose-pine/hyprland.nix {};
+        kitty = callPackage ./rose-pine/kitty.nix {};
+        qbittorrent = callPackage ./rose-pine/qbittorrent.nix {};
+        sddm = callPackage ./rose-pine/sddm.nix {};
+        vesktop = callPackage ./rose-pine/vesktop.nix {};
+        wallpapers = callPackage ./rose-pine/wallpapers.nix {};
+        wofi = callPackage ./rose-pine/wofi.nix {};
+        zen = callPackage ./rose-pine/zen.nix {};
+      };
+
       sgx-software-enable = callPackage ./sgx-software-enable.nix {};
     };
   };
