@@ -6,7 +6,7 @@
   ...
 }: let
   cfg = config.rose-pine;
-  rose-wallpaper = "${self.packages.${pkgs.system}.rosePineWallpapers}/share/wallpapers/${cfg.hyprpaper.variant}.png";
+  rose-wallpaper = "${self.packages.${pkgs.system}.rose-pine-wallpapers}/share/wallpapers/${cfg.hyprpaper.variant}.png";
 in {
   options.rose-pine.hyprpaper.variant = lib.mkOption {
     type = lib.types.enum [

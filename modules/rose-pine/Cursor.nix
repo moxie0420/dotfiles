@@ -23,7 +23,10 @@ in {
         HYPRCURSOR_THEME = "rose-pine-hyprcursor";
       };
 
-      packages = [inputs.rose-pine-hyprcursor.packages.${pkgs.system}.default self.packages.${pkgs.system}.rosePineCursor];
+      packages = [
+        inputs.rose-pine-hyprcursor.packages.${pkgs.system}.default
+        self.packages.${pkgs.system}.rose-pine-cursor
+      ];
     };
   };
 }

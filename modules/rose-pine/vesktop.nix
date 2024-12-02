@@ -6,11 +6,12 @@
   ...
 }: let
   cfg = config.rose-pine;
+  themepkg = self.packages.${pkgs.system}.rose-pine-vesktop;
 in {
   config.xdg.configFile =
     lib.mkIf
     cfg.vesktop.enable {
-      "vesktop/themes/rose-pine.theme.css".source = "${self.packages.${pkgs.system}.rosePineVesktop}/rose-pine.theme.css";
-      "vesktop/themes/rose-pine-moon.theme.css".source = "${self.packages.${pkgs.system}.rosePineVesktop}/rose-pine-moon.theme.css";
+      "vesktop/themes/rose-pine.theme.css".source = "${themepkg}/rose-pine.theme.css";
+      "vesktop/themes/rose-pine-moon.theme.css".source = "${themepkg}/rose-pine-moon.theme.css";
     };
 }
