@@ -10,12 +10,10 @@
     enable = true;
 
     package = inputs.hyprland.packages.${pkgs.system}.default;
-
-    systemd .enable = false;
     settings = {
       monitor = [
-        "DP-1,3840x2160@98,auto,1,vrr,2"
-        "DP-2,1920x1080@60,auto-up,1"
+        "DP-1,3840x2160@120,auto,1,vrr,2"
+        "HDMI-A-2,1920x1080@60,auto-up,1"
         "eDP-1,1920x1080@165.009995,auto,1"
       ];
       cursor = {
@@ -79,8 +77,7 @@
       };
 
       misc = {
-        vfr = false;
-        force_default_wallpaper = 2;
+        vrr = 2;
       };
 
       xwayland.force_zero_scaling = true;
@@ -95,9 +92,6 @@
         "uwsm app -- GDK_BACKEND=wayland swaync"
         "uwsm app -- ${pkgs.openrgb-with-all-plugins}/bin/openrgb -p /home/moxie/.config/OpenRGB/default.orp"
         "gpg-agent --daemon"
-
-        "[silent] uwsm app -- vesktop"
-        "[silent] uwsm app -- spotify"
       ];
 
       "$mod" = "SUPER";
@@ -121,9 +115,9 @@
 
       workspace =
         [
-          "8, monitor:DP-2"
-          "9, monitor:DP-2"
-          "10, monitor:DP-2"
+          "8,  monitor:HDMI-A-2"
+          "9,  monitor:HDMI-A-2"
+          "10, monitor:HDMI-A-2"
         ]
         ++ (
           # workspaces monitor binds 1-7

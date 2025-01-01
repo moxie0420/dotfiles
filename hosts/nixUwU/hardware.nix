@@ -13,22 +13,13 @@
     enable = true;
   };
 
-  services.xserver.videoDrivers = ["nvidia"];
+  services = {
+    hardware.openrgb.motherboard = "intel";
+    xserver.videoDrivers = ["nvidia"];
+  };
 
   hardware = {
     enableAllFirmware = true;
-
-    display = {
-      edid.linuxhw = {
-        ROG_PG27U = ["PG27U" "2018"];
-      };
-      outputs = {
-        "DP-1" = {
-          edid = "ROG_PG27U.bin";
-          mode = "D";
-        };
-      };
-    };
 
     nvidia = {
       modesetting.enable = true;

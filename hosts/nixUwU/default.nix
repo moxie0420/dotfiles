@@ -1,4 +1,5 @@
 {
+  self,
   config,
   pkgs,
   ...
@@ -38,16 +39,14 @@
         "usbhid"
         "sd_mod"
       ];
-      kernelModules = [
-        "nvidia"
-        "nvidia_modeset"
-        "nvidia_uvm"
-        "nvidia_drm"
-      ];
     };
     kernel.sysctl = {
       "fs.inotify.max_user_watches" = 10000000;
     };
+    kernelPackages = pkgs.linuxPackages_cachyos;
+    kernelParams = [
+      "plymouth.use-simpledrm"
+    ];
   };
 
   # set a static ip
@@ -64,5 +63,14 @@
       address = "172.31.11.1";
       interface = "eno2";
     };
+  };
+
+  systemd.services.nvidia-overclock = {
+    wantedBy = ["default.target"];
+    description = "Overclocks your Nvidia GPU";
+    serviceConfig = {
+      Type = "oneshot";
+    };
+    script = "${self.packages.${pkgs.system}.nvidia-oc}/bin/nvidia-oc";
   };
 }

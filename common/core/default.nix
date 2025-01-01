@@ -16,8 +16,10 @@
 
   time.timeZone = lib.mkDefault "America/Chicago";
 
+  virtualisation.docker.enable = true;
+
   zramSwap = {
     enable = true;
-    memoryPercent = 20;
+    memoryPercent = 10;
   };
 }

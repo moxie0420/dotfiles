@@ -3,6 +3,7 @@
     enable = true;
     package = pkgs.nix-ld-rs;
     libraries = with pkgs; [
+      addDriverRunpath
       alsa-lib
       at-spi2-atk
       at-spi2-core

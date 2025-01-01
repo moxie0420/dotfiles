@@ -28,9 +28,11 @@
           ./nixUwU
           "${mod}/hardware/vr.nix"
           "${mod}/network/spotify.nix"
+          "${mod}/core/waydroid.nix"
           shared
 
           inputs.nix-index-database.nixosModules.nix-index
+          inputs.chaotic.nixosModules.default
         ];
     };
 

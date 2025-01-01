@@ -1,6 +1,9 @@
 {
   imports = [
+    ./ananicy.nix
+    ./avahi.nix
     ./display-manager.nix
+    ./openrgb.nix
   ];
 
   services = {

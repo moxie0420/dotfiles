@@ -48,6 +48,8 @@
 
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
 
+    chaotic.url = "github:chaotic-cx/nyx/nyxpkgs-unstable";
+
     # other inputs in alphabetical order
     ags.url = "github:Aylur/ags";
 
@@ -59,6 +61,11 @@
     };
 
     hyprland.url = "github:hyprwm/hyprland";
+
+    hyprland-plugins = {
+      url = "github:hyprwm/hyprland-plugins";
+      inputs.hyprland.follows = "hyprland";
+    };
 
     hypridle = {
       url = "github:hyprwm/hypridle";

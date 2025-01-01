@@ -4,10 +4,6 @@
     ifuse
   ];
   services = {
-    usbmuxd = {
-      enable = true;
-      package = pkgs.usbmuxd2;
-    };
     udisks2 = {
       enable = true;
       mountOnMedia = true;

@@ -44,7 +44,7 @@
         }
         {
           layer = "top";
-          output = ["DP-2"];
+          output = ["HDMI-A-2"];
           modules-left = ["hyprland/workspaces"];
           modules-center = ["hyprland/window"];
           modules-right = ["memory" "disk" "cpu" "temperature" "clock" "tray"];

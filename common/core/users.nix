@@ -5,9 +5,11 @@
       "adbusers"
       "docker"
       "plugdev"
+      "audio"
       "video"
       "wheel"
       "wireshark"
+      "pipewire"
     ];
     isNormalUser = true;
     shell = pkgs.nushell;

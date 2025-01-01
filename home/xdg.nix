@@ -6,6 +6,7 @@
   xdg = {
     enable = true;
     configFile = {
+      "openxr/1/active_runtime.json".source = "${pkgs.monado}/share/openxr/1/openxr_monado.json";
       "openvr/openvrpaths.vrpath".text = ''
         {
           "config" :
@@ -23,15 +24,6 @@
             "${pkgs.opencomposite}/lib/opencomposite"
           ],
           "version" : 1
-        }
-      '';
-      "openxr/1/active_runtime.json".text = ''
-        {
-          "file_format_version": "1.0.0",
-          "runtime": {
-              "name": "Monado",
-              "library_path": "${pkgs.monado}/lib/libopenxr_monado.so"
-          }
         }
       '';
     };

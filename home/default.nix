@@ -42,14 +42,16 @@
       alejandra
       cachix
       clipboard-jh
+      comma
       gnome-firmware
       gnome-logs
       gnome-usage
-      heroic
       hwinfo
       lutris
       nautilus
+      nvtopPackages.full
       prismlauncher
+      pwvucontrol
       qbittorrent-enhanced
       r2modman
       vesktop
