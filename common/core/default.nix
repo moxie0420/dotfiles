@@ -5,7 +5,6 @@
     ./users.nix
     ./nix-ld.nix
     ../nix
-    ./polkit.nix
   ];
 
   documentation.dev.enable = true;
