@@ -1,6 +1,5 @@
 {
   self,
-  config,
   pkgs,
   ...
 }: {
@@ -17,20 +16,10 @@
       GBM_BACKEND = "nvidia-drm";
       LIBVA_DRIVER_NAME = "nvidia";
       NVD_BACKEND = "direct";
-
-      PROTON_ENABLE_NVAPI = "1";
-      PROTON_ENABLE_NGX_UPDATER = "1";
-
-      VKD3D_CONFIG = "dxr11,dxr";
     };
   };
 
   boot = {
-    extraModulePackages = with config.boot.kernelPackages; [v4l2loopback];
-    extraModprobeConfig = ''
-      options nvidia NVreg_EnablePCIeGen3=1 NVreg_UsePageAttributeTable=1 NVreg_NvAGP=1 NVreg_EnableAGPFW=1
-      options v4l2loopback devices=1 video_nr=1 card_label="OBS Cam" exclusive_caps=1
-    '';
     initrd = {
       availableKernelModules = [
         "xhci_pci"
@@ -55,12 +44,12 @@
     useDHCP = false;
     interfaces.eno2.ipv4.addresses = [
       {
-        address = "172.31.11.111";
+        address = "192.168.50.111";
         prefixLength = 24;
       }
     ];
     defaultGateway = {
-      address = "172.31.11.1";
+      address = "192.168.50.1";
       interface = "eno2";
     };
   };

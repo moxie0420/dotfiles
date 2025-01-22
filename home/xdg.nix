@@ -1,9 +1,34 @@
 {
+  inputs,
   pkgs,
   config,
   ...
 }: {
+  imports = [
+    inputs.xdg-autostart-hm.homeManagerModules.xdg-autostart
+  ];
+
   xdg = {
+    autoStart = {
+      packages = with pkgs; [
+        vesktop
+      ];
+      desktopItems = {
+        spotify = pkgs.makeDesktopItem {
+          name = "spotify";
+          desktopName = "Spotify";
+          genericName = "Music Player";
+          icon = "spotify-client";
+          tryExec = "spotify";
+          exec = "spotify %U";
+          terminal = false;
+          mimeTypes = ["x-scheme-handler/spotify"];
+          categories = ["Audio" "Music" "Player" "AudioVideo"];
+          startupWMClass = "spotify";
+        };
+      };
+    };
+
     enable = true;
     configFile = {
       "openxr/1/active_runtime.json".source = "${pkgs.monado}/share/openxr/1/openxr_monado.json";

@@ -1,6 +1,5 @@
 {...}: {
   imports = [
-    ./ags.nix
     ./cava.nix
     ./direnv.nix
     ./feh.nix
@@ -9,6 +8,7 @@
     ./neovim.nix
     ./obs-studio.nix
     ./pandoc.nix
+    ./rofi.nix
     ./spotify.nix
     ./terminal.nix
     ./thunderbird.nix

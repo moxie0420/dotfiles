@@ -51,8 +51,6 @@
     chaotic.url = "github:chaotic-cx/nyx/nyxpkgs-unstable";
 
     # other inputs in alphabetical order
-    ags.url = "github:Aylur/ags";
-
     git-hooks-nix.url = "github:cachix/git-hooks.nix";
 
     home-manager = {
@@ -134,6 +132,8 @@
       url = "github:rafaelrc7/wayland-pipewire-idle-inhibit";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+
+    xdg-autostart-hm.url = "github:Zocker1999NET/home-manager-xdg-autostart";
 
     zen-browser.url = "github:fufexan/zen-browser-flake";
   };

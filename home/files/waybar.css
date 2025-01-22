@@ -8,14 +8,14 @@
   transition-duration: 0s;
 }
 window#waybar {
-  margin: 4px;
+  margin: 2px;
   background: transparent;
 }
 window#waybar.empty #window {
   background-color: transparent;
 }
 #workspaces {
-  padding: 5px;
+  padding: 3px;
   border-radius: 20px;
   background: rgba(30, 30, 46, 0.8);
   transition: none;

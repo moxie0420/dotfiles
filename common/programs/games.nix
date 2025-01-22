@@ -33,9 +33,6 @@
 
           PROTON_ENABLE_NVAPI = "1";
           PROTON_ENABLE_NGX_UPDATER = "1";
-
-          VKD3D_CONFIG = "dxr11,dxr";
-          DXVK_ASYNC = "1";
         };
       };
 
