@@ -6,7 +6,7 @@
       settings = [
         {
           layer = "top";
-          output = ["DP-1"];
+          output = ["DP-1" "HDMI-A-1"];
           modules-left = ["hyprland/workspaces"];
           modules-center = ["hyprland/window"];
           modules-right = ["memory" "disk" "cpu" "temperature" "clock" "tray" "custom/notifications"];

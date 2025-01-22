@@ -8,6 +8,7 @@
     ./neovim.nix
     ./obs-studio.nix
     ./pandoc.nix
+    ./rofi.nix
     ./spotify.nix
     ./terminal.nix
     ./thunderbird.nix

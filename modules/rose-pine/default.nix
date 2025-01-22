@@ -12,6 +12,7 @@ in {
     ./kitty.nix
     ./mako.nix
     ./qbittorrent.nix
+    ./rofi.nix
     ./spotify.nix
     ./starship.nix
     ./vesktop.nix
@@ -27,6 +28,7 @@ in {
     kitty.enable = lib.mkEnableOption "enable rose-pine for Kitty";
     mako.enable = lib.mkEnableOption "enable rose-pine for Mako";
     qbittorrent.enable = lib.mkEnableOption "enable rose-pine for qbittorrent";
+    rofi.enable = lib.mkEnableOption "enable rose-pine for rofi";
     spotify.enable = lib.mkEnableOption "enable rose-pine for spotify";
     starship.enable = lib.mkEnableOption "enable rose-pine for Starship";
     vesktop.enable = lib.mkEnableOption "enable rose-pine for Vesktop";
@@ -41,6 +43,7 @@ in {
     kitty.enable = lib.mkDefault true;
     mako.enable = lib.mkDefault true;
     qbittorrent.enable = lib.mkDefault true;
+    rofi.enable = lib.mkDefault true;
     spotify.enable = lib.mkDefault true;
     starship.enable = lib.mkDefault true;
     vesktop.enable = lib.mkDefault true;

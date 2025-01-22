@@ -12,7 +12,7 @@
     package = inputs.hyprland.packages.${pkgs.system}.default;
     settings = {
       monitor = [
-        "DP-1,3840x2160@120,auto,1,vrr,2"
+        "HDMI-A-1,1920x1080@75,auto,1,vrr,2"
         "HDMI-A-2,1920x1080@60,auto-up,1"
         "eDP-1,1920x1080@165.009995,auto,1"
       ];
@@ -24,30 +24,6 @@
 
       decoration = {
         rounding = 16;
-
-        blur = {
-          enabled = true;
-          brightness = 0.75;
-          contrast = 1.0;
-          noise = 0.01;
-
-          vibrancy = 0.2;
-          vibrancy_darkness = 0.5;
-
-          passes = 4;
-          size = 3;
-
-          popups = true;
-          popups_ignorealpha = 0.2;
-        };
-
-        shadow = {
-          range = 100;
-          render_power = 2;
-
-          offset = "0 15";
-          scale = 0.97;
-        };
       };
 
       general = {
@@ -124,7 +100,7 @@
           # binds $mod + [shift +] {1..10} to [move to] workspace {1..10}
           builtins.concatLists (builtins.genList (
               x: [
-                "${toString (x + 1)}, monitor:DP-1"
+                "${toString (x + 1)}, monitor:HDMI-A-1"
                 "${toString (x + 1)}, monitor:eDP-1"
               ]
             )
@@ -137,7 +113,7 @@
           "$mod, Space,  togglefloating,"
 
           "$mod, Return, exec, uwsm app -- $terminal"
-          "$mod, D,      exec, uwsm app -- wofi"
+          "$mod, D,      exec, rofi -matching glob -show drun -show-icons -run-command 'uwsm app -- {cmd}'"
 
           "$mod, L, exec, loginctl lock-session"
 

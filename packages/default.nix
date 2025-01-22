@@ -6,6 +6,7 @@
       rose-pine-hyprland = pkgs.callPackage ./rose-pine/hyprland.nix {};
       rose-pine-kitty = pkgs.callPackage ./rose-pine/kitty.nix {};
       rose-pine-qbittorrent = pkgs.callPackage ./rose-pine/qbittorrent.nix {};
+      rose-pine-rofi = pkgs.callPackage ./rose-pine/rofi.nix {};
       rose-pine-sddm = pkgs.callPackage ./rose-pine/sddm.nix {};
       rose-pine-vesktop = pkgs.callPackage ./rose-pine/vesktop.nix {};
       rose-pine-wallpapers = pkgs.callPackage ./rose-pine/wallpapers.nix {};
