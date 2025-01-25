@@ -6,6 +6,8 @@
   boot = {
     bootspec.enable = true;
 
+    binfmt.emulatedSystems = ["aarch64-linux"];
+
     initrd = {
       systemd.enable = true;
       supportedFilesystems = ["ext4"];

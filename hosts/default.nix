@@ -43,9 +43,11 @@
         laptop
         ++ [
           ./nixOwO
+          "${mod}/core/waydroid.nix"
           shared
 
           inputs.nix-index-database.nixosModules.nix-index
+          inputs.chaotic.nixosModules.default
         ];
     };
   };
