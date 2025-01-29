@@ -76,15 +76,14 @@
             spacing = 5;
           };
         }
+
         {
           layer = "top";
           output = ["eDP-1"];
           modules-left = ["hyprland/workspaces"];
           modules-center = ["hyprland/window"];
           modules-right = [
-            /*
             "wireplumber"
-            */
             "memory"
             "cpu"
             "temperature"
@@ -104,19 +103,37 @@
             };
           };
           "wireplumber" = {
-            format = "volume: {volume}%";
-            format-muted = "Muted";
-            on-click = "pavucontrol";
+            format = "{icon} {volume}%";
+            format-icons = ["" "" ""];
+            format-muted = "";
+            on-click = "pwvucontrol";
           };
-          "memory" = {format = "RAM: {percentage}%";};
+          "memory" = {format = " {percentage}%";};
           "disk" = {format = "{percentage_free}% remaining on /";};
-          "cpu" = {format = "CPU: {usage}%";};
+          "cpu" = {format = " {usage}%";};
           "backlight" = {
-            format = "{percent}% {icon}";
-            format-icons = ["" ""];
+            format = "{icon} {percent}%";
+            format-icons = ["󰹐" "󱩎" "󱩏" "󱩐" "󱩑" "󱩒" "󱩓" "󱩔" "󱩕" "󱩖" "󰛨"];
           };
           "battery" = {
-            format = "{capacity}%";
+            format = "{icon} {capacity}%";
+            format-icons = ["󰂃" "󰁺" "󰁻" "󰁼" "󰁽" "󰁾" "󰁿" "󰂀" "󰂁" "󰂂" "󰁹"];
+            format-Charging = "󰂄 Charging";
+
+            tooltip-format-Discharging = ''
+              {capacity}% Charged
+              {timeTo} left until empty
+
+              Using {power} watts
+            '';
+
+            tooltip-format-Charging = ''
+              {capacity}% Charged
+              {timeTo} left until full
+
+              Using {power} watts
+            '';
+
             states = {
               warning = 35;
               critical = 20;
