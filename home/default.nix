@@ -46,6 +46,7 @@
       gnome-firmware
       gnome-logs
       gnome-usage
+      haruna
       heroic
       hwinfo
       lutris
