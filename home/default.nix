@@ -46,6 +46,7 @@
       gnome-firmware
       gnome-logs
       gnome-usage
+      heroic
       hwinfo
       lutris
       nautilus

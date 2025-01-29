@@ -8,8 +8,6 @@
   };
 
   services = {
-    # DNS Resolver
-    bind.enable = true;
     tailscale.enable = true;
   };
 }
