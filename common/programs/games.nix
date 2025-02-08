@@ -10,10 +10,6 @@
     gamescope = {
       enable = true;
       capSysNice = true;
-      args = [
-        "--rt"
-        "--expose-wayland"
-      ];
     };
 
     ns-usbloader.enable = true;
@@ -23,16 +19,13 @@
 
       gamescopeSession = {
         enable = true;
-        args = ["--adaptive-sync" "-H 2160" "-W 3840" "--expose-wayland" "--adaptive-sync" "--force-grab-cursor"];
+        args = ["--adaptive-sync" "-H 1080" "-W 1920"];
         env = {
           __GLX_VENDOR_LIBRARY_NAME = "nvidia";
           __GL_GSYNC_ALLOWED = "1";
           GBM_BACKEND = "nvidia-drm";
           LIBVA_DRIVER_NAME = "nvidia";
           NVD_BACKEND = "direct";
-
-          PROTON_ENABLE_NVAPI = "1";
-          PROTON_ENABLE_NGX_UPDATER = "1";
         };
       };
 
@@ -46,10 +39,19 @@
       ];
 
       package = pkgs.steam.override {
-        extraEnv = {
-          PROTON_HIDE_NVIDIA_GPU = false;
-          PROTON_ENABLE_NVAPI = true;
-        };
+        extraPkgs = pkgs:
+          with pkgs; [
+            xorg.libXcursor
+            xorg.libXi
+            xorg.libXinerama
+            xorg.libXScrnSaver
+            libpng
+            libpulseaudio
+            libvorbis
+            stdenv.cc.cc.lib
+            libkrb5
+            keyutils
+          ];
       };
     };
   };

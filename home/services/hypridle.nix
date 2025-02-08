@@ -22,15 +22,6 @@
           timeout = 120;
           on-timeout = "${pkgs.systemd}/bin/loginctl lock-session";
         }
-        {
-          timeout = 900;
-          on-timeout = "${pkgs.hyprland}/bin/hyprctl dispatch dpms off";
-          on-resume = "${pkgs.hyprland}/bin/hyprctl dispatch dpms on";
-        }
-        {
-          timeout = 1800;
-          on-timeout = "${pkgs.systemd}/bin/systemctl suspend";
-        }
       ];
     };
   };

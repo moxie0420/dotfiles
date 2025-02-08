@@ -75,11 +75,11 @@
       "$terminal" = "${pkgs.kitty}/bin/kitty -1";
 
       windowrulev2 = [
-        "workspace 3 silent, class:(steam)"
-        "workspace 3 silent, class:(lutris)"
+        "workspace 3, class:(steam)"
+        "workspace 3, class:(lutris)"
         "workspace 8 silent, class:(com.obsproject.Studio)"
-        "workspace 9 silent, class:(vesktop)"
-        "workspace 10 silent, title:(Spotify)"
+        "workspace 9, class:(vesktop)"
+        "workspace 10 silent, class:(Spotify)"
 
         "float, title:^(Picture-in-Picture)$"
         "pin, title:^(Picture-in-Picture)$"

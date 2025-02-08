@@ -28,11 +28,12 @@
           ./nixUwU
           "${mod}/hardware/vr.nix"
           "${mod}/network/spotify.nix"
-          "${mod}/core/waydroid.nix"
+          "${mod}/services/sunshine.nix"
           shared
 
           inputs.nix-index-database.nixosModules.nix-index
           inputs.chaotic.nixosModules.default
+          inputs.lix-module.nixosModules.default
         ];
     };
 
@@ -43,11 +44,11 @@
         laptop
         ++ [
           ./nixOwO
-          "${mod}/core/waydroid.nix"
           shared
 
           inputs.nix-index-database.nixosModules.nix-index
           inputs.chaotic.nixosModules.default
+          inputs.lix-module.nixosModules.default
         ];
     };
   };

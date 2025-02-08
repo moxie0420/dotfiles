@@ -5,6 +5,7 @@
     ./feh.nix
     ./git.nix
     ./hyprlock.nix
+    ./mangohud.nix
     ./neovim.nix
     ./obs-studio.nix
     ./pandoc.nix
