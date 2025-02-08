@@ -5,13 +5,13 @@
       general = {
         lock_cmd = "pidof ${pkgs.hyprlock}/bin/hyprlock || ${pkgs.hyprlock}/bin/hyprlock ";
         before_sleep_cmd = "${pkgs.systemd}/bin/loginctl lock-session";
-        after_sleep_cmd = "${pkgs.hyprland}/bin/hyprctl dispatch dpms on";
+        after_sleep_cmd = "${pkgs.hyprland}/bin/hyprctl dispatch dpms on; ${pkgs.brillo}/bin/brillo -I";
       };
       listener = [
         {
           timeout = 120;
-          on-timeout = "${pkgs.brightnessctl}/bin/brightnessctl -s set 10";
-          on-resume = "${pkgs.brightnessctl}/bin/brightnessctl - r";
+          on-timeout = "${pkgs.brillo}/bin/brillo -O; ${pkgs.brillo}/bin/brillo -S 15";
+          on-resume = "${pkgs.brillo}/bin/brillo -I";
         }
         {
           timeout = 120;
