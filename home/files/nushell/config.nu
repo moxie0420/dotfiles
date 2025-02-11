@@ -66,7 +66,7 @@ $env.config  = {
   },
   color_config: $base16_theme,
   edit_mode: vi,
-  show_banner: false
+  show_banner: false,
 }
 
 $env.PATH = (

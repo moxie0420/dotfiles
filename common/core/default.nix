@@ -2,6 +2,7 @@
   imports = [
     ./console.nix
     ./security.nix
+    ./systemd.nix
     ./users.nix
     ./nix-ld.nix
     ../nix
@@ -16,9 +17,4 @@
   time.timeZone = lib.mkDefault "America/Chicago";
 
   virtualisation.docker.enable = true;
-
-  zramSwap = {
-    enable = true;
-    memoryPercent = 10;
-  };
 }

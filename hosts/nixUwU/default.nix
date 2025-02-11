@@ -9,7 +9,6 @@
   ];
 
   environment = {
-    systemPackages = with pkgs; [ddcutil];
     variables = {
       __GLX_VENDOR_LIBRARY_NAME = "nvidia";
       __GL_GSYNC_ALLOWED = "1";
@@ -41,17 +40,7 @@
   # set a static ip
   networking.hostName = "nixUwU";
   networking = {
-    useDHCP = false;
-    interfaces.eno2.ipv4.addresses = [
-      {
-        address = "192.168.50.111";
-        prefixLength = 24;
-      }
-    ];
-    defaultGateway = {
-      address = "192.168.50.1";
-      interface = "eno2";
-    };
+    useDHCP = true;
   };
 
   systemd.services.nvidia-overclock = {

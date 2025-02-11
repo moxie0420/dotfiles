@@ -9,7 +9,7 @@
   programs = {
     gamescope = {
       enable = true;
-      capSysNice = true;
+      capSysNice = false;
     };
 
     ns-usbloader.enable = true;
@@ -19,7 +19,7 @@
 
       gamescopeSession = {
         enable = true;
-        args = ["--adaptive-sync" "-H 1080" "-W 1920"];
+        args = ["-f" "-H 1080" "-W 1920"];
         env = {
           __GLX_VENDOR_LIBRARY_NAME = "nvidia";
           __GL_GSYNC_ALLOWED = "1";
@@ -51,6 +51,7 @@
             stdenv.cc.cc.lib
             libkrb5
             keyutils
+            gamescope
           ];
       };
     };

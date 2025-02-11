@@ -12,12 +12,11 @@
     package = inputs.hyprland.packages.${pkgs.system}.default;
     settings = {
       monitor = [
-        "HDMI-A-1,1920x1080@75,auto,1,vrr,2"
+        "HDMI-A-1,1920x1080@75,auto,1"
         "HDMI-A-2,1920x1080@60,auto-up,1"
         "eDP-1,1920x1080@165.009995,auto,1"
       ];
       cursor = {
-        default_monitor = "DP-1";
         no_hardware_cursors = 0;
         use_cpu_buffer = true;
       };
@@ -52,22 +51,14 @@
         sensitivity = "0";
       };
 
-      misc = {
-        vrr = 2;
-      };
-
-      xwayland.force_zero_scaling = true;
-
       exec = [
         "pkill waybar; uwsm app -- waybar"
         "swaync-client --reload-config"
       ];
 
       exec-once = [
-        "systemctl start --user hyprpaper"
         "uwsm app -- GDK_BACKEND=wayland swaync"
-        "uwsm app -- ${pkgs.openrgb-with-all-plugins}/bin/openrgb -p /home/moxie/.config/OpenRGB/default.orp"
-        "gpg-agent --daemon"
+        "${pkgs.openrgb-with-all-plugins}/bin/openrgb -p /home/moxie/.config/OpenRGB/default.orp"
       ];
 
       "$mod" = "SUPER";
@@ -75,8 +66,12 @@
       "$terminal" = "${pkgs.kitty}/bin/kitty -1";
 
       windowrulev2 = [
-        "workspace 3, class:(steam)"
-        "workspace 3, class:(lutris)"
+        "fullscreen, class:(steam_app_)(\d)"
+        "monitor 1, class:(steam_app_)(\d)"
+        "workspace 4, class:(steam_app_)(\d)"
+        "idleinhibit always, class:(steam_app_)(\d)"
+        "idleinhibit focus, class:^(.+exe)$"
+
         "workspace 8 silent, class:(com.obsproject.Studio)"
         "workspace 9, class:(vesktop)"
         "workspace 10 silent, class:(Spotify)"
@@ -84,7 +79,6 @@
         "float, title:^(Picture-in-Picture)$"
         "pin, title:^(Picture-in-Picture)$"
 
-        "idleinhibit focus, class:^(mpv|.+exe|celluloid)$"
         "idleinhibit focus, class:^(zen)$, title:^(.*YouTube.*)$"
         "idleinhibit fullscreen, class:^(zen)$"
       ];
