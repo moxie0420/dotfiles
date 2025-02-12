@@ -66,11 +66,11 @@
       "$terminal" = "${pkgs.kitty}/bin/kitty -1";
 
       windowrulev2 = [
-        "fullscreen, class:(steam_app_)(\d)"
-        "monitor 1, class:(steam_app_)(\d)"
-        "workspace 4, class:(steam_app_)(\d)"
-        "idleinhibit always, class:(steam_app_)(\d)"
-        "idleinhibit focus, class:^(.+exe)$"
+        "fullscreen, class:steam_app_\\d+$"
+        "workspace 4, class:steam_app_\\d+$"
+        "idleinhibit focus, class:steam_app_\\d+$"
+
+        "workspace 3, class:steam title:Steam"
 
         "workspace 8 silent, class:(com.obsproject.Studio)"
         "workspace 9, class:(vesktop)"
