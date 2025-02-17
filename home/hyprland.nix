@@ -12,7 +12,7 @@
     package = inputs.hyprland.packages.${pkgs.system}.default;
     settings = {
       monitor = [
-        "HDMI-A-1,1920x1080@75,auto,1"
+        "DP-1,1920x1080@75,auto,1,vrr,2"
         "HDMI-A-2,1920x1080@60,auto-up,1"
         "eDP-1,1920x1080@165.009995,auto,1"
       ];
