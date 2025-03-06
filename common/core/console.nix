@@ -18,14 +18,5 @@
       "f6c177"
       "524f67"
     ];
-    earlySetup = true;
-  };
-
-  services.gpm = {
-    enable = true;
-  };
-
-  services.kmscon = {
-    enable = true;
   };
 }

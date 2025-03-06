@@ -73,7 +73,7 @@
         "workspace 3, class:steam title:Steam"
 
         "workspace 8 silent, class:(com.obsproject.Studio)"
-        "workspace 9, class:(vesktop)"
+        "workspace 9, class:(legcord)"
         "workspace 10 silent, class:(Spotify)"
 
         "float, title:^(Picture-in-Picture)$"
@@ -94,7 +94,7 @@
           # binds $mod + [shift +] {1..10} to [move to] workspace {1..10}
           builtins.concatLists (builtins.genList (
               x: [
-                "${toString (x + 1)}, monitor:HDMI-A-1"
+                "${toString (x + 1)}, monitor:DP-1"
                 "${toString (x + 1)}, monitor:eDP-1"
               ]
             )

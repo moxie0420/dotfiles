@@ -3,11 +3,24 @@
   self,
   ...
 }: {
-  environment.systemPackages = [self.packages.${pkgs.system}.rose-pine-cursor];
+  environment.systemPackages = [
+    self.packages.${pkgs.system}.rose-pine-cursor
+    (pkgs.sddm-chili-theme.override {
+      themeConfig = {
+        ScreenWidth = 1920;
+        ScreenHeight = 1080;
+      };
+    })
+  ];
 
-  services.displayManager.enable = true;
-  services.xserver.displayManager.gdm = {
+  services.displayManager.sddm = {
     enable = true;
-    autoSuspend = false;
+    wayland.enable = true;
+    theme = "chili";
+    settings = {
+      General = {
+        InputMethod = "qtvirtualkeyboard";
+      };
+    };
   };
 }

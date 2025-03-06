@@ -16,6 +16,6 @@ stdenv.mkDerivation rec {
 
   installPhase = ''
     mkdir -p $out/bin
-    cp sgx_enable $out/bin
+    cp sgx_enable $out/bin/sgx-software-enable
   '';
 }

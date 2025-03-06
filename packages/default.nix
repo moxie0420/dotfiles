@@ -12,6 +12,7 @@
       rose-pine-wallpapers = pkgs.callPackage ./rose-pine/wallpapers.nix {};
       rose-pine-wofi = pkgs.callPackage ./rose-pine/wofi.nix {};
       rose-pine-zen = pkgs.callPackage ./rose-pine/zen.nix {};
+      legcord = pkgs.callPackage ./legcord.nix {};
       nvidia-oc = pkgs.callPackage ./nvidia-oc.nix {};
       sgx-software-enable = pkgs.callPackage ./sgx-software-enable.nix {};
     };

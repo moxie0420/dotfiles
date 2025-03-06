@@ -1,6 +1,7 @@
 {
   inputs,
   pkgs,
+  self,
   ...
 }: {
   imports = [
@@ -9,8 +10,10 @@
 
   xdg = {
     autoStart = {
-      packages = with pkgs; [
-        vesktop
+      packages = let
+        inherit (self.packages.${pkgs.system}) legcord;
+      in [
+        legcord
       ];
       desktopItems = {
         spotify = pkgs.makeDesktopItem {
