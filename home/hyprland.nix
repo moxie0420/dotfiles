@@ -16,23 +16,18 @@
         "HDMI-A-2,1920x1080@60,auto-up,1"
         "eDP-1,1920x1080@165.009995,auto,1"
       ];
-      cursor = {
-        no_hardware_cursors = 0;
-        use_cpu_buffer = true;
-      };
 
       decoration = {
-        rounding = 16;
+        rounding = 8;
       };
 
       general = {
-        gaps_in = 9;
+        gaps_in = 7;
         gaps_out = 12;
         border_size = 2;
 
         layout = "dwindle";
 
-        allow_tearing = false;
         resize_on_border = true;
       };
 

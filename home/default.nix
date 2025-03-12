@@ -59,7 +59,6 @@
       pwvucontrol
       qbittorrent-enhanced
       r2modman
-      vesktop
       wineWowPackages.staging
       zen-browser
     ];

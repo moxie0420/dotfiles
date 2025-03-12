@@ -35,6 +35,13 @@
     kernelParams = [
       "plymouth.use-simpledrm"
     ];
+
+    plymouth = {
+      theme = "blahaj";
+      themePackages = with pkgs; [
+        plymouth-blahaj-theme
+      ];
+    };
   };
 
   # set a static ip
