@@ -100,6 +100,6 @@
 
     xdg-autostart-hm.url = "github:Zocker1999NET/home-manager-xdg-autostart";
 
-    zen-browser.url = "github:fufexan/zen-browser-flake";
+    zen-browser.url = "github:0xc000022070/zen-browser-flake";
   };
 }

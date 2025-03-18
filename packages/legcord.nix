@@ -15,13 +15,13 @@
 }:
 stdenv.mkDerivation rec {
   pname = "legcord";
-  version = "dev";
+  version = "1.1.1";
 
   src = fetchFromGitHub {
     owner = "Legcord";
     repo = "legcord";
-    rev = "1833760c8be5b5fd4a76bbcd0cf1632d7bff0216";
-    hash = "sha256-LzhkYx1EEJFme9d+hV2BRrZS+gAxt+lKryTfCdUk31Q=";
+    rev = "v${version}";
+    hash = "sha256-0RbLvRCvy58HlOhHLcAoErRFgYxjWrKFQ6DPJD50c5Q=";
   };
 
   buildInputs = [
@@ -40,7 +40,7 @@ stdenv.mkDerivation rec {
 
   pnpmDeps = pnpm_9.fetchDeps {
     inherit pname version src;
-    hash = "sha256-LbHYY97HsNF9cBQzAfFw+A/tLf27y3he9Bbw9H3RKK4=";
+    hash = "sha256-UivO0e50zGNV69AaV4RilmJ9L6L6lctUrUh9CVIOry4=";
   };
 
   ELECTRON_SKIP_BINARY_DOWNLOAD = "1";
@@ -48,8 +48,6 @@ stdenv.mkDerivation rec {
   buildPhase = ''
     runHook preBuild
     pnpm run build
-
-    npx tsx scripts/copyVenmic.mts
 
     npm exec electron-builder -- \
       --dir \
