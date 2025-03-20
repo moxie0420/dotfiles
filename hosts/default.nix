@@ -12,10 +12,13 @@
 
     specialArgs = {inherit inputs self;};
 
-    shared = {
+    shared = {config, ...}: {
       home-manager = {
         users.moxie = import ../home;
-        extraSpecialArgs = specialArgs;
+        extraSpecialArgs = {
+          inherit inputs self;
+          inherit (config.networking) hostName;
+        };
       };
     };
   in {

@@ -5,6 +5,10 @@
 }: {
   services.xserver.videoDrivers = ["amdgpu" "nvidia"];
 
+  environment.variables = {
+    AQ_DRM_DEVICES = "/dev/dri/card0";
+  };
+
   hardware = {
     enableAllFirmware = true;
     cpu.amd = {

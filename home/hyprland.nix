@@ -1,10 +1,17 @@
 {
   inputs,
   pkgs,
+  hostName,
   ...
-}: {
-  home.packages = [
-    pkgs.hyprpicker
+}: let
+  mainMonitor =
+    if hostName == "nixOwO"
+    then "eDP-1"
+    else "HDMI-A-1";
+in {
+  home.packages = with pkgs; [
+    hyprpicker
+    hyprshot
   ];
   wayland.windowManager.hyprland = {
     enable = true;
@@ -89,8 +96,7 @@
           # binds $mod + [shift +] {1..10} to [move to] workspace {1..10}
           builtins.concatLists (builtins.genList (
               x: [
-                "${toString (x + 1)}, monitor:HDMI-A-1"
-                "${toString (x + 1)}, monitor:eDP-1"
+                "${toString (x + 1)}, monitor:${mainMonitor}"
               ]
             )
             10)
