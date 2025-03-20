@@ -12,7 +12,7 @@
     package = inputs.hyprland.packages.${pkgs.system}.default;
     settings = {
       monitor = [
-        "DP-1,1920x1080@75,auto,1,vrr,2"
+        "HDMI-A-1,1920x1080@75,auto,1,vrr,2"
         "HDMI-A-2,1920x1080@60,auto-up,1"
         "eDP-1,1920x1080@165.009995,auto,1"
       ];
@@ -89,7 +89,7 @@
           # binds $mod + [shift +] {1..10} to [move to] workspace {1..10}
           builtins.concatLists (builtins.genList (
               x: [
-                "${toString (x + 1)}, monitor:DP-1"
+                "${toString (x + 1)}, monitor:HDMI-A-1"
                 "${toString (x + 1)}, monitor:eDP-1"
               ]
             )

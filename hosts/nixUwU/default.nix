@@ -32,9 +32,6 @@
       "fs.inotify.max_user_watches" = 10000000;
     };
     kernelPackages = pkgs.linuxPackages_cachyos;
-    kernelParams = [
-      "plymouth.use-simpledrm"
-    ];
 
     plymouth = {
       theme = "blahaj";
@@ -42,6 +39,7 @@
         plymouth-blahaj-theme
       ];
     };
+    supportedFilesystems = ["ntfs"];
   };
 
   # set a static ip
