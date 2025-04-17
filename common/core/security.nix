@@ -50,15 +50,6 @@
       enable = true;
       execWheelOnly = true;
     };
-
-    pam = {
-      u2f.enable = true;
-      services = {
-        login.u2fAuth = true;
-        sudo.u2fAuth = true;
-        hyprlock.text = "auth include login";
-      };
-    };
     tpm2 = {
       enable = true;
       pkcs11.enable = false;

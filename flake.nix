@@ -25,7 +25,7 @@
 
         devShells.default = pkgs.mkShell {
           name = "Config";
-          packages = config.pre-commit.settings.enabledPackages;
+          packages = config.pre-commit.settings.enabledPackages ++ [pkgs.nil];
           shellHook = config.pre-commit.installationScript;
         };
 
