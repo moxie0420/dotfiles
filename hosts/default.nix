@@ -36,7 +36,6 @@
 
           inputs.nix-index-database.nixosModules.nix-index
           inputs.chaotic.nixosModules.default
-          inputs.lix-module.nixosModules.default
         ];
     };
 
@@ -51,7 +50,6 @@
 
           inputs.nix-index-database.nixosModules.nix-index
           inputs.chaotic.nixosModules.default
-          inputs.lix-module.nixosModules.default
         ];
     };
   };

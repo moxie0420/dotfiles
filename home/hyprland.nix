@@ -69,10 +69,11 @@ in {
 
       windowrulev2 = [
         "fullscreen, class:steam_app_\\d+$"
-        "workspace 4, class:steam_app_\\d+$"
+        "workspace 3, class:steam_app_\\d+$"
         "idleinhibit focus, class:steam_app_\\d+$"
 
         "workspace 3, class:steam title:Steam"
+        "workspace 3, class:steam title:(Sign in to Steam) silent"
 
         "workspace 8 silent, class:(com.obsproject.Studio)"
         "workspace 9, class:(legcord)"
