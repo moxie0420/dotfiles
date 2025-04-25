@@ -1,5 +1,6 @@
 {pkgs, ...}: {
   imports = [
+    ./lorri.nix
     ./nh.nix
     ./nixpkgs.nix
     ./substituters.nix
