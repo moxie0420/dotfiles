@@ -43,7 +43,6 @@
       cachix
       clipboard-jh
       comma
-      discord
       gnome-firmware
       gnome-logs
       gnome-usage
