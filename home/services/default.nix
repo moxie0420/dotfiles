@@ -5,5 +5,6 @@
     ./hyprpaper.nix
     ./mako.nix
     ./swaync.nix
+    ./udiskie.nix
   ];
 }

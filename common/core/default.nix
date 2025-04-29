@@ -15,6 +15,4 @@
   system.stateVersion = lib.mkDefault "23.11";
 
   time.timeZone = lib.mkDefault "America/Chicago";
-
-  virtualisation.docker.enable = true;
 }

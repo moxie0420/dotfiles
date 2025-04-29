@@ -2,7 +2,6 @@
   config,
   inputs,
   pkgs,
-  self,
   ...
 }: {
   imports = [
@@ -35,7 +34,6 @@
     };
 
     packages = with pkgs; let
-      inherit (self.packages.${system}) legcord;
       prismlauncher = pkgs.prismlauncher.override {
         jdks = with pkgs; [temurin-bin-21 temurin-bin-17 temurin-bin-8];
       };
