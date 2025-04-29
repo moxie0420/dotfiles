@@ -38,11 +38,6 @@
         jdks = with pkgs; [temurin-bin-21 temurin-bin-17 temurin-bin-8];
       };
       zen-browser = inputs.zen-browser.packages.${system}.default;
-      discord-toggle = 1;
-      discord =
-        if discord-toggle == 1
-        then pkgs.vesktop
-        else pkgs.legcord;
     in [
       alejandra
       cachix

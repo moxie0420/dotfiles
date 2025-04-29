@@ -76,7 +76,6 @@ in {
         "workspace 3, class:steam title:(Sign in to Steam) silent"
 
         "workspace 8 silent, class:(com.obsproject.Studio)"
-        "workspace 9, class:(legcord)"
         "workspace 10 silent, class:(Spotify)"
 
         "float, title:^(Picture-in-Picture)$"
