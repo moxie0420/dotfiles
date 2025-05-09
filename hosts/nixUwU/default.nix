@@ -56,4 +56,6 @@
     };
     script = "${self.packages.${pkgs.system}.nvidia-oc}/bin/nvidia-oc";
   };
+
+  virtualisation.waydroid.enable = true;
 }

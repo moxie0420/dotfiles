@@ -56,6 +56,7 @@
       pwvucontrol
       qbittorrent-enhanced
       r2modman
+      strawberry
       wineWowPackages.staging
       zen-browser
     ];
