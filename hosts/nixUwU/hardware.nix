@@ -8,11 +8,6 @@
     config.allowUnfree = true;
   };
 
-  powerManagement = {
-    cpuFreqGovernor = lib.mkDefault "performance";
-    enable = true;
-  };
-
   services = {
     hardware.openrgb.motherboard = "intel";
     xserver.videoDrivers = ["nvidia"];

@@ -5,9 +5,6 @@
 }: {
   services.udev.extraRules = ''
     KERNEL=="ntsync", MODE="0644"
-    DEVPATH=="/devices/virtual/misc/cpu_dma_latency", OWNER="root", GROUP="audio", MODE="0
-    KERNEL=="rtc0", GROUP="audio"
-    KERNEL=="hpet", GROUP="audio"
 
     # SATA Active Link Power Management
     ACTION=="add", SUBSYSTEM=="scsi_host", KERNEL=="host*", \

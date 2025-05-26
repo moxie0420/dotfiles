@@ -43,15 +43,18 @@
       cachix
       clipboard-jh
       comma
+      cyanrip
+      gimp
       gnome-firmware
       gnome-logs
       gnome-usage
-      haruna
+      haruna # video player
       heroic
       hwinfo
       lutris
       nautilus
       nvtopPackages.full
+      picard
       prismlauncher
       pwvucontrol
       qbittorrent-enhanced

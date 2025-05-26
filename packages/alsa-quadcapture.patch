@@ -1,0 +1,106 @@
+From 019bf9f1cf18d994da97eb80ea6ab02380cffa48 Mon Sep 17 00:00:00 2001
+From: Moxie Benavides <moxie@moxiege.com>
+Date: Tue, 13 May 2025 22:41:13 -0500
+Subject: [PATCH] alsa-quadcapture patch by fpozzobon
+
+---
+ sound/usb/quirks-table.h | 56 ++++++++++++++++++++++++++--------------
+ 1 file changed, 36 insertions(+), 20 deletions(-)
+
+diff --git a/sound/usb/quirks-table.h b/sound/usb/quirks-table.h
+index 8954be23325c..06c79b35dfe2 100644
+--- a/sound/usb/quirks-table.h
++++ b/sound/usb/quirks-table.h
+@@ -1264,53 +1264,69 @@ YAMAHA_DEVICE(0x7010, "UB99"),
+ 	}
+ },
+ {
+-	/* only 44.1 kHz works at the moment */
++	/* workaround for 48khz */
+ 	USB_DEVICE(0x0582, 0x012f),
+-	QUIRK_DRIVER_INFO {
++	.driver_info = (unsigned long) & (const struct snd_usb_audio_quirk) {
+ 		/* .vendor_name = "Roland", */
+ 		/* .product_name = "QUAD-CAPTURE", */
+-		QUIRK_DATA_COMPOSITE {
++		.ifnum = QUIRK_ANY_INTERFACE,
++		.type = QUIRK_COMPOSITE,
++		.data = (const struct snd_usb_audio_quirk[]) {
+ 			{
+-				QUIRK_DATA_AUDIOFORMAT(0) {
++				.ifnum = 0,
++				.type = QUIRK_AUDIO_FIXED_ENDPOINT,
++				.data = & (const struct audioformat) {
+ 					.formats = SNDRV_PCM_FMTBIT_S32_LE,
+ 					.channels = 4,
+ 					.iface = 0,
+-					.altsetting = 1,
++					.altsetting = 2, // this is for 48khz original value 1
+ 					.altset_idx = 1,
+ 					.endpoint = 0x05,
+-					.ep_attr = 0x05,
+-					.rates = SNDRV_PCM_RATE_44100,
+-					.rate_min = 44100,
+-					.rate_max = 44100,
++					.ep_attr = USB_ENDPOINT_XFER_ISOC, // original value 0x05,
++					.rates = SNDRV_PCM_RATE_48000,
++					.rate_min = 48000,
++					.rate_max = 48000,
+ 					.nr_rates = 1,
+-					.rate_table = (unsigned int[]) { 44100 }
++					.rate_table = (unsigned int[]) { 48000 }
+ 				}
+ 			},
+ 			{
+-				QUIRK_DATA_AUDIOFORMAT(1) {
++				.ifnum = 1,
++				.type = QUIRK_AUDIO_FIXED_ENDPOINT,
++				.data = & (const struct audioformat) {
+ 					.formats = SNDRV_PCM_FMTBIT_S32_LE,
+ 					.channels = 6,
+ 					.iface = 1,
+-					.altsetting = 1,
++					.altsetting = 2, // same as above original value is 1
+ 					.altset_idx = 1,
+ 					.endpoint = 0x85,
+ 					.ep_attr = 0x25,
+-					.rates = SNDRV_PCM_RATE_44100,
+-					.rate_min = 44100,
+-					.rate_max = 44100,
++					.rates = SNDRV_PCM_RATE_48000,
++					.rate_min = 48000,
++					.rate_max = 48000,
+ 					.nr_rates = 1,
+-					.rate_table = (unsigned int[]) { 44100 }
++					.rate_table = (unsigned int[]) { 48000 }
+ 				}
+ 			},
+ 			{
+-				QUIRK_DATA_MIDI_FIXED_ENDPOINT(2) {
++				.ifnum = 2,
++				.type = QUIRK_MIDI_FIXED_ENDPOINT,
++				.data = & (const struct snd_usb_midi_endpoint_info) {
+ 					.out_cables = 0x0001,
+ 					.in_cables  = 0x0001
+ 				}
+ 			},
+-			{ QUIRK_DATA_IGNORE(3) },
+-			{ QUIRK_DATA_IGNORE(4) },
+-			QUIRK_COMPOSITE_END
++			{
++				.ifnum = 3,
++				.type = QUIRK_IGNORE_INTERFACE
++			},
++			{
++				.ifnum = 4,
++				.type = QUIRK_IGNORE_INTERFACE
++			},
++			{
++				.ifnum = -1
++			}
+ 		}
+ 	}
+ },
+-- 
+2.49.0
+

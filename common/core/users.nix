@@ -10,6 +10,8 @@
       "wheel"
       "wireshark"
       "pipewire"
+      "cdrom"
+      "mpd"
     ];
     isNormalUser = true;
     shell = pkgs.nushell;
