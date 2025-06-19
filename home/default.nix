@@ -1,6 +1,5 @@
 {
   config,
-  inputs,
   pkgs,
   ...
 }: {
@@ -37,13 +36,15 @@
       prismlauncher = pkgs.prismlauncher.override {
         jdks = with pkgs; [temurin-bin-21 temurin-bin-17 temurin-bin-8];
       };
-      zen-browser = inputs.zen-browser.packages.${system}.default;
     in [
       alejandra
+      bottles
       cachix
       clipboard-jh
       comma
       cyanrip
+      ffmpeg
+      gabutdm
       gimp
       gnome-firmware
       gnome-logs
@@ -51,7 +52,7 @@
       haruna # video player
       heroic
       hwinfo
-      lutris
+      mplayer
       nautilus
       nvtopPackages.full
       picard
@@ -59,9 +60,9 @@
       pwvucontrol
       qbittorrent-enhanced
       r2modman
-      strawberry
-      wineWowPackages.staging
-      zen-browser
+      shadps4
+      wikiman
+      wine64
     ];
 
     stateVersion = "23.11";

@@ -3,8 +3,11 @@
   inputs,
   lib,
   pkgs,
+  self,
   ...
-}: {
+}: let
+  inherit (self.packages.${pkgs.system}) rose-pine-kitty;
+in {
   imports = [inputs.nix-index-database.hmModules.nix-index];
 
   home.packages = [pkgs.vivid];
@@ -39,6 +42,9 @@
       settings = {
         background_opacity = lib.mkForce "0.0";
       };
+      extraConfig = ''
+        include ${rose-pine-kitty}/themes/rose-pine.conf
+      '';
     };
 
     nix-index.enable = true;
@@ -49,26 +55,26 @@
       envFile.source = ../files/nushell/env.nu;
 
       extraConfig = let
-        cfg = config.programs.command-not-found;
-        commandNotFound = pkgs.substituteAll {
+        commandNotFound = pkgs.replaceVarsWith {
           name = "command-not-found";
           dir = "bin";
           src = pkgs.fetchurl {
-            url = "https://raw.githubusercontent.com/NixOS/nixpkgs/7eee17a8a5868ecf596bbb8c8beb527253ea8f4d/nixos/modules/programs/command-not-found/command-not-found.pl";
+            url = "https://raw.githubusercontent.com/NixOS/nixpkgs/fe51d34885f7b5e3e7b59572796e1bcb427eccb1/nixos/modules/programs/command-not-found/command-not-found.pl";
             hash = "sha256-ZhF2PzN+nKUW2TXFMGltCxLJzNfoKUxEvRqhcLNsJZw=";
           };
           isExecutable = true;
-          inherit (cfg) dbPath;
-          perl = pkgs.perl.withPackages (p: [p.DBDSQLite p.StringShellQuote]);
+          replacements = {
+            inherit (config.programs.command-not-found) dbPath;
+            perl = pkgs.perl.withPackages (p: [
+              p.DBDSQLite
+              p.StringShellQuote
+            ]);
+          };
         };
       in ''
         $env.config.hooks.command_not_found = {
-          |cmd_name| (
-            try {
-              let pkgs = (${commandNotFound}/bin/command-not-found $cmd_name)
-              return $pkgs
-            }
-          )
+          |command_name|
+          print (${commandNotFound}/bin/command-not-found $command_name | str trim)
         }
       '';
 

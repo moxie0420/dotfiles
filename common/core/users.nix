@@ -15,5 +15,6 @@
     ];
     isNormalUser = true;
     shell = pkgs.nushell;
+    home = "/home/moxie";
   };
 }

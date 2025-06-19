@@ -1,8 +1,8 @@
 {
   programs.cava = {
-    enable = false;
+    enable = true;
     settings = {
-      general.framerate = 60;
+      general.framerate = 30;
       input.method = "pipewire";
       smoothing.noise_reduction = 88;
       color = {

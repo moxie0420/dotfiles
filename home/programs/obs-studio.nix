@@ -5,8 +5,6 @@
       wlrobs
       input-overlay
       obs-vkcapture
-      obs-rgb-levels-filter
-      obs-gradient-source
     ];
   };
 }

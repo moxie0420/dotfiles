@@ -27,8 +27,6 @@
   boot = {
     bootspec.enable = true;
 
-    binfmt.emulatedSystems = ["aarch64-linux"];
-
     extraModprobeConfig = ''
       options nvidia NVreg_UsePageAttributeTable=1 \
         NVreg_InitializeSystemMemoryAllocations=0 \
@@ -58,6 +56,7 @@
       "net.ipv4.tcp_slow_start_after_idle" = 0;
       "fs.file-max" = 2097152;
     };
+    kernelModules = ["sg"];
     kernelParams = [
       "quiet"
       "splash"
