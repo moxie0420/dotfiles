@@ -2,6 +2,7 @@
   perSystem = {pkgs, ...}: {
     packages = {
       comic-mono = pkgs.callPackage ./comic-mono.nix {};
+      rmpc = pkgs.callPackage ./rmpc.nix {};
       rose-pine-cursor = pkgs.callPackage ./rose-pine/cursor.nix {};
       rose-pine-hyprland = pkgs.callPackage ./rose-pine/hyprland.nix {};
       rose-pine-kitty = pkgs.callPackage ./rose-pine/kitty.nix {};

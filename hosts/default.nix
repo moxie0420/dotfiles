@@ -36,6 +36,7 @@
 
           inputs.nix-index-database.nixosModules.nix-index
           inputs.chaotic.nixosModules.default
+          inputs.sops-nix.nixosModules.sops
         ];
     };
 

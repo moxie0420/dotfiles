@@ -1,5 +1,6 @@
 {
   imports = [
+    ./bat.nix
     ./dconf.nix
     ./fonts.nix
     ./gamemode.nix
@@ -18,8 +19,7 @@
       enable = true;
       terminal = "kitty";
     };
-
     seahorse.enable = true;
-    thefuck.enable = true;
+    pay-respects.enable = true;
   };
 }

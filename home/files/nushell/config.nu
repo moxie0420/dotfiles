@@ -78,7 +78,9 @@ $env.PATH = (
 
 $env.LS_COLORS = (vivid generate molokai | str trim)
 
-def psc [] { ps | sort-by mem | select pid name cpu} 
-def psm [] { ps | sort-by mem | select pid name mem} 
+def psc [] { ps | sort-by mem | select pid name cpu}
+def psm [] { ps | sort-by mem | select pid name mem}
+
+alias man = batman
 
 source ~/.cache/carapace/init.nu

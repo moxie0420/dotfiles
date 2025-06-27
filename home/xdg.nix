@@ -1,7 +1,6 @@
 {
   inputs,
   pkgs,
-  self,
   ...
 }: {
   imports = [
@@ -10,24 +9,10 @@
 
   xdg = {
     autoStart = {
-      packages = let
-        inherit (self.packages.${pkgs.system}) legcord;
-      in [
-        legcord
+      packages = [
+        pkgs.vesktop
       ];
       desktopItems = {
-        spotify = pkgs.makeDesktopItem {
-          name = "spotify";
-          desktopName = "Spotify";
-          genericName = "Music Player";
-          icon = "spotify-client";
-          tryExec = "spotify";
-          exec = "spotify %U";
-          terminal = false;
-          mimeTypes = ["x-scheme-handler/spotify"];
-          categories = ["Audio" "Music" "Player" "AudioVideo"];
-          startupWMClass = "spotify";
-        };
       };
     };
 

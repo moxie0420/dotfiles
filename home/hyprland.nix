@@ -68,12 +68,13 @@ in {
       "$terminal" = "${pkgs.kitty}/bin/kitty -1";
 
       windowrulev2 = [
-        "fullscreen, class:steam_app_\\d+$"
         "workspace 3, class:steam_app_\\d+$"
         "idleinhibit focus, class:steam_app_\\d+$"
 
-        "workspace 3, class:steam title:Steam"
+        "workspace 3, class:steam title:Steam silent"
         "workspace 3, class:steam title:(Sign in to Steam) silent"
+        "workspace 3, class:steam title:(Special Offers) silent"
+        "workspace 3, class:steam title:(Friends List) silent"
 
         "workspace 8 silent, class:(com.obsproject.Studio)"
         "workspace 10 silent, class:(Spotify)"
@@ -117,13 +118,17 @@ in {
 
           "$mod, left,  movefocus, l"
           "$mod, right, movefocus, r"
-          "$mod, up, 	  movefocus, u"
+          "$mod, up, 	movefocus, u"
           "$mod, down,  movefocus, d"
 
-          "$shiftMod, Left,  movewindow, left,  visible"
-          "$shiftMod, Right, movewindow, right, visible"
-          "$shiftMod, Up,    movewindow, up,    visible"
-          "$shiftMod, Down,  movewindow, down,  visible"
+          "$mod SHIFT, Left,  movewindoworgroup, left,  visible"
+          "$mod SHIFT, Right, movewindoworgroup, right, visible"
+          "$mod SHIFT, Up,    movewindoworgroup, up,    visible"
+          "$mod SHIFT, Down,  movewindoworgroup, down,  visible"
+
+          "$mod, t, togglegroup"
+          "$mod ALT, Right, changegroupactive, f"
+          "$mod ALT, Left,  changegroupactive, b"
         ]
         ++ (
           # workspaces

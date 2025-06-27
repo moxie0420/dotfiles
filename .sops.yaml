@@ -1,0 +1,7 @@
+keys:
+  - &nixUwU age1aa5y2v2qayh985qt8r7eu3sqam4cuzttgn6hkjaje0lnt8648d6sk6uzcv
+creation_rules:
+  - path_regex: secrets/[^/]+\.(yaml|json|env|ini)$
+    key_groups:
+      - age:
+        - *nixUwU
