@@ -50,6 +50,7 @@
     flake-parts.url = "github:hercules-ci/flake-parts";
 
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
+    nixpkgs-stable.url = "github:NixOS/nixpkgs/nixos-25.05";
 
     chaotic.url = "github:chaotic-cx/nyx/nyxpkgs-unstable";
 

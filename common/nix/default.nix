@@ -9,7 +9,7 @@
   environment.systemPackages = [pkgs.git];
 
   sops = {
-    defaultSopsFile = ../../secrets/secrets.yaml;
+    defaultSopsFile = ../../secrets.yaml;
 
     age = {
       sshKeyPaths = ["/home/moxie/.ssh/bitbucket_personal"];

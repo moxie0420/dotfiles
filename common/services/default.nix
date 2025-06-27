@@ -3,7 +3,6 @@
     ./ananicy.nix
     ./avahi.nix
     ./display-manager.nix
-    ./mpd.nix
     ./openrgb.nix
   ];
 

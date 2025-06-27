@@ -1,6 +1,7 @@
 {
   config,
   pkgs,
+  inputs,
   ...
 }: {
   imports = [
@@ -10,6 +11,7 @@
     ./hyprland.nix
     ./theme.nix
     ./xdg.nix
+    inputs.zen-browser.homeModules.twilight
   ];
 
   dconf = {
@@ -23,6 +25,14 @@
     };
   };
   gtk.enable = true;
+
+  programs.zen-browser = {
+    enable = true;
+    policies = {
+      DisableAppUpdate = true;
+      DisableTelemetry = true;
+    };
+  };
 
   home = {
     username = "moxie";
