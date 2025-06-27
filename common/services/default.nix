@@ -5,6 +5,7 @@
     ./display-manager.nix
     ./mpd.nix
     ./openrgb.nix
+    ./sshd.nix
   ];
 
   services = {

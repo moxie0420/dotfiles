@@ -3,6 +3,7 @@
     udev.packages = [pkgs.yubikey-personalization];
     pcscd.enable = true;
   };
+
   programs.gnupg.agent = {
     enable = true;
     enableSSHSupport = true;
@@ -13,6 +14,8 @@
   security.pam.services = {
     login.u2fAuth = true;
     sudo.u2fAuth = true;
+    sddm.u2fAuth = true;
+    hyprlock.u2fAuth = true;
   };
 
   services.udev.extraRules = ''
