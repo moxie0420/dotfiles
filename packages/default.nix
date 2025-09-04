@@ -2,6 +2,7 @@
   perSystem = {pkgs, ...}: {
     packages = {
       comic-mono = pkgs.callPackage ./comic-mono.nix {};
+      goignis = pkgs.callPackage ./goignis.nix {};
       rmpc = pkgs.callPackage ./rmpc.nix {};
       rose-pine-cursor = pkgs.callPackage ./rose-pine/cursor.nix {};
       rose-pine-hyprland = pkgs.callPackage ./rose-pine/hyprland.nix {};
@@ -16,6 +17,7 @@
       legcord = pkgs.callPackage ./legcord.nix {};
       nvidia-oc = pkgs.callPackage ./nvidia-oc.nix {};
       sgx-software-enable = pkgs.callPackage ./sgx-software-enable.nix {};
+      wl-shimeji = pkgs.callPackage ./wl_shimeji.nix {};
     };
   };
 }

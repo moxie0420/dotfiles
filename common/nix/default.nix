@@ -23,11 +23,11 @@
   };
 
   nix = {
-    package = pkgs.lix;
+    nixPath = ["/home/moxie/dotfiles"];
     settings = {
       auto-optimise-store = true;
       builders-use-substitutes = true;
-      experimental-features = ["nix-command" "flakes" "repl-flake"];
+      experimental-features = ["nix-command" "flakes"];
 
       keep-derivations = true;
       keep-outputs = true;

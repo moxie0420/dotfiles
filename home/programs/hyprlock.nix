@@ -1,45 +1,67 @@
 {
   pkgs,
-  self,
+  inputs,
   ...
 }: {
   programs.hyprlock = {
     enable = true;
+    package = inputs.hyprlock.packages.${pkgs.system}.default.overrideAttrs (old: {
+      buildInputs =
+        old.buildInputs
+        ++ [
+          pkgs.ffmpeg
+        ];
+    });
     settings = {
       general = {
         disable_loading_bar = true;
-        grace = 300;
-        hide_cursor = true;
+        hide_cursor = false;
         no_fade_in = false;
+      };
+      auth = {
+        fingerprint.enabled = true;
       };
       background = [
         {
           monitor = "";
-          path = "${self.packages.${pkgs.system}.rose-pine-wallpapers}/share/wallpapers/bay.png";
+          path = "/home/moxie/wallpapers/hydrangeas-rain-hd.mp4";
         }
       ];
       input-field = [
         {
-          size = "200, 50";
           monitor = "";
-          dots_center = true;
-          fade_on_empty = false;
-          font_color = "rgb(202, 211, 245)";
-          inner_color = "rgb(91, 96, 120)";
-          outer_color = "rgb(24, 25, 38)";
-          outline_thickness = 5;
+          size = "600, 100";
+          position = "0, 0";
+          halign = "center";
+          valign = "center";
+
+          inner_color = "rgb(31, 29, 46)";
+          outer_color = "rgb(49, 116, 143)";
+          outline_thickness = 4;
+
+          font_family = "Maple Mono NF CN";
+          font_size = 32;
+          font_color = "rgb(224, 222, 244)";
+
+          placeholder_color = "rgb(110, 106, 134)";
           placeholder_text = "Password...";
-          shadow_passes = 2;
+          check_color = "rgb(235, 188, 186)";
+          fail_text = "Incorrect password";
+
+          rounding = 0;
+          shadow_passes = 0;
+          fade_on_empty = false;
         }
       ];
       label = [
         {
           monitor = "";
-          text = "$TIME";
+          text = "\$FPRINTPROMPT";
           text_align = "center";
-          font_size = 25;
-
-          position = "0, 80";
+          color = "rgb(224, 222, 244)";
+          font_size = 24;
+          font_family = "Maple Mono NF CN";
+          position = "0, -100";
           halign = "center";
           valign = "center";
         }

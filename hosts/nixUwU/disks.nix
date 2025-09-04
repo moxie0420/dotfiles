@@ -16,11 +16,6 @@
       fsType = "btrfs";
       options = ["noatime" "subvol=nix"];
     };
-    "/swap" = {
-      device = "/dev/disk/by-label/NixUwU";
-      fsType = "btrfs";
-      options = ["noatime" "subvol=swap" "nofail"];
-    };
     "/boot" = {
       device = "/dev/disk/by-uuid/DE88-5AAD";
       fsType = "vfat";
@@ -41,5 +36,10 @@
       options = ["nofail"];
     };
   };
-  swapDevices = [{device = "/swap/swapfile";}];
+  zramSwap = {
+    enable = true;
+    algorithm = "zstd lz4 (type=huge)";
+    priority = 100;
+    memoryPercent = 100;
+  };
 }

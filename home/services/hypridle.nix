@@ -1,26 +1,21 @@
-{pkgs, ...}: {
+{
   services.hypridle = {
     enable = true;
     settings = {
       general = {
-        lock_cmd = "pidof ${pkgs.hyprlock}/bin/hyprlock || ${pkgs.hyprlock}/bin/hyprlock ";
-        before_sleep_cmd = "${pkgs.systemd}/bin/loginctl lock-session";
-        after_sleep_cmd = "${pkgs.hyprland}/bin/hyprctl dispatch dpms on; ${pkgs.brillo}/bin/brillo -I";
+        lock_cmd = "pidof hyprlock || hyprlock";
+        before_sleep_cmd = "loginctl lock-session";
+        after_sleep_cmd = "hyprctl dispatch dpms on";
       };
       listener = [
         {
-          timeout = 120;
-          on-timeout = "${pkgs.brillo}/bin/brillo -O; ${pkgs.brillo}/bin/brillo -S 15";
-          on-resume = "${pkgs.brillo}/bin/brillo -I";
+          timeout = 300;
+          on-timeout = "loginctl lock-session";
         }
         {
-          timeout = 120;
-          on-timeout = "openrgb -d 0 -c 000000";
-          on-resume = "openrgb -d 0 -p /home/moxie/.config/OpenRGB/default.orp";
-        }
-        {
-          timeout = 120;
-          on-timeout = "${pkgs.systemd}/bin/loginctl lock-session";
+          timeout = 330;
+          on-timeout = "hyprctl dispatch dpms off";
+          on-resume = "hyprctl dispatch dpms on && brightnessctl -r";
         }
       ];
     };

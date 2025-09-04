@@ -1,11 +1,30 @@
-{lib, ...}: {
+{
+  pkgs,
+  lib,
+  ...
+}: {
   imports = [
     ./console.nix
+    ./containers.nix
     ./security.nix
     ./systemd.nix
     ./users.nix
-    ./nix-ld.nix
+    ./networking.nix
     ../nix
+  ];
+
+  environment.systemPackages = with pkgs; [
+    libnotify
+    nautilus
+    alejandra
+    clipse
+    fzf
+    ripgrep
+    fd
+    curl
+    unzip
+    wget
+    gnumake
   ];
 
   documentation.dev.enable = true;

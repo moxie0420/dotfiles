@@ -4,11 +4,12 @@
     ./avahi.nix
     ./display-manager.nix
     ./openrgb.nix
-    ./sshd.nix
+    ./upower.nix
   ];
 
   services = {
     dbus.implementation = "broker";
+    flatpak.enable = true;
     irqbalance.enable = true;
   };
 }

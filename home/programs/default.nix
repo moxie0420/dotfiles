@@ -1,25 +1,27 @@
 {...}: {
   imports = [
+    ./ashell.nix
     ./beets.nix
+    ./btop.nix
     ./cava.nix
+    ./comma.nix
     ./discord.nix
     ./direnv.nix
-    ./feh.nix
+    ./eza.nix
+    ./fish.nix
     ./git.nix
     ./helix.nix
+    ./hyfetch.nix
     ./hyprlock.nix
     ./lutris.nix
     ./mangohud.nix
-    ./neovim.nix
     ./obs-studio.nix
     ./pandoc.nix
     ./rofi.nix
-    ./spotify.nix
+    ./starship.nix
     ./tealdeer.nix
-    ./terminal.nix
-    ./thunderbird.nix
-    ./vscode.nix
-    ./waybar.nix
-    ./wofi.nix
+    ./wezterm.nix
   ];
+
+  programs.lazydocker.enable = true;
 }

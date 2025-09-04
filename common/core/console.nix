@@ -1,5 +1,6 @@
 {
   console = {
+    earlySetup = true;
     colors = [
       "191724"
       "1f1d2e"

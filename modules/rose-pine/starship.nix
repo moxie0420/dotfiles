@@ -11,7 +11,6 @@ in {
     right_format = "$c$elixir$elm$golang$haskell$java$julia$nodejs$nim$rust$scala$python$time";
 
     palette = "rose-pine";
-
     palettes.rose-pine = {
       overlay = "#26233a";
       love = "#eb6f92";

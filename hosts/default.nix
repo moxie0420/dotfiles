@@ -30,8 +30,6 @@
         ++ [
           ./nixUwU
           "${mod}/hardware/vr.nix"
-          "${mod}/network/spotify.nix"
-          "${mod}/services/sunshine.nix"
           shared
 
           inputs.nix-index-database.nixosModules.nix-index

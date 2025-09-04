@@ -1,11 +1,11 @@
 {
   imports = [
+    ./easyeffects.nix
     ./gpg-agent.nix
     ./hypridle.nix
-    ./hyprpaper.nix
-    ./mako.nix
     ./mpd.nix
-    ./swaync.nix
     ./udiskie.nix
   ];
+
+  services.swww.enable = true;
 }

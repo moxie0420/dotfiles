@@ -13,7 +13,7 @@ in {
         package = pkgs.rose-pine-icon-theme;
       };
       theme = {
-        name = "rose-Pine";
+        name = "rose-pine";
         package = pkgs.rose-pine-gtk-theme;
       };
     };

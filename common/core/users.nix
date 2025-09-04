@@ -8,13 +8,13 @@
       "audio"
       "video"
       "wheel"
-      "wireshark"
       "pipewire"
       "cdrom"
       "mpd"
+      "seat"
     ];
     isNormalUser = true;
-    shell = pkgs.nushell;
+    shell = pkgs.fish;
     home = "/home/moxie";
   };
 }

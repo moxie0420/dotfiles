@@ -1,19 +1,31 @@
 {pkgs, ...}: {
-  programs.git = {
-    enable = true;
-    lfs.enable = true;
-    userName = "Moxie Benavides";
-    userEmail = "moxie@moxiege.com";
-    extraConfig = {
-      safe = {
-        directory = "*";
+  home.packages = with pkgs; [
+    github-desktop
+    gh
+  ];
+
+  programs = {
+    git = {
+      enable = true;
+      lfs.enable = true;
+      userName = "Moxie Benavides";
+      userEmail = "moxie@moxiege.com";
+      extraConfig = {
+        safe = {
+          directory = "*";
+        };
+        init = {
+          defaultBranch = "master";
+        };
+        credential.helper = "store";
       };
-      init = {
-        defaultBranch = "master";
+    };
+    lazygit.enable = true;
+    gh = {
+      enable = true;
+      gitCredentialHelper = {
+        enable = true;
       };
-      credential.helper = "${
-        pkgs.git.override {withLibsecret = true;}
-      }/bin/git-credential-libsecret";
     };
   };
 }

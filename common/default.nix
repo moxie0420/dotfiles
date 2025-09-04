@@ -2,8 +2,8 @@ let
   desktop = [
     ./core
     ./core/boot.nix
-    ./core/lanzeboot.nix
 
+    ./hardware
     ./hardware/bluetooth.nix
     ./hardware/fwupd.nix
     ./hardware/mesa.nix
@@ -22,6 +22,7 @@ let
   laptop =
     desktop
     ++ [
+      ./core/lanzeboot.nix
       ./hardware/backlight.nix
     ];
 in {

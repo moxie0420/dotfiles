@@ -1,7 +1,6 @@
-{
+{pkgs, ...}: {
   boot.kernel.sysctl = {
     "kernel.kexec_load_disabled" = true;
-    "kernel.printk" = "3 3 3 3";
     # The Magic SysRq key is a key combo that allows users connected to the
     # system console of a Linux kernel to perform some low-level commands.
     # Disable it, since we don't need it, and is a potential security concern.
@@ -44,7 +43,47 @@
 
   boot.kernelModules = ["tcp_bbr"];
 
+  systemd.user.services.polkit-gnome-authentication-agent-1 = {
+    description = "polkit-gnome-authentication-agent-1";
+    wantedBy = ["graphical-session.target"];
+    wants = ["graphical-session.target"];
+    after = ["graphical-session.target"];
+    serviceConfig = {
+      Type = "simple";
+      ExecStart = "${pkgs.polkit_gnome}/libexec/polkit-gnome-authentication-agent-1";
+      Restart = "on-failure";
+      RestartSec = 1;
+      TimeoutStopSec = 10;
+    };
+  };
+
   security = {
+    polkit = {
+      enable = true;
+      adminIdentities = [
+        "unix-user:moxie"
+        "unix-group:wheel"
+      ];
+      extraConfig = ''
+        polkit.addRule(function (action, subject) {
+          if (
+            subject.isInGroup("users") &&
+            [
+              "org.freedesktop.login1.reboot",
+              "org.freedesktop.login1.reboot-multiple-sessions",
+              "org.freedesktop.login1.power-off",
+              "org.freedesktop.login1.power-off-multiple-sessions",
+            ].indexOf(action.id) !== -1
+          ) {
+            return polkit.Result.YES;
+          }
+        });
+      '';
+    };
+
+    pam.services.hyprlock = {};
+    rtkit.enable = true;
+
     sudo.enable = false;
     sudo-rs = {
       enable = true;

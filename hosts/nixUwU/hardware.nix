@@ -1,6 +1,7 @@
 {
   config,
   lib,
+  pkgs,
   ...
 }: {
   nixpkgs = {
@@ -13,8 +14,20 @@
     xserver.videoDrivers = ["nvidia"];
   };
 
+  powerManagement.cpuFreqGovernor = "performance";
+
   hardware = {
     enableAllFirmware = true;
+
+    cpu = {
+      x86.msr.enable = true;
+      intel.updateMicrocode = true;
+    };
+
+    graphics.extraPackages = with pkgs; [
+      nvidia-vaapi-driver
+      libvdpau-va-gl
+    ];
 
     nvidia = {
       modesetting.enable = true;

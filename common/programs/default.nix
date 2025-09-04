@@ -1,9 +1,8 @@
 {
   imports = [
-    ./bat.nix
     ./dconf.nix
+    ./fish.nix
     ./fonts.nix
-    ./gamemode.nix
     ./games.nix
     ./hyprland.nix
     ./home-manager.nix

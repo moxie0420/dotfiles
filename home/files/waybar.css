@@ -1,160 +1,129 @@
+:root {
+  --base: #191724;
+  --surface: #1f1d2e;
+  --overlay: #26233a;
+
+  --muted: #6e6a86;
+  --subtle: #908caa;
+  --text: #e0def4;
+
+  --love: #eb6f92;
+  --gold: #f6c177;
+  --rose: #ebbcba;
+  --pine: #31748f;
+  --foam: #9ccfd8;
+  --iris: #c4a7e7;
+
+  --highlightLow: #21202e;
+  --highlightMed: #403d52;
+  --highlightHigh: #524f67;
+}
+
 * {
   border: none;
-  border-radius: 0;
-  font-size: 17px;
-  font-weight: bold;
-  box-shadow: none;
-  text-shadow: none;
-  transition-duration: 0s;
+  font-size: 14px;
+  min-height: 25px;
 }
-window#waybar {
-  margin: 2px;
+
+#waybar {
+  margin: 1rem;
   background: transparent;
-}
-window#waybar.empty #window {
-  background-color: transparent;
-}
-#workspaces {
-  padding: 3px;
-  border-radius: 20px;
-  background: rgba(30, 30, 46, 0.8);
-  transition: none;
-}
-#workspaces button {
-  transition: none;
-  color: rgba(205, 214, 244, 0.8);
-  background: transparent;
-}
-#workspaces button.active {
-  border: none;
-  border-radius: 20px;
-  color: #181825;
-  background: #f5c2e7;
-}
-#workspaces button:hover {
-  border: 3px solid #cba6f7;
-  border-radius: 20px;
-  transition: none;
-  box-shadow: inherit;
-  text-shadow: inherit;
-  color: #cba6f7;
-}
-#workspaces button.urgent {
-  color: rgba(180, 190, 254, 1);
+  color: var(--text);
 }
 
-#window {
-  border-radius: 20px;
-  background: rgba(30, 30, 46, 0.85);
+.modules-right {
+  padding-left: 5px;
+  border-radius: 15px 0 0 15px;
+  margin-top: 2px;
+  min-width: 200px;
+  background: var(--base);
 }
 
-#tray {
-  margin-left: 4px;
-  margin-right: 4px;
-  border-radius: 20px;
-  padding-left: 10px;
-  padding-right: 10px;
-  background: rgba(30, 30, 46, 0.85);
+.modules-center {
+  padding: 0 15px;
+  margin-top: 2px;
+  border-radius: 15px 15px 15px 15px;
+  background: var(--base);
 }
 
+.modules-left {
+  border-radius: 0 15px 15px 0;
+  margin-top: 2px;
+  background: var(--base);
+}
+
+#battery,
+#custom-clipboard,
+#custom-colorpicker,
+#custom-powerDraw,
+#bluetooth,
+#wireplumber,
+#network,
+#disk,
+#memory,
+#backlight,
+#cpu,
+#temperature,
+#custom-weather,
+#idle_inhibitor,
+#jack,
+#tray,
+#window,
+#workspaces,
 #clock {
-  margin-left: 4px;
-  margin-right: 4px;
-  border-radius: 20px;
-  padding-left: 10px;
-  padding-right: 10px;
-  background: rgba(30, 30, 46, 0.85);
-  color: #89b4fa;
-}
-
-#temperature {
-  margin-left: 4px;
-  margin-right: 4px;
-  border-radius: 20px;
-  padding-left: 10px;
-  padding-right: 10px;
-  background: rgba(30, 30, 46, 0.85);
-  color: #89dceb;
-}
-#temperature.critical {
-  color: #f38ba8;
-}
-
-#battery {
-  margin-left: 4px;
-  margin-right: 4px;
-  border-radius: 20px;
-  padding-left: 10px;
-  padding-right: 10px;
-  background: rgba(30, 30, 46, 0.85);
-  color: #a6e3a1;
-}
-#battery.charging {
-  color: #a6e3a1;
-}
-#battery.warning {
-  color: #f9e2af;
-}
-#battery.critical {
-  color: #f38ba8;
-}
-
-#backlight {
-  margin-left: 4px;
-  margin-right: 4px;
-  border-radius: 20px;
-  padding-left: 10px;
-  padding-right: 10px;
-  background: rgba(30, 30, 46, 0.85);
-  color: #f5e0dc;
-}
-
-#cpu {
-  margin-left: 4px;
-  margin-right: 4px;
-  border-radius: 20px;
-  padding-left: 10px;
-  padding-right: 10px;
-  background: rgba(30, 30, 46, 0.85);
-  color: #cba6f7;
+  padding: 1px 5px;
+  background: var(--overlay);
+  margin: 2px;
+  border-radius: 15px;
 }
 
 #disk {
-  margin-left: 4px;
-  margin-right: 4px;
-  border-radius: 20px;
-  padding-left: 10px;
-  padding-right: 10px;
-  background: rgba(30, 30, 46, 0.85);
-  color: #f5c2e7;
+  color: var(--love);
 }
 
 #memory {
-  margin-left: 4px;
-  margin-right: 4px;
-  border-radius: 20px;
-  padding-left: 10px;
-  padding-right: 10px;
-  background: rgba(30, 30, 46, 0.85);
-  color: #f2cdcd;
+  color: var(--iris);
+}
+
+#cpu {
+  color: var(--rose);
+  min-width: 4rem;
 }
 
 #wireplumber {
-  margin-left: 4px;
-  margin-right: 4px;
-  border-radius: 20px;
-  padding-left: 10px;
-  padding-right: 10px;
-  background: rgba(30, 30, 46, 0.85);
-  color: #eba0ac;
+  padding-top: 3px;
+  color: var(--foam);
 }
 
-#custom-notifications {
-  margin-left: 4px;
-  margin-right: 4px;
-  border-radius: 20px;
-  padding-left: 10px;
-  padding-right: 10px;
-  background: rgba(30, 30, 46, 0.85);
-  color: #eba0ac;
+#temperature.critical,
+#pulseaudio.muted {
+  color: var(--love);
+  padding-top: 0;
+}
+
+#temperature,
+#battery.charging {
+  color: var(pine);
+}
+
+#battery.warning:not(.charging) {
+  background-color: #ffbe61;
+  color: var(--gold);
+}
+
+#battery.critical:not(.charging) {
+  background-color: #f53c3c;
+  color: var(--love);
+  animation-name: blink;
+  animation-duration: 0.5s;
+  animation-timing-function: linear;
+  animation-iteration-count: infinite;
+  animation-direction: alternate;
+}
+
+@keyframes blink {
+  to {
+    background-color: #ffffff;
+    color: #000000;
+  }
 }
