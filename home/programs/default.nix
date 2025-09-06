@@ -23,5 +23,8 @@
     ./wezterm.nix
   ];
 
-  programs.lazydocker.enable = true;
+  programs = {
+    lazydocker.enable = true;
+    vscode.enable = true;
+  };
 }

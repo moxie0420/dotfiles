@@ -12,12 +12,10 @@
         ./modules
         ./packages
         ./templates
-        inputs.mkdocs-flake.flakeModule
       ];
 
       perSystem = {pkgs, ...}: {
         formatter = pkgs.alejandra;
-        documentation.mkdocs-root = ./.;
       };
     };
 
@@ -47,18 +45,12 @@
       url = "github:hyprwm/hyprland-plugins";
       inputs.hyprland.follows = "hyprland";
     };
-
-    hyprlock = {
-      url = "github:ShadowBahamut/hyprlock-animated";
-      inputs.hyprland.follows = "hyprland";
-    };
+    hyprlock.url = "github:ShadowBahamut/hyprlock-animated";
 
     lanzaboote = {
       url = "github:nix-community/lanzaboote";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-
-    mkdocs-flake.url = "github:applicative-systems/mkdocs-flake";
 
     nix-index-database = {
       url = "github:nix-community/nix-index-database";

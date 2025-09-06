@@ -4,6 +4,7 @@
     defaultEditor = true;
 
     extraPackages = with pkgs; [
+      gcc
       nil
       typescript-language-server
       typescript
@@ -133,7 +134,29 @@
         rust-analyzer.config = {
           check.command = "clippy";
         };
+
+        herb = {
+          command = "herb-language-server";
+          args = ["--stdio"];
+        };
       };
+
+      grammar = [
+        {
+          name = "less";
+          source = {
+            git = "https://github.com/jimliang/tree-sitter-less";
+            rev = "945f52c94250309073a96bbfbc5bcd57ff2bde49";
+          };
+        }
+        {
+          name = "erb";
+          source = {
+            git = "https://github.com/tree-sitter/tree-sitter-embedded-template.git";
+            rev = "c70c1de07dedd532089c0c90835c8ed9fa694f5c";
+          };
+        }
+      ];
 
       language = [
         {
@@ -197,8 +220,23 @@
         }
 
         {
+          name = "less";
+          grammar = "less";
+          file-types = ["less"];
+          scope = "source.less";
+          language-servers = ["vscode-css-language-server" "emmet-ls"];
+          formatter = {
+            command = "prettierd";
+            args = [".less"];
+          };
+        }
+
+        {
           name = "ruby";
-          file-types = ["rb"];
+          injection-regex = "ruby";
+          file-types = ["rb" "rake"];
+          shebangs = ["ruby"];
+          language-servers = ["solargraph"];
           auto-format = true;
           formatter = {
             command = "bundle";
@@ -208,10 +246,10 @@
 
         {
           name = "erb";
+          grammar = "erb";
+          scope = "source.erb";
           file-types = ["erb"];
-          auto-format = true;
-          grammar = "embedded-template";
-          language-servers = ["ruby-lsp"];
+          language-servers = ["herb"];
         }
       ];
     };

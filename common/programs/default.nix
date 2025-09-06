@@ -16,8 +16,9 @@
 
     nautilus-open-any-terminal = {
       enable = true;
-      terminal = "kitty";
+      terminal = "wezterm";
     };
+
     seahorse.enable = true;
     pay-respects.enable = true;
   };
