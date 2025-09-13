@@ -1,7 +1,7 @@
 {
   programs.zoxide = {
     enable = true;
-    flags = [
+    options = [
       "--cmd cd"
     ];
   };

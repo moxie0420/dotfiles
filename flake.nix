@@ -57,10 +57,6 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    rose-pine-hyprcursor.url = "github:ndom91/rose-pine-hyprcursor";
-
-    xdg-autostart-hm.url = "github:Zocker1999NET/home-manager-xdg-autostart";
-
     zen-browser.url = "github:0xc000022070/zen-browser-flake";
   };
 }

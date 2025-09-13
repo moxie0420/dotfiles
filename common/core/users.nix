@@ -2,7 +2,6 @@
   users.users.moxie = {
     description = "Moxie P. Benavides";
     extraGroups = [
-      "adbusers"
       "docker"
       "plugdev"
       "audio"
@@ -12,6 +11,7 @@
       "cdrom"
       "mpd"
       "seat"
+      "input"
     ];
     isNormalUser = true;
     shell = pkgs.fish;

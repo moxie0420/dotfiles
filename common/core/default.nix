@@ -4,6 +4,7 @@
   ...
 }: {
   imports = [
+    ./boot.nix
     ./console.nix
     ./containers.nix
     ./security.nix
@@ -13,19 +14,23 @@
     ../nix
   ];
 
-  environment.systemPackages = with pkgs; [
-    libnotify
-    nautilus
-    alejandra
-    clipse
-    fzf
-    ripgrep
-    fd
-    curl
-    unzip
-    wget
-    gnumake
-  ];
+  environment = {
+    localBinInPath = true;
+    systemPackages = with pkgs; [
+      brightnessctl
+      libnotify
+      nautilus
+      alejandra
+      clipse
+      fzf
+      ripgrep
+      fd
+      curl
+      unzip
+      wget
+      gnumake
+    ];
+  };
 
   documentation.dev.enable = true;
 

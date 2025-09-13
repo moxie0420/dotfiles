@@ -124,6 +124,7 @@ in {
       "-l"
       "-h"
       "--total-size"
+      "--group-directories-first"
     ];
   };
 }

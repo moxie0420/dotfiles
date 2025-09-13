@@ -29,7 +29,6 @@
         desktop
         ++ [
           ./nixUwU
-          "${mod}/hardware/vr.nix"
           shared
 
           inputs.nix-index-database.nixosModules.nix-index
@@ -44,11 +43,12 @@
       modules =
         laptop
         ++ [
-          ./nixOwO
+          ./nixOwO.nix
           shared
 
           inputs.nix-index-database.nixosModules.nix-index
           inputs.chaotic.nixosModules.default
+          inputs.sops-nix.nixosModules.sops
         ];
     };
   };

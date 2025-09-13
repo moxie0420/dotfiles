@@ -35,15 +35,9 @@
   '';
 
   boot = {
-    extraModprobeConfig = ''
-      options nvidia NVreg_UsePageAttributeTable=1 \
-        NVreg_InitializeSystemMemoryAllocations=0 \
-        NVreg_DynamicPowerManagement=0x02
-    '';
-
     initrd = {
       systemd.enable = true;
-      supportedFilesystems = ["ext4" "btrfs"];
+      supportedFilesystems = ["ext4" "btrfs" "ntfs"];
       verbose = false;
     };
 
@@ -69,6 +63,7 @@
       "net.ipv4.tcp_slow_start_after_idle" = 0;
       "net.ipv4.tcp_fin_timeout" = 5;
       "fs.file-max" = 2097152;
+      "fs.inotify.max_user_watches" = 10000000;
     };
     kernelModules = ["sg" "ntsync"];
     kernelParams = [
@@ -77,6 +72,7 @@
       "boot.shell_on_fail"
       "udev.log_priority=3"
       "rd.systemd.show_status=auto"
+      "vt.global_cursor_default=0"
     ];
     blacklistedKernelModules = ["iTCO_wdt" "sp5100_tco"];
 
@@ -91,5 +87,10 @@
       timeout = 2;
     };
     tmp.cleanOnBoot = true;
+
+    plymouth = {
+      enable = true;
+      theme = lib.mkDefault "bgrt";
+    };
   };
 }

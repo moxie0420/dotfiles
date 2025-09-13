@@ -65,21 +65,6 @@
         "unix-group:wheel"
       ];
       extraConfig = ''
-        polkit.addRule((action, subject) => {
-          if (
-            subject.isInGroup("users") &&
-            [
-              "org.freedesktop.NetworkManager.wifi.scan",
-              "org.freedesktop.NetworkManager.enable-disable-wifi",
-              "org.freedesktop.NetworkManager.settings.modify.own",
-              "org.freedesktop.NetworkManager.settings.modify.system",
-              "org.freedesktop.NetworkManager.network-control"
-            ].indexOf(action.id) !== -1
-          ) {
-            return polkit.Result.YES;
-          }
-        })
-
         polkit.addRule(function (action, subject) {
           if (
             subject.isInGroup("users") &&
@@ -88,6 +73,16 @@
               "org.freedesktop.login1.reboot-multiple-sessions",
               "org.freedesktop.login1.power-off",
               "org.freedesktop.login1.power-off-multiple-sessions",
+              "org.freedesktop.NetworkManager.enable-disable-network",
+              "org.freedesktop.NetworkManager.enable-disable-wifi",
+              "org.freedesktop.NetworkManager.enable-disable-wimax",
+              "org.freedesktop.NetworkManager.enable-disable-wwan",
+              "org.freedesktop.NetworkManager.network-control",
+              "org.freedesktop.NetworkManager.wifi.scan",
+              "org.freedesktop.NetworkManager.wifi.share.open",
+              "org.freedesktop.NetworkManager.wifi.share.protected",
+              "org.freedesktop.NetworkManager.settings.modify.own",
+              "org.freedesktop.NetworkManager.settings.modify.system"
             ].indexOf(action.id) !== -1
           ) {
             return polkit.Result.YES;

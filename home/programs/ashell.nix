@@ -35,10 +35,12 @@ in {
       };
 
       workspaces = {
-        enable_workspace_filling = true;
+        visibility_mode = "MonitorSpecific";
+        enable_workspace_filling = false;
       };
 
       apperance = {
+        font = "Maple Mono NF CN";
         success_color = rosePine.pine;
         text_color = rosePine.text;
 

@@ -21,6 +21,7 @@
     ./starship.nix
     ./tealdeer.nix
     ./wezterm.nix
+    ./zoxide.nix
   ];
 
   programs = {

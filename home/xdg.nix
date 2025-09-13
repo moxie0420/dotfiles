@@ -1,21 +1,5 @@
 {
-  inputs,
-  pkgs,
-  ...
-}: {
-  imports = [
-    inputs.xdg-autostart-hm.homeManagerModules.xdg-autostart
-  ];
-
   xdg = {
-    autoStart = {
-      packages = [
-        pkgs.vesktop
-      ];
-      desktopItems = {
-      };
-    };
-
     enable = true;
     desktopEntries = {
       feh = {

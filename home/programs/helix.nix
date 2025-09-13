@@ -16,8 +16,9 @@
       pyright
       pylyzer
       rust-analyzer
-      rubyPackages.solargraph
+      rubyPackages_3_4.solargraph
       rubyPackages_3_4.ruby-lsp
+      rubyPackages_3_4.rubocop
     ];
 
     settings = {
@@ -236,11 +237,11 @@
           injection-regex = "ruby";
           file-types = ["rb" "rake"];
           shebangs = ["ruby"];
-          language-servers = ["solargraph"];
+          language-servers = ["solargraph" "ruby-lsp"];
           auto-format = true;
           formatter = {
-            command = "bundle";
-            args = ["exec" "stree" "format"];
+            command = "rubocop";
+            args = ["--stdin" "astrochef.rb" "-a" "--stderr" "--fail-level" "fatal"];
           };
         }
 

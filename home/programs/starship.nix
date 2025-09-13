@@ -19,15 +19,32 @@
       };
 
       format = ''
-        [](fg:overlay)$os$username$directory$git_branch$git_status[](fg:overlay)
-        [󱞪 ](fg:iris)
+        [](fg:overlay)$os$username$directory$git_branch$git_status[](fg:overlay)$fill[](fg:overlay)[](fg:base bg:overlay)$time[](fg:base bg:overlay)[](fg:overlay)
+        $character[󱞪 ](iris)
       '';
       right_format = ''
-        [](fg:overlay)$c$haskell$java$nodejs$rust$python[](fg:base bg:overlay)
-        $time[](fg:base bg:overlay)[](fg:overlay)
+        $all
       '';
 
-      add_newline = false;
+      fill = {
+        symbol = " ";
+      };
+
+      character = {
+        success_symbol = "[](pine)";
+        error_symbol = "[](love)";
+      };
+
+      ruby = {
+        format = "[$symbol($version)]($style) ";
+        symbol = " ";
+      };
+
+      nix_shell = {
+        format = "via [$symbol(\($name\))]($style) ";
+        symbol = " ";
+        heuristic = true;
+      };
 
       os = {
         format = "[](fg:surface bg:overlay)[ $symbol ]($style)";
@@ -86,7 +103,7 @@
 
       time = {
         disabled = false;
-        format = "[ $time ]($style)[󰴈 ](fg:rose bg:base)";
+        format = "[ $time ]($style)[ 󰉊 ](fg:rose bg:base)";
         style = "bg:base fg:pine";
         time_format = "%H:%M %m/%d/%Y";
         use_12hr = false;

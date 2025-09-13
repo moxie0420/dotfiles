@@ -1,29 +1,41 @@
 let
-  desktop = [
+  base = [
     ./core
-    ./core/boot.nix
-
-    ./hardware
     ./hardware/bluetooth.nix
-    ./hardware/fwupd.nix
-    ./hardware/mesa.nix
-    ./hardware/udisks.nix
+    ./hardware/general.nix
+    ./hardware/graphics.nix
 
     ./network
     ./network/avahi.nix
 
-    ./programs
+    ./programs/dconf.nix
+    ./programs/fish.nix
+    ./programs/fonts.nix
+    ./programs/general.nix
+    ./programs/home-manager.nix
+    ./programs/hyprland.nix
+    ./programs/steam.nix
+    ./programs/wine.nix
+    ./programs/xdg.nix
 
-    ./services
+    ./services/ananicy.nix
+    ./services/avahi.nix
+    ./services/dbus.nix
+    ./services/display-manager.nix
     ./services/gnome-services.nix
-    ./services/pipewire.nix
+    ./services/openrgb.nix
+    ./services/udisks.nix
   ];
 
+  desktop = base;
+
   laptop =
-    desktop
+    base
     ++ [
       ./core/lanzeboot.nix
-      ./hardware/backlight.nix
+      ./services/autocpufreq.nix
+      ./services/upower.nix
+      ./programs/brightnessctl.nix
     ];
 in {
   inherit desktop laptop;
