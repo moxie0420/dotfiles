@@ -1,42 +1,105 @@
-let
-  base = [
-    ./core
-    ./hardware/bluetooth.nix
-    ./hardware/general.nix
-    ./hardware/graphics.nix
-
-    ./network
-    ./network/avahi.nix
-
-    ./programs/dconf.nix
-    ./programs/fish.nix
-    ./programs/fonts.nix
-    ./programs/general.nix
-    ./programs/home-manager.nix
-    ./programs/hyprland.nix
-    ./programs/steam.nix
-    ./programs/wine.nix
-    ./programs/xdg.nix
-
-    ./services/ananicy.nix
-    ./services/avahi.nix
-    ./services/dbus.nix
-    ./services/display-manager.nix
-    ./services/gnome-services.nix
-    ./services/openrgb.nix
-    ./services/udisks.nix
+{
+  config,
+  inputs,
+  lib,
+  lib',
+  pkgs,
+  self,
+  ...
+}: {
+  imports = [
+    ./boot.nix
+    ./console.nix
+    ./containers.nix
+    ./security.nix
+    ./systemd.nix
+    ./users.nix
   ];
 
-  desktop = base;
+  environment.systemPackages = with pkgs; [
+    clipse
+    pwvucontrol
+  ];
 
-  laptop =
-    base
-    ++ [
-      ./core/lanzeboot.nix
-      ./services/autocpufreq.nix
-      ./services/upower.nix
-      ./programs/brightnessctl.nix
+  documentation.dev.enable = true;
+
+  i18n.defaultLocale = "en_US.UTF-8";
+  system.stateVersion = lib.mkDefault "23.11";
+  time.timeZone = lib.mkDefault "America/Chicago";
+
+  sops = {
+    defaultSopsFile = ../secrets.yaml;
+
+    age = {
+      sshKeyPaths = ["/home/moxie/.ssh/bitbucket_personal"];
+      keyFile = "/home/moxie/.config/sops/age/keys.txt";
+      generateKey = true;
+    };
+
+    secrets = {
+      "lastfm-password" = {};
+    };
+  };
+
+  home-manager = {
+    useGlobalPkgs = true;
+    useUserPackages = true;
+    backupFileExtension = "backup";
+    users.moxie = import ../home;
+    extraSpecialArgs = {
+      inherit inputs self lib';
+      inherit (config.networking) hostName;
+    };
+    sharedModules = with inputs; [
+      zen-browser.homeModules.twilight
     ];
-in {
-  inherit desktop laptop;
+  };
+
+  moxie = {
+    audio.enable = true;
+    desktop.enable = true;
+
+    development = {
+      enable = true;
+      name = "Moxie Benavides";
+      email = "moxie@moxiege.com";
+    };
+
+    displayManager.enable = true;
+
+    hardware = {
+      enable = true;
+      enableBluetooth = true;
+      enableRGB = true;
+      enableVR = true;
+    };
+
+    networking.enable = true;
+
+    shell = {
+      enable = true;
+      enableShowoff = true;
+    };
+  };
+
+  nix.nixPath = let
+    path = toString ./.;
+  in [
+    "repl=${path}/repl.nix"
+    "nixpkgs=${inputs.nixpkgs}"
+  ];
+
+  programs.nh.flake = "/home/moxie/dotfiles";
+
+  services.mpdscribble.endpoints = {
+    "last.fm" = {
+      passwordFile = "/run/secrets/lastfm-password";
+      username = "Eg42069";
+    };
+  };
+
+  stylix = {
+    enable = true;
+    base16Scheme = "${pkgs.base16-schemes}/share/themes/rose-pine.yaml";
+  };
 }

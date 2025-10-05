@@ -2,7 +2,7 @@
   mainMonitor =
     if hostName == "nixOwO"
     then "eDP-1"
-    else "HDMI-A-1";
+    else "HDMI-A-2";
 in {
   imports = [
     ./bindings.nix
@@ -25,26 +25,25 @@ in {
       "$webapp" = "$browser --app";
 
       monitor = [
-        "HDMI-A-1,1920x1080@75,auto,1,vrr,2"
-        "HDMI-A-2,1920x1080@60,auto-up,1"
-        "eDP-1,1920x1080@165.009995,auto,1"
+        "HDMI-A-2, preferred, 0x0,     1,vrr,2"
+        "HDMI-A-1, preferred, 0x-1080, 1"
+        "eDP-1,    1920x1080@165, 0x0,     1"
       ];
 
       exec-once = [
         "hyprsunset"
-        "systemctl --user start hyprpolkitagent"
         "wl-clip-persist --clipboard regular & clipse -listen"
       ];
 
-      exec = [
-        "pkill -SIGUSR2 waybar || waybar"
-      ];
+      misc = {
+        vrr = 2;
+      };
 
       workspace =
         [
-          "8,  monitor:HDMI-A-2"
-          "9,  monitor:HDMI-A-2"
-          "10, monitor:HDMI-A-2"
+          "8,  monitor:HDMI-A-1"
+          "9,  monitor:HDMI-A-1"
+          "10, monitor:HDMI-A-1"
         ]
         ++ (
           # workspaces monitor binds 1-7

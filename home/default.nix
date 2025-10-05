@@ -1,66 +1,97 @@
-{
-  pkgs,
-  inputs,
-  ...
-}: {
+{...}: {
   imports = [
-    ./editorconfig.nix
-    ./fonts.nix
-    ./gtk.nix
     ./hyprland
     ./programs
     ./scripts
-    ./services
-    ./xdg.nix
-    inputs.zen-browser.homeModules.twilight
+    ./idle.nix
   ];
-
-  dconf = {
-    enable = true;
-    settings = {
-      "org/gnome/desktop/interface".color-scheme = "prefer-dark";
-      "org/cinnamon/desktop/default-applications/terminal".exec = "wezterm";
-    };
-  };
-
-  programs.zen-browser = {
-    enable = true;
-    policies = {
-      DisableAppUpdate = true;
-      DisableTelemetry = true;
-    };
-  };
 
   home = {
     username = "moxie";
     homeDirectory = "/home/moxie";
     shell.enableShellIntegration = true;
+    stateVersion = "23.11";
+  };
 
-    pointerCursor = {
+  moxie = {
+    audio.enable = true;
+    shell = {
       enable = true;
-      package = pkgs.rose-pine-gtk-theme;
-      name = "rose-pine";
-      size = 16;
+      gpu = "nvidia";
+    };
+  };
+
+  programs = {
+    vesktop = {
+      enable = true;
+      settings = {
+        discordBranch = "canary";
+        tray = false;
+        minimizeToTray = false;
+        hardwareAcceleration = true;
+        hardwareVideoAcceleration = true;
+        arRPC = true;
+        disableMinSize = true;
+        enableSplashScreen = true;
+      };
     };
 
-    packages = with pkgs; let
-      prismlauncher = pkgs.prismlauncher.override {
-        jdks = [temurin-bin-21 temurin-bin-17 temurin-bin-8];
+    zen-browser = {
+      enable = true;
+      policies = {
+        DisableAppUpdate = true;
+        DisableTelemetry = true;
       };
-    in [
-      baobab
-      cyanrip
-      devenv
-      heroic
-      hwinfo
-      olympus
-      osu-lazer-bin
-      prismlauncher
-      qbittorrent-enhanced
-      r2modman
-      rose-pine-hyprcursor
-    ];
+    };
+  };
 
-    stateVersion = "23.11";
+  services = {
+    gpg-agent = {
+      enable = true;
+      enableSshSupport = true;
+      enableExtraSocket = true;
+      sshKeys = [
+        "C02F30F9FD65E05531A321C8491E3EFE1C0C7383"
+      ];
+    };
+
+    mako = {
+      enable = true;
+      settings = {
+        border-size = 2;
+        border-radius = 16;
+        anchor = "bottom-right";
+        layer = "overlay";
+        default-timeout = 5000;
+        ignore-timeout = false;
+        max-visible = 5;
+        sort = "-time";
+        group-by = "app-name";
+        actions = true;
+        format = "<b>%s</b>\\n%b";
+        markup = true;
+      };
+    };
+
+    udiskie = {
+      enable = true;
+      automount = true;
+      tray = "never";
+    };
+
+    swww.enable = true;
+  };
+
+  stylix.targets.zen-browser.profileNames = [
+    "default"
+  ];
+
+  xdg = {
+    enable = true;
+    autostart.enable = true;
+    userDirs = {
+      enable = true;
+      createDirectories = true;
+    };
   };
 }

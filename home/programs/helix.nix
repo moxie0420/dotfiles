@@ -4,7 +4,7 @@
     defaultEditor = true;
 
     extraPackages = with pkgs; [
-      gcc
+      stdenv
       nil
       typescript-language-server
       typescript
@@ -16,13 +16,16 @@
       pyright
       pylyzer
       rust-analyzer
-      rubyPackages_3_4.solargraph
       rubyPackages_3_4.ruby-lsp
       rubyPackages_3_4.rubocop
+      nimlangserver
     ];
 
+    themes = {
+      ui.menu = "none";
+    };
+
     settings = {
-      theme = "base16_transparent";
       editor = {
         bufferline = "multiple";
         line-number = "relative";
@@ -67,7 +70,9 @@
     languages = {
       language-server = {
         # nix
-        nil.command = "${pkgs.nil}/bin/nil";
+        nil.config = {
+          nix.flake.autoEvalInputs = true;
+        };
 
         # tsx, ts, css, html
         eslint = {
@@ -142,23 +147,6 @@
         };
       };
 
-      grammar = [
-        {
-          name = "less";
-          source = {
-            git = "https://github.com/jimliang/tree-sitter-less";
-            rev = "945f52c94250309073a96bbfbc5bcd57ff2bde49";
-          };
-        }
-        {
-          name = "erb";
-          source = {
-            git = "https://github.com/tree-sitter/tree-sitter-embedded-template.git";
-            rev = "c70c1de07dedd532089c0c90835c8ed9fa694f5c";
-          };
-        }
-      ];
-
       language = [
         {
           name = "nix";
@@ -221,36 +209,15 @@
         }
 
         {
-          name = "less";
-          grammar = "less";
-          file-types = ["less"];
-          scope = "source.less";
-          language-servers = ["vscode-css-language-server" "emmet-ls"];
-          formatter = {
-            command = "prettierd";
-            args = [".less"];
-          };
-        }
-
-        {
           name = "ruby";
           injection-regex = "ruby";
           file-types = ["rb" "rake"];
           shebangs = ["ruby"];
-          language-servers = ["solargraph" "ruby-lsp"];
           auto-format = true;
           formatter = {
             command = "rubocop";
             args = ["--stdin" "astrochef.rb" "-a" "--stderr" "--fail-level" "fatal"];
           };
-        }
-
-        {
-          name = "erb";
-          grammar = "erb";
-          scope = "source.erb";
-          file-types = ["erb"];
-          language-servers = ["herb"];
         }
       ];
     };

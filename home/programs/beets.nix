@@ -4,13 +4,13 @@
     pkgs.ffmpeg
   ];
   programs.beets = {
-    enable = true;
+    enable = false;
 
     package = pkgs.beets.override {
       pluginOverrides = {
-        filetote = {
+        copyartifacts = {
           enable = true;
-          propagatedBuildInputs = [pkgs.beetsPackages.filetote];
+          propagatedBuildInputs = [pkgs.beetsPackages.copyartifacts];
         };
       };
     };
@@ -25,6 +25,7 @@
       library = "~/musicLibrary.db";
 
       plugins = [
+        "copyartifacts"
         "fetchart"
         "thumbnails"
         "lyrics"
@@ -61,7 +62,7 @@
       replaygain = {
         backend = "ffmpeg";
       };
-      filetote = {
+      copyartifacts = {
         extensions = [".lrc" ".cue" ".log"];
       };
     };

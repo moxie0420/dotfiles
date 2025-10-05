@@ -1,15 +1,9 @@
-{
+{lib, ...}: {
   programs.wezterm = {
     enable = true;
-    extraConfig = ''
-      local wezterm = require('wezterm')
-      local theme = wezterm.plugin.require('https://github.com/neapsix/wezterm').main
-      local bar = wezterm.plugin.require("https://github.com/adriankarlen/bar.wezterm")
-
-      local rosePine = theme.colors()
-      rosePine.background = "rgba(25, 23, 36, 50%)"
-
+    extraConfig = lib.mkAfter ''
       local config = {}
+      local bar = wezterm.plugin.require("https://github.com/adriankarlen/bar.wezterm")
 
       bar.apply_to_config(config, {
         modules = {
@@ -25,16 +19,14 @@
         }
       })
 
-      config.colors = rosePine
-      config.window_frame = theme.window_frame()
-
-      config.font_size = 11
-      config.font = wezterm.font {
-        family = 'Maple Mono NF CN',
-        weight = 500,
-        harfbuzz_features = { 'calt', 'ss03','ss10', 'ss11', 'zero'},
+      config.window_background_opacity = 0.50
+      config.window_padding = {
+        left = 0,
+        right = 0,
+        top = 0,
+        bottom = 0
       }
-
+      config.font_size = 10
 
       return config
     '';

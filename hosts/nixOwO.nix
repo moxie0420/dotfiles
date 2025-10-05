@@ -17,24 +17,17 @@
       allowDiscards = true;
     };
 
-    kernelParams = [
-      "resume_offset=474218496"
-    ];
+    kernelParams = ["resume_offset=474218496"];
     resumeDevice = "/dev/disk/by-uuid/a64f2ea2-de99-4f4b-8c94-df6a92fc5db9";
   };
 
-  environment.variables = {
-    AQ_DRM_DEVICES = "/dev/dri/amd-igpu";
-  };
+  environment.variables.AQ_DRM_DEVICES = "/dev/dri/amd-igpu";
 
   fileSystems = {
     "/" = {
       device = "/dev/mapper/nixroot";
       fsType = "ext4";
-      options = [
-        "defaults"
-        "noatime"
-      ];
+      options = ["defaults" "noatime"];
     };
     "/boot" = {
       device = "/dev/disk/by-uuid/A2D3-7B50";
@@ -61,14 +54,16 @@
     };
   };
 
+  moxie.graphics = {
+    amd.enable = true;
+    nvidia.enable = true;
+  };
+
   powerManagement.powertop.enable = true;
 
-  services = {
-    udev.extraRules = ''
-      KERNEL=="card*", KERNELS=="0000:05:00.0", SUBSYSTEM=="drm", SUBSYSTEMS=="pci", SYMLINK+="dri/amd-igpu"
-    '';
-    xserver.videoDrivers = ["amdgpu" "nvidia"];
-  };
+  services.udev.extraRules = ''
+    KERNEL=="card*", KERNELS=="0000:05:00.0", SUBSYSTEM=="drm", SUBSYSTEMS=="pci", SYMLINK+="dri/amd-igpu"
+  '';
 
   swapDevices = [
     {
@@ -88,11 +83,4 @@
     "w /sys/power/image_size - - - 320000000000"
     "L+ /opt/rocm/hip - - - - ${pkgs.rocmPackages.clr}"
   ];
-
-  zramSwap = {
-    enable = true;
-    algorithm = "zstd lz4 (type=huge)";
-    priority = 100;
-    memoryPercent = 100;
-  };
 }

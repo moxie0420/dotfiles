@@ -119,12 +119,5 @@ in {
     icons = "auto";
     colors = "auto";
     theme = rose-pine;
-
-    extraOptions = [
-      "-l"
-      "-h"
-      "--total-size"
-      "--group-directories-first"
-    ];
   };
 }
