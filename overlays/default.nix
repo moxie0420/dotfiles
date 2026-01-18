@@ -1,6 +1,5 @@
 # deadnix: skip
 final: prev: {
-  celeste-net = final.callPackage ../pkgs/celeste-net.nix {};
   comic-mono = final.callPackage ../pkgs/comic-mono.nix {};
   goignis = final.callPackage ../pkgs/goignis.nix {};
   rmpc-git = final.callPackage ../pkgs/rmpc.nix {};
