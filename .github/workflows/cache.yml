@@ -15,15 +15,15 @@ jobs:
         name: moxies-dotfiles
         authToken: '${{ secrets.CACHIX_AUTH_TOKEN }}'
 
-    - run: nix build .#comicMono
-    - run: nix build .#rosePineCursor
-    - run: nix build .#rosePineHyprland
-    - run: nix build .#rosePineKitty
-    - run: nix build .#rosePineSddm
-    - run: nix build .#rosePineVesktop
-    - run: nix build .#rosePineWallpapers
-    - run: nix build .#rosePineWofi
-    - run: nix build .#rosePineZen
+    - run: nix build .#comic-mono
+    - run: nix build .#rose-pine-cursor
+    - run: nix build .#rose-pine-hyprland
+    - run: nix build .#rose-pine-kitty
+    - run: nix build .#rose-pine-sddm
+    - run: nix build .#rose-pine-vesktop
+    - run: nix build .#rose-pine-wallpapers
+    - run: nix build .#rose-pine-wofi
+    - run: nix build .#rose-pine-zen
     - run: nix build .#sgx-software-enable
 
     - run: nix develop -c echo done
