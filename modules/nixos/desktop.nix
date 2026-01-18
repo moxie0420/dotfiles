@@ -14,7 +14,18 @@ in {
     cursor.enable = mkEnableOption "Set the system cursor to rose-pine";
     fileManager.enable = mkEnableOption "Enable Nautilus";
     fonts.enable = mkEnableOption "Set the system font to maplemono";
-    gaming.enable = mkEnableOption "Enable steam, wine, and heroic";
+    gaming = {
+      enable = mkEnableOption "Enable steam, wine, and heroic";
+      gamescopeArgs = mkOption {
+        default = [""];
+        example = ''
+          [
+            "-W 1920"
+            "-H 1080"
+          ]
+        '';
+      };
+    };
     music.enable = mkEnableOption "Enable RMPC, beets and other music adjacent software";
   };
 
@@ -32,12 +43,18 @@ in {
       environment = {
         pathsToLink = ["/share/icons"];
         systemPackages = with pkgs; [
-          rose-pine-gtk-theme
-          rose-pine-icon-theme
+          aria2
+          baobab
+          firefox
           hyprpicker
           hyprshot
           hyprsunset
+          nautilus
+          nautilus-open-any-terminal
+          rose-pine-gtk-theme
+          rose-pine-icon-theme
           wezterm
+          wineWowPackages.stable
         ];
       };
 
@@ -51,30 +68,22 @@ in {
                 "org/gnome/mutter".experimental-features = ["variable-refresh-rate"];
                 "org/gnome/desktop/interface" = {
                   color-scheme = "prefer-dark";
-                  gtk-theme = "rose-pine";
-                  icon-theme = "rose-pine";
                 };
               };
             }
           ];
         };
+        firefox.enable = true;
         gnome-disks.enable = true;
         hyprland = {
           enable = true;
-          withUWSM = true;
-
-          package = inputs.hyprland.packages.${pkgs.system}.default;
-          portalPackage = inputs.hyprland.packages.${pkgs.system}.xdg-desktop-portal-hyprland;
+          package = inputs.hyprland.packages.${pkgs.stdenv.hostPlatform.system}.default;
+          portalPackage = inputs.hyprland.packages.${pkgs.stdenv.hostPlatform.system}.xdg-desktop-portal-hyprland;
         };
         seahorse.enable = true;
       };
 
       services = {
-        ananicy = {
-          enable = true;
-          package = pkgs.ananicy-cpp;
-          rulesProvider = pkgs.ananicy-rules-cachyos_git;
-        };
         dbus = {
           implementation = "broker";
           packages = with pkgs; [
@@ -82,7 +91,7 @@ in {
             gnome-settings-daemon
           ];
         };
-
+        flatpak.enable = true;
         gnome.gnome-keyring.enable = true;
         gvfs.enable = true;
       };
@@ -150,10 +159,10 @@ in {
         systemPackages = with pkgs; [
           libheif
           libheif.out
+          file-roller
         ];
       };
       programs = {
-        file-roller.enable = true;
         nautilus-open-any-terminal = {
           enable = true;
           terminal = "wezterm";
@@ -163,6 +172,11 @@ in {
     })
 
     (mkIf cfg.fonts.enable {
+      fonts.packages = attrValues {
+        inherit (pkgs) material-symbols;
+        inherit (pkgs) noto-fonts noto-fonts-color-emoji noto-fonts-cjk-sans;
+      };
+
       stylix.fonts = let
         mapleMono = {
           package = pkgs.maple-mono.NF-CN;
@@ -185,18 +199,25 @@ in {
         olympus
         prismlauncher
         r2modman
+        mangohud
+        theclicker
       ];
-      programs.steam = {
-        enable = true;
-        package = pkgs.steam;
-
-        localNetworkGameTransfers.openFirewall = true;
-        protontricks.enable = true;
-        remotePlay.openFirewall = true;
-
-        extraCompatPackages = with pkgs; [
-          proton-cachyos_x86_64_v3
-        ];
+      programs = {
+        gamemode.enable = true;
+        gamescope = {
+          enable = true;
+          capSysNice = true;
+          args = lib.flatten cfg.gaming.gamescopeArgs;
+        };
+        steam = {
+          enable = true;
+          localNetworkGameTransfers.openFirewall = true;
+          protontricks.enable = true;
+          remotePlay.openFirewall = true;
+          extraCompatPackages = with pkgs; [
+            proton-ge-bin
+          ];
+        };
       };
     })
 

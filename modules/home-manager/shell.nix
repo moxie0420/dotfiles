@@ -17,10 +17,17 @@ in {
 
   config = mkMerge [
     (mkIf cfg.enable {
-      programs.btop = {
-        enable = true;
-        package = mkDefault pkgs.btop;
-        settings.theme_background = false;
+      programs = {
+        btop = {
+          enable = true;
+          package = mkDefault pkgs.btop;
+          settings.theme_background = false;
+        };
+
+        direnv = {
+          enable = true;
+          silent = true;
+        };
       };
     })
 

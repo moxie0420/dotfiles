@@ -25,10 +25,7 @@ in {
         pinentryPackage = pkgs.pinentry-gnome3;
       };
 
-      security.pam.services = {
-        login.u2fAuth = true;
-        sudo.u2fAuth = true;
-      };
+      security.pam.services.login.u2fAuth = true;
 
       services.udev.extraRules = ''
         ACTION=="remove",\

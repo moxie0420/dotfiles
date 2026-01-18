@@ -5,9 +5,20 @@
 }:
 with lib; let
   cfg = config.moxie.audio;
+  discord = config.moxie.communication.vesktop;
 in {
   options.moxie.audio = {
     enable = mkEnableOption "Enable Easyeffects, Cava and other similar music software";
+    mpd = {
+      enable = mkOption {
+        default = cfg.enable;
+        example = false;
+        type = types.bool;
+        description = ''
+          Enable user mpd config and discord rich presence
+        '';
+      };
+    };
   };
 
   config = mkMerge [
@@ -24,7 +35,11 @@ in {
         };
       };
 
-      services.easyeffects.enable = true;
+      services.playerctld.enable = true;
+    })
+
+    (mkIf cfg.mpd.enable {
+      services.mpd-discord-rpc.enable = discord;
     })
   ];
 }

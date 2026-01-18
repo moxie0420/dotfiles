@@ -35,8 +35,6 @@
     };
 
     tmpfiles.rules = [
-      "w! /sys/kernel/mm/transparent_hugepage/defrag - - - - defer+madvise"
-      "w! /sys/kernel/mm/transparent_hugepage/khugepaged/max_ptes_none - - - - 409"
       "d /var/lib/systemd/coredump 0755 root root 3d"
     ];
 

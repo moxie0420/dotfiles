@@ -7,3 +7,5 @@ result
 .pre-commit-config.yaml
 
 core
+
+.env.local

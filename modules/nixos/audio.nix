@@ -2,7 +2,6 @@
   config,
   lib,
   pkgs,
-  self,
   ...
 }:
 with lib; let
@@ -44,7 +43,7 @@ in {
 
     (mkIf cfg.mpd.enable {
       environment.systemPackages = [
-        self.packages.${pkgs.system}.rmpc
+        rmpc
       ];
 
       services = {

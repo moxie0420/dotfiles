@@ -3,6 +3,7 @@
 
   outputs = inputs @ {
     self,
+    home-manager,
     nixpkgs,
     ...
   }: let
@@ -39,7 +40,10 @@
           };
       };
 
-    universals = {
+    universals = let
+      pkgs = nixpkgs.legacyPackages.x86_64-linux;
+      inherit (inputs.nixpkgs) lib;
+    in {
       schemas = import ./schemas.nix {inherit inputs;};
 
       # Overlays that contain all of this repos packages
@@ -51,7 +55,23 @@
         cache-friendly = import ./overlays/cache-friendly.nix {inherit inputs;};
       };
 
-      nixosConfigurations = import ./hosts {inherit self inputs;};
+      nixosConfigurations = import ./hosts {inherit self inputs lib;};
+
+      homeConfigurations.moxie = home-manager.lib.homeManagerConfiguration {
+        inherit pkgs;
+        extraSpecialArgs = {
+          inherit inputs self;
+          inherit (self) lib';
+        };
+        modules = with inputs; [
+          self.homeModules.default
+          stylix.homeModules.stylix
+          ./home
+          {
+            programs.home-manager.enable = true;
+          }
+        ];
+      };
 
       # NixOS & Home-Manager Modules
       nixosModules = import ./modules/nixos {inherit inputs;};
@@ -64,8 +84,7 @@
       # https://github.com/chaotic-cx/nyx
       lib' = import ./lib {
         moxieOverlay = self.overlays.default;
-        inherit self;
-        inherit (inputs.nixpkgs) lib;
+        inherit self lib;
       };
     };
   in
@@ -73,19 +92,7 @@
 
   inputs = {
     flake-schemas.url = "https://flakehub.com/f/DeterminateSystems/flake-schemas/=0.1.5.tar.gz";
-
-    lix = {
-      url = "https://git.lix.systems/lix-project/lix/archive/main.tar.gz";
-      flake = false;
-    };
-    lix-module = {
-      url = "https://git.lix.systems/lix-project/nixos-module/archive/main.tar.gz";
-      inputs.nixpkgs.follows = "nixpkgs";
-      inputs.lix.follows = "lix";
-    };
-
     nixpkgs.url = "nixpkgs/nixos-unstable";
-    chaotic.url = "github:chaotic-cx/nyx/nyxpkgs-unstable";
 
     # other inputs in alphabetical order
     home-manager = {
@@ -94,10 +101,6 @@
     };
 
     hyprland.url = "github:hyprwm/hyprland";
-    hyprland-plugins = {
-      url = "github:hyprwm/hyprland-plugins";
-      inputs.hyprland.follows = "hyprland";
-    };
     hyprlock.url = "github:ShadowBahamut/hyprlock-animated";
 
     lanzaboote = {
@@ -111,7 +114,7 @@
     };
 
     quickshell = {
-      url = "git+https://git.outfoxxed.me/outfoxxed/quickshell";
+      url = "git+https://git.outfoxxed.me/quickshell/quickshell";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
@@ -122,11 +125,6 @@
 
     stylix = {
       url = "github:nix-community/stylix";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-
-    zen-browser = {
-      url = "github:0xc000022070/zen-browser-flake";
       inputs.nixpkgs.follows = "nixpkgs";
     };
   };

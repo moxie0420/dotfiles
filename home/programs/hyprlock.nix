@@ -6,7 +6,7 @@
 }: {
   programs.hyprlock = {
     enable = true;
-    package = inputs.hyprlock.packages.${pkgs.system}.default.overrideAttrs (old: {
+    package = inputs.hyprlock.packages.${pkgs.stdenv.hostPlatform.system}.default.overrideAttrs (old: {
       buildInputs =
         old.buildInputs
         ++ [

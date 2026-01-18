@@ -1,6 +1,7 @@
 {
   inputs,
   self,
+  lib,
   ...
 }: let
   inherit (inputs.nixpkgs.lib) nixosSystem;
@@ -8,10 +9,8 @@
 
   extraModules = with inputs; [
     self.nixosModules.default
-    lix-module.nixosModules.default
     home-manager.nixosModules.home-manager
     nix-index-database.nixosModules.nix-index
-    chaotic.nixosModules.default
     sops-nix.nixosModules.sops
     stylix.nixosModules.stylix
   ];
@@ -20,6 +19,18 @@
     inherit inputs self;
     inherit (self) lib';
   };
+
+  mkContainer = system: modules:
+    nixosSystem {
+      inherit system;
+      modules = lib.flatten [
+        modules
+        {
+          boot.isContainer = true;
+          system.stateVersion = "25.05";
+        }
+      ];
+    };
 in {
   nixUwU = nixosSystem {
     inherit specialArgs;
@@ -30,4 +41,8 @@ in {
     inherit specialArgs;
     modules = mkLaptop ./nixOwO.nix extraModules;
   };
+
+  caddy = mkContainer "x86_64-linux" ../containers/caddy.nix;
+
+  jellyfin = mkContainer "x86_64-linux" ../containers/jellyfin.nix;
 }

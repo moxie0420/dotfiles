@@ -4,21 +4,12 @@
     defaultEditor = true;
 
     extraPackages = with pkgs; [
-      stdenv
+      clang-tools
+      gcc
       nil
       typescript-language-server
-      typescript
-      tailwindcss-language-server
       vscode-langservers-extracted
-      prettierd
-      alejandra
-      ruff
-      pyright
-      pylyzer
-      rust-analyzer
-      rubyPackages_3_4.ruby-lsp
-      rubyPackages_3_4.rubocop
-      nimlangserver
+      kdePackages.qtdeclarative
     ];
 
     themes = {
@@ -74,21 +65,24 @@
           nix.flake.autoEvalInputs = true;
         };
 
-        # tsx, ts, css, html
+        # Web Dev
+        deno = {
+          command = "deno";
+          args = ["lsp"];
+        };
+
+        emmet-ls = {
+          command = "emmet-ls";
+          args = ["--stdio"];
+        };
+
         eslint = {
           command = "vscode-eslint-language-server";
           args = ["--stdio"];
           config = {
-            codeAction = {
-              disableRuleComment = {
-                enable = true;
-                location = "separateLine";
-              };
-              showDocumentation.enable = false;
-            };
             codeActionsOnSave = {
               mode = "all";
-              source.fixAll.eslint = true;
+              "source.fixAll.eslint" = true;
             };
             format.enable = true;
             nodePath = "";
@@ -98,17 +92,23 @@
             validate = "on";
             experimental = {};
             problems.shortenToSingleLine = false;
+
+            codeAction = {
+              disableRuleComment = {
+                enable = true;
+                location = "separateLine";
+              };
+              showDocumentation.enable = false;
+            };
           };
         };
 
-        vscode-json-language-server = {
-          config = {
-            json = {
-              validate.enable = true;
-              format.enable = true;
-            };
-            provideFormatter = true;
+        vscode-json-language-server.config = {
+          json = {
+            validate.enable = true;
+            format.enable = true;
           };
+          provideFormatter = true;
         };
 
         vscode-css-language-server = {
@@ -119,104 +119,78 @@
             provideFormatter = true;
           };
         };
-
-        tailwindcss-ls = {
-          command = "tailwindcss-language-server";
-          args = ["--stdio"];
-        };
-
-        pyright.config.python.analysis.typeCheckingMode = "basic";
-
-        ruff = {
-          command = "ruff";
-          args = ["server"];
-        };
-
-        pylyzer = {
-          command = "pylyzer";
-          args = ["--server"];
-        };
-
-        rust-analyzer.config = {
-          check.command = "clippy";
-        };
-
-        herb = {
-          command = "herb-language-server";
-          args = ["--stdio"];
-        };
       };
 
       language = [
         {
           name = "nix";
-          formatter = {
-            command = "alejandra";
-          };
+          formatter.command = "${pkgs.alejandra}/bin/alejandra";
           auto-format = true;
         }
+
+        # Webdev
         {
-          name = "python";
-          language-servers = ["pyright" "ruff" "pylyzer"];
+          name = "typescript";
+          language-servers = ["typescript-language-server" "eslint" "emmet-ls"];
           formatter = {
-            command = "ruff";
-            args = ["format" "--line-length" "88" "-"];
+            command = "prettier";
+            args = ["--parser" "typescript"];
           };
           auto-format = true;
         }
 
         {
+          name = "tsx";
+          language-servers = ["typescript-language-server" "eslint" "emmet-ls"];
+          formatter = {
+            command = "prettier";
+            args = ["--parser" "typescript"];
+          };
+          auto-format = true;
+        }
+
+        {
+          name = "javascript";
+          language-servers = ["typescript-language-server" "eslint" "emmet-ls"];
+          formatter = {
+            command = "prettier";
+            args = ["--parser" "typescript"];
+          };
+          auto-format = true;
+        }
+        {
+          name = "jsx";
+          language-servers = ["typescript-language-server" "eslint" "emmet-ls"];
+          formatter = {
+            command = "prettier";
+            args = ["--parser" "typescript"];
+          };
+          auto-format = true;
+        }
+        {
+          name = "json";
+          formatter = {
+            command = "prettier";
+            args = ["--parser" "json"];
+          };
+          auto-format = true;
+        }
+        {
           name = "html";
           language-servers = ["vscode-html-language-server" "emmet-ls"];
-          auto-format = true;
           formatter = {
-            command = "prettierd";
-            args = [".html"];
+            command = "prettier";
+            args = ["--parser" "html"];
           };
+          auto-format = true;
         }
         {
           name = "css";
           language-servers = ["vscode-css-language-server" "emmet-ls"];
           auto-format = true;
           formatter = {
-            command = "prettierd";
-            args = [".css"];
-          };
-        }
-
-        {
-          name = "tsx";
-          language-servers = ["typescript-language-server" "eslint" "emmet-ls"];
-          auto-format = true;
-          formatter = {
-            command = "prettierd";
-            args = [".tsx"];
-          };
-        }
-        {
-          name = "typescript";
-          language-servers = ["typescript-language-server" "eslint" "emmet-l"];
-          auto-format = true;
-          formatter = {
-            command = "prettierd";
-            args = [".ts"];
-          };
-        }
-
-        {
-          name = "json";
-          auto-format = true;
-        }
-
-        {
-          name = "ruby";
-          injection-regex = "ruby";
-          file-types = ["rb" "rake"];
-          shebangs = ["ruby"];
-          auto-format = true;
-          formatter = {
-            command = "rubocop";
-            args = ["--stdin" "astrochef.rb" "-a" "--stderr" "--fail-level" "fatal"];
+            command = "prettier";
+            args = ["--parser" "css"];
           };
         }
       ];

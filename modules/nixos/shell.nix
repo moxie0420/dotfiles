@@ -1,23 +1,12 @@
 {
   config,
   lib,
+  lib',
   pkgs,
   ...
-}:
-with lib; let
-  rose-pine = {
-    base = "#191724";
-    surface = "#1f1d2e";
-    overlay = "#26233a";
-    subtle = "#908caa";
-    love = "#eb6f92";
-    gold = "#f6c177";
-    rose = "#ebbcba";
-    pine = "#31748f";
-    foam = "#9ccfd8";
-    iris = "#c4a7e7";
-    text = "#e0def4";
-  };
+}: let
+  inherit (lib) mkEnableOption mkIf mkMerge;
+  inherit (lib'.colorschemes) rose-pine;
 
   cfg = config.moxie.shell;
 in {
@@ -62,6 +51,7 @@ in {
             shellAliases = {
               cd = "z";
               ls = "eza -l -h --group-directories-first --icons=auto";
+              run0 = "run0 --background=";
             };
           };
 
@@ -86,7 +76,7 @@ in {
                 inherit rose-pine;
               };
               format = ''
-                [](fg:overlay)$os$username$directory$git_branch$git_status[](fg:overlay)$fill$time
+                [](fg:overlay)$os$username$hostname$directory$git_branch$git_status[](fg:overlay)$fill$time
                 $character[󱞪 ](iris)
               '';
               right_format = "$all";
@@ -118,10 +108,16 @@ in {
               };
 
               username = {
-                format = "[](fg:base bg:surface)[ $user ]($style)[](fg:base bg:surface)";
+                format = "[](fg:base bg:surface)[ $user]($style)";
                 show_always = true;
                 style_user = "bg:base fg:pine";
                 style_root = "bg:base fg:love";
+              };
+
+              hostname = {
+                ssh_only = false;
+                format = "[@](bg:base fg:text)[$hostname ]($style)[](fg:base bg:surface)";
+                style = "bg:base fg:iris";
               };
 
               directory = {

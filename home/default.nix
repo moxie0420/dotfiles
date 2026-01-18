@@ -1,4 +1,8 @@
-{...}: {
+{
+  config,
+  pkgs,
+  ...
+}: {
   imports = [
     ./hyprland
     ./programs
@@ -11,38 +15,21 @@
     homeDirectory = "/home/moxie";
     shell.enableShellIntegration = true;
     stateVersion = "23.11";
+
+    packages = with pkgs; [
+      kdePackages.filelight
+      lxqt.lxqt-policykit
+    ];
   };
 
   moxie = {
+    enable = true;
     audio.enable = true;
     shell = {
       enable = true;
       gpu = "nvidia";
     };
-  };
-
-  programs = {
-    vesktop = {
-      enable = true;
-      settings = {
-        discordBranch = "canary";
-        tray = false;
-        minimizeToTray = false;
-        hardwareAcceleration = true;
-        hardwareVideoAcceleration = true;
-        arRPC = true;
-        disableMinSize = true;
-        enableSplashScreen = true;
-      };
-    };
-
-    zen-browser = {
-      enable = true;
-      policies = {
-        DisableAppUpdate = true;
-        DisableTelemetry = true;
-      };
-    };
+    communication.vesktop = false;
   };
 
   services = {
@@ -80,6 +67,7 @@
     };
 
     swww.enable = true;
+    tldr-update.enable = true;
   };
 
   stylix.targets.zen-browser.profileNames = [
@@ -93,5 +81,31 @@
       enable = true;
       createDirectories = true;
     };
+
+    configFile = let
+      inherit (config.lib.file) mkOutOfStoreSymlink;
+      inherit (config) dotfiles;
+
+      toSrcFile = name: "${dotfiles}/${name}";
+      link = name: mkOutOfStoreSymlink (toSrcFile name);
+
+      # linkFile = name: {
+      #   ${name}.source = link name;
+      # };
+
+      linkDir = name: {
+        ${name} = {
+          source = link name;
+          recursive = true;
+        };
+      };
+
+      confFiles = {};
+
+      confDirs = linkDir "quickshell";
+
+      links = confFiles // confDirs;
+    in
+      links;
   };
 }

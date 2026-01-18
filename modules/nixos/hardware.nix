@@ -33,21 +33,8 @@ in {
       };
 
       services = {
-        auto-cpufreq = {
-          enable = false;
-          settings = {
-            battery = {
-              governor = "powersave";
-              turbo = "never";
-            };
-            charger = {
-              governor = "performance";
-              turbo = "auto";
-            };
-          };
-        };
         fstrim.enable = true;
-        logind.settings.Login.handleLidSwitch = "suspend-then-hibernate";
+        power-profiles-daemon.enable = true;
         udisks2 = {
           enable = true;
           mountOnMedia = true;
@@ -61,6 +48,7 @@ in {
             };
           };
         };
+        upower.enable = true;
       };
 
       systemd.sleep.extraConfig = ''

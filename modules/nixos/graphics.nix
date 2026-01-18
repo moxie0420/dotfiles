@@ -7,7 +7,6 @@ with lib; let
   cfg = config.moxie.graphics;
 in {
   options.moxie.graphics = {
-    enable = mkEnableOption "Enable my graphics config";
     amd = {
       enable = mkEnableOption "Enable AMD Support";
     };
@@ -17,16 +16,7 @@ in {
   };
 
   config = mkMerge [
-    (mkIf cfg.enable {
-      hardware.graphics = {
-        enable = true;
-        enable32Bit = true;
-      };
-    })
-
     (mkIf cfg.amd.enable {
-      moxie.graphics.enable = true;
-
       hardware.amdgpu = {
         initrd.enable = true;
         opencl.enable = true;
@@ -36,14 +26,17 @@ in {
     })
 
     (mkIf cfg.nvidia.enable {
-      moxie.graphics.enable = true;
-
       environment.variables = {
+        __GL_MaxFramesAllowed = 1;
+        __GL_VRR_ALLOWED = 1;
         __GLX_VENDOR_LIBRARY_NAME = "nvidia";
+
         GBM_BACKEND = "nvidia-drm";
         LIBVA_DRIVER_NAME = "nvidia";
-        VDPAU_DRIVER = "nvidia";
         NVD_BACKEND = "direct";
+        VDPAU_DRIVER = "nvidia";
+
+        PROTON_ENABLE_NGX_UPDATER = 1;
       };
 
       boot.extraModprobeConfig = ''

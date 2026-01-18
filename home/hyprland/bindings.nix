@@ -1,29 +1,28 @@
-{pkgs, ...}: let
-  terminal = command: "uwsm app -- nix${pkgs.wezterm}/bin/wezterm ${command}";
-in {
-  wayland.windowManager.hyprland.settings = {
+{pkgs, ...}: {
+  wayland.windowManager.hyprland.settings = let
+    terminal = "${pkgs.wezterm}/bin/wezterm";
+    fileManager = "${pkgs.nautilus}/bin/nautilus --new-window";
+    webapp = "zen-twilight --kiosk";
+  in {
     bind =
       [
-        "SUPER, Y, exec, $webapp=https://youtube.com/"
+        "SUPER, Y, exec, ${webapp} https://youtube.com/"
 
-        "SUPER, return, exec, $terminal"
-        "SUPER, F, exec, $fileManager"
-        "SUPER, B, exec, $browser"
-        "SUPER, M, exec, $music"
-        "SUPER, N, exec, $terminal -e hx"
-        "SUPER, T, exec, $terminal -e btop"
-        "SUPER, D, exec, $terminal -e lazydocker"
+        "SUPER, return, exec, ${terminal}"
+        "SUPER, F, exec, ${fileManager}"
+        "SUPER, M, exec, ${terminal} -e rmpc"
+        "SUPER, N, exec, ${terminal} -e hx"
+        "SUPER, T, exec, ${terminal} -e btop"
+        "SUPER, D, exec, ${terminal} -e lazydocker"
 
-        "SUPER, space, exec, rofi -matching glob -show drun -show-icons -run-command 'uwsm app -- {cmd}'"
+        "SUPER, space, exec, rofi -matching glob -show drun -show-icons"
 
         "SUPER, W, killactive,"
         "SUPER, Backspace, killactive,"
 
         # End active session
-        "SUPER, ESCAPE, exec, loginctl lock-session"
-        "SUPER SHIFT, ESCAPE, exit,"
-        "SUPER CTRL, ESCAPE, exec, reboot"
-        "SUPER SHIFT CTRL, ESCAPE, exec, poweroff"
+        ", F13, exec, loginctl lock-session"
+        ", XF86PowerOff, exec, poweroff"
 
         # Control tiling
         "SUPER, J, togglesplit, # dwindle"
@@ -58,9 +57,6 @@ in {
 
         # Color picker
         "SUPER, PRINT, exec, hyprpicker -a"
-
-        # Clipse
-        "CTRL SUPER, V, exec, ${terminal "--class clipse -e clipse"}"
 
         "SUPER, comma, workspace, -1"
         "SUPER, period, workspace, +1"
@@ -103,6 +99,7 @@ in {
       ", XF86AudioNext, exec, playerctl next"
       ", XF86AudioPause, exec, playerctl play-pause"
       ", XF86AudioPlay, exec, playerctl play-pause"
+      ", XF86AudioStop, exec, playerctl stop"
       ", XF86AudioPrev, exec, playerctl previous"
     ];
   };

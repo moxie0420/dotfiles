@@ -9,7 +9,6 @@
 }: {
   imports = [
     ./boot.nix
-    ./console.nix
     ./containers.nix
     ./security.nix
     ./systemd.nix
@@ -18,13 +17,19 @@
 
   environment.systemPackages = with pkgs; [
     clipse
+    gzdoom
     pwvucontrol
   ];
 
   documentation.dev.enable = true;
 
-  i18n.defaultLocale = "en_US.UTF-8";
-  system.stateVersion = lib.mkDefault "23.11";
+  i18n = {
+    defaultLocale = "en_US.UTF-8";
+    inputMethod = {
+      enable = true;
+      type = "ibus";
+    };
+  };
   time.timeZone = lib.mkDefault "America/Chicago";
 
   sops = {
@@ -50,14 +55,19 @@
       inherit inputs self lib';
       inherit (config.networking) hostName;
     };
-    sharedModules = with inputs; [
-      zen-browser.homeModules.twilight
-    ];
   };
 
   moxie = {
     audio.enable = true;
-    desktop.enable = true;
+    desktop = {
+      enable = true;
+      gaming.gamescopeArgs = [
+        "-W 1920"
+        "-H 1080"
+        "--expose-wayland"
+        "--mangoapp"
+      ];
+    };
 
     development = {
       enable = true;
@@ -91,10 +101,17 @@
 
   programs.nh.flake = "/home/moxie/dotfiles";
 
-  services.mpdscribble.endpoints = {
-    "last.fm" = {
-      passwordFile = "/run/secrets/lastfm-password";
-      username = "Eg42069";
+  services = {
+    flatpak.enable = true;
+    tailscale.extraSetFlags = [
+      "--operator=moxie"
+    ];
+
+    mpdscribble.endpoints = {
+      "last.fm" = {
+        passwordFile = "/run/secrets/lastfm-password";
+        username = "Eg42069";
+      };
     };
   };
 

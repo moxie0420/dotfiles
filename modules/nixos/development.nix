@@ -23,18 +23,19 @@ in {
 
   config = mkIf cfg.enable {
     environment.systemPackages = with pkgs; [
+      android-tools
       devenv
-      direnv
       git
       gh
       lazydocker
-      lazygit
     ];
 
     programs = {
-      fish.interactiveShellInit = ''
-        direnv hook fish | source
-      '';
+      direnv = {
+        enable = true;
+        silent = true;
+      };
+
       git = {
         enable = mkForce true;
         config = {
@@ -50,6 +51,7 @@ in {
           };
         };
       };
+
       lazygit.enable = true;
     };
 

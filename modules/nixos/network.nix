@@ -33,7 +33,12 @@ in {
       };
 
       services = {
-        tailscale.enable = true;
+        tailscale = {
+          enable = true;
+          extraSetFlags = [
+            "--ssh"
+          ];
+        };
         resolved = {
           enable = true;
           dnssec = "true";
