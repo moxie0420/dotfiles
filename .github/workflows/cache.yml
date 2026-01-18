@@ -25,6 +25,3 @@ jobs:
     - run: nix build .#rose-pine-wofi
     - run: nix build .#rose-pine-zen
     - run: nix build .#sgx-software-enable
-
-    - run: nix develop -c echo done
-
