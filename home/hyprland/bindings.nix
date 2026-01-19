@@ -13,7 +13,6 @@
         "SUPER, M, exec, ${terminal} -e rmpc"
         "SUPER, N, exec, ${terminal} -e hx"
         "SUPER, T, exec, ${terminal} -e btop"
-        "SUPER, D, exec, ${terminal} -e lazydocker"
 
         "SUPER, space, exec, rofi -matching glob -show drun -show-icons"
 

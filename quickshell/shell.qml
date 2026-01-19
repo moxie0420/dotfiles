@@ -22,14 +22,10 @@ ShellRoot {
     }
   }
 
-  LazyLoader {
-    activeAsync: Audio.shouldShowOsd
-    Osd {}
-  }
-
-  LazyLoader {
-
-  }
+  // LazyLoader {
+  //   activeAsync: Audio.shouldShowOsd
+  //   Osd {}
+  // }
 
   Connections {
     function onReloadCompleted() {
