@@ -15,7 +15,15 @@
     ./users.nix
   ];
 
+  age = {
+    identityPaths = ["/home/moxie/.ssh/bitbucket_personal"];
+    secrets = {
+      qbittorrent.file = "${self}/secrets/qbittorrent.age";
+    };
+  };
+
   environment.systemPackages = with pkgs; [
+    inputs.agenix.packages.x86_64-linux.default
     clipse
     gzdoom
     pwvucontrol
@@ -30,21 +38,8 @@
       type = "ibus";
     };
   };
+
   time.timeZone = lib.mkDefault "America/Chicago";
-
-  sops = {
-    defaultSopsFile = ../secrets.yaml;
-
-    age = {
-      sshKeyPaths = ["/home/moxie/.ssh/bitbucket_personal"];
-      keyFile = "/home/moxie/.config/sops/age/keys.txt";
-      generateKey = true;
-    };
-
-    secrets = {
-      "lastfm-password" = {};
-    };
-  };
 
   home-manager = {
     useGlobalPkgs = true;
@@ -106,13 +101,6 @@
     tailscale.extraSetFlags = [
       "--operator=moxie"
     ];
-
-    mpdscribble.endpoints = {
-      "last.fm" = {
-        passwordFile = "/run/secrets/lastfm-password";
-        username = "Eg42069";
-      };
-    };
   };
 
   stylix = {

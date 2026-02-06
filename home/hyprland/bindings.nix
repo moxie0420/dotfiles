@@ -50,12 +50,12 @@
         "SUPER SHIFT, S, movetoworkspace, special:magic"
 
         # Screenshots
-        ", PRINT, exec, hyprshot -m region"
-        "SHIFT, PRINT, exec, hyprshot -m window"
-        "CTRL, PRINT, exec, hyprshot -m output"
+        "SUPER, PRINT, exec, hyprshot -m region"
+        "SUPER SHIFT, PRINT, exec, hyprshot -m window"
+        "SUPER CTRL, PRINT, exec, hyprshot -m output"
 
         # Color picker
-        "SUPER, PRINT, exec, hyprpicker -a"
+        ", PRINT, exec, hyprpicker -a"
 
         "SUPER, comma, workspace, -1"
         "SUPER, period, workspace, +1"

@@ -28,6 +28,7 @@ in {
       git
       gh
       lazydocker
+      podman-tui
     ];
 
     programs = {

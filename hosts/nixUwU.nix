@@ -3,6 +3,14 @@
   lib',
   ...
 }: {
+  imports = [
+    ../arr
+  ];
+
+  arrstack = {
+    enable = true;
+  };
+
   boot = {
     blacklistedKernelModules = [
       "intel_pmc_bxt"
@@ -30,13 +38,6 @@
       btrfs = true;
       f2fs = true;
       vfat = true;
-    };
-  };
-
-  containers = {
-    jellyfin = {
-      autoStart = true;
-      config = ../containers/jellyfin.nix;
     };
   };
 
@@ -116,13 +117,13 @@
             }
           }
 
-          handle /admin/* {
-            reverse_proxy localhost:8080 {
-              transport http {
-                tls_insecure_skip_verify
-              }
-            }
-          }
+          # handle /admin/* {
+          #   reverse_proxy localhost:8080 {
+          #     transport http {
+          #       tls_insecure_skip_verify
+          #     }
+          #   }
+          # }
 
           handle /* {
             reverse_proxy localhost:11000
@@ -130,7 +131,13 @@
         '';
 
         "https://nixuwu.tail83fd33.ts.net:3000".extraConfig = ''
-          reverse_proxy localhost:8096
+          handle /request/* {
+            reverse_proxy localhost:5055
+          }
+
+          handle /* {
+            reverse_proxy localhost:8096
+          }
         '';
       };
     };

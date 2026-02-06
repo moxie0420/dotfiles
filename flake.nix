@@ -95,6 +95,8 @@
     nixpkgs.url = "nixpkgs/nixos-unstable";
 
     # other inputs in alphabetical order
+    agenix.url = "github:ryantm/agenix";
+
     home-manager = {
       url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -115,11 +117,6 @@
 
     quickshell = {
       url = "git+https://git.outfoxxed.me/quickshell/quickshell";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-
-    sops-nix = {
-      url = "github:Mic92/sops-nix";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 

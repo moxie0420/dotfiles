@@ -11,7 +11,7 @@
     self.nixosModules.default
     home-manager.nixosModules.home-manager
     nix-index-database.nixosModules.nix-index
-    sops-nix.nixosModules.sops
+    agenix.nixosModules.default
     stylix.nixosModules.stylix
   ];
 
