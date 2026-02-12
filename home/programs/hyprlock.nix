@@ -1,18 +1,6 @@
-{
-  inputs,
-  lib,
-  pkgs,
-  ...
-}: {
+{lib, ...}: {
   programs.hyprlock = {
     enable = true;
-    package = inputs.hyprlock.packages.${pkgs.stdenv.hostPlatform.system}.default.overrideAttrs (old: {
-      buildInputs =
-        old.buildInputs
-        ++ [
-          pkgs.ffmpeg
-        ];
-    });
     settings = {
       general = {
         disable_loading_bar = true;
@@ -25,7 +13,7 @@
       background = lib.mkForce [
         {
           monitor = "";
-          path = "/home/moxie/wallpapers/hydrangeas-rain-hd.mp4";
+          path = "/home/moxie/wallpapers/station.gif";
         }
       ];
       input-field = {

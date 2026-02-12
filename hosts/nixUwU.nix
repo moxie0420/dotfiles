@@ -1,6 +1,7 @@
 {
   lib,
   lib',
+  # pkgs,
   ...
 }: {
   imports = [
@@ -77,6 +78,7 @@
   hardware = {
     cpu.intel.updateMicrocode = true;
     keyboard.qmk.enable = true;
+    nvidia-container-toolkit.enable = true;
   };
 
   moxie.graphics.nvidia.enable = true;
@@ -91,7 +93,7 @@
   programs.gamemode.settings = {
     general = {
       softrealtime = "auto";
-      renice = 10;
+      renice = -5;
     };
 
     gpu = {
@@ -104,42 +106,121 @@
     };
   };
 
+  networking.firewall.allowedTCPPorts = [80 443];
   services = {
     caddy = {
       enable = true;
       virtualHosts = {
-        "https://nixuwu.tail83fd33.ts.net".extraConfig = ''
+        "nixuwu.local".extraConfig = ''
           encode zstd gzip
+          tls /opt/certs/_wildcard.nixuwu.local+1.pem /opt/certs/_wildcard.nixuwu.local+1-key.pem
 
-          handle /vault/* {
-            reverse_proxy localhost:8812 {
-              header_up X-Real-IP {remote_host}
-            }
-          }
+          reverse_proxy http://localhost:7575
+        '';
 
-          # handle /admin/* {
-          #   reverse_proxy localhost:8080 {
-          #     transport http {
-          #       tls_insecure_skip_verify
-          #     }
-          #   }
-          # }
+        "bazarr.nixuwu.local".extraConfig = ''
+          encode zstd gzip
+          tls /opt/certs/_wildcard.nixuwu.local+1.pem /opt/certs/_wildcard.nixuwu.local+1-key.pem
+          reverse_proxy http://localhost:6767
+        '';
 
-          handle /* {
-            reverse_proxy localhost:11000
+        "lidarr.nixuwu.local".extraConfig = ''
+          encode zstd gzip
+          tls /opt/certs/_wildcard.nixuwu.local+1.pem /opt/certs/_wildcard.nixuwu.local+1-key.pem
+          reverse_proxy http://localhost:8686
+        '';
+
+        "prowlarr.nixuwu.local".extraConfig = ''
+          encode zstd gzip
+          tls /opt/certs/_wildcard.nixuwu.local+1.pem /opt/certs/_wildcard.nixuwu.local+1-key.pem
+          reverse_proxy http://localhost:9696
+        '';
+
+        "radarr.nixuwu.local".extraConfig = ''
+          encode zstd gzip
+          tls /opt/certs/_wildcard.nixuwu.local+1.pem /opt/certs/_wildcard.nixuwu.local+1-key.pem
+          reverse_proxy http://localhost:7878
+        '';
+
+        "sonarr.nixuwu.local".extraConfig = ''
+          encode zstd gzip
+          tls /opt/certs/_wildcard.nixuwu.local+1.pem /opt/certs/_wildcard.nixuwu.local+1-key.pem
+          reverse_proxy http://localhost:8989
+        '';
+
+        "readarr.nixuwu.local".extraConfig = ''
+          encode zstd gzip
+          tls /opt/certs/_wildcard.nixuwu.local+1.pem /opt/certs/_wildcard.nixuwu.local+1-key.pem
+          reverse_proxy http://localhost:8787
+        '';
+
+        "torrent.nixuwu.local".extraConfig = ''
+          encode zstd gzip
+          tls /opt/certs/_wildcard.nixuwu.local+1.pem /opt/certs/_wildcard.nixuwu.local+1-key.pem
+          reverse_proxy http://localhost:8080
+        '';
+
+        "vault.nixuwu.local".extraConfig = ''
+          encode zstd gzip
+          tls /opt/certs/_wildcard.nixuwu.local+1.pem /opt/certs/_wildcard.nixuwu.local+1-key.pem
+
+          reverse_proxy http://localhost:8812 {
+            header_up X-Real-IP {remote_host}
           }
         '';
 
-        "https://nixuwu.tail83fd33.ts.net:3000".extraConfig = ''
-          handle /request/* {
-            reverse_proxy localhost:5055
-          }
+        "jellyseer.nixuwu.local".extraConfig = ''
+          encode zstd gzip
+          tls /opt/certs/_wildcard.nixuwu.local+1.pem /opt/certs/_wildcard.nixuwu.local+1-key.pem
+          reverse_proxy http://localhost:5055
+        '';
 
-          handle /* {
-            reverse_proxy localhost:8096
-          }
+        "jellyfin.nixuwu.local".extraConfig = ''
+          encode zstd gzip
+          tls /opt/certs/_wildcard.nixuwu.local+1.pem /opt/certs/_wildcard.nixuwu.local+1-key.pem
+          reverse_proxy http://localhost:8096
         '';
       };
+    };
+
+    coredns = {
+      enable = true;
+      config = let
+        inherit (builtins) map;
+        inherit (lib.strings) concatStringsSep;
+
+        domain = "nixuwu.local";
+        subdomains = [
+          "torrent"
+          "vault"
+          "jellyfin"
+        ];
+
+        hostsString = concatStringsSep " " (map (s: s + ".${domain}") subdomains);
+      in ''
+        . {
+          view local {
+            expr (incidr(client_ip(), "'127.0.0.0/24'")) || (incidr(client_ip(), "'10.0.0.0/24'"))
+          }
+
+          hosts {
+            192.168.50.109 ${hostsString}
+            fallthrough
+          }
+          forward . 1.1.1.1
+        }
+
+        . {
+          view tailscale {
+            expr incidr(client_ip(), "'100.0.0.0/8'")
+          }
+          hosts {
+            100.74.48.73 ${hostsString}
+            fallthrough
+          }
+          forward . 1.1.1.1
+        }
+      '';
     };
 
     cloudflared = {
@@ -268,67 +349,15 @@
   };
   system.stateVersion = "26.05";
 
-  virtualisation = {
-    podman.defaultNetwork.settings.dns_enabled = true;
-
-    oci-containers.containers = {
-      "matrix" = {
-        image = "matrixdotorg/synapse:latest";
-        ports = ["8008:8008"];
-        volumes = ["synapse-data:/data"];
-        dependsOn = ["postgres"];
-        networks = ["internal"];
+  virtualisation.oci-containers.containers = {
+    "vaultwarden" = {
+      image = "vaultwarden/server:latest";
+      environment = {
+        DOMAIN = "https://vault.nixuwu.local";
+        SIGNUPS_ALLOWED = "true";
       };
-
-      # "nextcloud-aio-mastercontainer" = {
-      #   image = "ghcr.io/nextcloud-releases/all-in-one:latest";
-
-      #   environment = {
-      #     APACHE_PORT = "11000";
-      #     APACHE_IP_BINDING = "0.0.0.0";
-      #     SKIP_DOMAIN_VALIDATION = "true";
-      #   };
-
-      #   extraOptions = ["--sig-proxy=false"];
-
-      #   ports = ["8080:8080"];
-
-      #   volumes = [
-      #     "nextcloud_aio_mastercontainer:/mnt/docker-aio-config"
-      #     "/var/run/docker.sock:/var/run/docker.sock:ro"
-      #   ];
-      # };
-
-      "postgres" = {
-        image = "postgres:18-alpine";
-
-        environment = {
-          POSTGRES_USER = "synapse";
-          POSTGRES_DATABASE = "synapse";
-          POSTGRES_INITDB_ARGS = "--encoding=UTF-8 --locale=C";
-        };
-        networks = ["internal"];
-
-        ports = ["5432:5432"];
-
-        volumes = [
-          "postgresData:/var/lib/postgresql/data"
-          "/var/dendrite:/var/lib/postgresql"
-        ];
-      };
-
-      "vaultwarden" = {
-        image = "vaultwarden/server:latest";
-
-        environment = {
-          DOMAIN = "https://nixuwu.tail83fd33.ts.net/vault/";
-          SIGNUPS_ALLOWED = "true";
-        };
-
-        ports = ["8812:80"];
-
-        volumes = ["vaultwarden:/data"];
-      };
+      ports = ["8812:80"];
+      volumes = ["/opt/vaultwarden/_data:/data"];
     };
   };
 }

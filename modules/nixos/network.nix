@@ -21,7 +21,6 @@ in {
     (mkIf cfg.enable {
       networking = {
         nameservers = [
-          "100.100.100.100"
           "1.1.1.1"
           "1.0.0.1"
         ];
@@ -32,20 +31,11 @@ in {
         wireless.iwd.enable = true;
       };
 
-      services = {
-        tailscale = {
-          enable = true;
-          extraSetFlags = [
-            "--ssh"
-          ];
-        };
-        resolved = {
-          enable = true;
-          dnssec = "true";
-          domains = ["~."];
-          fallbackDns = ["1.1.1.1" "1.0.0.1"];
-          dnsovertls = "true";
-        };
+      services.tailscale = {
+        enable = true;
+        extraSetFlags = [
+          "--ssh"
+        ];
       };
     })
 

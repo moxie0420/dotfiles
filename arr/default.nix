@@ -60,17 +60,6 @@ in {
         qbittorrent = {
           enable = true;
           openFirewall = true;
-
-          serverConfig = {
-            LegalNotice.Accepted = true;
-            Preferences = {
-              WebUI = {
-                Username = "moxie";
-                Password_PBKDF2 = "91DPxCQcUJzYnYoqMQyx+g==:BbgChkK93kSOlBg4B2pMWaRa7Z4iOrj3ZfnmK6z6sj6zF0HXpnekDbEz9TsJGoRWWIHzFvN3SzLm/HTLc+/43w==";
-              };
-              General.Locale = "en";
-            };
-          };
         };
 
         jellyfin = {
@@ -81,6 +70,20 @@ in {
         jellyseerr = {
           enable = true;
           openFirewall = true;
+        };
+      };
+
+      virtualisation.oci-containers.containers = {
+        "homarr" = {
+          image = "ghcr.io/homarr-labs/homarr:latest";
+          ports = ["7575:7575"];
+          volumes = [
+            "/var/run/docker.sock:/var/run/docker.sock"
+            "homarr-data:/appdata"
+          ];
+          environmentFiles = [
+            config.age.secrets.homarr.path
+          ];
         };
       };
     })

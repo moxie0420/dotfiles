@@ -7,4 +7,9 @@ in {
     publicKeys = systems;
     armor = true;
   };
+
+  "homarr.age" = {
+    publicKeys = systems;
+    armor = true;
+  };
 }

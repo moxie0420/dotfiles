@@ -9,3 +9,5 @@ result
 core
 
 .env.local
+
+secrets/_wildcard.nixuwu.local+1-key.pem

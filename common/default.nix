@@ -19,6 +19,7 @@
     identityPaths = ["/home/moxie/.ssh/bitbucket_personal"];
     secrets = {
       qbittorrent.file = "${self}/secrets/qbittorrent.age";
+      homarr.file = "${self}/secrets/homarr.age";
     };
   };
 
@@ -102,6 +103,10 @@
       "--operator=moxie"
     ];
   };
+
+  security.pki.certificateFiles = [
+    ../secrets/rootCA.pem
+  ];
 
   stylix = {
     enable = true;

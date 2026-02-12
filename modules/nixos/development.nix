@@ -27,8 +27,6 @@ in {
       devenv
       git
       gh
-      lazydocker
-      podman-tui
     ];
 
     programs = {
