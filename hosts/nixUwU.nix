@@ -191,8 +191,15 @@
 
         domain = "nixuwu.local";
         subdomains = [
+          "prowlarr"
+          "bazarr"
+          "lidarr"
+          "radarr"
+          "sonarr"
+          "readarr"
           "torrent"
           "vault"
+          "jellyseer"
           "jellyfin"
         ];
 
@@ -204,7 +211,7 @@
           }
 
           hosts {
-            192.168.50.109 ${hostsString}
+            192.168.50.109 ${domain} ${hostsString}
             fallthrough
           }
           forward . 1.1.1.1
@@ -215,7 +222,7 @@
             expr incidr(client_ip(), "'100.0.0.0/8'")
           }
           hosts {
-            100.74.48.73 ${hostsString}
+            100.74.48.73 ${domain} ${hostsString}
             fallthrough
           }
           forward . 1.1.1.1
