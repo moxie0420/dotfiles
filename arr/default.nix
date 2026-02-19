@@ -62,12 +62,18 @@ in {
           openFirewall = true;
         };
 
+        # media server & requesters
         jellyfin = {
           enable = true;
           openFirewall = true;
         };
 
         jellyseerr = {
+          enable = true;
+          openFirewall = true;
+        };
+
+        ombi = {
           enable = true;
           openFirewall = true;
         };

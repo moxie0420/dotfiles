@@ -1,15 +1,9 @@
 let
-  nixUwU = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIJVu/938C9fg3any878lzP7IfazRFM5xiVVXEYabdV/c";
+  nixUwU = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAILTeVZscLiUUaoHUt1gREI57weXBWeTK7ZZpc73h+nQn";
 
   systems = [nixUwU];
 in {
-  "qbittorrent.age" = {
-    publicKeys = systems;
-    armor = true;
-  };
-
-  "homarr.age" = {
-    publicKeys = systems;
-    armor = true;
-  };
+  "authentik.age".publicKeys = systems;
+  "qbittorrent.age".publicKeys = systems;
+  "homarr.age".publicKeys = systems;
 }

@@ -1,10 +1,12 @@
 {
+  config,
+  inputs,
   lib,
   lib',
-  # pkgs,
   ...
 }: {
   imports = [
+    inputs.authentik-nix.nixosModules.default
     ../arr
   ];
 
@@ -108,6 +110,15 @@
 
   networking.firewall.allowedTCPPorts = [80 443];
   services = {
+    authentik = {
+      enable = true;
+      environmentFile = config.age.secrets.authentik.path;
+      settings = {
+        disable_startup_analytics = true;
+        avatars = "initials";
+      };
+    };
+
     caddy = {
       enable = true;
       virtualHosts = {
@@ -118,51 +129,48 @@
           reverse_proxy http://localhost:7575
         '';
 
+        "auth.nixuwu.local".extraConfig = ''
+          encode zstd gzip
+          reverse_proxy http://localhost:9000
+        '';
+
         "bazarr.nixuwu.local".extraConfig = ''
           encode zstd gzip
-          tls /opt/certs/_wildcard.nixuwu.local+1.pem /opt/certs/_wildcard.nixuwu.local+1-key.pem
           reverse_proxy http://localhost:6767
         '';
 
         "lidarr.nixuwu.local".extraConfig = ''
           encode zstd gzip
-          tls /opt/certs/_wildcard.nixuwu.local+1.pem /opt/certs/_wildcard.nixuwu.local+1-key.pem
           reverse_proxy http://localhost:8686
         '';
 
         "prowlarr.nixuwu.local".extraConfig = ''
           encode zstd gzip
-          tls /opt/certs/_wildcard.nixuwu.local+1.pem /opt/certs/_wildcard.nixuwu.local+1-key.pem
           reverse_proxy http://localhost:9696
         '';
 
         "radarr.nixuwu.local".extraConfig = ''
           encode zstd gzip
-          tls /opt/certs/_wildcard.nixuwu.local+1.pem /opt/certs/_wildcard.nixuwu.local+1-key.pem
           reverse_proxy http://localhost:7878
         '';
 
         "sonarr.nixuwu.local".extraConfig = ''
           encode zstd gzip
-          tls /opt/certs/_wildcard.nixuwu.local+1.pem /opt/certs/_wildcard.nixuwu.local+1-key.pem
           reverse_proxy http://localhost:8989
         '';
 
         "readarr.nixuwu.local".extraConfig = ''
           encode zstd gzip
-          tls /opt/certs/_wildcard.nixuwu.local+1.pem /opt/certs/_wildcard.nixuwu.local+1-key.pem
           reverse_proxy http://localhost:8787
         '';
 
         "torrent.nixuwu.local".extraConfig = ''
           encode zstd gzip
-          tls /opt/certs/_wildcard.nixuwu.local+1.pem /opt/certs/_wildcard.nixuwu.local+1-key.pem
           reverse_proxy http://localhost:8080
         '';
 
         "vault.nixuwu.local".extraConfig = ''
           encode zstd gzip
-          tls /opt/certs/_wildcard.nixuwu.local+1.pem /opt/certs/_wildcard.nixuwu.local+1-key.pem
 
           reverse_proxy http://localhost:8812 {
             header_up X-Real-IP {remote_host}
@@ -171,14 +179,17 @@
 
         "jellyseer.nixuwu.local".extraConfig = ''
           encode zstd gzip
-          tls /opt/certs/_wildcard.nixuwu.local+1.pem /opt/certs/_wildcard.nixuwu.local+1-key.pem
           reverse_proxy http://localhost:5055
         '';
 
         "jellyfin.nixuwu.local".extraConfig = ''
           encode zstd gzip
-          tls /opt/certs/_wildcard.nixuwu.local+1.pem /opt/certs/_wildcard.nixuwu.local+1-key.pem
           reverse_proxy http://localhost:8096
+        '';
+
+        "request.nixuwu.local".extraConfig = ''
+          encode zstd gzip
+          reverse_proxy http://localhost:5000
         '';
       };
     };
@@ -191,6 +202,7 @@
 
         domain = "nixuwu.local";
         subdomains = [
+          "auth"
           "prowlarr"
           "bazarr"
           "lidarr"
@@ -201,6 +213,7 @@
           "vault"
           "jellyseer"
           "jellyfin"
+          "request"
         ];
 
         hostsString = concatStringsSep " " (map (s: s + ".${domain}") subdomains);

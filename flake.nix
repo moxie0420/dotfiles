@@ -96,6 +96,8 @@
 
     # other inputs in alphabetical order
     agenix.url = "github:ryantm/agenix";
+    authentik-nix.url = "github:nix-community/authentik-nix";
+    awww.url = "git+https://codeberg.org/LGFae/awww";
 
     home-manager = {
       url = "github:nix-community/home-manager";

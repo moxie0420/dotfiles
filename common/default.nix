@@ -15,19 +15,17 @@
     ./users.nix
   ];
 
-  age = {
-    identityPaths = ["/home/moxie/.ssh/bitbucket_personal"];
-    secrets = {
-      qbittorrent.file = "${self}/secrets/qbittorrent.age";
-      homarr.file = "${self}/secrets/homarr.age";
-    };
+  age.secrets = {
+    qbittorrent.file = "${self}/secrets/qbittorrent.age";
+    homarr.file = "${self}/secrets/homarr.age";
+    authentik.file = "${self}/secrets/authentik.age";
   };
 
   environment.systemPackages = with pkgs; [
     inputs.agenix.packages.x86_64-linux.default
     clipse
-    gzdoom
     pwvucontrol
+    element-desktop
   ];
 
   documentation.dev.enable = true;
@@ -98,7 +96,16 @@
   programs.nh.flake = "/home/moxie/dotfiles";
 
   services = {
-    flatpak.enable = true;
+    openssh = {
+      enable = true;
+      ports = [42069];
+      settings = {
+        PasswordAuthentication = false;
+        KbdInteractiveAuthentication = false;
+        PermitRootLogin = "no";
+        AllowUsers = ["moxie"];
+      };
+    };
     tailscale.extraSetFlags = [
       "--operator=moxie"
     ];

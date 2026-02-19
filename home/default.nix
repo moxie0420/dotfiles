@@ -1,5 +1,6 @@
 {
   config,
+  inputs,
   pkgs,
   ...
 }: {
@@ -16,7 +17,10 @@
     shell.enableShellIntegration = true;
     stateVersion = "23.11";
 
-    packages = with pkgs; [
+    packages = with pkgs; let
+      inherit (inputs.awww.packages.${pkgs.stdenv.hostPlatform.system}) awww;
+    in [
+      awww
       kdePackages.filelight
       lxqt.lxqt-policykit
     ];
@@ -66,7 +70,6 @@
       tray = "never";
     };
 
-    swww.enable = true;
     tldr-update.enable = true;
   };
 

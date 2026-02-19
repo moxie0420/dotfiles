@@ -32,7 +32,7 @@ in {
         render.direct_scanout = 2;
 
         exec-once = [
-          "hyprsunset"
+          "awww-daemon"
           "wl-clip-persist --clipboard regular & clipse -listen"
           "lxqt-policykit-agent"
         ];
