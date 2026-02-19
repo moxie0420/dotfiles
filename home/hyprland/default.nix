@@ -34,7 +34,6 @@ in {
         exec-once = [
           "awww-daemon"
           "wl-clip-persist --clipboard regular & clipse -listen"
-          "lxqt-policykit-agent"
         ];
 
         workspace =

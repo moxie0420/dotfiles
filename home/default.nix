@@ -22,7 +22,6 @@
     in [
       awww
       kdePackages.filelight
-      lxqt.lxqt-policykit
     ];
   };
 
