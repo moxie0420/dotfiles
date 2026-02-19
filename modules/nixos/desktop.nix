@@ -96,6 +96,8 @@ in {
         gvfs.enable = true;
       };
 
+      security.pam.services.login.enableGnomeKeyring = true;
+
       xdg.portal = {
         enable = true;
         xdgOpenUsePortal = true;
