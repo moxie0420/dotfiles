@@ -19,6 +19,7 @@
     qbittorrent.file = "${self}/secrets/qbittorrent.age";
     homarr.file = "${self}/secrets/homarr.age";
     authentik.file = "${self}/secrets/authentik.age";
+    authentik-ldap.file = "${self}/secrets/authentik-ldap.age";
   };
 
   environment.systemPackages = with pkgs; [

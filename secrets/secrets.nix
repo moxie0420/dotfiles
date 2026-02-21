@@ -4,6 +4,7 @@ let
   systems = [nixUwU];
 in {
   "authentik.age".publicKeys = systems;
+  "authentik-ldap.age".publicKeys = systems;
   "qbittorrent.age".publicKeys = systems;
   "homarr.age".publicKeys = systems;
 }

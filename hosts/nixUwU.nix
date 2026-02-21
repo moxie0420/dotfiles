@@ -118,9 +118,22 @@
         avatars = "initials";
       };
     };
+    authentik-ldap = {
+      enable = true;
+      environmentFile = config.age.secrets.authentik-ldap.path;
+    };
 
     caddy = {
       enable = true;
+      extraConfig = ''
+        (authentik) {
+          forward_auth localhost:9000 {
+              uri /auth/caddy
+              copy_headers X-Authentik-Username X-Authentik-Groups X-Authentik-Entitlements X-Authentik-Email X-Authentik-Name X-Authentik-Uid X-Authentik-Jwt X-Authentik-Meta-Jwks X-Authentik-Meta-Outpost X-Authentik-Meta-Provider X-Authentik-Meta-App X-Authentik-Meta-Version
+              trusted_proxies private_ranges
+          }
+        }
+      '';
       virtualHosts = {
         "nixuwu.local".extraConfig = ''
           encode zstd gzip
@@ -251,7 +264,7 @@
           credentialsFile = "/home/moxie/.cloudflared/cbb9a353-f866-4edd-8a21-a07b318bcc43.json";
           default = "http_status:404";
           ingress = {
-            "matrix.moxiege.com" = "http://localhost:8008";
+            "sso.moxiege.com" = "http://localhost:9000";
           };
         };
       };
