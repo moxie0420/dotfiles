@@ -1,0 +1,14 @@
+{
+  programs.fzf = {
+    homeManager.programs.fzf.enable = true;
+
+    nixos = {pkgs, ...}: {
+      environment.systemPackages = builtins.attrValues {
+        inherit (pkgs) fzf;
+      };
+
+      programs.fzf.fuzzyCompletion = true;
+      programs.fzf.keybindings = true;
+    };
+  };
+}

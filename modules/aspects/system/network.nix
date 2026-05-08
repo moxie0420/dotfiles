@@ -1,0 +1,68 @@
+{
+  system.network = {
+    nixos = {
+      config,
+      lib,
+      options,
+      ...
+    }: let
+      inherit (options.networking) timeServers;
+    in {
+      boot = {
+        kernelModules = ["tcp_bbr"];
+        kernel.sysctl = {
+          ## TCP optimization
+          # TCP Fast Open is a TCP extension that reduces network latency by packing
+          # data in the sender’s initial TCP SYN. Setting 3 = enable TCP Fast Open for
+          # both incoming and outgoing connections:
+          "net.ipv4.tcp_fastopen" = 3;
+          # Bufferbloat mitigations + slight improvement in throughput & latency
+          "net.ipv4.tcp_congestion_control" = "bbr";
+          "net.core.default_qdisc" = "cake";
+        };
+      };
+
+      networking = {
+        firewall = {
+          enable = true;
+
+          # Allow PMTU/DHCP
+          allowPing = true;
+
+          # Allow the Tailscale UDP port through the firewall
+          allowedUDPPorts = [config.services.tailscale.port];
+
+          logRefusedConnections = lib.mkDefault false;
+
+          # Always allow traffic from my Tailscale network
+          trustedInterfaces = ["tailscale0"];
+        };
+
+        # use cloudflare's 1.1.1.1 dns
+        nameservers = ["1.1.1.1" "1.0.0.1"];
+
+        # use nftables as my firewall
+        nftables.enable = true;
+
+        # add cloudflare's time server to the ntp pool
+        timeServers =
+          timeServers.default
+          ++ [
+            "time.cloudflare.com"
+          ];
+
+        # ensure iwd is enabled for wifi
+        # used as the backend for networkmanager
+        wireless.iwd.enable = true;
+      };
+
+      services.tailscale.enable = true;
+
+      systemd = {
+        network.wait-online.enable = true;
+        services.NetworkManager-wait-online.enable = false;
+        services.tailscaled.serviceConfig.Environment = ["TS_DEBUG_FIREWALL_MODE=nftables"];
+      };
+    };
+  };
+}
