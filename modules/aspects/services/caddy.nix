@@ -1,4 +1,4 @@
-{
+{self, ...}: {
   services.caddy.nixos = {
     config,
     lib,
@@ -10,6 +10,15 @@
     mkTsService = name: port: {
       withAuth ? false,
       forwardAuthCfg ? ''
+        reverse_proxy /outpost.goauthentik.io/* https://sso.moxiege.com {
+          header_up Host {http.reverse_proxy.upstream.host}
+        }
+
+        forward_auth https://sso.moxiege.com {
+          uri /outpost.goauthentik.io/auth/caddy
+           copy_headers X-Authentik-Username X-Authentik-Groups X-Authentik-Entitlements X-Authentik-Email X-Authentik-Name X-Authentik-Uid X-Authentik-Jwt X-Authentik-Meta-Jwks X-Authentik-Meta-Outpost X-Authentik-Meta-Provider X-Authentik-Meta-App X-Authentik-Meta-Version
+           trusted_proxies private_ranges
+        }
       '',
       preProxyConfig ? "",
       proxyConfig ? null,
@@ -26,6 +35,11 @@
     in {
       "https://${name}.${tsName}.ts.net".extraConfig = ''
         bind tailscale/${name}
+
+        tls {
+          get_certificate tailscale
+        }
+
         route {
           encode br gzip zstd
           ${forwardAuthVal}
@@ -35,15 +49,25 @@
       '';
     };
   in {
+    age.secrets.tailscale-auth-env.file = "${self}/secrets/tailscale-auth-env.age";
+
+    boot.kernel.sysctl = {
+      "net.core.rmem_max" = 7500000;
+      "net.core.wmem_max" = 7500000;
+    };
+
+    networking.firewall.allowedTCPPorts = [443];
+
     services.caddy = {
       enable = true;
       environmentFile = config.age.secrets.tailscale-auth-env.path;
       package = pkgs.caddy.withPlugins {
         plugins = [
           "github.com/ueffel/caddy-brotli@v1.6.0"
+          "github.com/caddy-dns/cloudflare@v0.2.4"
           "github.com/tailscale/caddy-tailscale@v0.0.0-20260106222316-bb080c4414ac"
         ];
-        hash = "sha256-fsvVuJIt3AOogGtp7FBZS9JoycGI/fNleDxTujyBIOU=";
+        hash = "sha256-+bKVVStk6DgtFH163KIKUV5qrn358AJrZhcQACgW/PM=";
       };
 
       virtualHosts = lib.mkMerge [
@@ -53,31 +77,30 @@
         (mkTsService "jellyseer" 5055 {})
 
         # the *arr stack
-        (mkTsService "bazarr" 6767 {})
-        (mkTsService "lidarr" 8686 {})
-        (mkTsService "prowlarr" 9696 {})
-        (mkTsService "radarr" 7878 {})
-        (mkTsService "readarr" 8787 {})
-        (mkTsService "sonarr" 8989 {})
-        (mkTsService "torrent" 8080 {})
+        (mkTsService "bazarr" 6767 {
+          })
+        (mkTsService "lidarr" 8686 {
+          })
+        (mkTsService "prowlarr" 9696 {
+          })
+        (mkTsService "radarr" 7878 {
+          })
+        (mkTsService "readarr" 8787 {
+          })
+        (mkTsService "sonarr" 8989 {
+          })
+        (mkTsService "torrent" 8080 {
+          })
 
         # authentik
-        (mkTsService "auth" 9000 {
-          preProxyConfig = ''
-            reverse_proxy /outpost.goauthentik.io/* http://100.74.48.73:9000 {
-              header_up Host {http.reverse_proxy.upstream.hostport}
-            }
-          '';
-        })
-
         {
           "https://sso.moxiege.com".extraConfig = ''
-            # tls {
-            #   dns cloudflare {env.CF_API_TOKEN}
-            # }
+            tls {
+              dns cloudflare {env.CF_API_TOKEN}
+            }
             route {
               encode br gzip zstd
-              reverse_proxy /outpost.goauthentik.io/* http://100.74.48.73:9000 {
+              reverse_proxy /outpost.goauthentik.io/* :9000 {
                 header_up Host {http.reverse_proxy.upstream.hostport}
               }
               reverse_proxy :9000
@@ -93,6 +116,7 @@
         })
       ];
     };
+
     services.tailscale.permitCertUid = "caddy";
   };
 }

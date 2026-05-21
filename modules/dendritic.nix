@@ -5,28 +5,22 @@
   ];
 
   # other inputs may be defined at a module using them.
-  flake-file.inputs = {
+  flake-file.inputs = let
+    followsNixpkgs = url: {
+      inherit url;
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+  in {
+    # flake wiring
     den.url = "github:vic/den";
-
     flake-file.url = "github:vic/flake-file";
 
-    home-manager = {
-      url = "github:nix-community/home-manager";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
+    # $HOME managers
+    home-manager = followsNixpkgs "github:nix-community/home-manager";
+    hjem = followsNixpkgs "github:feel-co/hjem";
+    nix-maid.url = "github:viperML/nix-maid";
 
-    nix-cachyos-kernel.url = "github:xddxdd/nix-cachyos-kernel/release";
-
-    nix-index-database = {
-      url = "github:nix-community/nix-index-database";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-
-    quickshell = {
-      url = "git+https://git.outfoxxed.me/quickshell/quickshell";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-
-    stasis.url = "github:saltnpepper97/stasis";
+    # Extra hosts
+    nixos-wsl.url = "github:nix-community/NixOS-WSL/main";
   };
 }

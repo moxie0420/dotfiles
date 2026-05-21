@@ -5,7 +5,7 @@
   ...
 }: {
   den.aspects.nixOwO = {
-    includes = builtins.attrValues {
+    includes = builtins.attrValues rec {
       inherit
         (desktop)
         keyring
@@ -14,7 +14,7 @@
         ;
 
       inherit (den.aspects) gaming;
-      inherit (den.aspects.gaming.provides) extraLaunchers;
+      inherit (gaming) extraLaunchers;
 
       inherit
         (programs)

@@ -67,7 +67,12 @@
             nil.config = {
               nix.flake.autoEvalInputs = true;
             };
-            nixd.command = "nixd";
+            nixd = {
+              command = "nixd";
+              config.options = {
+                expr = "(builtins.getFlake (builtins.toString ./.)).nixosConfigurations.<name>.options.home-manager.users.type.getSubOptions []";
+              };
+            };
 
             # Web Dev
             deno = {
@@ -130,7 +135,7 @@
               name = "nix";
               formatter.command = "${pkgs.alejandra}/bin/alejandra";
               auto-format = true;
-              language-servers = ["nixd" "nil"];
+              language-servers = ["nil" "nixd"];
             }
 
             # Webdev

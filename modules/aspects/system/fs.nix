@@ -1,0 +1,6 @@
+{
+  system.filesystems = {
+    btrfs = {
+    };
+  };
+}

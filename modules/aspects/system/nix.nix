@@ -59,24 +59,23 @@ in {
     nixos = {
       config,
       pkgs,
+      lib,
       ...
     }: {
       imports = [inputs.nix-index-database.nixosModules.default];
 
-      # Don't install the /lib/ld-linux.so.2 stub. This saves one instance of nixpkgs.
-      environment = {
-        ldso32 = null;
-        systemPackages = builtins.attrValues {
-          inherit
-            (pkgs)
-            gitFull
-            nixd
-            nixfmt
-            ;
-        };
+      environment.systemPackages = builtins.attrValues {
+        inherit
+          (pkgs)
+          gitFull
+          nixd
+          nixfmt
+          ;
       };
 
-      nix =
+      nix = let
+        flake-inputs = lib.filterAttrs (_: lib.isType "flake") inputs;
+      in
         {
           # Use lix instead of reference nix
           package = pkgs.lixPackageSets.latest.lix;
@@ -88,6 +87,9 @@ in {
           optimise.automatic = lib.mkDefault (!config.boot.isContainer);
 
           settings.trusted-users = ["@wheel"];
+
+          registry = lib.mapAttrs (_: flake: {inherit flake;}) flake-inputs;
+          nixPath = lib.mapAttrsToList (n: _: "${n}=flake:${n}") flake-inputs;
         }
         // commonOpts;
 

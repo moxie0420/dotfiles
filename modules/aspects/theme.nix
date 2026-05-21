@@ -58,7 +58,9 @@
           sizes.terminal = 10;
         };
     };
-    homeManager = {
+    homeManager = {lib, ...}: {
+      gtk.gtk4.theme = lib.mkDefault null;
+
       stylix.targets.firefox = {
         colorTheme.enable = true;
         profileNames = ["default"];

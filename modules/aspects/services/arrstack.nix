@@ -75,23 +75,11 @@
       };
 
       virtualisation.oci-containers.containers = {
-        "autopulse" = {
-          image = "ghcr.io/dan-online/autopulse:latest-sqlite";
-          ports = ["2875:2875"];
-          volumes = [
-            "/mnt/the_store/autopulse.yaml:/app/config.yaml"
-            "autopulse:/app/data"
-          ];
-          environment.AUTOPULSE__APP__DATABASE_URL = "sqlite://data/autopulse.db";
-        };
-
         "cleanuparr" = {
           image = "ghcr.io/cleanuparr/cleanuparr:latest";
           ports = ["11011:11011"];
-          volumes = ["cleanuparr:/config"];
-          environment = {
-            PORT = "11011";
-          };
+          volumes = ["/opt/cleanuparr:/config"];
+          environment.PORT = "11011";
         };
 
         "slskd" = {
@@ -109,6 +97,22 @@
             "/mnt/the_store/downloads:/app/downloads"
             "/mnt/the_store/music:/music"
             "/mnt/the_store/books:/books"
+          ];
+        };
+
+        "soularr" = {
+          image = "mrusse08/soularr:latest";
+          ports = [
+            "8265:8265"
+          ];
+
+          environment = {
+            TZ = "CST/UTC";
+            SCRIPT_INTERVAL = "300";
+          };
+          volumes = [
+            "/mnt/the_store/downloads:/downloads"
+            "/opt/soularr:/data"
           ];
         };
       };

@@ -19,7 +19,7 @@
     };
 
     provides.to-users = {user, ...}: {
-      nixos.services.openssh.settings.AllowUsers = [user];
+      nixos.services.openssh.settings.AllowUsers = [user.userName];
     };
   };
 }

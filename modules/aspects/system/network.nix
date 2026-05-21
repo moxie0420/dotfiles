@@ -1,9 +1,14 @@
 {
+  den.quirks.firewall = {
+    description = "Firewall port declarations";
+  };
+
   system.network = {
     nixos = {
       config,
       lib,
       options,
+      firewall,
       ...
     }: let
       inherit (options.networking) timeServers;
@@ -29,9 +34,13 @@
           # Allow PMTU/DHCP
           allowPing = true;
 
-          # Allow the Tailscale UDP port through the firewall
-          allowedUDPPorts = [config.services.tailscale.port];
+          allowedTCPPorts = lib.concatMap (f: f.ports.tcp or []) firewall;
+          allowedUDPPorts = lib.flatten [
+            (lib.concatMap (f: f.ports.udp or []) firewall)
+            config.services.tailscale.port
+          ];
 
+          # Allow the Tailscale UDP port through the firewall
           logRefusedConnections = lib.mkDefault false;
 
           # Always allow traffic from my Tailscale network
@@ -39,7 +48,10 @@
         };
 
         # use cloudflare's 1.1.1.1 dns
-        nameservers = ["1.1.1.1" "1.0.0.1"];
+        nameservers = [
+          "1.1.1.1#one.one.one.one"
+          "1.0.0.1#one.one.one.one"
+        ];
 
         # use nftables as my firewall
         nftables.enable = true;
@@ -57,6 +69,14 @@
       };
 
       services.tailscale.enable = true;
+
+      services.resolved = {
+        enable = true;
+        dnssec = true;
+        domains = ["~."];
+        fallbackDns = ["1.1.1.1#one.one.one.one" "1.0.0.1#one.one.one.one"];
+        dnsovertls = true;
+      };
 
       systemd = {
         network.wait-online.enable = true;

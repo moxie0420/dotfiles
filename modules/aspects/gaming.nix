@@ -1,10 +1,12 @@
 {den, ...}: {
+  flake-file.inputs.nix-proton-cachyos.url = "github:kimjongbing/nix-proton-cachyos";
+
   den.aspects.gaming = {
     includes = [
       (den.provides.unfree ["steam" "steam-original" "steam-unwrapped" "steam-run"])
     ];
 
-    provides.extraLaunchers = {
+    extraLaunchers = {
       nixos = {pkgs, ...}: {
         environment.systemPackages = builtins.attrValues {
           inherit
@@ -66,7 +68,11 @@
       };
     };
 
-    nixos = {pkgs, ...}: {
+    nixos = {
+      # inputs',
+      pkgs,
+      ...
+    }: {
       environment.systemPackages = builtins.attrValues {
         inherit (pkgs) protonup-ng;
       };
@@ -84,8 +90,8 @@
             gpu_device = 0;
             nv_powermizer_mode = 1;
 
-            nv_core_clock_mhz_offset = 200;
-            nv_mem_clock_mhz_offset = 200;
+            nv_core_clock_mhz_offset = 400;
+            nv_mem_clock_mhz_offset = 800;
           };
         };
       };
@@ -106,6 +112,7 @@
 
         extraCompatPackages = builtins.attrValues {
           inherit (pkgs) proton-ge-bin;
+          # inherit (inputs'.nix-proton-cachyos.packages) proton-cachyos;
         };
       };
     };

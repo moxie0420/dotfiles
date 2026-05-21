@@ -31,6 +31,9 @@
             CustomRPC.enable = true;
             MutualGroupDMs.enable = true;
 
+            richPresence.enable = true;
+            userMessagesPronouns.enable = true;
+
             # OnePingPerDM is an equicord only option
             OnePingPerDM = {
               enable = true;

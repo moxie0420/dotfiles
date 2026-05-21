@@ -1,31 +1,28 @@
 {
   inputs,
-  # deadnix: skip
-  __findFile,
+  desktop,
   ...
 }: {
   flake-file.inputs = {
     awww.url = "git+https://codeberg.org/LGFae/awww";
     niri.url = "github:sodiboo/niri-flake";
-    niri-autoselect-portal.url = "git+https://codeberg.org/debugloop/niri-autoselect-portal.git";
   };
 
   desktop.niri = {
     # module dpendencies
     includes = [
-      <desktop/audio>
-      <desktop/dconf>
-      <desktop/launcher>
-      <desktop/notifications>
-      <desktop/polkit>
-      <desktop/wayland>
-      <desktop/xdg>
+      desktop.audio
+      desktop.dconf
+      desktop.launcher
+      desktop.notifications
+      desktop.polkit
+      desktop.wayland
+      desktop.xdg
     ];
 
     nixos = {pkgs, ...}: {
       imports = with inputs; [
         niri.nixosModules.niri
-        niri-autoselect-portal.nixosModules.default
       ];
 
       environment.systemPackages = [
@@ -37,11 +34,8 @@
       programs.niri.enable = true;
 
       # Use Niri unstable
-      nixpkgs.overlays = [inputs.niri.overlays.niri];
-      programs.niri.package = pkgs.niri-unstable;
-
-      # select niris dynamic screenshare target by default
-      services.niri-autoselect-portal.enable = true;
+      # nixpkgs.overlays = [inputs.niri.overlays.niri];
+      # programs.niri.package = pkgs.niri-unstable;
     };
 
     homeManager = {
@@ -242,7 +236,7 @@
               mode =
                 fullHD
                 // {
-                  refresh = 74.973;
+                  refresh = 75.000;
                 };
               position = origin;
             };

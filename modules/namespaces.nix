@@ -7,6 +7,7 @@
     inherit (inputs.den) namespace;
   in [
     (namespace "desktop" true)
+    (namespace "hardware" true)
     (namespace "programs" true)
     (namespace "services" true)
     (namespace "system" true)

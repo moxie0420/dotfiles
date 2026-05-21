@@ -1,61 +1,64 @@
 {
-  den,
   inputs,
-  self,
-  # deadnix: skip
-  __findFile,
+  # aspects & namespaces
+  den,
+  desktop,
+  hardware,
+  programs,
+  services,
   ...
 }: {
+  flake-file.inputs.nix-cachyos-kernel.url = "github:xddxdd/nix-cachyos-kernel/release";
+
   # host aspect
   den.aspects.nixUwU = {
     includes = [
-      (den.provides.unfree ["nvidia-x11" "nvidia-settings"])
+      desktop.keyring
+      desktop.niri
+      desktop.waybar
 
-      <desktop/keyring>
-      <desktop/niri>
-      <desktop/waybar>
+      den.aspects.gaming
+      den.aspects.gaming.extraLaunchers
 
-      <gaming>
-      <gaming/extraLaunchers>
+      hardware.bluetooth
+      hardware.corsair
+      hardware.nvidia
 
-      <programs/btop>
-      <programs/discord>
-      <programs/firefox>
-      <programs/fzf>
-      <programs/hyfetch>
-      <programs/kitty>
-      <programs/nautilus>
-      <programs/ripgrep>
-      <programs/starship>
-      <programs/tealdeer>
-      <programs/wine>
+      programs.btop
+      programs.discord
+      programs.firefox
+      programs.fzf
+      programs.hyfetch
+      programs.kitty
+      programs.nautilus
+      programs.obs-studio
+      programs.ripgrep
+      programs.starship
+      programs.tealdeer
+      programs.wine
 
-      <services/arrstack>
-      <services/authentik>
-      <services/caddy>
-      <services/immich>
-      <services/vaultwarden>
+      services.arrstack
+      services.authentik
+      services.caddy
+      services.immich
+      services.vaultwarden
     ];
+
+    # required ports
+    firewall.ports = let
+      torrentPort = [64620];
+    in {
+      tcp = torrentPort;
+      udp = torrentPort;
+    };
 
     # host NixOS configuration
     nixos = {
-      config,
       lib,
       pkgs,
       ...
     }: {
-      age.secrets = {
-        tailscale-auth-env.file = "${self}/secrets/tailscale-auth-env.age";
-      };
-
       boot = {
-        extraModprobeConfig = ''
-          options nvidia NVreg_UsePageAttributeTable=1 \
-            NVreg_InitializeSystemMemoryAllocations=0 \
-            NVreg_DynamicPowerManagement=0x02 \
-            NVreg_PreserveVideoMemoryAllocations=1
-        '';
-
         initrd = {
           availableKernelModules = ["xhci_pci" "ahci" "nvme" "usb_storage" "usbhid" "sd_mod"];
           kernelModules = [
@@ -91,13 +94,6 @@
         variables = {
           __GL_MaxFramesAllowed = 1;
           __GL_VRR_ALLOWED = 1;
-          __GLX_VENDOR_LIBRARY_NAME = "nvidia";
-
-          GBM_BACKEND = "nvidia-drm";
-          LIBVA_DRIVER_NAME = "nvidia";
-          NVD_BACKEND = "direct";
-          VDPAU_DRIVER = "nvidia";
-
           PROTON_ENABLE_NGX_UPDATER = 1;
         };
       };
@@ -135,68 +131,38 @@
         "/mnt/the_store" = {
           device = "/dev/disk/by-uuid/bc5ec750-0252-4151-9c43-1a9a23e92803";
           fsType = "btrfs";
-          options = defaults ["users" "nofail" "exec" "x-gvfs-show" btrfs.hdd "compress=zstd"];
+          options = defaults ["users" "nofail" "exec" "x-gvfs-show" btrfs.hdd btrfs.large "compress=zstd"];
         };
       };
 
-      hardware = {
-        bluetooth = {
-          enable = true;
-          powerOnBoot = true;
-
-          settings = {
-            General = {
-              Experimental = true;
-              KernelExperimental = true;
-              FastConnectable = true;
-            };
-
-            Policy = {
-              AutoEnable = true;
-            };
-          };
-        };
-
-        facter.reportPath = ./nixUwU-facter.json;
-        nvidia-container-toolkit.enable = true;
-
-        nvidia = {
-          open = true;
-          package = config.boot.kernelPackages.nvidiaPackages.beta;
-          videoAcceleration = true;
-        };
-      };
+      hardware.facter.reportPath = ./nixUwU-facter.json;
 
       nixpkgs.overlays = [
         inputs.nix-cachyos-kernel.overlays.pinned
       ];
 
-      services.cloudflared = {
-        enable = true;
-        certificateFile = "/home/moxie/.cloudflared/cert.pem";
-        tunnels = {
-          "cbb9a353-f866-4edd-8a21-a07b318bcc43" = {
-            credentialsFile = "/home/moxie/.cloudflared/cbb9a353-f866-4edd-8a21-a07b318bcc43.json";
-            default = "http_status:404";
-            ingress = {
-              "sso.moxiege.com" = "http://localhost:9000";
-            };
+      services = {
+        beesd.filesystems = {
+          the_store = {
+            spec = "/mnt/the_store";
+            hashTableSizeMB = 4096;
+            extraOptions = ["--loadavg-target" "5.0"];
           };
         };
-      };
 
-      services = {
         blueman.enable = true;
+
         fstrim.enable = true;
         hardware.openrgb.motherboard = "intel";
 
         pipewire = {
           extraConfig.pipewire = {
-            "92-bit-perfect" = {
-              "context.properties" = {
-                "default.clock.allowed-rates" = [44100 48000 88200 96000];
-              };
-            };
+            "92-bit-perfect"."context.properties"."default.clock.allowed-rates" = [
+              44100
+              48000
+              88200
+              96000
+            ];
 
             "92-low-latency" = {
               "context.properties" = {
@@ -210,28 +176,18 @@
               };
             };
           };
-          wireplumber.extraConfig = {
-            "uac2-pro-audio" = {
-              "monitor.alsa.rules" = [
+
+          wireplumber.extraConfig."uac2-pro-audio"."monitor.alsa.rules" = [
+            {
+              matches = [
                 {
-                  matches = [
-                    {
-                      node.name = "alsa_output.usb-ZOOM_Corporation_UAC-2_000000000000000000000000200641D4-00*";
-                    }
-                  ];
-                  actions.update-props."device.profile" = "pro-audio";
+                  node.name = "alsa_output.usb-ZOOM_Corporation_UAC-2_000000000000000000000000200641D4-00*";
                 }
               ];
-            };
-          };
+              actions.update-props."device.profile" = "pro-audio";
+            }
+          ];
         };
-
-        xserver.videoDrivers = ["nvidia"];
-      };
-
-      networking.firewall = {
-        allowedTCPPorts = [64620];
-        allowedUDPPorts = [64620];
       };
 
       swapDevices = [
@@ -243,24 +199,24 @@
 
     # host provides default home environment for its users
     provides.to-users.includes = [
-      <desktop/keyring>
-      <desktop/niri>
-      <desktop/waybar>
+      desktop.keyring
+      desktop.niri
+      desktop.waybar
 
-      <gaming>
-      <gaming/extraLaunchers>
+      den.aspects.gaming
+      den.aspects.gaming.extraLaunchers
 
-      <programs/btop>
-      <programs/discord>
-      <programs/firefox>
-      <programs/fzf>
-      <programs/hyfetch>
-      <programs/kitty>
-      <programs/nautilus>
-      <programs/ripgrep>
-      <programs/starship>
-      <programs/tealdeer>
-      <programs/wine>
+      programs.btop
+      programs.discord
+      programs.firefox
+      programs.fzf
+      programs.hyfetch
+      programs.kitty
+      programs.nautilus
+      programs.ripgrep
+      programs.starship
+      programs.tealdeer
+      programs.wine
     ];
   };
 }
