@@ -84,15 +84,6 @@
             softrealtime = "auto";
             renice = -5;
           };
-
-          gpu = {
-            apply_gpu_optimisations = "accept-responsibility";
-            gpu_device = 0;
-            nv_powermizer_mode = 1;
-
-            nv_core_clock_mhz_offset = 400;
-            nv_mem_clock_mhz_offset = 800;
-          };
         };
       };
 

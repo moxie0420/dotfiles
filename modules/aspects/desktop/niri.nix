@@ -25,6 +25,8 @@
         niri.nixosModules.niri
       ];
 
+      environment.pathsToLink = ["/share/xdg-desktop-portal" "/share/applications"];
+
       environment.systemPackages = [
         inputs.awww.packages.${pkgs.stdenv.hostPlatform.system}.awww
         pkgs.xwayland-satellite
@@ -34,8 +36,8 @@
       programs.niri.enable = true;
 
       # Use Niri unstable
-      # nixpkgs.overlays = [inputs.niri.overlays.niri];
-      # programs.niri.package = pkgs.niri-unstable;
+      nixpkgs.overlays = [inputs.niri.overlays.niri];
+      programs.niri.package = pkgs.niri-unstable;
     };
 
     homeManager = {
@@ -182,6 +184,10 @@
 
         cursor = {
           hide-after-inactive-ms = 5000;
+        };
+
+        debug = {
+          emulate-zero-presentation-time = true;
         };
 
         input = {

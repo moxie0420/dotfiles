@@ -16,7 +16,7 @@
 
         # Set Wayland as the preferred display backend
         # fallback to x11 in some supported toolkits
-        GDK_BACKEND = "wayland,x11,*";
+        # GDK_BACKEND = "wayland,x11,*";
         QT_QPA_PLATFORM = "wayland;xcb";
         SDL_VIDEODRIVER = "wayland";
         CLUTTER_BACKEND = "wayland";

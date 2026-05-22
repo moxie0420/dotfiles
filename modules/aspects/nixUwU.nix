@@ -41,6 +41,7 @@
       services.authentik
       services.caddy
       services.immich
+      services.lact
       services.vaultwarden
     ];
 
