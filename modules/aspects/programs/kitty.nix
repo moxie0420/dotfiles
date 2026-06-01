@@ -4,6 +4,10 @@
       programs.kitty = {
         enable = true;
         enableGitIntegration = true;
+
+        extraConfig = ''
+          map ctrl+t new_tab_with_cwd
+        '';
       };
 
       # niri intergration
