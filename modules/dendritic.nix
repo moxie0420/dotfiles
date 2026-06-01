@@ -1,4 +1,8 @@
-{inputs, ...}: {
+{
+  inputs,
+  lib,
+  ...
+}: {
   imports = [
     inputs.flake-file.flakeModules.dendritic
     inputs.den.flakeModules.dendritic
@@ -14,6 +18,7 @@
     # flake wiring
     den.url = "github:vic/den";
     flake-file.url = "github:vic/flake-file";
+    nixpkgs.url = lib.mkForce "github:NixOS/nixpkgs/nixos-unstable";
 
     # $HOME managers
     home-manager = followsNixpkgs "github:nix-community/home-manager";
