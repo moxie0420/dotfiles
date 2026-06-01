@@ -1,7 +1,7 @@
 # DO-NOT-EDIT. This file was auto-generated using github:vic/flake-file.
 # Use `nix run .#write-flake` to regenerate it.
 {
-  outputs = inputs: inputs.flake-parts.lib.mkFlake { inherit inputs; } (inputs.import-tree ./modules);
+  outputs = inputs: inputs.flake-parts.lib.mkFlake {inherit inputs;} (inputs.import-tree ./modules);
 
   inputs = {
     agenix.url = "github:ryantm/agenix";
@@ -32,7 +32,7 @@
     nix-proton-cachyos.url = "github:kimjongbing/nix-proton-cachyos";
     nixcord.url = "github:FlameFlag/nixcord";
     nixos-wsl.url = "github:nix-community/NixOS-WSL/main";
-    nixpkgs.url = "https://channels.nixos.org/nixpkgs-unstable/nixexprs.tar.xz";
+    nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
     stylix = {
       url = "github:nix-community/stylix";
       inputs.nixpkgs.follows = "nixpkgs";
