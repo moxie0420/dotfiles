@@ -1,10 +1,8 @@
 {
   desktop.wayland = {
     nixos = {
-      services.displayManager.gdm = {
+      services.displayManager.plasma-login-manager = {
         enable = true;
-        wayland = true;
-        autoSuspend = false;
       };
 
       xdg.portal.enable = true;
