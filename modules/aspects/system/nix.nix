@@ -1,24 +1,41 @@
 {
+  classes,
   den,
   inputs,
   lib,
   self,
   ...
-}: let
-  commonOpts = {
-    # Disable nix channels. Use flakes instead.
-    channel.enable = lib.mkDefault false;
+}: {
+  flake-file.inputs.nix-index-database = {
+    url = "github:nix-community/nix-index-database";
+    inputs.nixpkgs.follows = "nixpkgs";
+  };
 
-    settings = rec {
+  system.nix = {
+    includes = [
+      classes.nix
+      den.aspects.git
+    ];
+
+    nix = rec {
+      # Deduplicate the nix store
+      auto-optimise-store = true;
+
       # Fallback quickly if substituters are not available.
       connect-timeout = lib.mkDefault 5;
       fallback = true;
+
+      # increase download buffer to 500 MiB
+      download-buffer-size = 500 * 1048576;
 
       # Enable flakes
       experimental-features = [
         "nix-command"
         "flakes"
       ];
+
+      # set trusted users
+      trusted-users = ["root" "madeline" "@wheel"];
 
       log-lines = lib.mkDefault 25;
 
@@ -44,17 +61,6 @@
         "lantian:EeAUQ+W+6r7EtwnmYjeVwx5kOGEBpjlBfPlzGlTNvHc="
       ];
     };
-  };
-in {
-  flake-file.inputs.nix-index-database = {
-    url = "github:nix-community/nix-index-database";
-    inputs.nixpkgs.follows = "nixpkgs";
-  };
-
-  system.nix = {
-    includes = [
-      den.aspects.git
-    ];
 
     nixos = {
       config,
@@ -75,26 +81,25 @@ in {
 
       nix = let
         flake-inputs = lib.filterAttrs (_: lib.isType "flake") inputs;
-      in
-        {
-          # Use lix instead of reference nix
-          package = pkgs.lixPackageSets.latest.lix;
+      in {
+        # Use lix instead of reference nix
+        # package = pkgs.lixPackageSets.latest.lix;
 
-          daemonCPUSchedPolicy = lib.mkDefault "batch";
-          daemonIOSchedClass = lib.mkDefault "idle";
-          daemonIOSchedPriority = lib.mkDefault 7;
+        daemonCPUSchedPolicy = lib.mkDefault "batch";
+        daemonIOSchedClass = lib.mkDefault "idle";
+        daemonIOSchedPriority = lib.mkDefault 7;
 
-          optimise.automatic = lib.mkDefault (!config.boot.isContainer);
+        optimise.automatic = lib.mkDefault (!config.boot.isContainer);
 
-          settings.trusted-users = ["@wheel"];
+        registry = lib.mapAttrs (_: flake: {inherit flake;}) flake-inputs;
+        nixPath = lib.mapAttrsToList (n: _: "${n}=flake:${n}") flake-inputs;
 
-          registry = lib.mapAttrs (_: flake: {inherit flake;}) flake-inputs;
-          nixPath = lib.mapAttrsToList (n: _: "${n}=flake:${n}") flake-inputs;
-        }
-        // commonOpts;
+        # Disable nix channels. Use flakes instead.
+        channel.enable = lib.mkDefault false;
+      };
 
       nixpkgs.overlays = [
-        (import "${self}/overlays/lix.nix")
+        # (import "${self}/overlays/lix.nix")
         (import "${self}/overlays/default.nix")
       ];
 
@@ -103,7 +108,7 @@ in {
           enable = true;
           clean.enable = true;
           clean.extraArgs = "--keep 5 --keep-since 3d";
-          flake = "/home/moxie/dotfiles";
+          flake = "/home/madeline/dotfiles";
         };
         nix-index-database.comma.enable = true;
       };
@@ -119,7 +124,7 @@ in {
     };
 
     homeManager.nixpkgs.overlays = [
-      (import "${self}/overlays/lix.nix")
+      # (import "${self}/overlays/lix.nix")
       (import "${self}/overlays/default.nix")
     ];
   };
