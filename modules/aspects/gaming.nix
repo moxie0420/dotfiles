@@ -11,6 +11,7 @@
         environment.systemPackages = builtins.attrValues {
           inherit
             (pkgs)
+            deadlock-mod-manager
             heroic
             olympus
             r2modman
@@ -32,6 +33,7 @@
         home.packages = builtins.attrValues {
           inherit
             (pkgs)
+            deadlock-mod-manager
             heroic
             olympus
             r2modman
@@ -87,16 +89,9 @@
         };
       };
 
-      programs.gamescope = {
-        enable = true;
-        capSysNice = true;
-        args = ["--rt"];
-      };
-
       programs.steam = {
         enable = true;
 
-        gamescopeSession.enable = true;
         localNetworkGameTransfers.openFirewall = true;
         protontricks.enable = true;
         remotePlay.openFirewall = true;
