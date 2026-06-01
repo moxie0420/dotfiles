@@ -67,7 +67,7 @@
           "github.com/caddy-dns/cloudflare@v0.2.4"
           "github.com/tailscale/caddy-tailscale@v0.0.0-20260106222316-bb080c4414ac"
         ];
-        hash = "sha256-+bKVVStk6DgtFH163KIKUV5qrn358AJrZhcQACgW/PM=";
+        hash = "sha256-ZBESWwuirpoPBZsrEpGVR13P+1YHRLewEsHurcLLPQI=";
       };
 
       virtualHosts = lib.mkMerge [
