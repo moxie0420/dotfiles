@@ -19,37 +19,64 @@
         equibop.enable = true;
 
         config = {
-          enableReactDevtools = true;
+          autoUpdate = true;
 
           enabledThemes = [];
 
           frameless = true;
 
           plugins = {
+            alwaysAnimate.enable = true;
+            betterGifAltText.enable = true;
+            betterSettings.enable = true;
+            betterUploadButton.enable = true;
+            biggerStreamPreview.enable = true;
             ClearURLs.enable = true;
+            colorSighted.enable = true;
+            copyFileContents.enable = true;
+            copyStickerLinks.enable = true;
             CopyUserURLs.enable = true;
             CustomRPC.enable = true;
+
+            fakeNitro.enable = true;
+            fixYoutubeEmbeds.enable = true;
+
+            memberCount.enable = true;
+            mentionAvatars.enable = true;
             MutualGroupDMs.enable = true;
 
-            richPresence.enable = true;
-            userMessagesPronouns.enable = true;
+            noMosaic.enable = true;
+            noOnboardingDelay.enable = true;
+            noTypingAnimation.enable = true;
 
-            # OnePingPerDM is an equicord only option
-            OnePingPerDM = {
-              enable = true;
-              allowMentions = true;
-            };
+            openInApp.enable = true;
 
+            petpet.enable = true;
             PinDMs = {
               enable = true;
               canCollapseDmSection = true;
             };
 
-            # ReviewDB is an eqicord only option
-            ReviewDB.enable = true;
+            roleColorEverywhere.enable = true;
+
+            shikiCodeblocks.enable = true;
 
             USRBG.enable = true;
-            alwaysAnimate.enable = true;
+
+            voiceDownload.enable = true;
+            voiceMessages.enable = true;
+            volumeBooster.enable = true;
+
+            # Equicord only Options
+            betterCommands.enable = true;
+
+            declutter.enable = true;
+
+            equibopStreamFixes.enable = true;
+
+            richPresence.enable = true;
+
+            userMessagesPronouns.enable = true;
           };
         };
       };
