@@ -1,87 +1,26 @@
-{lib, ...}: let
-  inherit (lib.modules) mkBefore mkDefault;
+let
+  ezaAliases = let
+    eza = "eza --group-directories-first";
+  in {
+    l = eza;
+    la = "${eza} -a";
+    ll = "${eza} -l --time-style=long-iso --header";
+    ls = eza;
+  };
 in {
-  system.shell = {
+  system.shell.eza = {
     nixos = {pkgs, ...}: {
-      environment.systemPackages = builtins.attrValues {
-        inherit (pkgs) peazip;
-      };
-      programs.fish = {
-        shellInit = mkBefore ''
-          set fish_greeting
-        '';
-        useBabelfish = true;
-      };
-    };
-
-    homeManager = {pkgs, ...}: {
-      home.packages = builtins.attrValues {
-        inherit (pkgs) peazip;
-      };
-      programs.fish.shellInit = mkBefore ''
-        set fish_greeting
-      '';
-    };
-
-    aliases = let
-      sharedAliases = {
-        l = mkDefault "ls";
-        ll = mkDefault "ls -l";
-        lla = mkDefault "ll -a";
-      };
-    in {
-      nixos.environment.shellAliases = sharedAliases;
-      homeManager.home.shellAliases = sharedAliases;
-    };
-
-    bat = {
-      nixos = {pkgs, ...}: {
-        environment.systemPackages = builtins.attrValues {
-          inherit (pkgs) bat;
-        };
-      };
-      homeManager = {
-        programs.bat = {
-          enable = true;
-          config = {
-            tabs = "2";
-            nonprintable-notation = "unicode";
-            italic-text = "always";
-
-            paging = "auto";
-            pager = "less";
-
-            style = "numbers,header";
-            decorations = "auto";
-            color = "auto";
-          };
-        };
-
-        home.sessionVariables = {
-          MANPAGER = "sh -c 'col -bx | bat --plain --language man'";
-          MANROFFOPT = "-c";
+      environment = {
+        shellAliases = ezaAliases;
+        systemPackages = builtins.attrValues {
+          inherit (pkgs) eza;
         };
       };
     };
 
-    eza = {
-      nixos = {pkgs, ...}: {
-        environment = {
-          shellAliases = let
-            eza = "eza --group-directories-first --header";
-          in {
-            l = eza;
-            la = "${eza} -a";
-            ll = "${eza} -l --time-style=long-iso";
-            ls = "eza -l";
-          };
-          systemPackages = builtins.attrValues {
-            inherit (pkgs) eza;
-          };
-        };
-      };
-
-      homeManager.programs.eza = {
+    homeManager = {
+      home.shellAliases = ezaAliases;
+      programs.eza = {
         enable = true;
         git = true;
         icons = "auto";
@@ -200,31 +139,6 @@ in {
           broken_path_overlay.foreground = "#524f67";
         };
       };
-    };
-
-    zoxide = let
-      flags = ["--cmd cd"];
-
-      mkZoxideOptions = options: flags: let
-        inherit (lib.attrsets) optionalAttrs;
-        inherit (options.programs) zoxide;
-
-        handleFlags = optionalAttrs (zoxide ? "flags") {
-          flags = flags;
-        };
-        handleOptions = optionalAttrs (zoxide ? "options") {
-          options = flags;
-        };
-      in {
-        programs.zoxide =
-          {
-            enable = true;
-          }
-          // handleFlags // handleOptions;
-      };
-    in {
-      nixos = {options, ...}: mkZoxideOptions options flags;
-      homeManger = {options, ...}: mkZoxideOptions options flags;
     };
   };
 }
