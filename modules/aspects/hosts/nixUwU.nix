@@ -61,7 +61,19 @@
     }: {
       boot = {
         initrd = {
-          availableKernelModules = ["xhci_pci" "ahci" "nvme" "usb_storage" "usbhid" "sd_mod"];
+          availableKernelModules = [
+            # Defaults
+            "xhci_pci"
+            "ahci"
+            "nvme"
+            "usb_storage"
+            "usbhid"
+            "sd_mod"
+
+            # FDE modules
+            "aesni_intel"
+            "cryptd"
+          ];
           kernelModules = [
             # "adm1021"
             "coretemp"
@@ -69,14 +81,8 @@
           ];
 
           luks.devices = {
-            "nixroot-A" = {
-              device = "/dev/disk/by-uuid/f83f89a2-d3ee-41fe-baa2-158dfffae084";
-              allowDiscards = true;
-            };
-            "nixroot-B" = {
-              device = "/dev/disk/by-uuid/c0f9aa2e-12ca-4ed4-8e7d-ffc4e6a53af1";
-              allowDiscards = true;
-            };
+            "nixroot-A".device = "/dev/disk/by-uuid/f83f89a2-d3ee-41fe-baa2-158dfffae084";
+            "nixroot-B".device = "/dev/disk/by-uuid/c0f9aa2e-12ca-4ed4-8e7d-ffc4e6a53af1";
           };
         };
 
@@ -90,12 +96,6 @@
 
         systemPackages = builtins.attrValues {
           inherit (pkgs) lm_sensors;
-        };
-
-        variables = {
-          __GL_MaxFramesAllowed = 1;
-          __GL_VRR_ALLOWED = 1;
-          PROTON_ENABLE_NGX_UPDATER = 1;
         };
       };
 
@@ -150,9 +150,6 @@
             extraOptions = ["--loadavg-target" "5.0"];
           };
         };
-
-        blueman.enable = true;
-
         fstrim.enable = true;
         hardware.openrgb.motherboard = "intel";
 

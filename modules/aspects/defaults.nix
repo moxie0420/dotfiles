@@ -26,6 +26,7 @@
     den._.hostname
     # Automatically create users on host.
     den._.define-user
+
     # allow for inputs'
     den.batteries.inputs'
 

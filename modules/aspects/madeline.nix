@@ -1,6 +1,6 @@
 {den, ...}: {
   # user aspect
-  den.aspects.moxie = {
+  den.aspects.madeline = {
     includes = [
       den.provides.primary-user
       (den.provides.user-shell "fish")
