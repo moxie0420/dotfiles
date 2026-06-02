@@ -1,36 +1,39 @@
 {
-  desktop,
   den,
+  desktop,
+  hardware,
   programs,
+  services,
   ...
 }: {
   den.aspects.nixOwO = {
-    includes = builtins.attrValues rec {
-      inherit
-        (desktop)
-        keyring
-        niri
-        waybar
-        ;
+    includes = [
+      desktop.keyring
+      desktop.niri
+      desktop.waybar
 
-      inherit (den.aspects) gaming;
-      inherit (gaming) extraLaunchers;
+      den.aspects.gaming
+      den.aspects.gaming.extraLaunchers
 
-      inherit
-        (programs)
-        btop
-        discord
-        firefox
-        fzf
-        hyfetch
-        kitty
-        nautilus
-        ripgrep
-        starship
-        tealdeer
-        wine
-        ;
-    };
+      hardware.bluetooth
+      hardware.corsair
+      hardware.nvidia
+
+      programs.btop
+      programs.discord
+      programs.firefox
+      programs.fzf
+      programs.hyfetch
+      programs.kitty
+      programs.nautilus
+      programs.obs-studio
+      programs.ripgrep
+      programs.starship
+      programs.tealdeer
+      programs.wine
+
+      services.lact
+    ];
 
     nixos = {pkgs, ...}: {
       boot = {
@@ -42,8 +45,6 @@
         kernelParams = ["resume_offset=474218496"];
         resumeDevice = "/dev/disk/by-uuid/a64f2ea2-de99-4f4b-8c94-df6a92fc5db9";
       };
-
-      environment.variables.AQ_DRM_DEVICES = "/dev/dri/amd-igpu";
 
       hardware.facter.reportPath = ./nixOwO-facter.json;
 
@@ -76,10 +77,6 @@
         };
       };
 
-      services.udev.extraRules = ''
-        KERNEL=="card*", KERNELS=="0000:05:00.0", SUBSYSTEM=="drm", SUBSYSTEMS=="pci", SYMLINK+="dri/amd-igpu"
-      '';
-
       swapDevices = [
         {
           device = "/swapfile";
@@ -99,5 +96,27 @@
         "L+ /opt/rocm/hip - - - - ${pkgs.rocmPackages.clr}"
       ];
     };
+
+    # host provides default home environment for its users
+    provides.to-users.includes = [
+      desktop.keyring
+      desktop.niri
+      desktop.waybar
+
+      den.aspects.gaming
+      den.aspects.gaming.extraLaunchers
+
+      programs.btop
+      programs.discord
+      programs.firefox
+      programs.fzf
+      programs.hyfetch
+      programs.kitty
+      programs.nautilus
+      programs.ripgrep
+      programs.starship
+      programs.tealdeer
+      programs.wine
+    ];
   };
 }

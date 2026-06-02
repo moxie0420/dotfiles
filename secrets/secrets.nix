@@ -1,7 +1,8 @@
 let
   nixUwU = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAILTeVZscLiUUaoHUt1gREI57weXBWeTK7ZZpc73h+nQn";
+  nixOwO = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIFjqKdZ5mkDXF2s8Qvtq5VzOIzf9toZgnZrQGhgbUydx";
 
-  systems = [nixUwU];
+  systems = [nixUwU nixOwO];
 
   files = [
     "authentik.age"
