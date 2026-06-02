@@ -57,6 +57,8 @@
         // {
           sizes.terminal = 10;
         };
+
+      stylix.targets.kmscon.enable = false;
     };
     homeManager = {lib, ...}: {
       gtk.gtk4.theme = lib.mkDefault null;
