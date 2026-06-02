@@ -1,10 +1,28 @@
-{den, ...}: {
+{
+  den,
+  self,
+  ...
+}: {
   services.arrstack = {
     includes = [
       den.aspects.containers
+      den.aspects.secrets
     ];
 
     nixos = {
+      age.secrets = {
+        qbittorrent.file = "${self}/secrets/qbittorrent.age";
+        homarr.file = "${self}/secrets/homarr.age";
+        sonarr-key = {
+          file = "${self}/secrets/sonarr-key.age";
+          group = "nixarr";
+        };
+        radarr-key = {
+          file = "${self}/secrets/radarr-key.age";
+          group = "nixarr";
+        };
+      };
+
       users.groups.nixarr = {};
 
       services = {
