@@ -30,10 +30,7 @@
 
         open = true;
 
-        powerManagement = {
-          enable = true;
-          finegrained = true;
-        };
+        powerManagement.enable = true;
       };
 
       services.xserver.videoDrivers = ["nvidia"];
@@ -41,8 +38,9 @@
 
     # prime for multi gpu
     prime.nixos = {config, ...}: {
-      hardware.nvidia.prime = {
-        offload = {
+      hardware.nvidia = {
+        powerManagement.finegrained = true;
+        prime.offload = {
           enable = lib.mkOverride 990 true;
           enableOffloadCmd = lib.mkIf config.hardware.nvidia.prime.offload.enable true; # Provides `nvidia-offload` command.
         };
