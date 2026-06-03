@@ -24,6 +24,9 @@
       hardware.corsair
       hardware.nvidia
 
+      # nvidia containers
+      den.aspects.containers.nvidia
+
       programs.btop
       programs.discord
       programs.firefox

@@ -19,25 +19,20 @@
         MOZ_DISABLE_RDD_SANDBOX = "1";
       };
 
-      hardware = {
-        nvidia-container-toolkit.enable = true;
+      hardware.nvidia = {
+        branch = "bleeding_edge";
 
-        nvidia = {
-          branch = "bleeding_edge";
+        moduleParams.nvidia = {
+          NVreg_UsePageAttributeTable = 1;
+          NVreg_InitializeSystemMemoryAllocations = 0;
+          NVreg_RegistryDwords = "EnableBrightnessControl=1";
+        };
 
-          moduleParams.nvidia = {
-            NVreg_UsePageAttributeTable = 1;
-            NVreg_InitializeSystemMemoryAllocations = 0;
-            NVreg_PreserveVideoMemoryAllocations = 1;
-            NVreg_RegistryDwords = "EnableBrightnessControl=1";
-          };
+        open = true;
 
-          open = true;
-
-          powerManagement = {
-            enable = true;
-            finegrained = true;
-          };
+        powerManagement = {
+          enable = true;
+          finegrained = true;
         };
       };
 
