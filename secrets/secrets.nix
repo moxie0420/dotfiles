@@ -12,7 +12,7 @@ let
     "radarr-key.age"
     "sonarr-key.age"
     "tailscale-auth-env.age"
-    "traefik.age"
+    "vaultwarden.age"
   ];
 
   # from nixpkgs
