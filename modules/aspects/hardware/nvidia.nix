@@ -54,7 +54,7 @@
       };
 
       # Battery saver specilisation
-      battery-saver.configuration = {
+      specialisation.battery-saver.configuration = {
         system.nixos.tags = ["battery-saver"];
 
         ##### disable nvidia, very nice battery life.
