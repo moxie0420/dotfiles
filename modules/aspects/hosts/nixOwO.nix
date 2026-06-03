@@ -18,6 +18,7 @@
       hardware.bluetooth
       hardware.corsair
       hardware.nvidia
+      hardware.yubikey
 
       programs.btop
       programs.discord
@@ -46,8 +47,6 @@
         resumeDevice = "/dev/disk/by-uuid/a64f2ea2-de99-4f4b-8c94-df6a92fc5db9";
       };
 
-      hardware.facter.reportPath = ./nixOwO-facter.json;
-
       fileSystems = {
         "/" = {
           device = "/dev/mapper/nixroot";
@@ -61,6 +60,7 @@
       };
 
       hardware = {
+        facter.reportPath = ./nixOwO-facter.json;
         nvidia = {
           prime = {
             offload = {
@@ -77,17 +77,12 @@
         };
       };
 
+      services.fwupd.enable = true;
+
       swapDevices = [
         {
           device = "/swapfile";
           size = 64 * 1024;
-          priority = 0;
-
-          encrypted = {
-            enable = true;
-            label = "nixroot";
-            blkDev = "/dev/nvme0n1p3";
-          };
         }
       ];
 
