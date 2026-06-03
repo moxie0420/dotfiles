@@ -1,5 +1,6 @@
 {
   inputs,
+  classes,
   desktop,
   ...
 }: {
@@ -11,6 +12,7 @@
   desktop.niri = {
     # module dpendencies
     includes = [
+      classes.niri
       desktop.audio
       desktop.dconf
       desktop.launcher
