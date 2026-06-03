@@ -18,6 +18,7 @@
       hardware.bluetooth
       hardware.corsair
       hardware.nvidia
+      hardware.nvidia.prime
       hardware.yubikey
 
       programs.btop
@@ -61,19 +62,9 @@
 
       hardware = {
         facter.reportPath = ./nixOwO-facter.json;
-        nvidia = {
-          prime = {
-            offload = {
-              enable = true;
-              enableOffloadCmd = true;
-            };
-            nvidiaBusId = "PCI:1:0:0";
-            amdgpuBusId = "PCI:5:0:0";
-          };
-          powerManagement = {
-            enable = true;
-            finegrained = true;
-          };
+        nvidia.prime = {
+          nvidiaBusId = "PCI:1:0:0";
+          amdgpuBusId = "PCI:5:0:0";
         };
       };
 
