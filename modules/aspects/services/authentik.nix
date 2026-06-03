@@ -29,7 +29,7 @@
           };
         };
         authentik-ldap = {
-          enable = true;
+          enable = false;
           environmentFile = config.age.secrets.authentik-ldap.path;
         };
       };
