@@ -93,7 +93,6 @@
       };
 
       nixpkgs.overlays = [
-        # (import "${self}/overlays/lix.nix")
         (import "${self}/overlays/default.nix")
       ];
 
@@ -118,7 +117,6 @@
     };
 
     homeManager.nixpkgs.overlays = [
-      # (import "${self}/overlays/lix.nix")
       (import "${self}/overlays/default.nix")
     ];
   };
