@@ -16,6 +16,8 @@
         extraPortals = builtins.attrValues {
           inherit (pkgs) xdg-desktop-portal-gnome;
         };
+
+        config.common.default = "*";
       };
 
       configHome = "${home}/.config";
