@@ -8,8 +8,6 @@
   services,
   ...
 }: {
-  flake-file.inputs.nix-cachyos-kernel.url = "github:xddxdd/nix-cachyos-kernel/release";
-
   # host aspect
   den.aspects.nixUwU = {
     includes = [
@@ -62,34 +60,30 @@
       pkgs,
       ...
     }: {
-      boot = {
-        initrd = {
-          availableKernelModules = [
-            # Defaults
-            "xhci_pci"
-            "ahci"
-            "nvme"
-            "usb_storage"
-            "usbhid"
-            "sd_mod"
+      boot.initrd = {
+        availableKernelModules = [
+          # Defaults
+          "xhci_pci"
+          "ahci"
+          "nvme"
+          "usb_storage"
+          "usbhid"
+          "sd_mod"
 
-            # FDE modules
-            "aesni_intel"
-            "cryptd"
-          ];
-          kernelModules = [
-            # "adm1021"
-            "coretemp"
-            "nct6775"
-          ];
+          # FDE modules
+          "aesni_intel"
+          "cryptd"
+        ];
+        kernelModules = [
+          # "adm1021"
+          "coretemp"
+          "nct6775"
+        ];
 
-          luks.devices = {
-            "nixroot-A".device = "/dev/disk/by-uuid/f83f89a2-d3ee-41fe-baa2-158dfffae084";
-            "nixroot-B".device = "/dev/disk/by-uuid/c0f9aa2e-12ca-4ed4-8e7d-ffc4e6a53af1";
-          };
+        luks.devices = {
+          "nixroot-A".device = "/dev/disk/by-uuid/f83f89a2-d3ee-41fe-baa2-158dfffae084";
+          "nixroot-B".device = "/dev/disk/by-uuid/c0f9aa2e-12ca-4ed4-8e7d-ffc4e6a53af1";
         };
-
-        kernelPackages = pkgs.cachyosKernels.linuxPackages-cachyos-latest;
       };
 
       environment = {
@@ -141,18 +135,13 @@
 
       hardware.facter.reportPath = ./nixUwU-facter.json;
 
-      nixpkgs.overlays = [
-        inputs.nix-cachyos-kernel.overlays.pinned
-      ];
-
       services = {
-        beesd.filesystems = {
-          the_store = {
-            spec = "/mnt/the_store";
-            hashTableSizeMB = 4096;
-            extraOptions = ["--loadavg-target" "5.0"];
-          };
+        beesd.filesystems.the_store = {
+          spec = "/mnt/the_store";
+          hashTableSizeMB = 4096;
+          extraOptions = ["--loadavg-target" "5.0"];
         };
+
         fstrim.enable = true;
         hardware.openrgb.motherboard = "intel";
 
