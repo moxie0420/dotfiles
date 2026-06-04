@@ -44,6 +44,8 @@
     system.boot.graphical
     system.boot.secure
 
+    system.kernel.cachyos
+
     system.fonts
     system.network
     system.nix
