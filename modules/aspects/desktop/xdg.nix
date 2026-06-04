@@ -17,6 +17,7 @@
           inherit (pkgs) xdg-desktop-portal-gnome;
         };
 
+        # use the first portal implementation found in lexicographical order
         config.common.default = "*";
       };
 
