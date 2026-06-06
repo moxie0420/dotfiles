@@ -10,7 +10,10 @@
   # mainly stateVersion
   den.default = {
     nixos = {
-      home-manager.backupFileExtension = "bak";
+      home-manager = {
+        backupFileExtension = "bak";
+        useGlobalPkgs = true;
+      };
 
       time.timeZone = "America/Chicago";
 
@@ -38,7 +41,7 @@
     den.aspects.secrets
     den.aspects.openssh
     # ensure consistent theming
-    den.aspects.theme
+    den.aspects.stylix
 
     system.boot
     system.boot.graphical
@@ -64,7 +67,7 @@
   ];
 
   # enable hm by default
-  den.schema.user.classes = lib.mkDefault ["homeManager"];
+  den.schema.user.classes = lib.mkDefault ["homeManager" "maid"];
 
   # host<->user provides
   den.schema.user.includes = [
@@ -76,7 +79,7 @@
     # enable ssh client config
     den.aspects.ssh
     # ensure consistent theming
-    den.aspects.theme
+    den.aspects.stylix
 
     system.nix
     system.shell

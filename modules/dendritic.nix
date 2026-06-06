@@ -22,10 +22,6 @@
 
     # $HOME managers
     home-manager = followsNixpkgs "github:nix-community/home-manager";
-    hjem = followsNixpkgs "github:feel-co/hjem";
     nix-maid.url = "github:viperML/nix-maid";
-
-    # Extra hosts
-    nixos-wsl.url = "github:nix-community/NixOS-WSL/main";
   };
 }
