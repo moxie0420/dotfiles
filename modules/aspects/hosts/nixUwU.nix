@@ -1,6 +1,4 @@
 {
-  inputs,
-  # aspects & namespaces
   den,
   desktop,
   hardware,
@@ -41,6 +39,7 @@
       services.arrstack
       services.authentik
       services.caddy
+      services.caddy.secret
       services.immich
       services.lact
       services.vaultwarden
