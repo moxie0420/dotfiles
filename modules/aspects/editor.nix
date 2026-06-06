@@ -5,18 +5,31 @@
         enable = true;
         defaultEditor = true;
 
-        extraPackages = with pkgs; [
-          clang-tools
-          gcc
-          nil
-          nixd
-          typescript-language-server
-          vscode-langservers-extracted
-          kdePackages.qtdeclarative
-        ];
+        extraPackages = builtins.attrValues {
+          inherit
+            (pkgs)
+            astro-language-server
+            bash-language-server
+            clang-tools
+            emmet-language-server
+            fish-lsp
+            gcc
+            markdown-oxide
+            marksman
+            nil
+            nixd
+            omnisharp-roslyn
+            systemd-lsp
+            taplo
+            tombi
+            typescript-language-server
+            vscode-langservers-extracted
+            ;
 
-        themes = {
-          ui.menu = "none";
+          inherit
+            (pkgs.kdePackages)
+            qtdeclarative
+            ;
         };
 
         settings = {
@@ -61,6 +74,7 @@
             };
           };
         };
+
         languages = {
           language-server = {
             # nix
