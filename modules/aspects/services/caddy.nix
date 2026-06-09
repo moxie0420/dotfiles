@@ -109,7 +109,17 @@
         virtualHosts = lib.mkMerge [
           (mkTsService "immich" 2283 {})
 
-          (mkTsService "jellyfin" 8096 {})
+          {
+            "https://jellyfin.${tsName}.ts.net".extraConfig = ''
+              bind tailscale/jellyfin
+
+              tls {
+                get_certificate tailscale
+              }
+
+              reverse_proxy :8096
+            '';
+          }
           (mkTsService "jellyseer" 5055 {})
 
           # the *arr stack
