@@ -75,11 +75,6 @@
           group = "nixarr";
         };
 
-        qui = {
-          enable = false;
-          openFirewall = true;
-        };
-
         # media server & requesters
         jellyfin = {
           enable = true;
