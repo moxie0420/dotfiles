@@ -30,7 +30,6 @@
         prowlarr = {
           enable = true;
           openFirewall = true;
-          group = "nixarr";
         };
         # *arrs
         bazarr = {
