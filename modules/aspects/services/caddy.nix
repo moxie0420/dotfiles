@@ -138,12 +138,19 @@
           (mkTsService "torrent" 8080 {
             })
 
+          (mkTsService "vaultwarden" 8812 {
+            proxyConfig = ''
+              header_up X-Real-IP {remote_host}
+            '';
+          })
+
           # authentik
           {
             "https://sso.moxiege.com".extraConfig = ''
               tls {
                 dns cloudflare {env.CF_API_TOKEN}
               }
+
               route {
                 encode br gzip zstd
                 reverse_proxy /outpost.goauthentik.io/* :9000 {
@@ -154,12 +161,19 @@
             '';
           }
 
-          # vaultwarden
-          (mkTsService "vaultwarden" 8812 {
-            proxyConfig = ''
-              header_up X-Real-IP {remote_host}
+          # immich public proxy
+          {
+            "https://shared.moxiege.com".extraConfig = ''
+              tls {
+                dns cloudflare {env.CF_API_TOKEN}
+              }
+
+              route {
+                encode br gzip zstd
+                reverse_proxy :6996
+              }
             '';
-          })
+          }
         ];
       };
 
