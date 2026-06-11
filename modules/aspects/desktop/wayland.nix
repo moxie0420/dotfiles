@@ -1,7 +1,7 @@
 {
   desktop.wayland = {
     nixos = {
-      services.displayManager.plasma-login-manager = {
+      services.displayManager.cosmic-greeter = {
         enable = true;
       };
 
