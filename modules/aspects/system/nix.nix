@@ -17,7 +17,7 @@
       den.aspects.git
     ];
 
-    nix = rec {
+    nix = {
       # Deduplicate the nix store
       auto-optimise-store = true;
 
@@ -45,7 +45,7 @@
 
       builders-use-substitutes = true;
 
-      trusted-substituters = [
+      substituters = [
         "https://nix-community.cachix.org"
       ];
 
