@@ -58,14 +58,21 @@
       };
 
       security = {
-        pam.loginLimits = builtins.attrValues {
-          disableCoreDumps = {
+        pam.loginLimits = [
+          {
             domain = "*";
             item = "core";
             type = "-";
             value = "0";
-          };
-        };
+          }
+
+          {
+            domain = "*";
+            item = "nofile";
+            type = "-";
+            value = "65536";
+          }
+        ];
 
         tpm2.enable = true;
       };
