@@ -47,7 +47,8 @@
     system.boot.graphical
     system.boot.secure
 
-    system.kernel.cachyos
+    # system.kernel.cachyos
+    system.kernel.cachyos.substituter
 
     system.fonts
     system.network
