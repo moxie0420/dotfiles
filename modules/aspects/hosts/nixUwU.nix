@@ -21,6 +21,7 @@
       hardware.nvidia
 
       # nvidia containers
+      den.aspects.containers.internal-nat
       den.aspects.containers.nvidia
 
       programs.btop
@@ -40,6 +41,7 @@
       services.authentik
       services.caddy
       services.caddy.secret
+      services.forgejo.containerized
       services.immich
       services.lact
       services.vaultwarden

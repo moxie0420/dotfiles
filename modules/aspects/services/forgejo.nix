@@ -16,7 +16,7 @@
       cfg = config.services.forgejo;
       srv = cfg.settings.server;
     in {
-      network.firewall.allowedTCPPorts = [22 3000];
+      networking.firewall.allowedTCPPorts = [22 3000];
 
       services.forgejo = {
         enable = true;
