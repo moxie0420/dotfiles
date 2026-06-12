@@ -1,5 +1,16 @@
 {den, ...}: {
   den.aspects.containers = {
+    internal-nat = {
+      nixos.networking.nat = {
+        enable = true;
+        # Use "ve-*" when using nftables instead of iptables
+        internalInterfaces = ["ve-+"];
+        externalInterface = "ens3";
+        # Lazy IPv6 connectivity for the container
+        enableIPv6 = true;
+      };
+    };
+
     nixos = {
       # enable nixos containers
       boot.enableContainers = true;
