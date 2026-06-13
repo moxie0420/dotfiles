@@ -1,9 +1,22 @@
 {
+  lib,
   self,
   services,
   ...
 }: {
-  services.caddy = {
+  services.caddy = {config, ...}: {
+    imports = [
+      {
+        options = {
+          tsName = lib.mkOption {
+            type = lib.types.str;
+          };
+        };
+      }
+    ];
+
+    tsName = "fell-opaleye";
+
     containerized = {
       includes = [
         services.caddy.secret
@@ -26,7 +39,7 @@
     };
 
     secret.nixos = {
-      age.secrets.tailscale-auth-env.file = "${self}/secrets/tailscale-auth-env.age";
+      age.secrets.caddy-env.file = "${self}/secrets/tailscale-auth-env.age";
     };
 
     nixos = {
@@ -35,21 +48,23 @@
       pkgs,
       ...
     }: let
-      tsName = "fell-opaleye";
+      inherit (config.boot) isContainer;
+
+      forwardAuth = ''
+        reverse_proxy /outpost.goauthentik.io/* https://sso.moxiege.com {
+          header_up Host {http.reverse_proxy.upstream.host}
+        }
+
+        forward_auth https://sso.moxiege.com {
+          uri /outpost.goauthentik.io/auth/caddy
+           copy_headers X-Authentik-Username X-Authentik-Groups X-Authentik-Entitlements X-Authentik-Email X-Authentik-Name X-Authentik-Uid X-Authentik-Jwt X-Authentik-Meta-Jwks X-Authentik-Meta-Outpost X-Authentik-Meta-Provider X-Authentik-Meta-App X-Authentik-Meta-Version
+           trusted_proxies private_ranges
+        }
+      '';
 
       mkTsService = name: port: {
         withAuth ? false,
-        forwardAuthCfg ? ''
-          reverse_proxy /outpost.goauthentik.io/* https://sso.moxiege.com {
-            header_up Host {http.reverse_proxy.upstream.host}
-          }
-
-          forward_auth https://sso.moxiege.com {
-            uri /outpost.goauthentik.io/auth/caddy
-             copy_headers X-Authentik-Username X-Authentik-Groups X-Authentik-Entitlements X-Authentik-Email X-Authentik-Name X-Authentik-Uid X-Authentik-Jwt X-Authentik-Meta-Jwks X-Authentik-Meta-Outpost X-Authentik-Meta-Provider X-Authentik-Meta-App X-Authentik-Meta-Version
-             trusted_proxies private_ranges
-          }
-        '',
+        forwardAuthCfg ? forwardAuth,
         preProxyConfig ? "",
         proxyConfig ? null,
       }: let
@@ -63,7 +78,7 @@
           then " {\n${proxyConfig}\n}"
           else "";
       in {
-        "https://${name}.${tsName}.ts.net".extraConfig = ''
+        "https://${name}.${services.caddy.tsName}.ts.net".extraConfig = ''
           bind tailscale/${name}
 
           tls {
@@ -91,26 +106,28 @@
 
       services.caddy = {
         enable = true;
+        openFirewall = isContainer;
 
         environmentFile =
-          if config.boot.isContainer
-          then "/run/agenix/tailscale-auth-env"
-          else config.age.secrets.tailscale-auth-env.path;
+          if isContainer
+          then "/run/agenix/caddy-env"
+          else config.age.secrets.caddy-env.path;
 
         package = pkgs.caddy.withPlugins {
           plugins = [
             "github.com/ueffel/caddy-brotli@v1.6.0"
             "github.com/caddy-dns/cloudflare@v0.2.4"
             "github.com/tailscale/caddy-tailscale@v0.0.0-20260106222316-bb080c4414ac"
+            "github.com/mholt/caddy-l4@v0.1.1"
           ];
-          hash = "sha256-ZBESWwuirpoPBZsrEpGVR13P+1YHRLewEsHurcLLPQI=";
+          hash = "";
         };
 
         virtualHosts = lib.mkMerge [
           (mkTsService "immich" 2283 {})
 
           {
-            "https://jellyfin.${tsName}.ts.net".extraConfig = ''
+            "https://jellyfin.${services.caddy.tsName}.ts.net".extraConfig = ''
               bind tailscale/jellyfin
 
               tls {
@@ -171,6 +188,19 @@
               route {
                 encode br gzip zstd
                 reverse_proxy :6996
+              }
+            '';
+          }
+
+          {
+            "https://git.moxiege.com".extraConfig = ''
+              tls {
+                dns cloudflare {env.CF_API_TOKEN}
+              }
+
+              route {
+                encode br gzip zstd
+                reverse_proxy 192.168.100.11:3000
               }
             '';
           }
