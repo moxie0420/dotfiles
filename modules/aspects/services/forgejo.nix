@@ -32,7 +32,7 @@
             SSH_PORT = 22;
           };
 
-          service.DISABLE_REGISTRATION = false;
+          service.DISABLE_REGISTRATION = true;
         };
       };
     };
