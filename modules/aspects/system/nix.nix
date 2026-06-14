@@ -114,8 +114,10 @@
       };
     };
 
-    homeManager.nixpkgs.overlays = [
-      (import "${self}/overlays/default.nix")
-    ];
+    homeManager = {home, ...}: {
+      nixpkgs.overlays = [
+        (import "${self}/overlays/default.nix")
+      ];
+    };
   };
 }
