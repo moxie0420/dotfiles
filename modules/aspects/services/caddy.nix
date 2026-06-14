@@ -120,8 +120,24 @@
             "github.com/tailscale/caddy-tailscale@v0.0.0-20260106222316-bb080c4414ac"
             "github.com/mholt/caddy-l4@v0.1.1"
           ];
-          hash = "";
+          hash = "sha256-pREDASeg+BzOgHJzoeEKhx8wXW2+cqU3iMphwPGwxNc=";
         };
+        globalConfig = ''
+          servers {
+            listener_wrappers {
+              layer4 {
+                @ssh ssh
+                route @ssh {
+                  proxy 192.168.100.11:22
+                }
+                route
+              }
+              tls {
+                dns cloudflare {env.CF_API_TOKEN}
+              }
+            }
+          }
+        '';
 
         virtualHosts = lib.mkMerge [
           (mkTsService "immich" 2283 {})
