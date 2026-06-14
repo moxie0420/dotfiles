@@ -7,6 +7,7 @@ let
   files = [
     "authentik.age"
     "authentik-ldap.age"
+    "forgejo-admin-secret.age"
     "qbittorrent.age"
     "homarr.age"
     "radarr-key.age"
