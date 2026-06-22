@@ -30,8 +30,26 @@
 
         containers.caddy = {
           autoStart = true;
-          bindMounts.${config.age.secrets.tailscale-auth-env.path}.isReadOnly = true;
-          config = services.caddy.nixos;
+
+          bindMounts.caddy-env = {
+            isReadOnly = true;
+            hostPath = config.age.secrets.tailscale-auth-env.path;
+            mountPoint = "/caddy-env";
+          };
+
+          config = {
+            imports = [
+              services.caddy.nixos
+            ];
+
+            system.stateVersion = "26.11";
+          };
+
+          extraFlags = [
+            "--drop-capability=CAP_SYS_CHROOT"
+            "--drop-capability=CAP_SYS_ADMIN"
+            "--property=CPUQuota=100%"
+          ];
         };
 
         services.tailscale.permitCertUid = "caddy";
@@ -89,6 +107,13 @@
             encode br gzip zstd
             ${forwardAuthVal}
             ${preProxyConfig}
+
+            header {
+              X-Content-Type-Options nosniff
+              X-Frame-Options SAMEORIGIN
+              Strict-Transport-Security "max-age=31536000; includeSubDomains; preload"
+            }
+
             reverse_proxy :${toString port} ${proxyConf}
           }
         '';
@@ -106,11 +131,10 @@
 
       services.caddy = {
         enable = true;
-        openFirewall = isContainer;
 
         environmentFile =
           if isContainer
-          then "/run/agenix/caddy-env"
+          then "/caddy-env"
           else config.age.secrets.caddy-env.path;
 
         package = pkgs.caddy.withPlugins {
@@ -122,6 +146,7 @@
           ];
           hash = "sha256-pREDASeg+BzOgHJzoeEKhx8wXW2+cqU3iMphwPGwxNc=";
         };
+
         globalConfig = ''
           servers {
             listener_wrappers {
@@ -132,44 +157,38 @@
                 }
                 route
               }
+
               tls {
                 dns cloudflare {env.CF_API_TOKEN}
+                protocols tls1.3 tls1.2
+                ciphers ECDHE-RSA-WITH-AES-256-GCM-SHA384
               }
+
             }
           }
         '';
 
         virtualHosts = lib.mkMerge [
+          (lib.mkBefore {
+            "http://".extraConfig = ''
+              redir https://{host}{uri} permanent
+            '';
+          })
+
           (mkTsService "immich" 2283 {})
 
-          {
-            "https://jellyfin.${services.caddy.tsName}.ts.net".extraConfig = ''
-              bind tailscale/jellyfin
+          (mkTsService "jellyfin" 8096 {})
 
-              tls {
-                get_certificate tailscale
-              }
-
-              reverse_proxy :8096
-            '';
-          }
           (mkTsService "jellyseer" 5055 {})
 
           # the *arr stack
-          (mkTsService "bazarr" 6767 {
-            })
-          (mkTsService "lidarr" 8686 {
-            })
-          (mkTsService "prowlarr" 9696 {
-            })
-          (mkTsService "radarr" 7878 {
-            })
-          (mkTsService "readarr" 8787 {
-            })
-          (mkTsService "sonarr" 8989 {
-            })
-          (mkTsService "torrent" 8080 {
-            })
+          (mkTsService "bazarr" 6767 {})
+          (mkTsService "lidarr" 8686 {})
+          (mkTsService "prowlarr" 9696 {})
+          (mkTsService "radarr" 7878 {})
+          (mkTsService "readarr" 8787 {})
+          (mkTsService "sonarr" 8989 {})
+          (mkTsService "torrent" 8080 {})
 
           (mkTsService "vaultwarden" 8812 {
             proxyConfig = ''
@@ -180,44 +199,57 @@
           # authentik
           {
             "https://sso.moxiege.com".extraConfig = ''
-              tls {
-                dns cloudflare {env.CF_API_TOKEN}
+              encode br gzip zstd
+
+              request_body {
+                max_size 10MB
               }
 
-              route {
-                encode br gzip zstd
-                reverse_proxy /outpost.goauthentik.io/* :9000 {
-                  header_up Host {http.reverse_proxy.upstream.hostport}
-                }
-                reverse_proxy :9000
+              header {
+                X-Content-Type-Options nosniff
+                X-Frame-Options SAMEORIGIN
+                Strict-Transport-Security "max-age=31536000; includeSubDomains; preload"
               }
+
+              reverse_proxy /outpost.goauthentik.io/* :9000 {
+                header_up Host {http.reverse_proxy.upstream.hostport}
+              }
+              reverse_proxy :9000
             '';
           }
 
           # immich public proxy
           {
             "https://shared.moxiege.com".extraConfig = ''
-              tls {
-                dns cloudflare {env.CF_API_TOKEN}
+              request_body {
+               	max_size 10MB
               }
 
-              route {
-                encode br gzip zstd
-                reverse_proxy :6996
+              header {
+                X-Content-Type-Options nosniff
+                X-Frame-Options SAMEORIGIN
+                Strict-Transport-Security "max-age=31536000; includeSubDomains; preload"
               }
+
+              encode br gzip zstd
+              reverse_proxy :6996
             '';
           }
 
           {
             "https://git.moxiege.com".extraConfig = ''
-              tls {
-                dns cloudflare {env.CF_API_TOKEN}
+              request_body {
+              	max_size 10MB
               }
 
-              route {
-                encode br gzip zstd
-                reverse_proxy 192.168.100.11:3000
+              header {
+                X-Content-Type-Options nosniff
+                X-Frame-Options SAMEORIGIN
+                Strict-Transport-Security "max-age=31536000; includeSubDomains; preload"
               }
+
+              encode br gzip zstd
+              reverse_proxy 192.168.100.11:3000
             '';
           }
         ];
