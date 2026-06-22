@@ -1,34 +1,62 @@
 {
+  den,
+  inputs,
   services,
   self,
   lib,
   ...
 }: {
   services.forgejo = {
+    includes = [
+      den.aspects.secrets
+    ];
+
     containerized = {
       includes = [
         services.forgejo.adminSecret
       ];
 
-      nixos = {config, ...}: {
-        users.users.forgejo = {
-          group = "forgejo";
-          isSystemUser = true;
-        };
-        users.groups.forgejo = {};
-
+      nixos = {
         containers.forgejo = {
           autoStart = true;
           privateNetwork = true;
-          bindMounts.${config.age.secrets.forgejo-admin-secret.path}.isReadOnly = true;
           hostAddress = "192.168.100.1";
           localAddress = "192.168.100.11";
-          config = services.forgejo.nixos;
+
+          bindMounts."/etc/ssh/ssh_host_ed25519_key".isReadOnly = true;
+
+          config = {
+            imports = [
+              inputs.agenix.nixosModules.default
+              services.forgejo.nixos
+              services.forgejo.adminSecret.nixos
+            ];
+
+            age.identityPaths = ["/etc/ssh/ssh_host_ed25519_key"];
+
+            # Use systemd-resolved inside the container
+            # Workaround for bug https://github.com/NixOS/nixpkgs/issues/162686
+            networking.useHostResolvConf = lib.mkForce false;
+            services.resolved.enable = true;
+
+            system.stateVersion = "26.11";
+          };
+
+          extraFlags = [
+            "--drop-capability=CAP_SYS_CHROOT"
+            "--property=CPUQuota=100%"
+          ];
         };
       };
     };
 
     adminSecret.nixos = {
+      users.users.forgejo = {
+        group = "forgejo";
+        isSystemUser = true;
+      };
+      users.groups.forgejo = {};
+
       age.secrets.forgejo-admin-secret = {
         file = "${self}/secrets/forgejo-admin-secret.age";
         owner = "forgejo";
@@ -43,15 +71,12 @@
 
       systemd.services.forgejo.preStart = let
         adminCmd = "${lib.getExe cfg.package} admin user";
-        pwd =
-          if config.boot.isContainer
-          then "/run/agenix/forgejo-admin-secret"
-          else config.age.secrets.forgejo-admin-secret.path;
+        pwd = config.age.secrets.forgejo-admin-secret.path;
         user = "configUser";
       in ''
         ${adminCmd} create --admin --email "root@localhost" --username ${user} --password "$(tr -d '\n' < ${pwd})" || true
         ## uncomment this line to change an admin user which was already created
-        # ${adminCmd} change-password --username ${user} --password "$(tr -d '\n' < ${pwd})" || true
+        ${adminCmd} change-password --username ${user} --password "$(tr -d '\n' < ${pwd})" || true
       '';
 
       services.forgejo = {
