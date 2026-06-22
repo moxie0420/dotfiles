@@ -1,27 +1,30 @@
 {system, ...}: {
   system.boot = {
-    nixos.boot = {
-      initrd.systemd = {
-        enable = true;
-        network.wait-online.enable = false;
-      };
-
-      kernel.sysfs.kernel.mm.transparent_hugepage = {
-        enabled = "always";
-        defrag = "defer";
-        shmem_enabled = "within_size";
-      };
-
-      loader = {
-        efi.canTouchEfiVariables = true;
-        # limine ans bootloader
-        limine = {
+    nixos = {pkgs, ...}: {
+      boot = {
+        initrd.systemd = {
           enable = true;
-          resolution = "1920x1080";
+          network.wait-online.enable = false;
         };
-        timeout = 3;
+
+        kernel.sysfs.kernel.mm.transparent_hugepage = {
+          enabled = "always";
+          defrag = "defer";
+          shmem_enabled = "within_size";
+        };
+
+        loader = {
+          efi.canTouchEfiVariables = true;
+          # limine ans bootloader
+          limine = {
+            enable = true;
+            package = pkgs.limine-full;
+            resolution = "1920x1080";
+          };
+          timeout = 3;
+        };
+        tmp.cleanOnBoot = true;
       };
-      tmp.cleanOnBoot = true;
     };
 
     graphical = {
