@@ -31,19 +31,19 @@
             betterSettings.enable = true;
             betterUploadButton.enable = true;
             biggerStreamPreview.enable = true;
-            ClearURLs.enable = true;
+            clearUrls.enable = true;
             colorSighted.enable = true;
             copyFileContents.enable = true;
             copyStickerLinks.enable = true;
-            CopyUserURLs.enable = true;
-            CustomRPC.enable = true;
+            copyUserUrls.enable = true;
+            customRpc.enable = true;
 
             fakeNitro.enable = true;
             fixYoutubeEmbeds.enable = true;
 
             memberCount.enable = true;
             mentionAvatars.enable = true;
-            MutualGroupDMs.enable = true;
+            mutualGroupDms.enable = true;
 
             noMosaic.enable = true;
             noOnboardingDelay.enable = true;
@@ -52,7 +52,7 @@
             openInApp.enable = true;
 
             petpet.enable = true;
-            PinDMs = {
+            pinDms = {
               enable = true;
               canCollapseDmSection = true;
             };
@@ -61,7 +61,7 @@
 
             shikiCodeblocks.enable = true;
 
-            USRBG.enable = true;
+            usrbg.enable = true;
 
             voiceDownload.enable = true;
             voiceMessages.enable = true;
