@@ -1,6 +1,5 @@
 {
   inputs,
-  classes,
   desktop,
   ...
 }: {
@@ -12,7 +11,6 @@
   desktop.niri = {
     # module dpendencies
     includes = [
-      classes.niri
       desktop.audio
       desktop.dconf
       desktop.launcher
@@ -20,6 +18,9 @@
       desktop.polkit
       desktop.wayland
       desktop.xdg
+
+      # include window rules
+      desktop.niri.windowRules.defaults
     ];
 
     nixos = {pkgs, ...}: {
@@ -36,10 +37,6 @@
 
       # Enable Niri
       programs.niri.enable = true;
-
-      # Use Niri unstable
-      # nixpkgs.overlays = [inputs.niri.overlays.niri];
-      # programs.niri.package = pkgs.niri-unstable;
     };
 
     homeManager = {

@@ -1,14 +1,17 @@
 {
+  classes,
   den,
-  lib,
   ...
 }: {
-  classes.niri = {aspect-chain}:
-    den.batteries.forward {
-      each = lib.singleton true;
-      fromClass = _: "niri";
-      intoClass = _: "homeManager";
-      intoPath = _: ["programs" "niri" "settings"];
-      fromAspect = _: lib.head aspect-chain;
-    };
+  classes.niri = den.policies.niri-to-programs-niri-settings;
+
+  den.policies.niri-to-programs-niri-settings = _: [
+    (den.lib.policy.route {
+      fromClass = "niri";
+      intoClass = "homeManager";
+      path = ["programs" "niri" "settings"];
+    })
+  ];
+
+  den.schema.homeMaanager.includes = [classes.niri];
 }
