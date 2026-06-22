@@ -77,7 +77,12 @@
         tpm2.enable = true;
       };
 
-      systemd.coredump.enable = false;
+      systemd = {
+        coredump.enable = false;
+        user.settings.Manager = {
+          DefaultLimitNOFILE = 65536;
+        };
+      };
     };
   };
 }
