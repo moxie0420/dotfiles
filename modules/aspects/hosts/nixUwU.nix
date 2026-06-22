@@ -34,7 +34,6 @@
       programs.obs-studio
       programs.ripgrep
       programs.starship
-      programs.tealdeer
       programs.wine
 
       services.arrstack
@@ -57,6 +56,7 @@
 
     # host NixOS configuration
     nixos = {
+      config,
       lib,
       pkgs,
       ...
@@ -136,6 +136,11 @@
 
       hardware.facter.reportPath = ./nixUwU-facter.json;
 
+      powerManagement.powertop.postStart = ''
+        ${lib.getExe' config.systemd.package "udevadm"} trigger -c bind -s usb -a idVendor=320f -a idProduct=504b
+        ${lib.getExe' config.systemd.package "udevadm"} trigger -c bind -s usb -a idVendor=1b1c -a idProduct=504b
+      '';
+
       services = {
         beesd.filesystems.the_store = {
           spec = "/mnt/the_store";
@@ -179,6 +184,13 @@
             }
           ];
         };
+
+        udev.extraRules = ''
+          # disable USB auto suspend for Glorious GMMK V2 96 ANSI
+          ACTION=="bind", SUBSYSTEM=="usb", ATTR{idVendor}=="320f", ATTR{idProduct}=="504b", TEST=="power/control", ATTR{power/control}="on"
+          # disable USB auto suspend for CORSAIR HARPOON RGB PRO Gaming Mouse
+          ACTION=="bind", SUBSYSTEM=="usb", ATTR{idVendor}=="1b1c", ATTR{idProduct}=="1b75", TEST=="power/control", ATTR{power/control}="on"
+        '';
       };
 
       swapDevices = [
@@ -206,7 +218,6 @@
       programs.nautilus
       programs.ripgrep
       programs.starship
-      programs.tealdeer
       programs.wine
     ];
   };
