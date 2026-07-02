@@ -11,15 +11,6 @@
 
     xdg = {
       enable = true;
-      portal = {
-        enable = true;
-        extraPortals = builtins.attrValues {
-          inherit (pkgs) xdg-desktop-portal-gnome;
-        };
-
-        # use the first portal implementation found in lexicographical order
-        config.common.default = "*";
-      };
 
       configHome = "${home}/.config";
       dataHome = "${home}/.local/share";
