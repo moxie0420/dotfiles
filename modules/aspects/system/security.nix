@@ -35,19 +35,19 @@
 
         # disable firewire and thunderbolt
         extraModprobeConfig = ''
-          install firewire-core /bin/false
-          install firewire_core /bin/false
-          install firewire-ohci /bin/false
-          install firewire_ohci /bin/false
-          install firewire_sbp2 /bin/false
-          install firewire-sbp2 /bin/false
-          install firewire-net /bin/false
-          install thunderbolt /bin/false
-          install ohci1394 /bin/false
-          install sbp2 /bin/false
-          install dv1394 /bin/false
-          install raw1394 /bin/false
-          install video1394 /bin/false
+          install firewire-core /run/current-system/sw/bin/false
+          install firewire_core /run/current-system/sw/bin/false
+          install firewire-ohci /run/current-system/sw/bin/false
+          install firewire_ohci /run/current-system/sw/bin/false
+          install firewire_sbp2 /run/current-system/sw/bin/false
+          install firewire-sbp2 /run/current-system/sw/bin/false
+          install firewire-net  /run/current-system/sw/bin/false
+          install thunderbolt   /run/current-system/sw/bin/false
+          install ohci1394      /run/current-system/sw/bin/false
+          install sbp2          /run/current-system/sw/bin/false
+          install dv1394        /run/current-system/sw/bin/false
+          install raw1394       /run/current-system/sw/bin/false
+          install video1394     /run/current-system/sw/bin/false
         '';
 
         # To prevent the kernel from ever generating core dumps, make it
