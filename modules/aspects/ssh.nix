@@ -17,6 +17,12 @@
           controlPath = "~/.ssh/master-%r@%n:%p";
           controlPersist = "no";
         };
+
+        "192.168.50.163" = {
+          HostName = "192.168.50.163";
+          User = "root";
+          IdentityFile = "~/.ssh/id_ed25519";
+        };
       };
     };
   };
