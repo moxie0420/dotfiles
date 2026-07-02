@@ -13,5 +13,5 @@
     })
   ];
 
-  den.schema.homeMaanager.includes = [classes.niri];
+  den.schema.homeManager.includes = [classes.niri];
 }
