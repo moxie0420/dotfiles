@@ -1,5 +1,5 @@
 {
-  programs.dev-tools = let
+  programs.direnv = let
     inherit (builtins) attrValues;
 
     withDirEnv = {
