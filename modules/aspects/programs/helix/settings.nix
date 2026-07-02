@@ -5,18 +5,24 @@
         bufferline = "multiple";
         line-number = "relative";
         end-of-line-diagnostics = "hint";
+
         cursor-shape = {
           insert = "bar";
           normal = "block";
           select = "underline";
         };
+        
         file-picker = {
           hidden = false;
         };
+
+        indent-guides.render = true;
+        
         lsp = {
           display-progress-messages = true;
           auto-signature-help = false;
         };
+
         statusline = {
           left = ["mode" "version-control"];
           center = ["file-name"];
@@ -29,16 +35,19 @@
             "file-line-ending"
             "file-type"
           ];
+
           separator = "│";
+
           mode = {
             normal = "Normal";
             insert = "Insert";
             select = "Select";
           };
         };
+
         inline-diagnostics = {
-          "cursor-line" = "error";
-          "other-lines" = "disable";
+          cursor-line = "error";
+          other-lines = "disable";
         };
       };
     };

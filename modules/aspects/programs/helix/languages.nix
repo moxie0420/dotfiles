@@ -1,8 +1,4 @@
-{
-  lib,
-  programs,
-  ...
-}: {
+{programs, ...}: {
   programs.helix.languages = {
     includes = with programs.helix.languages; [
       fish
@@ -52,8 +48,6 @@
             provideFormatter = true;
           };
         };
-
-        languages.language.css.language-servers = ["vscode-css-language-server"];
       };
     };
 
@@ -67,10 +61,6 @@
         languages.language-server.emmet-ls = {
           command = "emmet-ls";
           args = ["--stdio"];
-        };
-
-        languages.language = {
-          css.language-servers = lib.mkAfter ["emmet-ls"];
         };
       };
     };
@@ -108,15 +98,6 @@
             };
           };
         };
-
-        languages.language = {
-          css.language-servers = ["eslint"];
-          html.language-servers = ["eslint"];
-          javascript.language-servers = ["eslint"];
-          jsx.language-servers = ["eslint"];
-          typescript.language-servers = ["eslint"];
-          tsx.language-servers = ["eslint"];
-        };
       };
     };
 
@@ -133,8 +114,6 @@
         extraPackages = builtins.attrValues {
           inherit (pkgs) vscode-langservers-extracted;
         };
-
-        languages.language.html.language-servers = lib.mkBefore ["vscode-html-language-server"];
       };
     };
 
@@ -190,16 +169,8 @@
 
     # .ts & .tsx
     typescript.homeManager = {pkgs, ...}: {
-      programs.helix = {
-        extraPackages = builtins.attrValues {
-          inherit (pkgs) typescript-language-server;
-        };
-        languages.language = {
-          javascript.language-servers = lib.mkBefore ["typescript-language-server"];
-          jsx.language-servers = lib.mkBefore ["typescript-language-server"];
-          typescript.language-servers = lib.mkBefore ["typescript-language-server"];
-          tsx.language-servers = lib.mkBefore ["typescript-language-server"];
-        };
+      programs.helix.extraPackages = builtins.attrValues {
+        inherit (pkgs) typescript-language-server;
       };
     };
   };
