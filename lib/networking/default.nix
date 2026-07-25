@@ -1,0 +1,3 @@
+{
+  caddy = import ./caddy.nix;
+}

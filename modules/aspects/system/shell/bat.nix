@@ -1,30 +1,27 @@
 {
   system.shell.bat = {
-    nixos = {pkgs, ...}: {
-      environment.systemPackages = builtins.attrValues {
-        inherit (pkgs) bat;
-      };
-    };
     homeManager = {
-      programs.bat = {
-        enable = true;
-        config = {
-          tabs = "2";
-          nonprintable-notation = "unicode";
-          italic-text = "always";
-
-          paging = "auto";
-          pager = "less";
-
-          style = "numbers,header";
-          decorations = "auto";
-          color = "auto";
-        };
-      };
-
       home.sessionVariables = {
         MANPAGER = "sh -c 'col -bx | bat --plain --language man'";
         MANROFFOPT = "-c";
+      };
+      programs.bat = {
+        config = {
+          color = "auto";
+          decorations = "auto";
+          italic-text = "always";
+          nonprintable-notation = "unicode";
+          pager = "less";
+          paging = "auto";
+          style = "numbers,header";
+          tabs = "2";
+        };
+        enable = true;
+      };
+    };
+    nixos = {pkgs, ...}: {
+      environment.systemPackages = builtins.attrValues {
+        inherit (pkgs) bat;
       };
     };
   };

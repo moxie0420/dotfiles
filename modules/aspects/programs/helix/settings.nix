@@ -3,29 +3,36 @@
     homeManager.programs.helix.settings = {
       editor = {
         bufferline = "multiple";
-        line-number = "relative";
-        end-of-line-diagnostics = "hint";
-
         cursor-shape = {
           insert = "bar";
           normal = "block";
           select = "underline";
         };
-        
+        end-of-line-diagnostics = "hint";
         file-picker = {
           hidden = false;
         };
-
         indent-guides.render = true;
-        
-        lsp = {
-          display-progress-messages = true;
-          auto-signature-help = false;
+        inline-diagnostics = {
+          cursor-line = "error";
+          other-lines = "disable";
         };
-
+        line-number = "relative";
+        lsp = {
+          auto-signature-help = false;
+          display-progress-messages = true;
+        };
         statusline = {
-          left = ["mode" "version-control"];
           center = ["file-name"];
+          left = [
+            "mode"
+            "version-control"
+          ];
+          mode = {
+            insert = "Insert";
+            normal = "Normal";
+            select = "Select";
+          };
           right = [
             "spinner"
             "diagnostics"
@@ -35,21 +42,11 @@
             "file-line-ending"
             "file-type"
           ];
-
           separator = "│";
-
-          mode = {
-            normal = "Normal";
-            insert = "Insert";
-            select = "Select";
-          };
-        };
-
-        inline-diagnostics = {
-          cursor-line = "error";
-          other-lines = "disable";
         };
       };
+
+      theme = "rose_pine";
     };
   };
 }

@@ -1,26 +1,25 @@
 {
-  den.aspects.ssh = {
+  programs.ssh = {
     homeManager.programs.ssh = {
       enable = true;
       enableDefaultConfig = false;
 
       settings = {
         "*" = {
-          forwardAgent = false;
           addKeysToAgent = "no";
           compression = false;
-          serverAliveInterval = 0;
-          serverAliveCountMax = 3;
-          hashKnownHosts = false;
-          userKnownHostsFile = "~/.ssh/known_hosts";
           controlMaster = "no";
           controlPath = "~/.ssh/master-%r@%n:%p";
           controlPersist = "no";
+          forwardAgent = false;
+          hashKnownHosts = false;
+          serverAliveCountMax = 3;
+          serverAliveInterval = 0;
+          userKnownHostsFile = "~/.ssh/known_hosts";
         };
 
-        "192.168.50.163" = {
-          HostName = "192.168.50.163";
-          User = "root";
+        "192.168.50.138" = {
+          HostName = "192.168.50.138";
           IdentityFile = "~/.ssh/id_ed25519";
         };
       };

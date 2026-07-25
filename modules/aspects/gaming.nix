@@ -1,34 +1,11 @@
-{den, ...}: {
-  flake-file.inputs.nix-proton-cachyos.url = "github:kimjongbing/nix-proton-cachyos";
-
+{
+  den,
+  programs,
+  services,
+  ...
+}: {
   den.aspects.gaming = {
-    includes = [
-      (den.provides.unfree ["steam" "steam-original" "steam-unwrapped" "steam-run"])
-    ];
-
     extraLaunchers = {
-      nixos = {pkgs, ...}: {
-        environment.systemPackages = builtins.attrValues {
-          inherit
-            (pkgs)
-            deadlock-mod-manager
-            heroic
-            olympus
-            r2modman
-            ;
-
-          prismlauncher = pkgs.prismlauncher.override {
-            jdks = builtins.attrValues {
-              inherit
-                (pkgs)
-                temurin-bin-21
-                temurin-bin-17
-                temurin-bin-8
-                ;
-            };
-          };
-        };
-      };
       homeManager = {pkgs, ...}: {
         home.packages = builtins.attrValues {
           inherit
@@ -36,71 +13,43 @@
             deadlock-mod-manager
             heroic
             olympus
+            prismlauncher
             r2modman
             ;
-
-          prismlauncher = pkgs.prismlauncher.override {
-            jdks = builtins.attrValues {
-              inherit
-                (pkgs)
-                temurin-bin-21
-                temurin-bin-17
-                temurin-bin-8
-                ;
-            };
-          };
         };
+      };
+      nixos = {pkgs, ...}: {
+        environment.systemPackages = builtins.attrValues {
+          inherit
+            (pkgs)
+            deadlock-mod-manager
+            heroic
+            olympus
+            prismlauncher
+            r2modman
+            ;
+        };
+      };
+      provides = {
+        to-hosts.includes = [den.aspects.gaming.extraLaunchers];
+        to-users.includes = [den.aspects.gaming.extraLaunchers];
       };
     };
-
-    homeManager.programs.mangohud = {
-      enable = true;
-
-      settings = {
-        position = "top-right";
-
-        # FPS
-        fps_sampling_period = 1000;
-        fps_limit = "144,120,90,60,0";
-        fps_limit_method = "early";
-
-        # Other
-        permit_upload = false;
-        preset = 1;
+    homeManager = {
+      home.sessionVariables = {
+        PROTON_DXVK_LOWLATENCY = "1";
       };
     };
+    includes = [
+      programs.gamescope
+      programs.steam
 
-    nixos = {
-      # inputs',
-      pkgs,
-      ...
-    }: {
-      environment.systemPackages = builtins.attrValues {
-        inherit (pkgs) protonup-ng;
-      };
-
-      programs.gamemode = {
-        enable = true;
-        settings = {
-          general = {
-            softrealtime = "auto";
-            renice = -5;
-          };
-        };
-      };
-
-      programs.steam = {
-        enable = true;
-
-        localNetworkGameTransfers.openFirewall = true;
-        protontricks.enable = true;
-        remotePlay.openFirewall = true;
-
-        extraCompatPackages = builtins.attrValues {
-          inherit (pkgs) proton-ge-bin;
-          # inherit (inputs'.nix-proton-cachyos.packages) proton-cachyos;
-        };
-      };
+      services.ananicy
+      services.ananicy.gamescopeRules
+    ];
+    provides = {
+      to-hosts.includes = [den.aspects.gaming];
+      to-users.includes = [den.aspects.gaming];
     };
   };
 }

@@ -1,29 +1,24 @@
 {
-  programs.direnv = let
-    inherit (builtins) attrValues;
-
-    withDirEnv = {
+  programs.direnv = {
+    homeManager = {pkgs, ...}: {
+      home.packages = builtins.attrValues {
+        inherit (pkgs) devenv;
+      };
       programs.direnv = {
         enable = true;
-        silent = true;
         nix-direnv.enable = true;
+        silent = true;
       };
     };
-  in {
-    nixos = {pkgs, ...}:
-      withDirEnv
-      // {
-        environment.systemPackages = attrValues {
-          inherit (pkgs) devenv;
-        };
+    nixos = {pkgs, ...}: {
+      environment.systemPackages = builtins.attrValues {
+        inherit (pkgs) devenv;
       };
-
-    homeManager = {pkgs, ...}:
-      withDirEnv
-      // {
-        home.packages = attrValues {
-          inherit (pkgs) devenv;
-        };
+      programs.direnv = {
+        enable = true;
+        nix-direnv.enable = true;
+        silent = true;
       };
+    };
   };
 }

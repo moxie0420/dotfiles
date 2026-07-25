@@ -1,21 +1,17 @@
 {
   services.openssh = {
     nixos = {
+      # enable Fail2Ban
+      services.fail2ban.enable = true;
       # Enable openssh
       services.openssh = {
         enable = true;
         settings = {
-          PasswordAuthentication = false;
           KbdInteractiveAuthentication = false;
-          PermitRootLogin = "no";
+          PasswordAuthentication = false;
+          PermitRootLogin = "yes";
         };
       };
-
-      # Enable tailscale ssh
-      services.tailscale.extraUpFlags = ["--ssh"];
-
-      # enable Fail2Ban
-      services.fail2ban.enable = true;
     };
 
     provides.to-users = {user, ...}: {

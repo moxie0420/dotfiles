@@ -2,11 +2,10 @@
   getDeviceChannel = channel: {
     "audio.position" = lib.flatten channel;
   };
-
   mkCaptureProps = {
     device,
-    name ? "Input",
     extraConfig ? {},
+    name ? "Input",
   }: {
     "capture.props" =
       {
@@ -15,31 +14,29 @@
       }
       // extraConfig;
   };
-
+  mkNode = {
+    extraConfig,
+    name,
+    description ? "",
+  }: {
+    args =
+      {
+        "node.description" = description;
+        "node.name" = name;
+      }
+      // extraConfig;
+    name = "libpipewire-module-loopback";
+  };
   mkPlaybackProps = {
     device,
-    name ? "Input",
     extraConfig ? {},
+    name ? "Input",
   }: {
     "playback.props" =
       {
-        "node.name" = name;
         "media.class" = "Audio/Source";
-        "target.object" = device;
-      }
-      // extraConfig;
-  };
-
-  mkNode = {
-    name,
-    description ? "",
-    extraConfig,
-  }: {
-    name = "libpipewire-module-loopback";
-    args =
-      {
         "node.name" = name;
-        "node.description" = description;
+        "target.object" = device;
       }
       // extraConfig;
   };

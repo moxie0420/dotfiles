@@ -8,8 +8,8 @@
         settings = {
           General = {
             Experimental = true;
-            KernelExperimental = true;
             FastConnectable = true;
+            KernelExperimental = true;
           };
 
           Policy = {

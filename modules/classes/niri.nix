@@ -9,7 +9,11 @@
     (den.lib.policy.route {
       fromClass = "niri";
       intoClass = "homeManager";
-      path = ["programs" "niri" "settings"];
+      path = [
+        "programs"
+        "niri"
+        "settings"
+      ];
     })
   ];
 

@@ -5,6 +5,7 @@
   ...
 }: {
   flake-file.inputs.authentik-nix.url = "github:nix-community/authentik-nix";
+
   services.authentik = {
     includes = [
       den.aspects.secrets

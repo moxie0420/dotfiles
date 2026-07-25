@@ -1,20 +1,19 @@
 {
-  inputs,
   lib,
+  inputs,
   programs,
-  self,
+  system,
   ...
 }: {
   flake-file.inputs.nix-index-database = {
-    url = "github:nix-community/nix-index-database";
     inputs.nixpkgs.follows = "nixpkgs";
+    url = "github:nix-community/nix-index-database";
   };
 
   system.nix = {
     includes = [
       programs.git
     ];
-
     nixos = {
       config,
       pkgs,
@@ -25,7 +24,6 @@
       environment.systemPackages = builtins.attrValues {
         inherit
           (pkgs)
-          gitFull
           nixd
           nixfmt
           ;
@@ -34,59 +32,38 @@
       nix = let
         flake-inputs = lib.filterAttrs (_: lib.isType "flake") inputs;
       in {
+        # Disable nix channels. Use flakes instead.
+        channel.enable = lib.mkDefault false;
         daemonCPUSchedPolicy = lib.mkDefault "batch";
         daemonIOSchedClass = lib.mkDefault "idle";
         daemonIOSchedPriority = lib.mkDefault 7;
-
-        optimise.automatic = lib.mkDefault (!config.boot.isContainer);
-
-        registry = lib.mapAttrs (_: flake: {inherit flake;}) flake-inputs;
         nixPath = lib.mapAttrsToList (n: _: "${n}=flake:${n}") flake-inputs;
-
-        # Disable nix channels. Use flakes instead.
-        channel.enable = lib.mkDefault false;
-
+        optimise.automatic = lib.mkDefault (!config.boot.isContainer);
+        registry = lib.mapAttrs (_: flake: {inherit flake;}) flake-inputs;
         settings = {
           # Deduplicate the nix store
           auto-optimise-store = true;
-
+          builders-use-substitutes = true;
           # Fallback quickly if substituters are not available.
           connect-timeout = lib.mkDefault 5;
-          fallback = true;
-
           # increase download buffer to 500 MiB
           download-buffer-size = 500 * 1048576;
-
           # Enable flakes
           experimental-features = [
             "nix-command"
             "flakes"
           ];
-
-          # set trusted users
-          trusted-users = ["root" "madeline" "@wheel"];
-
-          log-lines = lib.mkDefault 25;
-
-          # Avoid disk full issues
-          max-free = lib.mkDefault (3000 * 1024 * 1024);
-          min-free = lib.mkDefault (512 * 1024 * 1024);
-
-          builders-use-substitutes = true;
-
+          fallback = true;
           substituters = [
             "https://nix-community.cachix.org"
           ];
-
           trusted-public-keys = [
             "nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs="
           ];
+          # set trusted users
+          trusted-users = ["madelyn"];
         };
       };
-
-      nixpkgs.overlays = [
-        (import "${self}/overlays/default.nix")
-      ];
 
       programs = {
         nh = {
@@ -95,25 +72,11 @@
             enable = true;
             extraArgs = "--keep 1";
           };
-          flake = "/home/madeline/dotfiles";
+          flake = "/home/madelyn/dotfiles";
         };
         nix-index-database.comma.enable = true;
       };
-
-      systemd.services = {
-        nix-daemon.serviceConfig.OOMScoreAdjust = lib.mkDefault 250;
-        nix-gc.serviceConfig = {
-          CPUSchedulingPolicy = "batch";
-          IOSchedulingClass = "idle";
-          IOSchedulingPriority = 7;
-        };
-      };
     };
-
-    homeManager = {home, ...}: {
-      nixpkgs.overlays = [
-        (import "${self}/overlays/default.nix")
-      ];
-    };
+    provides.to-users.includes = [system.nix];
   };
 }

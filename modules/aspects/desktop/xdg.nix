@@ -11,36 +11,31 @@
 
     xdg = {
       enable = true;
-
+      cacheHome = "${home}/.cache";
       configHome = "${home}/.config";
       dataHome = "${home}/.local/share";
-      cacheHome = "${home}/.cache";
+      portal.xdgOpenUsePortal = true;
       stateHome = "${home}/.local/state";
-
       userDirs = {
         enable = pkgs.stdenv.isLinux;
         createDirectories = true;
-        setSessionVariables = false;
-
+        # Not really used but defined for completeness.
+        desktop = "${home}/Desktop";
         # Bread and butter.
         documents = "${home}/Documents";
         download = "${home}/Downloads";
-
-        # Media.
-        music = "${home}/Music";
-        pictures = "${home}/Pictures";
-        videos = "${home}/Videos";
-
-        # Not really used but defined for completeness.
-        desktop = "${home}/Desktop";
-        publicShare = "${home}/Public";
-        templates = "${home}/Templates";
-
         # Specialized.
         extraConfig = {
           REPO = "${home}/src"; # Git clones of various projects.
           SCREENSHOTS = "${home}/Pictures/screenshots"; # Separates screenshots from regular pictures.
         };
+        # Media.
+        music = "${home}/Music";
+        pictures = "${home}/Pictures";
+        publicShare = "${home}/Public";
+        setSessionVariables = false;
+        templates = "${home}/Templates";
+        videos = "${home}/Videos";
       };
     };
   };

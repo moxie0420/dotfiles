@@ -1,10 +1,9 @@
 {
-  inputs,
   den,
+  inputs,
   ...
 }: let
   inherit (inputs.den) namespace;
-  inherit (den.lib) __findFile;
 in {
   imports = [
     (namespace "desktop" true)
@@ -15,5 +14,5 @@ in {
     (namespace "system" true)
   ];
 
-  _module.args.__findFile = __findFile;
+  _module.args.__findFile = den.lib.__findFile;
 }

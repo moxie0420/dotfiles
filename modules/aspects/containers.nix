@@ -3,38 +3,27 @@
     internal-nat = {
       nixos.networking.nat = {
         enable = true;
-        # Use "ve-*" when using nftables instead of iptables
-        internalInterfaces = ["ve-+"];
-        externalInterface = "ens3";
         # Lazy IPv6 connectivity for the container
         enableIPv6 = true;
+        externalInterface = "ens3";
+        # Use "ve-*" when using nftables instead of iptables
+        internalInterfaces = ["ve-+"];
       };
     };
-
     nixos = {
       # enable nixos containers
       boot.enableContainers = true;
-
       security.unprivilegedUsernsClone = true;
-
       virtualisation.containers.enable = true;
-
+      # Use docker as the backend for nix managed oci-containers
+      virtualisation.oci-containers.backend = "podman";
       # Enable Podman for a container runtime
       virtualisation.podman = {
         enable = true;
-        dockerCompat = true;
         defaultNetwork.settings.dns_enabled = true;
+        dockerCompat = true;
       };
-
-      # Use docker as the backend for nix managed oci-containers
-      virtualisation.oci-containers.backend = "podman";
     };
-
-    provides.to-users = {user, ...}: {
-      # Add the user to the docker group so it may access the socket.
-      nixos.users.groups.podman.members = [user.userName];
-    };
-
     nvidia = {
       includes = [
         den.aspects.containers
@@ -42,6 +31,10 @@
       nixos = {
         hardware.nvidia-container-toolkit.enable = true;
       };
+    };
+    provides.to-users = {user, ...}: {
+      # Add the user to the docker group so it may access the socket.
+      nixos.users.groups.podman.members = [user.userName];
     };
   };
 }

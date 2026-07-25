@@ -2,9 +2,14 @@
   python312Packages,
   writers,
 }:
-writers.writePython3Bin "nvidia-oc" {
-  libraries = with python312Packages; [nvidia-ml-py pynvml];
-} ''
+writers.writePython3Bin "nvidia-oc"
+{
+  libraries = with python312Packages; [
+    nvidia-ml-py
+    pynvml
+  ];
+}
+''
   import pynvml as nv
 
   nv.nvmlInit()

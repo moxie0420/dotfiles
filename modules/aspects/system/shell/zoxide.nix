@@ -16,11 +16,12 @@
       {
         enable = true;
       }
-      // handleFlags // handleOptions;
+      // handleFlags
+      // handleOptions;
   };
 in {
   system.shell.zoxide = {
-    nixos = {options, ...}: mkZoxideOptions options flags;
     homeManger = {options, ...}: mkZoxideOptions options flags;
+    nixos = {options, ...}: mkZoxideOptions options flags;
   };
 }

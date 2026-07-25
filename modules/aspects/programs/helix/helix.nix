@@ -1,75 +1,103 @@
-{programs, ...}: {
+{
+  lib,
+  programs,
+  ...
+}: {
   programs.helix = {
+    homeManager = {pkgs, ...}: {
+      programs.helix = {
+        enable = true;
+        defaultEditor = true;
+
+        languages.language = let
+          prettier = name: let
+            parser =
+              if (name == "jsx" || name == "tsx")
+              then "typescript"
+              else name;
+          in {
+            args = [
+              "--parser"
+              parser
+            ];
+            command = "prettier";
+          };
+        in [
+          {
+            auto-format = true;
+            formatter.command = "${lib.getExe pkgs.pedantix-wrapped}";
+            name = "nix";
+          }
+
+          rec {
+            auto-format = true;
+            formatter = prettier name;
+            language-servers = [
+              "vscode-css-language-server"
+              "eslint"
+              "emmet-ls"
+            ];
+            name = "css";
+          }
+
+          rec {
+            auto-format = true;
+            formatter = prettier name;
+            language-servers = [
+              "vscode-html-language-server"
+              "eslint"
+            ];
+            name = "html";
+          }
+
+          rec {
+            auto-format = true;
+            formatter = prettier name;
+            language-servers = [
+              "typescript-language-server"
+              "eslint"
+            ];
+            name = "javascript";
+          }
+
+          rec {
+            auto-format = true;
+            formatter = prettier name;
+            language-servers = [
+              "typescript-language-server"
+              "eslint"
+            ];
+            name = "jsx";
+          }
+
+          rec {
+            auto-format = true;
+            formatter = prettier name;
+            language-servers = [
+              "typescript-language-server"
+              "eslint"
+            ];
+            name = "typescript";
+          }
+
+          rec {
+            auto-format = true;
+            formatter = prettier name;
+            language-servers = [
+              "typescript-language-server"
+              "eslint"
+            ];
+            name = "tsx";
+          }
+        ];
+      };
+    };
+
     includes = [
       programs.helix.formatters
       programs.helix.languages
       programs.helix.settings
     ];
-
-    homeManager.programs.helix = {
-      enable = true;
-      defaultEditor = true;
-
-      languages.language = let
-        prettier = name: let
-          parser =
-            if (name == "jsx" || name == "tsx")
-            then "typescript"
-            else name;
-        in {
-          command = "prettier";
-          args = ["--parser" parser];
-        };
-      in [
-        {
-          name = "nix";
-          formatter.command = "alejandra";
-          auto-format = true;
-        }
-
-        rec {
-          name = "css";
-          language-servers = ["vscode-css-language-server" "eslint" "emmet-ls"];
-          auto-format = true;
-          formatter = prettier name;
-        }
-
-        rec {
-          name = "html";
-          language-servers = ["vscode-html-language-server" "eslint"];
-          auto-format = true;
-          formatter = prettier name;
-        }
-
-        rec {
-          name = "javascript";
-          language-servers = ["typescript-language-server" "eslint"];
-          auto-format = true;
-          formatter = prettier name;
-        }
-
-        rec {
-          name = "jsx";
-          language-servers = ["typescript-language-server" "eslint"];
-          auto-format = true;
-          formatter = prettier name;
-        }
-
-        rec {
-          name = "typescript";
-          language-servers = ["typescript-language-server" "eslint"];
-          auto-format = true;
-          formatter = prettier name;
-        }
-
-        rec {
-          name = "tsx";
-          language-servers = ["typescript-language-server" "eslint"];
-          auto-format = true;
-          formatter = prettier name;
-        }
-      ];
-    };
 
     nixos = {pkgs, ...}: {
       environment = {

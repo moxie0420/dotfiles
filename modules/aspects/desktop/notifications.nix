@@ -3,18 +3,18 @@
     enable = true;
 
     settings = {
-      border-size = 2;
-      border-radius = 16;
+      actions = true;
       anchor = "bottom-right";
-      layer = "overlay";
+      border-radius = 16;
+      border-size = 2;
       default-timeout = 5000;
+      format = "<b>%s</b>\\n%b";
+      group-by = "app-name";
       ignore-timeout = false;
+      layer = "overlay";
+      markup = true;
       max-visible = 5;
       sort = "-time";
-      group-by = "app-name";
-      actions = true;
-      format = "<b>%s</b>\\n%b";
-      markup = true;
     };
   };
 }

@@ -1,39 +1,20 @@
-{programs, ...}: {
+{
+  programs,
+  self,
+  ...
+}: {
   programs.helix.languages = {
-    includes = with programs.helix.languages; [
-      fish
-      markdown
-      nix
-    ];
-
-    osDev.includes = with programs.helix.languages; [
-      clang
-      csharp
-    ];
-
-    webDev.includes = with programs.helix.languages; [
-      css
-      emmet
-      eslint
-      html
-      json
-      toml
-      typescript
-    ];
-
     # C/C++
     clang.homeManager = {pkgs, ...}: {
       programs.helix.extraPackages = builtins.attrValues {
         inherit (pkgs) clang-tools;
       };
     };
-
     csharp.homeManager = {pkgs, ...}: {
       programs.helix.extraPackages = builtins.attrValues {
         inherit (pkgs) omnisharp-roslyn;
       };
     };
-
     css.homeManager = {pkgs, ...}: {
       programs.helix = {
         extraPackages = builtins.attrValues {
@@ -43,14 +24,13 @@
         languages.language-server.vscode-css-language-server = {
           config = {
             css.validate.enable = true;
-            scss.validate.enable = true;
             less.validate.enable = true;
             provideFormatter = true;
+            scss.validate.enable = true;
           };
         };
       };
     };
-
     # emmet intergration for webdev
     emmet.homeManager = {pkgs, ...}: {
       programs.helix = {
@@ -59,12 +39,11 @@
         };
 
         languages.language-server.emmet-ls = {
-          command = "emmet-ls";
           args = ["--stdio"];
+          command = "emmet-ls";
         };
       };
     };
-
     # eslint in all of its glory
     eslint.homeManager = {pkgs, ...}: {
       programs.helix = {
@@ -73,22 +52,7 @@
         };
 
         languages.language-server.eslint = {
-          command = "vscode-eslint-language-server";
-          args = ["--stdio"];
           config = {
-            codeActionsOnSave = {
-              mode = "all";
-              "source.fixAll.eslint" = true;
-            };
-            format.enable = true;
-            nodePath = "";
-            quiet = false;
-            rulesCustomizations = [];
-            run = "onType";
-            validate = "on";
-            experimental = {};
-            problems.shortenToSingleLine = false;
-
             codeAction = {
               disableRuleComment = {
                 enable = true;
@@ -96,18 +60,30 @@
               };
               showDocumentation.enable = false;
             };
+            codeActionsOnSave = {
+              mode = "all";
+              "source.fixAll.eslint" = true;
+            };
+            experimental = {};
+            format.enable = true;
+            nodePath = "";
+            problems.shortenToSingleLine = false;
+            quiet = false;
+            rulesCustomizations = [];
+            run = "onType";
+            validate = "on";
           };
+          args = ["--stdio"];
+          command = "vscode-eslint-language-server";
         };
       };
     };
-
     # fish shell
     fish.homeManager = {pkgs, ...}: {
       programs.helix.extraPackages = builtins.attrValues {
         inherit (pkgs) fish-lsp;
       };
     };
-
     # html
     html.homeManager = {pkgs, ...}: {
       programs.helix = {
@@ -116,7 +92,11 @@
         };
       };
     };
-
+    includes = with programs.helix.languages; [
+      fish
+      markdown
+      nix
+    ];
     # Json
     json.homeManager = {pkgs, ...}: {
       programs.helix = {
@@ -126,52 +106,72 @@
 
         languages.language-server.vscode-json-language-server.config = {
           json = {
-            validate.enable = true;
             format.enable = true;
+            validate.enable = true;
           };
           provideFormatter = true;
         };
       };
     };
-
     # markdown
     markdown.homeManager = {pkgs, ...}: {
       programs.helix.extraPackages = builtins.attrValues {
         inherit (pkgs) markdown-oxide marksman;
       };
     };
-
     # nixlang
-    nix.homeManager = {pkgs, ...}: {
-      programs.helix = {
-        extraPackages = builtins.attrValues {
-          inherit (pkgs) nil nixd;
-        };
+    nix = {host, ...}: {
+      homeManager = {pkgs, ...}: {
+        programs.helix = {
+          extraPackages = builtins.attrValues {
+            inherit (pkgs) nil nixd;
+          };
 
-        languages.language-server = {
-          nil.config.nix.flake.autoEvalInputs = true;
+          languages.language-server = {
+            nil.config = {
+              nix.flake = {
+                autoArchive = true;
+                autoEvalInputs = true;
+              };
+            };
 
-          nixd = {
-            command = "nixd";
-            config.options = {
-              expr = "(builtins.getFlake (builtins.toString ./.)).nixosConfigurations.<name>.options.home-manager.users.type.getSubOptions []";
+            nixd = {
+              config.options = {
+                # extra flakes
+                flake-parts.expr = "(builtins.getFlake \"${self}\").debug.options";
+                flake-parts2.expr = "(builtins.getFlake \"${self}\").currentSystem.options";
+                home-manager.expr = "(builtins.getFlake (builtins.toString ./.)).nixosConfigurations.${host.name}.options.home-manager.users.type.getSubOptions []";
+                nixos.expr = "(builtins.getFlake (builtins.toString ./.)).nixosConfigurations.${host.name}.options";
+              };
+              command = "nixd";
             };
           };
         };
       };
     };
-
+    osDev.includes = with programs.helix.languages; [
+      clang
+      csharp
+    ];
     toml.homeManager = {pkgs, ...}: {
       programs.helix.extraPackages = builtins.attrValues {
         inherit (pkgs) taplo tombi;
       };
     };
-
     # .ts & .tsx
     typescript.homeManager = {pkgs, ...}: {
       programs.helix.extraPackages = builtins.attrValues {
         inherit (pkgs) typescript-language-server;
       };
     };
+    webDev.includes = with programs.helix.languages; [
+      css
+      emmet
+      eslint
+      html
+      json
+      toml
+      typescript
+    ];
   };
 }

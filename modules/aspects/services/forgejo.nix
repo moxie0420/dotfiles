@@ -1,16 +1,23 @@
 {
+  lib,
   den,
   inputs,
-  services,
   self,
-  lib,
+  services,
   ...
 }: {
   services.forgejo = {
-    includes = [
-      den.aspects.secrets
-    ];
-
+    adminSecret.nixos = {
+      age.secrets.forgejo-admin-secret = {
+        file = "${self}/secrets/forgejo-admin-secret.age";
+        owner = "forgejo";
+      };
+      users.groups.forgejo = {};
+      users.users.forgejo = {
+        group = "forgejo";
+        isSystemUser = true;
+      };
+    };
     containerized = {
       includes = [
         services.forgejo.adminSecret
@@ -18,13 +25,6 @@
 
       nixos = {
         containers.forgejo = {
-          autoStart = true;
-          privateNetwork = true;
-          hostAddress = "192.168.100.1";
-          localAddress = "192.168.100.11";
-
-          bindMounts."/etc/ssh/ssh_host_ed25519_key".isReadOnly = true;
-
           config = {
             imports = [
               inputs.agenix.nixosModules.default
@@ -41,34 +41,46 @@
 
             system.stateVersion = "26.11";
           };
-
+          autoStart = true;
+          bindMounts."/etc/ssh/ssh_host_ed25519_key".isReadOnly = true;
           extraFlags = [
             "--drop-capability=CAP_SYS_CHROOT"
             "--property=CPUQuota=100%"
           ];
+          hostAddress = "192.168.100.1";
+          localAddress = "192.168.100.11";
+          privateNetwork = true;
         };
       };
     };
-
-    adminSecret.nixos = {
-      users.users.forgejo = {
-        group = "forgejo";
-        isSystemUser = true;
-      };
-      users.groups.forgejo = {};
-
-      age.secrets.forgejo-admin-secret = {
-        file = "${self}/secrets/forgejo-admin-secret.age";
-        owner = "forgejo";
-      };
-    };
-
+    includes = [
+      den.aspects.secrets
+    ];
     nixos = {config, ...}: let
       cfg = config.services.forgejo;
       srv = cfg.settings.server;
     in {
-      networking.firewall.allowedTCPPorts = [22 3000];
+      networking.firewall.allowedTCPPorts = [
+        22
+        3000
+      ];
+      services.forgejo = {
+        enable = true;
+        database.type = "postgres";
+        lfs.enable = true;
 
+        settings = {
+          server = {
+            DOMAIN = "git.moxiege.com";
+            HTTP_PORT = 3000;
+            # You need to specify this to remove the port from URLs in the web UI.
+            ROOT_URL = "https://${srv.DOMAIN}/";
+            SSH_PORT = 22;
+          };
+
+          service.DISABLE_REGISTRATION = true;
+        };
+      };
       systemd.services.forgejo.preStart = let
         adminCmd = "${lib.getExe cfg.package} admin user";
         pwd = config.age.secrets.forgejo-admin-secret.path;
@@ -78,24 +90,6 @@
         ## uncomment this line to change an admin user which was already created
         ${adminCmd} change-password --username ${user} --password "$(tr -d '\n' < ${pwd})" || true
       '';
-
-      services.forgejo = {
-        enable = true;
-        database.type = "postgres";
-        lfs.enable = true;
-
-        settings = {
-          server = {
-            DOMAIN = "git.moxiege.com";
-            # You need to specify this to remove the port from URLs in the web UI.
-            ROOT_URL = "https://${srv.DOMAIN}/";
-            HTTP_PORT = 3000;
-            SSH_PORT = 22;
-          };
-
-          service.DISABLE_REGISTRATION = true;
-        };
-      };
     };
   };
 }

@@ -4,16 +4,16 @@
   mkEnabledOption = name:
     mkOption {
       default = true;
-      example = false;
       description = "Whether to enable ${name}.";
+      example = false;
       type = lib.types.bool;
     };
 
   mkFollowsOption = follows:
     mkOption {
       default = follows;
-      example = false;
       description = "Follows ${follows}";
+      example = false;
       type = lib.types.${builtins.typeOf follows};
     };
 in {

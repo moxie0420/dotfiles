@@ -11,17 +11,12 @@
         enable = true;
         enableVirtualCamera = true;
 
-        package = pkgs.obs-studio.override {
-          cudaSupport = true;
-        };
-
         plugins = builtins.attrValues {
           inherit
             (pkgs.obs-studio-plugins)
             wlrobs
             obs-backgroundremoval
             obs-gstreamer
-            obs-vaapi
             obs-vkcapture
             ;
         };
