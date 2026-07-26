@@ -8,6 +8,7 @@
   in {
     programs.dconf = {
       enable = true;
+
       profiles = {
         user.databases = [
           (setDefaultTerminal "${pkgs.kitty}/bin/kitty")

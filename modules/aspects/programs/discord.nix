@@ -4,8 +4,11 @@
   ...
 }: {
   flake-file.inputs.nixcord = {
-    inputs.nixpkgs.follows = "nixpkgs";
-    inputs.nixpkgs-nixcord.follows = "nixpkgs";
+    inputs = {
+      nixpkgs.follows = "nixpkgs";
+      nixpkgs-nixcord.follows = "nixpkgs";
+    };
+
     url = "github:FlameFlag/nixcord";
   };
 
@@ -18,9 +21,7 @@
       programs.nixcord = {
         config = {
           autoUpdate = true;
-
           enabledThemes = [];
-
           frameless = true;
 
           plugins = {
@@ -49,10 +50,12 @@
             noTypingAnimation.enable = true;
             openInApp.enable = true;
             petpet.enable = true;
+
             pinDms = {
               enable = true;
               canCollapseDmSection = true;
             };
+
             richPresence.enable = true;
             roleColorEverywhere.enable = true;
             shikiCodeblocks.enable = true;
@@ -63,14 +66,17 @@
             volumeBooster.enable = true;
           };
         };
+
         enable = true;
         discord.enable = false;
         equibop.enable = true;
       };
     };
+
     nixos = {pkgs, ...}: {
       environment.systemPackages = [pkgs.equibop];
     };
+
     provides = {
       to-hosts.includes = [programs.discord];
       to-users.includes = [programs.discord];

@@ -6,10 +6,14 @@
         enable = true;
         enableSSHSupport = true;
       };
-      # for the yubikeys smartcard mode
-      services.pcscd.enable = true;
-      services.udev.packages = builtins.attrValues {
-        inherit (pkgs) yubikey-personalization;
+
+      services = {
+        # for the yubikeys smartcard mode
+        pcscd.enable = true;
+
+        udev.packages = builtins.attrValues {
+          inherit (pkgs) yubikey-personalization;
+        };
       };
     };
   };

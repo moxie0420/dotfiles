@@ -22,6 +22,7 @@
       programs.starship = {
         enable = true;
         presets = ["nerd-font-symbols"];
+
         settings = let
           disabled = false;
           format = "[$symbol $version]($style)";
@@ -30,36 +31,45 @@
             inherit disabled;
             format = "[$symbol$version ]($style)";
           };
+
           # languages
           c = {
             inherit format disabled;
             style = "bg:overlay fg:foam";
           };
+
           character = {
             error_symbol = "[](love)";
             success_symbol = "[](pine)";
           };
+
           directory = {
             format = "[ $path ]($style)[](fg:surface bg:overlay)";
             style = "bg:surface fg:iris";
+
             substitutions = {
               Documents = "󰈙";
               Downloads = " ";
               Music = " ";
               Pictures = " ";
             };
+
             truncation_length = 3;
             truncation_symbol = ".../";
           };
+
           fill.symbol = " ";
+
           format = ''
             [](fg:overlay)$os$username$hostname$directory$git_branch$git_status[](fg:overlay)$fill$time
             $character[󱞪 ](iris)
           '';
+
           git_branch = {
             format = "[$symbol$branch ]($style)";
             style = "bg:overlay fg:text";
           };
+
           git_status = {
             ahead = "[](fg:foam bg:overlay)$count";
             behind = "[](fg:love bg:overlay)$count";
@@ -74,36 +84,45 @@
             untracked = "[?$count ](fg:subtle bg:overlay)";
             up_to_date = "";
           };
+
           hostname = {
             format = "[@](bg:base fg:text)[$hostname ]($style)[](fg:base bg:surface)";
             ssh_only = false;
             style = "bg:base fg:iris";
           };
+
           nix_shell = {
             inherit disabled;
             format = "via [$symbol(($name))]($style) ";
             heuristic = true;
             symbol = " ";
           };
+
           nodejs = {
             inherit format disabled;
             style = "fg:foam";
           };
+
           os = {
             inherit disabled;
             format = "[](fg:surface bg:overlay)[ $symbol ]($style)";
             style = "bg:surface fg:text";
             symbols.NixOS = "";
           };
+
           palette = "rose-pine";
+
           palettes = {
             inherit rose-pine;
           };
+
           right_format = "$all";
+
           ruby = {
             inherit disabled;
             format = "[$symbol($version)]($style) ";
           };
+
           # right modules
           time = let
             l1 = "(fg:overlay)";
@@ -117,6 +136,7 @@
             style = "bg:base fg:pine";
             time_format = "%H:%M %m/%d/%Y";
           };
+
           username = {
             format = "[](fg:base bg:surface)[ $user]($style)";
             show_always = true;
@@ -124,14 +144,17 @@
             style_user = "bg:base fg:pine";
           };
         };
+
         transientPrompt = {
           enable = true;
+
           right = ''
             starship module time
           '';
         };
       };
     };
+
     provides = {
       to-hosts.includes = [programs.starship];
       # to-users.includes = [ programs.starship ];

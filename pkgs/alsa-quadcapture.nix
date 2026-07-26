@@ -10,6 +10,7 @@ pkgs.stdenv.mkDerivation {
     postPatch
     nativeBuildInputs
     ;
+
   buildPhase = ''
     BUILT_KERNEL=$kernel_dev/lib/modules/$kernelVersion/build
 
@@ -20,6 +21,7 @@ pkgs.stdenv.mkDerivation {
     make "-j$NIX_BUILD_CORES" modules_prepare
     make "-j$NIX_BUILD_CORES" M=$modulePath modules
   '';
+
   installPhase = ''
     make \
       INSTALL_MOD_PATH="$out" \
@@ -27,11 +29,14 @@ pkgs.stdenv.mkDerivation {
       M="$modulePath" \
       modules_install
   '';
+
   kernelVersion = kernel.modDirVersion;
   kernel_dev = kernel.dev;
   modulePath = "sound/usb";
+
   patches = [
     ./alsa-quadcapture.patch
   ];
+
   pname = "alsa-quadcapture";
 }

@@ -44,46 +44,56 @@
               "Mod+Shift+P".action.power-off-monitors = [];
               "Mod+Shift+Slash".action.show-hotkey-overlay = [];
               "Mod+W".action.close-window = [];
+
               "Mod+WheelScrollDown" = {
                 action.focus-workspace = "down";
                 cooldown-ms = 150;
               };
+
               "Mod+WheelScrollLeft".action.focus-workspace = "left";
               "Mod+WheelScrollRight".action.focus-workspace = "right";
+
               "Mod+WheelScrollUp" = {
                 action.focus-workspace = "up";
                 cooldown-ms = 150;
               };
+
               "Print".action.screenshot = [];
+
               "XF86AudioLowerVolume".action.spawn = [
                 "wpctl"
                 "set-volume"
                 "@DEFAULT_AUDIO_SINK@"
                 "5%-"
               ];
+
               "XF86AudioMicMute".action.spawn = [
                 "wpctl"
                 "set-mute"
                 "@DEFAULT_AUDIO_SOURCE@"
                 "toggle"
               ];
+
               "XF86AudioMute".action.spawn = [
                 "wpctl"
                 "set-mute"
                 "@DEFAULT_AUDIO_SINK@"
                 "toggle"
               ];
+
               "XF86AudioRaiseVolume".action.spawn = [
                 "wpctl"
                 "set-volume"
                 "@DEFAULT_AUDIO_SINK@"
                 "5%+"
               ];
+
               "XF86MonBrightnessDown".action.spawn = [
                 "brightnessctl"
                 "set"
                 "1%-"
               ];
+
               "XF86MonBrightnessUp".action.spawn = [
                 "brightnessctl"
                 "set"
@@ -151,34 +161,43 @@
               "Mod+Up".action.focus-window-up = [];
             }
           ];
+
         cursor = {
           hide-after-inactive-ms = 5000;
         };
+
         debug = {
           emulate-zero-presentation-time = {};
         };
+
         input = {
           focus-follows-mouse.enable = true;
           power-key-handling.enable = false;
         };
+
         layout = {
           always-center-single-column = true;
           center-focused-column = "on-overflow";
+
           default-column-width = {
             proportion = 0.5;
           };
+
           gaps = 8;
+
           preset-column-widths = [
             {proportion = 0.33333;}
             {proportion = 0.5;}
             {proportion = 0.66667;}
           ];
+
           preset-window-heights = [
             {proportion = 0.33333;}
             {proportion = 0.5;}
             {proportion = 0.66667;}
           ];
         };
+
         outputs = {
           HDMI-A-3.position = {
             x = 0;
@@ -187,16 +206,19 @@
 
           HDMI-A-4 = {
             focus-at-startup = true;
+
             position = {
               x = 0;
               y = 0;
             };
           };
         };
+
         prefer-no-csd = true;
         screenshot-path = "~/Pictures/Screenshots/Screenshot from %Y-%m-%d %H-%M-%S.png";
       };
     };
+
     # module dpendencies
     includes = [
       desktop.audio
@@ -211,29 +233,35 @@
       # include window rules
       desktop.niri.windowRules
     ];
+
     nixos = {pkgs, ...}: {
       imports = with inputs; [
         niri.nixosModules.niri
       ];
 
-      environment.pathsToLink = [
-        "/share/xdg-desktop-portal"
-        "/share/applications"
-      ];
+      environment = {
+        pathsToLink = [
+          "/share/xdg-desktop-portal"
+          "/share/applications"
+        ];
 
-      environment.systemPackages = [
-        pkgs.xwayland-satellite
-      ];
+        systemPackages = [
+          pkgs.xwayland-satellite
+        ];
+      };
 
       niri-flake.cache.enable = false;
+
       # Enable Niri
       programs.niri = {
         enable = true;
         package = pkgs.niri-unstable;
       };
     };
+
     provides.to-users.includes = [desktop.niri];
   };
+
   flake-file.inputs.niri = {
     inputs.nixpkgs.follows = "nixpkgs";
     url = "github:sodiboo/niri-flake";

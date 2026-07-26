@@ -23,6 +23,7 @@ in {
   mkPin = mkProp "pin";
   mkTag = mkProp "tag";
   mkTitle = mkProp "title";
+
   mkWindowRule = {
     effects,
     name,
@@ -42,6 +43,7 @@ in {
       ${toLines effectStrings}
     }
   '';
+
   mkWorkspace = mkProp "workspace";
   mkXdgTag = mkProp "xdg_tag";
   mkXwayland = mkProp "xwayland";

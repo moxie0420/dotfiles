@@ -19,6 +19,7 @@
         };
       };
     };
+
     nixos = {pkgs, ...}: {
       boot = {
         initrd.systemd = {
@@ -34,19 +35,24 @@
 
         loader = {
           efi.canTouchEfiVariables = true;
+
           # limine ans bootloader
           limine = {
             enable = true;
             package = pkgs.limine-full;
             resolution = "1920x1080";
           };
+
           timeout = 3;
         };
+
         tmp.cleanOnBoot = true;
       };
     };
+
     secure = {
       includes = [system.boot];
+
       nixos = {pkgs, ...}: {
         boot.loader.limine.secureBoot.enable = true;
         environment.systemPackages = [pkgs.sbctl];

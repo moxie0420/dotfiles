@@ -8,6 +8,7 @@
       addr = host.address;
       hostname = config.networking.hostName;
     };
+
     nixos = {
       lib,
       host-addrs,

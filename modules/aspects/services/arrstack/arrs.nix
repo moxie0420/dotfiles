@@ -21,6 +21,7 @@
     # Primary Arrs
     starrs = {
       includes = [services.arrstack.containerized];
+
       nixos.containers.starrs = {
         config = {lib, ...}: {
           services = lib.mkMerge [
@@ -39,9 +40,11 @@
               })
             )
           ];
+
           # ensure the nixarr group exists in the container
           users.groups.nixarr = {};
         };
+
         autoStart = true;
         hostAddress = "192.168.100.1";
         localAddress = "192.168.100.3";

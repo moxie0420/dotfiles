@@ -7,6 +7,7 @@
 
       programs.waybar = {
         enable = true;
+
         settings = let
           barDefaults = {
             height = 38;
@@ -18,9 +19,11 @@
             actions = {
               on-click-right = "mode";
             };
+
             autosens = 1;
             bar_delimiter = 0;
             bars = 20;
+
             format-icons = [
               "▁"
               "▂"
@@ -31,6 +34,7 @@
               "▇"
               "█"
             ];
+
             framerate = 60;
             hide_on_silence = false;
             higher_cutoff_freq = 20000;
@@ -57,6 +61,7 @@
           };
           idle_inhibitor = {
             format = "{icon} ";
+
             format-icons = {
               activated = "";
               deactivated = "";
@@ -77,12 +82,14 @@
           };
           power-profiles-daemon = {
             format = "{icon}";
+
             format-icons = {
               balanced = "";
               default = "";
               performance = "";
               power-saver = "";
             };
+
             tooltip = true;
             tooltip-format = "Power profile: {profile}\nDriver: {driver}";
           };
@@ -97,20 +104,24 @@
           tempurature = {
             critical-threshold = 80;
             format = "{temperatureC}°C {icon}";
+
             format-icons = [
               "󰉬 "
               " "
               "󰉪 "
             ];
+
             thermal-zone = 1;
           };
           wireplumber = {
             format = "{volume}% {icon} ";
+
             format-icons = [
               ""
               ""
               ""
             ];
+
             format-muted = "";
             on-click = "pwvucontrol";
           };
@@ -130,55 +141,67 @@
                 tempurature
                 wireplumber
                 ;
+
               "custom/power" = {
                 format = "";
                 on-click = "shutdown now";
                 tooltip = false;
               };
+
               # custom modules
               "custom/quit" = {
                 format = "󰗼";
                 on-click = "niri msg exit";
                 tooltip = false;
               };
+
               "custom/reboot" = {
                 format = "󰜉";
                 on-click = "reboot";
                 tooltip = false;
               };
+
               "group/group-hardware" = {
                 drawer = {
                   children-class = "not-cpu";
                   transition-duration = 500;
                 };
+
                 modules = [
                   "cpu"
                   "memory"
                   "network"
                   "temperature"
                 ];
+
                 orientation = "inherit";
               };
+
               "group/group-power" = {
                 drawer = {
                   children-class = "not-power";
                   transition-duration = 500;
                 };
+
                 modules = [
                   "custom/power" # First element is the "group leader" and won't ever be hidden
                   "custom/quit"
                   "custom/reboot"
                 ];
+
                 orientation = "inherit";
               };
+
               modules-center = [
                 "niri/window"
               ];
+
               modules-left = [
                 "cava"
                 "niri/workspaces"
                 "privacy"
               ];
+
               modules-right = [
                 "idle_inhibitor"
                 "wireplumber"
@@ -189,9 +212,11 @@
                 "clock"
                 "group/group-power"
               ];
+
               position = literals.top;
             };
         };
+
         style = ''
           window#waybar {
             background: none;
@@ -254,7 +279,9 @@
         '';
       };
     };
+
     nixos.programs.waybar.enable = true;
+
     provides = {
       to-hosts.includes = [programs.waybar];
       to-users.includes = [programs.waybar];

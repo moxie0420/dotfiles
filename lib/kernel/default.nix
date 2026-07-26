@@ -9,17 +9,21 @@ in {
     CONFIG_ACER_WIRELESS = unset;
     CONFIG_ACER_WMI = unset;
   };
+
   no-afs-rxrpc = {
     CONFIG_AFS_FS = unset;
     CONFIG_AF_RXRPC = unset;
   };
+
   no-agp = {
     CONFIG_AGP = unset;
     CONFIG_INTEL_GTT = module;
   };
+
   no-amateur-radio = {
     CONFIG_HAMRADIO = unset;
   };
+
   no-amd = {
     CONFIG_AGP_AMD64 = unset;
     CONFIG_AMD_HSMP = unset;
@@ -61,11 +65,13 @@ in {
     CONFIG_X86_MCE_AMD = unset;
     CONFIG_X86_POWERNOW_K8 = unset;
   };
+
   no-android = {
     CONFIG_ANDROID_BINDER_IPC = unset;
     CONFIG_BT_AOSPEXT = unset;
     CONFIG_X86_ANDROID_TABLETS = unset;
   };
+
   no-apple-hardware = {
     CONFIG_APPLE_GMUX = unset;
     CONFIG_DEV_APPLETALK = unset;
@@ -75,6 +81,7 @@ in {
     CONFIG_MOUSE_BCM5974 = unset;
     CONFIG_SENSORS_APPLESMC = unset;
   };
+
   no-asus = {
     CONFIG_ASUS_LAPTOP = unset;
     CONFIG_ASUS_TF103C_DOCK = unset;
@@ -85,36 +92,46 @@ in {
     CONFIG_SENSORS_ASUS_WMI = unset;
     CONFIG_SENSORS_ATK0110 = unset;
   };
+
   no-atheros-qualcomm-wlan = {
     CONFIG_WLAN_VENDOR_ATH = unset;
   };
+
   no-broadcom-wlan = {
     CONFIG_WLAN_VENDOR_BROADCOM = unset;
   };
+
   no-canbus = {
     CONFIG_CAN = unset;
   };
+
   no-ceph = {
     CONFIG_BLK_DEV_RBD = unset;
     CONFIG_CEPH_FS = unset;
     CONFIG_CEPH_LIB = unset;
   };
+
   no-chrome-hardware = {
     CONFIG_CHROME_PLATFORMS = unset;
   };
+
   no-coda = {
     CONFIG_CODA_FS = unset;
   };
+
   no-f2fs = {
     CONFIG_F2FS_FS = unset;
   };
+
   no-firewire = {
     CONFIG_FIREWIRE = unset;
     CONFIG_FIREWIRE_NOSY = unset;
   };
+
   no-fpga = {
     CONFIG_FPGA = unset;
   };
+
   no-fujitsu = {
     CONFIG_AMILO_RFKILL = unset;
     CONFIG_FUJITSU_ES = unset;
@@ -123,6 +140,7 @@ in {
     CONFIG_INPUT_APANEL = unset;
     CONFIG_TOUCHSCREEN_FUJITSU = unset;
   };
+
   no-gameport = {
     CONFIG_GAMEPORT = unset;
     CONFIG_JOYSTICK_A3D = unset;
@@ -138,60 +156,77 @@ in {
     CONFIG_JOYSTICK_SIDEWINDER = unset;
     CONFIG_JOYSTICK_TMDC = unset;
   };
+
   no-gfs = {
     CONFIG_GFS2_FS = unset;
   };
+
   no-gnss-gps = {
     CONFIG_GNSS = unset;
   };
+
   no-hp = {
     CONFIG_HP_ILO = unset;
     CONFIG_HP_WATCHDOG = unset;
     CONFIG_SENSORS_HP_WMI = unset;
     CONFIG_X86_PLATFORM_DRIVERS_HP = unset;
   };
+
   no-huawei = {
     CONFIG_HUAWEI_WMI = unset;
   };
+
   no-hyperv = {
     CONFIG_HYPERV = unset;
   };
+
   no-hypervisor-guest = {
     CONFIG_HYPERVISOR_GUEST = unset;
   };
+
   no-infiniband = {
     CONFIG_INFINIBAND = unset;
   };
+
   no-intersil-wlan = {
     CONFIG_WLAN_VENDOR_INTERSIL = unset;
   };
+
   no-jfs = {
     CONFIG_JFS_FS = unset;
   };
+
   no-lenovo-yoga = {
     CONFIG_LENOVO_YMC = unset;
     CONFIG_YOGABOOK = unset;
   };
+
   no-lg-laptop = {
     CONFIG_LG_LAPTOP = unset;
   };
+
   no-marvell-wlan = {
     CONFIG_WLAN_VENDOR_MARVELL = unset;
   };
+
   no-mediatek-wlan = {
     CONFIG_WLAN_VENDOR_MEDIATEK = unset;
   };
+
   no-mellanox = {
     CONFIG_MELLANOX_PLATFORM = unset;
     CONFIG_NET_VENDOR_MELLANOX = unset;
   };
+
   no-microchip-wlan = {
     CONFIG_WLAN_VENDOR_MICROCHIP = unset;
   };
+
   no-microsoft-surface = {
     CONFIG_SURFACE_PLATFORMS = unset;
     CONFIG_TOUCHSCREEN_SURFACE3_SPI = unset;
   };
+
   no-misc-char-devices = {
     CONFIG_IPMI_DEVICE_INTERFACE = unset;
     CONFIG_IPMI_IPMB = unset;
@@ -201,24 +236,30 @@ in {
     CONFIG_SSIF_IPMI_BMC = unset;
     CONFIG_TELCLOCK = unset;
   };
+
   # maybe not a great idea to use
   # im not sure exacly what this disables
   no-misc-input = {
     CONFIG_INPUT_MISC = unset;
   };
+
   no-nfc = {
     CONFIG_NFC = unset;
   };
+
   no-nfs = {
     CONFIG_NFSD = unset;
     CONFIG_NFS_FS = unset;
   };
+
   no-nilfs2 = {
     CONFIG_NILFS2_FS = unset;
   };
+
   no-ocfs2 = {
     CONFIG_OCFS2_FS = unset;
   };
+
   no-old-keyboard-mice = {
     CONFIG_INPUT_VIVALDIFMAP = module;
     CONFIG_KEYBOARD_ATKBD = unset;
@@ -226,6 +267,7 @@ in {
     CONFIG_MOUSE_SERIAL = unset;
     CONFIG_MOUSE_VSXXXAA = unset;
   };
+
   no-old-odd-joysticks = {
     CONFIG_JOYSTICK_ADC = unset;
     CONFIG_JOYSTICK_IFORCE = unset;
@@ -238,6 +280,7 @@ in {
     CONFIG_JOYSTICK_WARRIOR = unset;
     CONFIG_JOYSTICK_ZHENHUA = unset;
   };
+
   no-old-partition-types = {
     CONFIG_AIX_PARTITION = unset;
     CONFIG_MAC_PARTITION = unset;
@@ -248,9 +291,11 @@ in {
     CONFIG_SUN_PARTITION = unset;
     CONFIG_UNIXWARE_DISKLABEL = unset;
   };
+
   no-parallel-port = {
     CONFIG_PARPORT = unset;
   };
+
   no-pci-audio-devices = {
     CONFIG_SND_AD1889 = unset;
     CONFIG_SND_ALI5451 = unset;
@@ -315,6 +360,7 @@ in {
     CONFIG_SND_VX222 = unset;
     CONFIG_SND_YMFPCI = unset;
   };
+
   no-pci-media = {
     CONFIG_GPIO_BT8XX = unset;
     CONFIG_MEDIA_ANALOG_TV_SUPPORT = unset;
@@ -325,43 +371,54 @@ in {
     CONFIG_MEDIA_RADIO_SUPPORT = unset;
     CONFIG_MEDIA_TEST_SUPPORT = unset;
   };
+
   no-pcmcia = {
     CONFIG_PCCARD = unset;
   };
+
   no-plan9 = {
     CONFIG_9P_FS = unset;
     CONFIG_NET_9P = unset;
   };
+
   no-ppp-slip = {
     CONFIG_PPP = unset;
     CONFIG_SLIP = unset;
   };
+
   no-quantenna-wlan = {
     CONFIG_WLAN_VENDOR_QUANTENNA = unset;
   };
+
   no-ralink-wlan = {
     CONFIG_WLAN_VENDOR_RALINK = unset;
   };
+
   no-realtek-wlan = {
     CONFIG_WLAN_VENDOR_REALTEK = unset;
   };
+
   no-redpine-wlan = {
     CONFIG_WLAN_VENDOR_RSI = unset;
   };
+
   no-reiserfs = {
     CONFIG_REISER_FS = unset;
   };
+
   no-remote-control = {
     CONFIG_INPUT_ATI_REMOTE2 = unset;
     CONFIG_INPUT_KEYSPAN_REMOTE = unset;
     CONFIG_RC_CORE = unset;
   };
+
   no-samsung = {
     CONFIG_BATTERY_SAMSUNG_SDI = unset;
     CONFIG_HID_SAMSUNG = unset;
     CONFIG_SAMSUNG_LAPTOP = unset;
     CONFIG_SAMSUNG_Q10 = unset;
   };
+
   no-serial-oddballs = {
     CONFIG_DMA_VIRTUAL_CHANNELS = module;
     CONFIG_IPWIRELESS = unset;
@@ -377,27 +434,33 @@ in {
     CONFIG_XILLYBUS = unset;
     CONFIG_XILLYUSB = unset;
   };
+
   no-smb-cifs = {
     CONFIG_CIFS = unset;
   };
+
   no-st-wlan = {
     CONFIG_WLAN_VENDOR_ST = unset;
   };
+
   no-synopsis-dma = {
     CONFIG_DW_DMAC = unset;
     CONFIG_DW_DMAC_CORE = module;
     CONFIG_DW_DMAC_PCI = unset;
     CONFIG_DW_EDMA = unset;
   };
+
   no-ti-wlan = {
     CONFIG_WLAN_VENDOR_TI = unset;
   };
+
   no-toshiba-hardware = {
     CONFIG_ACPI_TOSHIBA = unset;
     CONFIG_TOSHIBA_BT_RFKILL = unset;
     CONFIG_TOSHIBA_HAPS = unset;
     CONFIG_TOSHIBA_WMI = unset;
   };
+
   no-touch-keys-sensors = {
     CONFIG_KEYBOARD_CYPRESS_SF = unset;
     CONFIG_KEYBOARD_GPIO = unset;
@@ -405,9 +468,11 @@ in {
     CONFIG_KEYBOARD_QT1070 = unset;
     CONFIG_KEYBOARD_TM2_TOUCHKEY = unset;
   };
+
   no-touchscreen = {
     CONFIG_INPUT_TOUCHSCREEN = unset;
   };
+
   no-usb-modem-hdmi-cec = {
     CONFIG_CEC_CH7322 = unset;
     CONFIG_CEC_SECO = unset;
@@ -415,10 +480,12 @@ in {
     CONFIG_USB_PULSE8_CEC = unset;
     CONFIG_USB_RAINSHADOW_CEC = unset;
   };
+
   no-usb-network-adapters = {
     CONFIG_USB_NET_DRIVERS = unset;
     CONFIG_USB_NET_RNDIS_WLAN = unset;
   };
+
   no-usb-oddballs = {
     CONFIG_USB_ADUTUX = unset;
     CONFIG_USB_APPLEDISPLAY = unset;
@@ -494,25 +561,31 @@ in {
     CONFIG_USB_TRANCEVIBRATOR = unset;
     CONFIG_USB_YUREX = unset;
   };
+
   no-vmware = {
     CONFIG_INFINIBAND_VMWARE_PVRDMA = unset;
     CONFIG_VMWARE_PVSCSI = unset;
     CONFIG_VMWARE_VMCI = unset;
     CONFIG_VSOCKETS = unset;
   };
+
   no-x86-extended-platform = {
     CONFIG_X86_EXTENDED_PLATFORM = unset;
   };
+
   no-xen = {
     CONFIG_KVM_XEN = unset;
     CONFIG_XEN = unset;
   };
+
   no-xilinx-dma = {
     CONFIG_XILINX_XDMA = unset;
   };
+
   no-zonefs = {
     CONFIG_ZONEFS_FS = unset;
   };
+
   no-zydas-wlan = {
     CONFIG_WLAN_VENDOR_ZYDAS = unset;
   };

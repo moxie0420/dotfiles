@@ -3,6 +3,7 @@
     nixos = {
       boot = {
         initrd.systemd.network.wait-online.enable = false;
+
         kernel.sysctl = {
           "net.core.default_qdisc" = "cake";
           # Bufferbloat mitigations + slight improvement in throughput & latency
@@ -13,8 +14,10 @@
           # both incoming and outgoing connections:
           "net.ipv4.tcp_fastopen" = 3;
         };
+
         kernelModules = ["tcp_bbr"];
       };
+
       systemd.network.wait-online.enable = false;
     };
   };

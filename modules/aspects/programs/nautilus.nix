@@ -3,10 +3,10 @@
     nixos = {pkgs, ...}: {
       environment = {
         pathsToLink = ["share/thumbnailers"];
+
         systemPackages = builtins.attrValues {
           # Nautilus itself
           inherit (pkgs) nautilus;
-
           # file roller for nautilus' archive management
           inherit (pkgs) file-roller;
 
@@ -43,6 +43,7 @@
 
       services.gvfs.enable = true;
     };
+
     provides = {
       to-hosts.includes = [programs.nautilus];
       to-users.includes = [programs.nautilus];

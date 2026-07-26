@@ -25,10 +25,12 @@
         authentik = {
           enable = true;
           environmentFile = config.age.secrets.authentik.path;
+
           settings = {
             disable_startup_analytics = true;
           };
         };
+
         authentik-ldap = {
           enable = false;
           environmentFile = config.age.secrets.authentik-ldap.path;

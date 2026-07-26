@@ -23,6 +23,7 @@
           "ublock-unbreak"
           "urlhaus-1"
         ];
+
         userSettings = {
           cloudStorageEnabled = lib.mkForce false;
           uiAccentCustom = true;
@@ -40,16 +41,19 @@
         installation_mode = "force_installed";
         updates_disabled = true;
       };
+
       "uBlock0@raymondhill.net" = {
         install_url = moz "ublock-origin";
         installation_mode = "force_installed";
         updates_disabled = true;
       };
+
       "{446900e4-71c2-419f-a6a7-df9c091e268b}" = {
         install_url = "https://addons.mozilla.org/firefox/downloads/file/4749958/bitwarden_password_manager-2026.3.0.xpi";
         installation_mode = "force_installed";
         updates_disabled = true;
       };
+
       "{73a6fe31-595d-460b-a920-fcc0f8843232}" = {
         install_url = moz "noscript";
         installation_mode = "force_installed";
@@ -104,7 +108,6 @@
     }: {
       programs.firefox = {
         enable = true;
-
         configPath = "${config.xdg.configHome}/mozilla/firefox";
 
         policies = lib.mkMerge [
@@ -117,10 +120,12 @@
 
             search = {
               default = "ddg";
+
               engines = {
                 "Nix Options" = {
                   definedAliases = ["@no"];
                   icon = "${pkgs.nixos-icons}/share/icons/hicolor/scalable/apps/nix-snowflake.svg";
+
                   urls = [
                     {
                       params = [
@@ -133,13 +138,16 @@
                           value = "{searchTerms}";
                         }
                       ];
+
                       template = "https://search.nixos.org/options";
                     }
                   ];
                 };
+
                 "Nix Packages" = {
                   definedAliases = ["@np"];
                   icon = "${pkgs.nixos-icons}/share/icons/hicolor/scalable/apps/nix-snowflake.svg";
+
                   urls = [
                     {
                       params = [
@@ -152,13 +160,16 @@
                           value = "{searchTerms}";
                         }
                       ];
+
                       template = "https://search.nixos.org/packages";
                     }
                   ];
                 };
+
                 "NixOS Wiki" = {
                   definedAliases = ["@nw"];
                   icon = "${pkgs.nixos-icons}/share/icons/hicolor/scalable/apps/nix-snowflake.svg";
+
                   urls = [
                     {
                       params = [
@@ -167,11 +178,13 @@
                           value = "{searchTerms}";
                         }
                       ];
+
                       template = "https://wiki.nixos.org/w/index.php";
                     }
                   ];
                 };
               };
+
               force = true;
               privateDefault = "ddg";
             };
@@ -183,6 +196,7 @@
         };
       };
     };
+
     nixos = {config, ...}: {
       programs.firefox = {
         enable = true;
@@ -206,6 +220,7 @@
           ];
       };
     };
+
     provides = {
       to-hosts.includes = [programs.firefox];
       to-users.includes = [programs.firefox];

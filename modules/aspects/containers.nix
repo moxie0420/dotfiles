@@ -10,28 +10,36 @@
         internalInterfaces = ["ve-+"];
       };
     };
+
     nixos = {
       # enable nixos containers
       boot.enableContainers = true;
       security.unprivilegedUsernsClone = true;
-      virtualisation.containers.enable = true;
-      # Use docker as the backend for nix managed oci-containers
-      virtualisation.oci-containers.backend = "podman";
-      # Enable Podman for a container runtime
-      virtualisation.podman = {
-        enable = true;
-        defaultNetwork.settings.dns_enabled = true;
-        dockerCompat = true;
+
+      virtualisation = {
+        containers.enable = true;
+        # Use docker as the backend for nix managed oci-containers
+        oci-containers.backend = "podman";
+
+        # Enable Podman for a container runtime
+        podman = {
+          enable = true;
+          defaultNetwork.settings.dns_enabled = true;
+          dockerCompat = true;
+        };
       };
     };
+
     nvidia = {
       includes = [
         den.aspects.containers
       ];
+
       nixos = {
         hardware.nvidia-container-toolkit.enable = true;
       };
     };
+
     provides.to-users = {user, ...}: {
       # Add the user to the docker group so it may access the socket.
       nixos.users.groups.podman.members = [user.userName];

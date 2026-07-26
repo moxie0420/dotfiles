@@ -5,38 +5,44 @@
         ssh = lib.mkDefault "kitten ssh";
       };
 
-      programs.kitty = {
-        enable = true;
-        autoThemeFiles = {
-          dark = "rose-pine";
-          light = "rose-pine-dawn";
-          noPreference = "rose-pine-moon";
-        };
-        enableGitIntegration = true;
-        keybindings = {
-          "ctrl+t" = "new_tab_with_cwd";
-        };
-        settings = {
-          background_blur = 4;
-          background_opacity = 0.4;
+      programs = {
+        kitty = {
+          enable = true;
 
-          font_size = 10;
+          autoThemeFiles = {
+            dark = "rose-pine";
+            light = "rose-pine-dawn";
+            noPreference = "rose-pine-moon";
+          };
 
-          scrollback_lines = 10000;
-          update_check_interval = 0;
+          enableGitIntegration = true;
+
+          keybindings = {
+            "ctrl+t" = "new_tab_with_cwd";
+          };
+
+          settings = {
+            background_blur = 4;
+            background_opacity = 0.4;
+            font_size = 10;
+            scrollback_lines = 10000;
+            update_check_interval = 0;
+          };
         };
-      };
 
-      # niri intergration
-      programs.niri.settings.binds = {
-        "Mod+Return".action.spawn = ["kitty"];
+        # niri intergration
+        niri.settings.binds = {
+          "Mod+Return".action.spawn = ["kitty"];
+        };
       };
     };
+
     nixos = {pkgs, ...}: {
       environment.systemPackages = builtins.attrValues {
         inherit (pkgs) kitty kitty-img;
       };
     };
+
     provides = {
       to-hosts.includes = [programs.kitty];
       to-users.includes = [programs.kitty];

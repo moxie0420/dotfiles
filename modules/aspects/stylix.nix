@@ -18,9 +18,11 @@
         profileNames = ["default"];
       };
     };
+
     includes = [
       den.aspects.theme
     ];
+
     nixos = {pkgs, ...}: let
       # font constants
       mapleMono = {
@@ -33,45 +35,55 @@
       imports = [
         inputs.stylix.nixosModules.stylix
       ];
-      # Use rose-pine as the global base16 scheme
-      stylix.base16Scheme = rose-pine;
-      # Use the rose pine cursor
-      stylix.cursor = {
-        package = pkgs.bibata-cursors;
-        name = "Bibata-Modern-Classic";
-        size = 18;
-      };
-      # Use nix-community/stylix
-      stylix.enable = lib.mkForce true;
-      # Use mapleMono as the global font
-      # Set font sizes in points for various software types
-      stylix.fonts =
-        lib.genAttrs ["serif" "sansSerif" "monospace"] (name: mapleMono)
-        // {
-          sizes.terminal = 10;
+
+      stylix = {
+        # Use nix-community/stylix
+        enable = lib.mkForce true;
+        # Use rose-pine as the global base16 scheme
+        base16Scheme = rose-pine;
+
+        # Use the rose pine cursor
+        cursor = {
+          package = pkgs.bibata-cursors;
+          name = "Bibata-Modern-Classic";
+          size = 18;
         };
-      # # Use rose pine icons
-      stylix.icons = rec {
-        enable = true;
-        package = pkgs.rose-pine-icon-theme;
-        dark = "rose-pine-icons";
-        light = dark;
-      };
-      # Set the opacity for various software types
-      stylix.opacity = {
-        popups = 0.8;
-        terminal = 0.8;
+
+        # Use mapleMono as the global font
+        # Set font sizes in points for various software types
+        fonts =
+          lib.genAttrs ["serif" "sansSerif" "monospace"] (name: mapleMono)
+          // {
+            sizes.terminal = 10;
+          };
+
+        # # Use rose pine icons
+        icons = rec {
+          enable = true;
+          package = pkgs.rose-pine-icon-theme;
+          dark = "rose-pine-icons";
+          light = dark;
+        };
+
+        # Set the opacity for various software types
+        opacity = {
+          popups = 0.8;
+          terminal = 0.8;
+        };
       };
     };
+
     provides = {
       to-hosts.includes = [
         den.aspects.stylix
       ];
+
       to-users.includes = [
         den.aspects.stylix
       ];
     };
   };
+
   flake-file.inputs.stylix = {
     inputs.nixpkgs.follows = "nixpkgs";
     url = "github:nix-community/stylix";

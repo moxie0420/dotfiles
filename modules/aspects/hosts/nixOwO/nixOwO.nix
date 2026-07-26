@@ -46,9 +46,11 @@
             "defaults"
             "noatime"
           ];
+
           device = "/dev/mapper/nixroot";
           fsType = "ext4";
         };
+
         "/boot" = {
           device = "/dev/disk/by-uuid/A2D3-7B50";
           fsType = "vfat";
@@ -57,6 +59,7 @@
 
       hardware = {
         facter.reportPath = ./nixOwO-facter.json;
+
         nvidia.prime = {
           amdgpuBusId = "PCI:5:0:0";
           nvidiaBusId = "PCI:1:0:0";

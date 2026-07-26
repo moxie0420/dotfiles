@@ -16,6 +16,7 @@
       services.caddy.theHub
       services.immich
     ];
+
     # host NixOS configuration
     nixos = {pkgs, ...}: {
       environment.systemPackages = [pkgs.helix];
@@ -24,6 +25,7 @@
         reportPath = "${self}/modules/aspects/hosts/theHub/facter.json";
       in {
         enable = true;
+
         reportPath =
           if builtins.pathExists reportPath
           then reportPath

@@ -10,11 +10,13 @@
         inherit (pkgs) clang-tools;
       };
     };
+
     csharp.homeManager = {pkgs, ...}: {
       programs.helix.extraPackages = builtins.attrValues {
         inherit (pkgs) omnisharp-roslyn;
       };
     };
+
     css.homeManager = {pkgs, ...}: {
       programs.helix = {
         extraPackages = builtins.attrValues {
@@ -31,6 +33,7 @@
         };
       };
     };
+
     # emmet intergration for webdev
     emmet.homeManager = {pkgs, ...}: {
       programs.helix = {
@@ -44,6 +47,7 @@
         };
       };
     };
+
     # eslint in all of its glory
     eslint.homeManager = {pkgs, ...}: {
       programs.helix = {
@@ -58,12 +62,15 @@
                 enable = true;
                 location = "separateLine";
               };
+
               showDocumentation.enable = false;
             };
+
             codeActionsOnSave = {
               mode = "all";
               "source.fixAll.eslint" = true;
             };
+
             experimental = {};
             format.enable = true;
             nodePath = "";
@@ -73,17 +80,20 @@
             run = "onType";
             validate = "on";
           };
+
           args = ["--stdio"];
           command = "vscode-eslint-language-server";
         };
       };
     };
+
     # fish shell
     fish.homeManager = {pkgs, ...}: {
       programs.helix.extraPackages = builtins.attrValues {
         inherit (pkgs) fish-lsp;
       };
     };
+
     # html
     html.homeManager = {pkgs, ...}: {
       programs.helix = {
@@ -92,11 +102,13 @@
         };
       };
     };
+
     includes = with programs.helix.languages; [
       fish
       markdown
       nix
     ];
+
     # Json
     json.homeManager = {pkgs, ...}: {
       programs.helix = {
@@ -109,16 +121,19 @@
             format.enable = true;
             validate.enable = true;
           };
+
           provideFormatter = true;
         };
       };
     };
+
     # markdown
     markdown.homeManager = {pkgs, ...}: {
       programs.helix.extraPackages = builtins.attrValues {
         inherit (pkgs) markdown-oxide marksman;
       };
     };
+
     # nixlang
     nix = {host, ...}: {
       homeManager = {pkgs, ...}: {
@@ -143,27 +158,32 @@
                 home-manager.expr = "(builtins.getFlake (builtins.toString ./.)).nixosConfigurations.${host.name}.options.home-manager.users.type.getSubOptions []";
                 nixos.expr = "(builtins.getFlake (builtins.toString ./.)).nixosConfigurations.${host.name}.options";
               };
+
               command = "nixd";
             };
           };
         };
       };
     };
+
     osDev.includes = with programs.helix.languages; [
       clang
       csharp
     ];
+
     toml.homeManager = {pkgs, ...}: {
       programs.helix.extraPackages = builtins.attrValues {
         inherit (pkgs) taplo tombi;
       };
     };
+
     # .ts & .tsx
     typescript.homeManager = {pkgs, ...}: {
       programs.helix.extraPackages = builtins.attrValues {
         inherit (pkgs) typescript-language-server;
       };
     };
+
     webDev.includes = with programs.helix.languages; [
       css
       emmet

@@ -19,6 +19,7 @@
       tcpPorts = torrentPorts;
       udpPorts = torrentPorts;
     };
+
     includes = [
       den.aspects.nixUwU.network
 
@@ -56,26 +57,31 @@
       services.pixiecore
       services.vaultwarden
     ];
+
     # host NixOS configuration
     nixos = {
       lib,
       pkgs,
       ...
     }: {
-      boot.binfmt.emulatedSystems = ["aarch64-linux"];
-      boot.initrd = {
-        kernelModules = [
-          # FDE modules
-          "aesni_intel"
-          "cryptd"
-        ];
+      boot = {
+        binfmt.emulatedSystems = ["aarch64-linux"];
 
-        luks.devices = {
-          "nixroot-A".device = "/dev/disk/by-uuid/f83f89a2-d3ee-41fe-baa2-158dfffae084";
-          "nixroot-B".device = "/dev/disk/by-uuid/c0f9aa2e-12ca-4ed4-8e7d-ffc4e6a53af1";
+        initrd = {
+          kernelModules = [
+            # FDE modules
+            "aesni_intel"
+            "cryptd"
+          ];
+
+          luks.devices = {
+            "nixroot-A".device = "/dev/disk/by-uuid/f83f89a2-d3ee-41fe-baa2-158dfffae084";
+            "nixroot-B".device = "/dev/disk/by-uuid/c0f9aa2e-12ca-4ed4-8e7d-ffc4e6a53af1";
+          };
         };
+
+        zfs.forceImportRoot = false;
       };
-      boot.zfs.forceImportRoot = false;
 
       environment.systemPackages = builtins.attrValues {
         inherit
@@ -103,26 +109,32 @@
             "x-gvfs-show"
             "ssd"
           ];
+
           device = "/dev/disk/by-label/NixUwU";
           fsType = "btrfs";
         };
+
         "/boot" = {
           options = [
             "fmask=0077"
             "dmask=0077"
             "defaults"
           ];
+
           device = "/dev/disk/by-uuid/DE88-5AAD";
           fsType = "vfat";
         };
+
         "/home" = {
           options = defaults [
             "subvol=home"
             "ssd"
           ];
+
           device = "/dev/disk/by-label/NixUwU";
           fsType = "btrfs";
         };
+
         # The store raid-5 array
         "/mnt/the_store" = {
           options = defaults [
@@ -132,14 +144,17 @@
             "x-gvfs-show"
             "nossd"
           ];
+
           device = "/dev/disk/by-uuid/bc5ec750-0252-4151-9c43-1a9a23e92803";
           fsType = "btrfs";
         };
+
         "/nix" = {
           options = defaults [
             "subvol=nix"
             "ssd"
           ];
+
           device = "/dev/disk/by-label/NixUwU";
           fsType = "btrfs";
         };
@@ -152,7 +167,6 @@
       ];
 
       powerManagement.powertop.enable = lib.mkForce false;
-
       programs.gamescope.args = ["-r 75"];
 
       services = {
@@ -161,6 +175,7 @@
             "--loadavg-target"
             "5.0"
           ];
+
           hashTableSizeMB = 4096;
           spec = "/mnt/the_store";
         };
@@ -179,6 +194,7 @@
           };
         };
       };
+
       zramSwap.enable = true;
     };
   };

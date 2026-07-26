@@ -27,10 +27,12 @@
           enable = true;
           colorScheme = "dark";
           gtk4.theme = config.gtk.theme;
+
           iconTheme = {
             package = pkgs.rose-pine-icon-theme;
             name = "oomox-rose-pine";
           };
+
           theme = {
             package = pkgs.rose-pine-gtk-theme;
             name = "oomox-rose-pine";
@@ -57,25 +59,31 @@
         ];
       };
     };
+
     nixos = {pkgs, ...}: {
       fonts = {
         enableDefaultPackages = true;
+
         fontconfig.defaultFonts = {
           monospace = [
             "Maple Mono NF CN"
             "Noto Color Emoji"
           ];
+
           sansSerif = [
             "Maple Mono NF CN"
             "Noto Color Emoji"
           ];
+
           serif = ["Maple Mono NF CN"];
         };
+
         packages = [
           pkgs.maple-mono.NF-CN
         ];
       };
     };
+
     provides.to-users.includes = [
       den.aspects.theme
       programs.awww

@@ -30,6 +30,7 @@
             # Match first SSO login to an existing account by email
             SSO_SIGNUPS_MATCH_EMAIL = "true";
           };
+
           environmentFiles = [config.age.secrets.vaultwarden.path];
           image = "vaultwarden/server:latest";
           ports = ["8812:80"];

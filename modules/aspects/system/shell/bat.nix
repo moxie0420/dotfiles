@@ -5,6 +5,7 @@
         MANPAGER = "sh -c 'col -bx | bat --plain --language man'";
         MANROFFOPT = "-c";
       };
+
       programs.bat = {
         config = {
           color = "auto";
@@ -16,9 +17,11 @@
           style = "numbers,header";
           tabs = "2";
         };
+
         enable = true;
       };
     };
+
     nixos = {pkgs, ...}: {
       environment.systemPackages = builtins.attrValues {
         inherit (pkgs) bat;

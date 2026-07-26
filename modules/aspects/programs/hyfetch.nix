@@ -4,6 +4,7 @@
       programs = {
         fastfetch = {
           enable = true;
+
           settings = let
             border = "{#${rose-pine.highlighthigh}}";
             foam = "{#${rose-pine.foam}}";
@@ -34,6 +35,7 @@
               constants = [
                 "──────────────────────────────"
               ];
+
               separator = " -> ";
             };
 
@@ -52,21 +54,25 @@
 
               {
                 key = "${iris}  Swap";
+
                 percent = {
                   green = 30;
                   type = 3;
                   yellow = 70;
                 };
+
                 type = "swap";
               }
 
               {
                 key = "${iris}  RAM ";
+
                 percent = {
                   green = 30;
                   type = 3;
                   yellow = 70;
                 };
+
                 type = "memory";
               }
 
@@ -142,22 +148,26 @@
               {
                 folders = "/";
                 key = "${rose}  Nix Root ";
+
                 percent = {
                   green = 30;
                   type = 3;
                   yellow = 70;
                 };
+
                 type = "disk";
               }
 
               {
                 folders = "/mnt/the_store";
                 key = "${rose}  The Store";
+
                 percent = {
                   green = 30;
                   type = 3;
                   yellow = 70;
                 };
+
                 type = "disk";
               }
 
@@ -182,11 +192,14 @@
 
         hyfetch = {
           enable = true;
+
           settings = {
             backend = "fastfetch";
+
             color_align = {
               mode = "horizontal";
             };
+
             mode = "rgb";
             preset = "transgender";
             pride_month_disable = false;
@@ -194,12 +207,14 @@
         };
       };
     };
+
     nixos = {pkgs, ...}: {
       environment.systemPackages = [
         pkgs.fastfetch
         pkgs.hyfetch
       ];
     };
+
     provides = {
       to-hosts.includes = [programs.hyfetch];
       to-users.includes = [programs.hyfetch];

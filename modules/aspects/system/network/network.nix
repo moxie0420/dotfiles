@@ -20,7 +20,6 @@
 
         # add cloudflare's time server to the ntp pool
         timeServers = ["time.cloudflare.com"];
-
         useNetworkd = true;
       };
 

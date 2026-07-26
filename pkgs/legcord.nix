@@ -15,11 +15,13 @@
 }:
 stdenv.mkDerivation rec {
   ELECTRON_SKIP_BINARY_DOWNLOAD = "1";
+
   buildInputs = [
     libpulseaudio
     pipewire
     (lib.getLib stdenv.cc.cc)
   ];
+
   buildPhase = ''
     runHook preBuild
     pnpm run build
@@ -31,6 +33,7 @@ stdenv.mkDerivation rec {
 
     runHook postBuild
   '';
+
   desktopItems = [
     (makeDesktopItem {
       categories = ["Network"];
@@ -42,6 +45,7 @@ stdenv.mkDerivation rec {
       terminal = false;
     })
   ];
+
   installPhase = ''
     runHook preInstall
 
@@ -59,6 +63,7 @@ stdenv.mkDerivation rec {
 
     runHook postInstall
   '';
+
   nativeBuildInputs = [
     pnpm_9.configHook
     nodejs
@@ -66,17 +71,21 @@ stdenv.mkDerivation rec {
     copyDesktopItems
     autoPatchelfHook
   ];
+
   pname = "legcord";
+
   pnpmDeps = pnpm_9.fetchDeps {
     inherit pname version src;
     fetcherVersion = 1;
     hash = "sha256-UivO0e50zGNV69AaV4RilmJ9L6L6lctUrUh9CVIOry4=";
   };
+
   src = fetchFromGitHub {
     hash = "sha256-0RbLvRCvy58HlOhHLcAoErRFgYxjWrKFQ6DPJD50c5Q=";
     owner = "Legcord";
     repo = "legcord";
     rev = "v${version}";
   };
+
   version = "1.1.1";
 }

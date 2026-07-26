@@ -10,9 +10,11 @@
       nixpkgs.pkgs = withSystem host.system ({pkgs, ...}: pkgs);
     };
   };
+
   perSystem = {system, ...}: {
     _module.args.pkgs = import inputs.nixpkgs {
       inherit system;
+
       config = {
         allowUnfreePredicate = pkg:
           builtins.elem (lib.getName pkg) [
@@ -24,6 +26,7 @@
             "nvidia-settings"
           ];
       };
+
       overlays = [
         self.overlays.default
         self.overlays.prismlauncher

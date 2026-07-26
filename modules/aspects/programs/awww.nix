@@ -6,6 +6,7 @@
         extraArgs = [];
       };
     };
+
     provides.to-users.includes = [
       programs.awww
     ];

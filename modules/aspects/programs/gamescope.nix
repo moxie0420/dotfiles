@@ -2,6 +2,7 @@
   programs.gamescope = {
     nixos.programs.gamescope = {
       enable = true;
+
       args = [
         "--rt"
         "-W 1920"
@@ -9,8 +10,10 @@
         "-b"
         "-f"
       ];
+
       enableWsi = true;
     };
+
     provides.to-hosts.includes = [
       programs.gamescope
     ];

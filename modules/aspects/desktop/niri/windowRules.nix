@@ -10,11 +10,14 @@
               app-id = "firefox";
             }
           ];
+
           open-on-workspace = "Browsing";
         }
       ];
+
       workspaces.Browsing = {};
     };
+
     # Create a workspace for video games
     # should also ensure notifications work
     gaming = {
@@ -26,6 +29,7 @@
                 app-id = "steam";
               }
             ];
+
             open-maximized = true;
             open-on-workspace = "Games";
           }
@@ -37,6 +41,7 @@
                 title = "Steam Settings";
               }
             ];
+
             open-floating = true;
           }
 
@@ -46,6 +51,7 @@
               x = 0;
               y = 0;
             };
+
             matches = [
               {
                 app-id = "steam";
@@ -54,9 +60,11 @@
             ];
           }
         ];
+
         workspaces.Games = {};
       };
     };
+
     homeManager.programs.niri.settings.window-rules = [
       {
         # background-effect.blur = true;
@@ -71,6 +79,7 @@
         };
       }
     ];
+
     includes = [
       desktop.niri.windowRules.browsing
       desktop.niri.windowRules.gaming

@@ -8,8 +8,10 @@
               host.address
               host.addressV6
             ];
+
             linkConfig.RequiredForOnline = "routable";
             matchConfig.name = "eno2";
+
             routes = [
               {Gateway = "192.168.50.1";}
             ];

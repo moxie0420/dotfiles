@@ -16,6 +16,7 @@
       dataHome = "${home}/.local/share";
       portal.xdgOpenUsePortal = true;
       stateHome = "${home}/.local/state";
+
       userDirs = {
         enable = pkgs.stdenv.isLinux;
         createDirectories = true;
@@ -24,11 +25,13 @@
         # Bread and butter.
         documents = "${home}/Documents";
         download = "${home}/Downloads";
+
         # Specialized.
         extraConfig = {
           REPO = "${home}/src"; # Git clones of various projects.
           SCREENSHOTS = "${home}/Pictures/screenshots"; # Separates screenshots from regular pictures.
         };
+
         # Media.
         music = "${home}/Music";
         pictures = "${home}/Pictures";

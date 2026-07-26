@@ -5,17 +5,20 @@
 }: {
   classes.niri = den.policies.niri-to-programs-niri-settings;
 
-  den.policies.niri-to-programs-niri-settings = _: [
-    (den.lib.policy.route {
-      fromClass = "niri";
-      intoClass = "homeManager";
-      path = [
-        "programs"
-        "niri"
-        "settings"
-      ];
-    })
-  ];
+  den = {
+    policies.niri-to-programs-niri-settings = _: [
+      (den.lib.policy.route {
+        fromClass = "niri";
+        intoClass = "homeManager";
 
-  den.schema.homeManager.includes = [classes.niri];
+        path = [
+          "programs"
+          "niri"
+          "settings"
+        ];
+      })
+    ];
+
+    schema.homeManager.includes = [classes.niri];
+  };
 }

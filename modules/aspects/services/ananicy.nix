@@ -8,6 +8,7 @@
         }
       ];
     };
+
     nixos = {pkgs, ...}: {
       services.ananicy = {
         enable = true;

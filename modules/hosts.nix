@@ -25,13 +25,14 @@
   den.hosts.x86_64-linux = {
     # My laptop
     nixOwO.users.madelyn = {};
+
     # My desktop
     nixUwU = {
       address = "192.168.50.109";
       addressV6 = "fe80::692:26ff:fed8:57a6/64";
-
       users.madelyn = {};
     };
+
     # Servers
     theHub = {
       address = "192.168.50.138";

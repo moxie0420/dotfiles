@@ -12,12 +12,17 @@
         file = "${self}/secrets/forgejo-admin-secret.age";
         owner = "forgejo";
       };
-      users.groups.forgejo = {};
-      users.users.forgejo = {
-        group = "forgejo";
-        isSystemUser = true;
+
+      users = {
+        groups.forgejo = {};
+
+        users.forgejo = {
+          group = "forgejo";
+          isSystemUser = true;
+        };
       };
     };
+
     containerized = {
       includes = [
         services.forgejo.adminSecret
@@ -33,29 +38,32 @@
             ];
 
             age.identityPaths = ["/etc/ssh/ssh_host_ed25519_key"];
-
             # Use systemd-resolved inside the container
             # Workaround for bug https://github.com/NixOS/nixpkgs/issues/162686
             networking.useHostResolvConf = lib.mkForce false;
             services.resolved.enable = true;
-
             system.stateVersion = "26.11";
           };
+
           autoStart = true;
           bindMounts."/etc/ssh/ssh_host_ed25519_key".isReadOnly = true;
+
           extraFlags = [
             "--drop-capability=CAP_SYS_CHROOT"
             "--property=CPUQuota=100%"
           ];
+
           hostAddress = "192.168.100.1";
           localAddress = "192.168.100.11";
           privateNetwork = true;
         };
       };
     };
+
     includes = [
       den.aspects.secrets
     ];
+
     nixos = {config, ...}: let
       cfg = config.services.forgejo;
       srv = cfg.settings.server;
@@ -64,6 +72,7 @@
         22
         3000
       ];
+
       services.forgejo = {
         enable = true;
         database.type = "postgres";
@@ -81,6 +90,7 @@
           service.DISABLE_REGISTRATION = true;
         };
       };
+
       systemd.services.forgejo.preStart = let
         adminCmd = "${lib.getExe cfg.package} admin user";
         pwd = config.age.secrets.forgejo-admin-secret.path;

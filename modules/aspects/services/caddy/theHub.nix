@@ -32,10 +32,12 @@
 
             reverse_proxy :9000
           '';
+
           "immich.lan".extraConfig = ''
             tls internal
             reverse_proxy :2283
           '';
+
           # machines
           "theHub.lan".extraConfig = ''
             tls internal

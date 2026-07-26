@@ -10,6 +10,7 @@
         }: {
           imports = [(modulesPath + "/installer/netboot/netboot-minimal.nix")];
           netboot.squashfsCompression = "zstd -Xcompression-level 6";
+
           services.openssh = {
             enable = true;
             openFirewall = true;
@@ -19,12 +20,15 @@
               PasswordAuthentication = false;
             };
           };
+
           system.stateVersion = config.system.nixos.release;
+
           users.users.root.openssh.authorizedKeys.keys = [
             "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIMPsHKCQ0mZQ+pCRlvVYh9MtqSnZJwhyhMktJbz3Axf5 Moxie@MoxieGE.com"
           ];
         })
       ];
+
       system = "x86_64-linux";
     };
   in {

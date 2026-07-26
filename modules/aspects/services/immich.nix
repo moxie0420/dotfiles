@@ -13,6 +13,7 @@
         port = 6996;
       };
     };
+
     users.users.immich.extraGroups = [
       "video"
       "render"

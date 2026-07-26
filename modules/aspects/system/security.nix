@@ -52,6 +52,7 @@
           "ufs"
           "udf"
         ];
+
         # disable firewire and thunderbolt
         extraModprobeConfig = ''
           install firewire-core /run/current-system/sw/bin/false
@@ -68,6 +69,7 @@
           install raw1394       /run/current-system/sw/bin/false
           install video1394     /run/current-system/sw/bin/false
         '';
+
         kernel.sysctl = {
           # To prevent the kernel from ever generating core dumps, make it
           # try to write to a nonexistent directory.  It doesn't work to specify
@@ -104,6 +106,7 @@
           "net.ipv6.conf.all.accept_redirects" = false;
           "net.ipv6.conf.default.accept_redirects" = false;
         };
+
         kernelParams = [
           # Don't merge slabs
           "slab_nomerge"
@@ -136,6 +139,7 @@
 
       systemd = {
         coredump.enable = false;
+
         user.settings.Manager = {
           DefaultLimitNOFILE = 65536;
         };

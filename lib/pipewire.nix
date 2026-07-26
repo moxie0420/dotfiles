@@ -2,6 +2,7 @@
   getDeviceChannel = channel: {
     "audio.position" = lib.flatten channel;
   };
+
   mkCaptureProps = {
     device,
     extraConfig ? {},
@@ -14,6 +15,7 @@
       }
       // extraConfig;
   };
+
   mkNode = {
     extraConfig,
     name,
@@ -25,8 +27,10 @@
         "node.name" = name;
       }
       // extraConfig;
+
     name = "libpipewire-module-loopback";
   };
+
   mkPlaybackProps = {
     device,
     extraConfig ? {},

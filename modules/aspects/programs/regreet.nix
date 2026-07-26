@@ -41,6 +41,7 @@
         default_session = {
           command = lib.mkForce "${config.programs.niri.package}/bin/niri -c ${validatedConfig}";
         };
+
         terminal.vt = lib.mkForce 7;
       };
     };

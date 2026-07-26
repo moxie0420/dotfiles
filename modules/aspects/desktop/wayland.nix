@@ -5,15 +5,21 @@
         inherit (pkgs) wl-clipboard;
       };
 
-      # Enable Cliphist
-      services.cliphist.enable = true;
-      services.cliphist.extraOptions = [
-        "-max-dedupe-search"
-        "10"
-        "-max-items"
-        "500"
-      ];
+      services = {
+        cliphist = {
+          # Enable Cliphist
+          enable = true;
+
+          extraOptions = [
+            "-max-dedupe-search"
+            "10"
+            "-max-items"
+            "500"
+          ];
+        };
+      };
     };
+
     nixos = {
       # services.displayManager.cosmic-greeter = {
       #   enable = true;

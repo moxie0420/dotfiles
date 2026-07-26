@@ -10,7 +10,7 @@
     formatter = "alejandra";
     lets.sort = true;
     preset = "nixos-module";
-    top-levbel-blank-lines = 1;
+    top-level-blank-lines = 1;
   };
 in {
   perSystem = {

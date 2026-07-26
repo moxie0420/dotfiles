@@ -14,6 +14,7 @@
     includes = [
       programs.git
     ];
+
     nixos = {
       config,
       pkgs,
@@ -40,6 +41,7 @@
         nixPath = lib.mapAttrsToList (n: _: "${n}=flake:${n}") flake-inputs;
         optimise.automatic = lib.mkDefault (!config.boot.isContainer);
         registry = lib.mapAttrs (_: flake: {inherit flake;}) flake-inputs;
+
         settings = {
           # Deduplicate the nix store
           auto-optimise-store = true;
@@ -48,18 +50,23 @@
           connect-timeout = lib.mkDefault 5;
           # increase download buffer to 500 MiB
           download-buffer-size = 500 * 1048576;
+
           # Enable flakes
           experimental-features = [
             "nix-command"
             "flakes"
           ];
+
           fallback = true;
+
           substituters = [
             "https://nix-community.cachix.org"
           ];
+
           trusted-public-keys = [
             "nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs="
           ];
+
           # set trusted users
           trusted-users = ["madelyn"];
         };
@@ -68,15 +75,19 @@
       programs = {
         nh = {
           enable = true;
+
           clean = {
             enable = true;
             extraArgs = "--keep 1";
           };
+
           flake = "/home/madelyn/dotfiles";
         };
+
         nix-index-database.comma.enable = true;
       };
     };
+
     provides.to-users.includes = [system.nix];
   };
 }

@@ -40,11 +40,13 @@
 in {
   system.lib' = {
     inherit description;
+
     includes = [
       osAspect
       userAspect
       hmAspect
     ];
+
     name = "lib'";
   };
 }

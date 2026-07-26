@@ -20,6 +20,7 @@
               "--parser"
               parser
             ];
+
             command = "prettier";
           };
         in [
@@ -32,61 +33,73 @@
           rec {
             auto-format = true;
             formatter = prettier name;
+
             language-servers = [
               "vscode-css-language-server"
               "eslint"
               "emmet-ls"
             ];
+
             name = "css";
           }
 
           rec {
             auto-format = true;
             formatter = prettier name;
+
             language-servers = [
               "vscode-html-language-server"
               "eslint"
             ];
+
             name = "html";
           }
 
           rec {
             auto-format = true;
             formatter = prettier name;
+
             language-servers = [
               "typescript-language-server"
               "eslint"
             ];
+
             name = "javascript";
           }
 
           rec {
             auto-format = true;
             formatter = prettier name;
+
             language-servers = [
               "typescript-language-server"
               "eslint"
             ];
+
             name = "jsx";
           }
 
           rec {
             auto-format = true;
             formatter = prettier name;
+
             language-servers = [
               "typescript-language-server"
               "eslint"
             ];
+
             name = "typescript";
           }
 
           rec {
             auto-format = true;
             formatter = prettier name;
+
             language-servers = [
               "typescript-language-server"
               "eslint"
             ];
+
             name = "tsx";
           }
         ];
@@ -104,6 +117,7 @@
         systemPackages = builtins.attrValues {
           inherit (pkgs) helix;
         };
+
         variables.EDITOR = "hx";
       };
     };
