@@ -48,15 +48,4 @@
       ];
     }
   '';
-  perSystem = {
-    treefmt.programs.pedantix = {
-      enable = true;
-      settings = {
-        formatter = "alejandra";
-        lets.sort = true;
-        overrides = [];
-        preset = "nixos-module";
-      };
-    };
-  };
 }

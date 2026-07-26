@@ -9,6 +9,7 @@
       system: deployLib: deployLib.deployChecks self.deploy
     )
     inputs.deploy-rs.lib;
+
   flake.deploy.nodes = {
     theHub = {
       hostname = "192.168.50.138";
