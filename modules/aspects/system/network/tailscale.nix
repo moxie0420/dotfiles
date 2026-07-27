@@ -1,8 +1,8 @@
 {
   system.network.tailscale = {
     nixos = {
-      config,
       lib,
+      config,
       ...
     }: {
       networking = {

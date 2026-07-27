@@ -65,20 +65,32 @@
       };
     };
 
-    homeManager.programs.niri.settings.window-rules = [
-      {
-        # background-effect.blur = true;
+    homeManager.programs.niri.settings = {
+      layer-rules = [
+        {
+          matches = [
+            {
+              namespace = "^wallpaper$";
+            }
+          ];
 
-        clip-to-geometry = true;
+          place-within-backdrop = true;
+        }
+      ];
 
-        geometry-corner-radius = {
-          bottom-left = 8.0;
-          bottom-right = 8.0;
-          top-left = 8.0;
-          top-right = 8.0;
-        };
-      }
-    ];
+      window-rules = [
+        {
+          clip-to-geometry = true;
+
+          geometry-corner-radius = {
+            bottom-left = 8.0;
+            bottom-right = 8.0;
+            top-left = 8.0;
+            top-right = 8.0;
+          };
+        }
+      ];
+    };
 
     includes = [
       desktop.niri.windowRules.browsing

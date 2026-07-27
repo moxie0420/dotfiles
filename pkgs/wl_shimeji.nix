@@ -1,17 +1,27 @@
 {
+  stdenv,
   fetchFromGitHub,
   libarchive,
   pkg-config,
   python3,
   python313Packages,
   qoi,
-  stdenv,
   uthash,
   wayland,
   wayland-protocols,
   wayland-scanner,
 }:
 stdenv.mkDerivation {
+  pname = " wl-shimeji";
+  version = "faad975374a3ea7eaacc1526607ce210858d7a72";
+
+  src = fetchFromGitHub {
+    owner = "CluelessCatBurger";
+    repo = "wl_shimeji";
+    rev = "faad975374a3ea7eaacc1526607ce210858d7a72";
+    hash = "sha256-MsaombtAS/3RhaNNWBnu7vlb0C7MIlCAn8Jil2YZEfs=";
+  };
+
   buildInputs = [
     pkg-config
     wayland
@@ -23,15 +33,4 @@ stdenv.mkDerivation {
     python313Packages.pillow
     qoi
   ];
-
-  pname = " wl-shimeji";
-
-  src = fetchFromGitHub {
-    hash = "sha256-MsaombtAS/3RhaNNWBnu7vlb0C7MIlCAn8Jil2YZEfs=";
-    owner = "CluelessCatBurger";
-    repo = "wl_shimeji";
-    rev = "faad975374a3ea7eaacc1526607ce210858d7a72";
-  };
-
-  version = "faad975374a3ea7eaacc1526607ce210858d7a72";
 }

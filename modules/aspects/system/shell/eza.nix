@@ -13,8 +13,8 @@ in {
       home.shellAliases = ezaAliases;
 
       programs.eza = {
-        enable = true;
         colors = "auto";
+        enable = true;
         git = true;
         icons = "auto";
 

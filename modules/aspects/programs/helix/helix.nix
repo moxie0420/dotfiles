@@ -6,8 +6,8 @@
   programs.helix = {
     homeManager = {pkgs, ...}: {
       programs.helix = {
-        enable = true;
         defaultEditor = true;
+        enable = true;
 
         languages.language = let
           prettier = name: let

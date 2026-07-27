@@ -29,8 +29,10 @@
     };
 
     default.includes = [
-      den.batteries.mutual-provider
       den.batteries.hostname
+      den.batteries.inputs'
+      den.batteries.mutual-provider
+      den.batteries.self'
       den.aspects.determinate
       den.aspects.nixpkgs
 

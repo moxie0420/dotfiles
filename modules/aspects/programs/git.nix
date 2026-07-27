@@ -9,8 +9,8 @@
 
         git = {
           enable = true;
-          package = pkgs.gitFull;
           lfs.enable = true;
+          package = pkgs.gitFull;
 
           settings = {
             init.defaultBranch = "main";
@@ -26,12 +26,13 @@
 
       programs.git = {
         enable = true;
-        package = pkgs.gitFull;
 
         lfs = {
           enable = true;
           enablePureSSHTransfer = true;
         };
+
+        package = pkgs.gitFull;
       };
     };
 

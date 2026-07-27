@@ -1,4 +1,5 @@
 {
+  lib,
   den,
   programs,
   self,
@@ -6,26 +7,49 @@
 }: {
   # user aspect
   den.aspects.madelyn = {
-    homeManager = {pkgs, ...}: {
-      home = {
-        homeDirectory = "/home/madelyn";
+    homeManager = {
+      options,
+      pkgs,
+      self',
+      ...
+    }: let
+      homeDirectory = "/home/madelyn";
+    in
+      lib.mkMerge [
+        {
+          home = {
+            inherit homeDirectory;
 
-        packages = builtins.attrValues {
-          inherit
-            (pkgs)
-            baobab
-            # cyanrip
-            # element-desktop
-            nixos-anywhere
-            ;
-        };
-      };
+            packages = builtins.attrValues {
+              inherit
+                (pkgs)
+                baobab
+                # cyanrip
+                # element-desktop
+                ;
 
-      programs.git.settings.user = {
-        email = "moxiebenavides@proton.me";
-        name = "Madeline Benavides";
-      };
-    };
+              inherit (self'.packages) rose-pine-wallpapers;
+            };
+          };
+
+          programs.git.settings.user = {
+            email = "moxiebenavides@proton.me";
+            name = "Madeline Benavides";
+          };
+
+          xdg.dataFile.wallpapers = {
+            enable = true;
+            recursive = true;
+            source = "${self'.packages.rose-pine-wallpapers}/share/wallpapers";
+          };
+        }
+
+        (lib.optionalAttrs (options ? theme) {
+          theme = {
+            image = "${homeDirectory}/.local/share/wallpapers/rose-pine/photography/single-celled/river.jpg";
+          };
+        })
+      ];
 
     includes = [
       den.batteries.primary-user
@@ -59,6 +83,11 @@
 
           users.${user.userName} = {
             description = "Madelyn R.P. Benavides";
+
+            extraGroups = [
+              "input"
+            ];
+
             group = user.userName;
             hashedPasswordFile = config.age.secrets.madelyn-secret.path;
 

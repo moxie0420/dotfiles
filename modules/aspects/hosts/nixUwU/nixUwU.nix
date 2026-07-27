@@ -53,7 +53,8 @@
       services.caddy.nixUwU
       services.caddy.secret
       services.immich
-      services.lact
+      # build broken rn TODO: enable when the build is fixed
+      # services.lact
       services.pixiecore
       services.vaultwarden
     ];
@@ -102,6 +103,9 @@
       in {
         # NixUwU root raid-0
         "/" = {
+          device = "/dev/disk/by-label/NixUwU";
+          fsType = "btrfs";
+
           options = [
             "noatime"
             "space_cache=v2"
@@ -109,34 +113,34 @@
             "x-gvfs-show"
             "ssd"
           ];
-
-          device = "/dev/disk/by-label/NixUwU";
-          fsType = "btrfs";
         };
 
         "/boot" = {
+          device = "/dev/disk/by-uuid/DE88-5AAD";
+          fsType = "vfat";
+
           options = [
             "fmask=0077"
             "dmask=0077"
             "defaults"
           ];
-
-          device = "/dev/disk/by-uuid/DE88-5AAD";
-          fsType = "vfat";
         };
 
         "/home" = {
+          device = "/dev/disk/by-label/NixUwU";
+          fsType = "btrfs";
+
           options = defaults [
             "subvol=home"
             "ssd"
           ];
-
-          device = "/dev/disk/by-label/NixUwU";
-          fsType = "btrfs";
         };
 
         # The store raid-5 array
         "/mnt/the_store" = {
+          device = "/dev/disk/by-uuid/bc5ec750-0252-4151-9c43-1a9a23e92803";
+          fsType = "btrfs";
+
           options = defaults [
             "users"
             "nofail"
@@ -144,19 +148,16 @@
             "x-gvfs-show"
             "nossd"
           ];
-
-          device = "/dev/disk/by-uuid/bc5ec750-0252-4151-9c43-1a9a23e92803";
-          fsType = "btrfs";
         };
 
         "/nix" = {
+          device = "/dev/disk/by-label/NixUwU";
+          fsType = "btrfs";
+
           options = defaults [
             "subvol=nix"
             "ssd"
           ];
-
-          device = "/dev/disk/by-label/NixUwU";
-          fsType = "btrfs";
         };
       };
 

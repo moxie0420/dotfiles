@@ -7,8 +7,6 @@
     }: {
       fonts = {
         fontconfig = {
-          enable = true;
-
           defaultFonts =
             lib.genAttrs ["serif" "sansSerif" "monospace"] (name: [
               "Maple Mono NF CN"
@@ -17,6 +15,8 @@
             // {
               emoji = ["Noto Color Emoji"];
             };
+
+          enable = true;
         };
 
         packages = builtins.attrValues {

@@ -1,20 +1,36 @@
 {
   lib,
-  pkgs,
+  stdenv,
+  fetchFromGitHub,
   autoPatchelfHook,
   copyDesktopItems,
-  fetchFromGitHub,
   libpulseaudio,
   makeDesktopItem,
   makeWrapper,
   nodejs,
   pipewire,
+  pkgs,
   pnpm_9,
-  stdenv,
   electron ? pkgs.electron_33,
 }:
 stdenv.mkDerivation rec {
-  ELECTRON_SKIP_BINARY_DOWNLOAD = "1";
+  pname = "legcord";
+  version = "1.1.1";
+
+  src = fetchFromGitHub {
+    owner = "Legcord";
+    repo = "legcord";
+    rev = "v${version}";
+    hash = "sha256-0RbLvRCvy58HlOhHLcAoErRFgYxjWrKFQ6DPJD50c5Q=";
+  };
+
+  nativeBuildInputs = [
+    pnpm_9.configHook
+    nodejs
+    makeWrapper
+    copyDesktopItems
+    autoPatchelfHook
+  ];
 
   buildInputs = [
     libpulseaudio
@@ -34,18 +50,6 @@ stdenv.mkDerivation rec {
     runHook postBuild
   '';
 
-  desktopItems = [
-    (makeDesktopItem {
-      categories = ["Network"];
-      desktopName = "Legcord";
-      exec = "legcord %U";
-      icon = "legcord";
-      name = "legcord";
-      startupWMClass = "Legcord";
-      terminal = false;
-    })
-  ];
-
   installPhase = ''
     runHook preInstall
 
@@ -64,28 +68,23 @@ stdenv.mkDerivation rec {
     runHook postInstall
   '';
 
-  nativeBuildInputs = [
-    pnpm_9.configHook
-    nodejs
-    makeWrapper
-    copyDesktopItems
-    autoPatchelfHook
-  ];
+  ELECTRON_SKIP_BINARY_DOWNLOAD = "1";
 
-  pname = "legcord";
+  desktopItems = [
+    (makeDesktopItem {
+      categories = ["Network"];
+      desktopName = "Legcord";
+      exec = "legcord %U";
+      icon = "legcord";
+      name = "legcord";
+      startupWMClass = "Legcord";
+      terminal = false;
+    })
+  ];
 
   pnpmDeps = pnpm_9.fetchDeps {
     inherit pname version src;
     fetcherVersion = 1;
     hash = "sha256-UivO0e50zGNV69AaV4RilmJ9L6L6lctUrUh9CVIOry4=";
   };
-
-  src = fetchFromGitHub {
-    hash = "sha256-0RbLvRCvy58HlOhHLcAoErRFgYxjWrKFQ6DPJD50c5Q=";
-    owner = "Legcord";
-    repo = "legcord";
-    rev = "v${version}";
-  };
-
-  version = "1.1.1";
 }

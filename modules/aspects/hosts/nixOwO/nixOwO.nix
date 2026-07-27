@@ -42,13 +42,13 @@
 
       fileSystems = {
         "/" = {
+          device = "/dev/mapper/nixroot";
+          fsType = "ext4";
+
           options = [
             "defaults"
             "noatime"
           ];
-
-          device = "/dev/mapper/nixroot";
-          fsType = "ext4";
         };
 
         "/boot" = {

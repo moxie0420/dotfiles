@@ -1,7 +1,6 @@
 {
   inputs,
   self,
-  withSystem,
   ...
 }: {
   flake = {
@@ -16,16 +15,15 @@
         hostname = "192.168.50.138";
 
         profiles.system = {
-          path = withSystem "x86_64-linux" (
-            {pkgs, ...}:
-              pkgs.deploy-rs.lib.activate.nixos self.nixosConfigurations.theHub
-          );
-
+          path = inputs.deploy-rs.lib."x86_64-linux".activate.nixos self.nixosConfigurations.theHub;
           sshUser = "root";
         };
       };
     };
   };
 
-  flake-file.inputs.deploy-rs.url = "github:serokell/deploy-rs";
+  flake-file.inputs.deploy-rs = {
+    inputs.nixpkgs.follows = "nixpkgs";
+    url = "github:serokell/deploy-rs";
+  };
 }

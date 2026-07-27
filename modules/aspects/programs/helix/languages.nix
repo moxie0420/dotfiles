@@ -56,6 +56,9 @@
         };
 
         languages.language-server.eslint = {
+          args = ["--stdio"];
+          command = "vscode-eslint-language-server";
+
           config = {
             codeAction = {
               disableRuleComment = {
@@ -80,9 +83,6 @@
             run = "onType";
             validate = "on";
           };
-
-          args = ["--stdio"];
-          command = "vscode-eslint-language-server";
         };
       };
     };
@@ -151,6 +151,8 @@
             };
 
             nixd = {
+              command = "nixd";
+
               config.options = {
                 # extra flakes
                 flake-parts.expr = "(builtins.getFlake \"${self}\").debug.options";
@@ -158,8 +160,6 @@
                 home-manager.expr = "(builtins.getFlake (builtins.toString ./.)).nixosConfigurations.${host.name}.options.home-manager.users.type.getSubOptions []";
                 nixos.expr = "(builtins.getFlake (builtins.toString ./.)).nixosConfigurations.${host.name}.options";
               };
-
-              command = "nixd";
             };
           };
         };

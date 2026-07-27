@@ -27,11 +27,6 @@
           disabled = false;
           format = "[$symbol $version]($style)";
         in {
-          package = {
-            inherit disabled;
-            format = "[$symbol$version ]($style)";
-          };
-
           # languages
           c = {
             inherit format disabled;
@@ -108,6 +103,11 @@
             format = "[](fg:surface bg:overlay)[ $symbol ]($style)";
             style = "bg:surface fg:text";
             symbols.NixOS = "";
+          };
+
+          package = {
+            inherit disabled;
+            format = "[$symbol$version ]($style)";
           };
 
           palette = "rose-pine";

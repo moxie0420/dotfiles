@@ -1,8 +1,8 @@
 {
   programs.regreet = {
     nixos = {
-      config,
       lib,
+      config,
       pkgs,
       ...
     }: let

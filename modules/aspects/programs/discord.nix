@@ -52,8 +52,8 @@
             petpet.enable = true;
 
             pinDms = {
-              enable = true;
               canCollapseDmSection = true;
+              enable = true;
             };
 
             richPresence.enable = true;
@@ -67,8 +67,8 @@
           };
         };
 
-        enable = true;
         discord.enable = false;
+        enable = true;
         equibop.enable = true;
       };
     };

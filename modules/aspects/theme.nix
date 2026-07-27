@@ -6,43 +6,34 @@
 }: {
   den.aspects.theme = {
     homeManager = {
-      config,
       lib,
+      config,
       pkgs,
       ...
     }: let
       cfg = config.theme;
     in {
-      options.theme = {
-        image = lib.mkOption {
-          default = "${self}/wallpapers/station.gif";
-          description = "image used as a wallpape, can be any format supported by awww";
-          example = "\"\${self}/wallpapers/witchy.gif\"";
-          type = lib.types.nullOr lib.types.str;
-        };
-      };
-
       config = {
         gtk = {
-          enable = true;
           colorScheme = "dark";
+          enable = true;
           gtk4.theme = config.gtk.theme;
 
           iconTheme = {
-            package = pkgs.rose-pine-icon-theme;
             name = "oomox-rose-pine";
+            package = pkgs.rose-pine-icon-theme;
           };
 
           theme = {
-            package = pkgs.rose-pine-gtk-theme;
             name = "oomox-rose-pine";
+            package = pkgs.rose-pine-gtk-theme;
           };
         };
 
         home.pointerCursor = {
           enable = true;
-          package = pkgs.bibata-cursors;
           name = "Bibata-Modern-Classic";
+          package = pkgs.bibata-cursors;
           size = 12;
         };
 
@@ -57,6 +48,15 @@
             ];
           })
         ];
+      };
+
+      options.theme = {
+        image = lib.mkOption {
+          default = "${self}/wallpapers/station.gif";
+          description = "image used as a wallpape, can be any format supported by awww";
+          example = "\"\${self}/wallpapers/witchy.gif\"";
+          type = lib.types.nullOr lib.types.str;
+        };
       };
     };
 

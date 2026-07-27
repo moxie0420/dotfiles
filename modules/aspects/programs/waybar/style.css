@@ -1,0 +1,78 @@
+/* @define-color rp_base: #191724; */
+/* @define-color rp_surface: #1f1d2e; */
+/* @define-color rp_overlay: #26233a; */
+/* @define-color rp_muted: #6e6a86; */
+/* @define-color rp_subtle: #908caa; */
+/* @define-color rp_text: #e0def4; */
+/* @define-color rp_love: #eb6f92; */
+/* @define-color rp_gold: #f6c177; */
+/* @define-color rp_rose: #ebbcba; */
+/* @define-color rp_pine: #31748f; */
+/* @define-color rp_foam: #9ccfd8; */
+/* @define-color rp_iris: #c4a7e7; */
+/* @define-color rp_highlight_low: #21202e; */
+/* @define-color rp_highlight_med: #403d52; */
+/* @define-color rp_highlight_high: #524f67; */
+
+* {
+  color: #e0def4;
+}
+
+window#waybar {
+  background: none;
+}
+
+.modules-left,
+.modules-right {
+  background: #191724; /* rp base */
+  padding: 0.175rem 0.3rem 0.25rem;
+}
+
+.modules-left {
+  border-radius: 0 0 1rem 0;
+}
+
+.modules-right {
+  border-radius: 0 0 0 1rem;
+}
+
+#custom-power,
+#custom-quit,
+#custom-reboot {
+  padding: 0 5px;
+}
+
+#workspaces button {
+  margin: 0.125rem;
+}
+
+#clock,
+#cpu,
+#idle_inhibitor,
+#window,
+#wireplumber,
+#memory,
+#network,
+#power-profiles-daemon,
+#privacy,
+#tempurature {
+  border-radius: 0.5rem;
+}
+
+#idle_inhibitor {
+  padding: 0 10px;
+}
+
+#power-profiles-daemon {
+  padding: 0 10px;
+  background: #9ccfd8; /* rp_foam */
+}
+
+#power-profiles-daemon.performance {
+  background: #eb6f92; /* rp_love */
+}
+
+#group-power.module {
+  margin: 0.25rem;
+  background: #1f1d2e; /* rp_surface */
+}

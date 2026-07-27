@@ -1,8 +1,6 @@
 {programs, ...}: {
   programs.gamescope = {
     nixos.programs.gamescope = {
-      enable = true;
-
       args = [
         "--rt"
         "-W 1920"
@@ -11,6 +9,7 @@
         "-f"
       ];
 
+      enable = true;
       enableWsi = true;
     };
 

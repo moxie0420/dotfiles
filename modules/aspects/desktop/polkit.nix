@@ -1,12 +1,12 @@
 {
   desktop.polkit.nixos = {
     security.polkit = {
-      enable = true;
-
       # Ensure the wheel group is treated as admin
       adminIdentities = [
         "unix-group:wheel"
       ];
+
+      enable = true;
 
       extraConfig = ''
         polkit.addRule(function (action, subject) {

@@ -1,6 +1,7 @@
 # DO-NOT-EDIT. This file was auto-generated using github:vic/flake-file.
 # Use `nix run .#write-flake` to regenerate it.
 {
+  outputs = inputs: inputs.flake-parts.lib.mkFlake {inherit inputs;} (inputs.import-tree ./modules);
   description = "Madelyn's personal flake for her home environment, desktop, and laptop";
 
   inputs = {
@@ -15,8 +16,23 @@
 
     authentik-nix.url = "github:nix-community/authentik-nix";
     den.url = "github:vic/den";
-    deploy-rs.url = "github:serokell/deploy-rs";
+
+    deploy-rs = {
+      inputs.nixpkgs.follows = "nixpkgs";
+      url = "github:serokell/deploy-rs";
+    };
+
     determinate.url = "github:DeterminateSystems/determinate";
+
+    direnv-instant = {
+      inputs = {
+        flake-parts.follows = "flake-parts";
+        nixpkgs.follows = "nixpkgs";
+        treefmt-nix.follows = "treefmt-nix";
+      };
+
+      url = "github:Mic92/direnv-instant";
+    };
 
     disko = {
       inputs.nixpkgs.follows = "nixpkgs";
@@ -75,6 +91,8 @@
       url = "github:swarsel/pedantix";
     };
 
+    pkgs-by-name-for-flake-parts.url = "github:drupol/pkgs-by-name-for-flake-parts";
+
     stylix = {
       inputs.nixpkgs.follows = "nixpkgs";
       url = "github:nix-community/stylix";
@@ -85,16 +103,4 @@
       url = "github:numtide/treefmt-nix";
     };
   };
-
-  outputs = inputs:
-    inputs.flake-parts.lib.mkFlake {inherit inputs;} {
-      imports = [
-        (inputs.import-tree ./modules)
-      ];
-
-      systems = [
-        "x86_64-linux"
-        "aarch64-linux"
-      ];
-    };
 }

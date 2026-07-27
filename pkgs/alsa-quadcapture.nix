@@ -11,6 +11,12 @@ pkgs.stdenv.mkDerivation {
     nativeBuildInputs
     ;
 
+  pname = "alsa-quadcapture";
+
+  patches = [
+    ./alsa-quadcapture.patch
+  ];
+
   buildPhase = ''
     BUILT_KERNEL=$kernel_dev/lib/modules/$kernelVersion/build
 
@@ -33,10 +39,4 @@ pkgs.stdenv.mkDerivation {
   kernelVersion = kernel.modDirVersion;
   kernel_dev = kernel.dev;
   modulePath = "sound/usb";
-
-  patches = [
-    ./alsa-quadcapture.patch
-  ];
-
-  pname = "alsa-quadcapture";
 }

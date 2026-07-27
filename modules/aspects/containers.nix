@@ -23,9 +23,9 @@
 
         # Enable Podman for a container runtime
         podman = {
-          enable = true;
           defaultNetwork.settings.dns_enabled = true;
           dockerCompat = true;
+          enable = true;
         };
       };
     };

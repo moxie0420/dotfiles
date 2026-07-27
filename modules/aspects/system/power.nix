@@ -2,8 +2,8 @@
   system.power = {
     nixos = {
       powerManagement = {
-        enable = true;
         cpuFreqGovernor = "schedutil";
+        enable = true;
         powertop.enable = true;
       };
 

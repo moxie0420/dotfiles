@@ -7,14 +7,13 @@
 
       programs = {
         kitty = {
-          enable = true;
-
           autoThemeFiles = {
             dark = "rose-pine";
             light = "rose-pine-dawn";
             noPreference = "rose-pine-moon";
           };
 
+          enable = true;
           enableGitIntegration = true;
 
           keybindings = {

@@ -5,18 +5,8 @@
   stdenvNoCC,
 }:
 stdenvNoCC.mkDerivation rec {
-  dontBuild = true;
-
-  installPhase = ''
-    mkdir -p $out/share/sddm/themes
-    cp -aR $src $out/share/sddm/themes/rose-pine
-  '';
-
   pname = "sddm-rose-pine-theme";
-
-  propagatedUserEnvPkgs = [
-    libsForQt5.qt5.qtgraphicaleffects
-  ];
+  version = "1.2";
 
   src = fetchFromGitHub {
     owner = "lwndhrst";
@@ -25,5 +15,14 @@ stdenvNoCC.mkDerivation rec {
     sha256 = "+WOdazvkzpOKcoayk36VLq/6lLOHDWkDykDsy8p87JE=";
   };
 
-  version = "1.2";
+  installPhase = ''
+    mkdir -p $out/share/sddm/themes
+    cp -aR $src $out/share/sddm/themes/rose-pine
+  '';
+
+  dontBuild = true;
+
+  propagatedUserEnvPkgs = [
+    libsForQt5.qt5.qtgraphicaleffects
+  ];
 }

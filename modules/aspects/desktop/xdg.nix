@@ -10,21 +10,21 @@
     home.preferXdgDirectories = true;
 
     xdg = {
-      enable = true;
       cacheHome = "${home}/.cache";
       configHome = "${home}/.config";
       dataHome = "${home}/.local/share";
+      enable = true;
       portal.xdgOpenUsePortal = true;
       stateHome = "${home}/.local/state";
 
       userDirs = {
-        enable = pkgs.stdenv.isLinux;
         createDirectories = true;
         # Not really used but defined for completeness.
         desktop = "${home}/Desktop";
         # Bread and butter.
         documents = "${home}/Documents";
         download = "${home}/Downloads";
+        enable = pkgs.stdenv.isLinux;
 
         # Specialized.
         extraConfig = {

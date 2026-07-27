@@ -30,23 +30,24 @@
 
       nixos = {
         containers.forgejo = {
+          autoStart = true;
+          bindMounts."/etc/ssh/ssh_host_ed25519_key".isReadOnly = true;
+
           config = {
+            age.identityPaths = ["/etc/ssh/ssh_host_ed25519_key"];
+
             imports = [
               inputs.agenix.nixosModules.default
               services.forgejo.nixos
               services.forgejo.adminSecret.nixos
             ];
 
-            age.identityPaths = ["/etc/ssh/ssh_host_ed25519_key"];
             # Use systemd-resolved inside the container
             # Workaround for bug https://github.com/NixOS/nixpkgs/issues/162686
             networking.useHostResolvConf = lib.mkForce false;
             services.resolved.enable = true;
             system.stateVersion = "26.11";
           };
-
-          autoStart = true;
-          bindMounts."/etc/ssh/ssh_host_ed25519_key".isReadOnly = true;
 
           extraFlags = [
             "--drop-capability=CAP_SYS_CHROOT"
@@ -74,8 +75,8 @@
       ];
 
       services.forgejo = {
-        enable = true;
         database.type = "postgres";
+        enable = true;
         lfs.enable = true;
 
         settings = {

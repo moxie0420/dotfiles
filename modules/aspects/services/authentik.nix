@@ -12,14 +12,14 @@
     ];
 
     nixos = {config, ...}: {
-      imports = [
-        inputs.authentik-nix.nixosModules.default
-      ];
-
       age.secrets = {
         authentik.file = "${self}/secrets/authentik.age";
         authentik-ldap.file = "${self}/secrets/authentik-ldap.age";
       };
+
+      imports = [
+        inputs.authentik-nix.nixosModules.default
+      ];
 
       services = {
         authentik = {

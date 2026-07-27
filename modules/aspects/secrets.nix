@@ -1,10 +1,10 @@
 {inputs, ...}: {
   den.aspects.secrets.nixos = {
-    imports = [inputs.agenix.nixosModules.default];
-
     environment.systemPackages = builtins.attrValues {
       inherit (inputs.agenix.packages.x86_64-linux) default;
     };
+
+    imports = [inputs.agenix.nixosModules.default];
   };
 
   flake-file.inputs.agenix = {

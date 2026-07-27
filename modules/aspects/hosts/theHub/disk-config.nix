@@ -1,10 +1,6 @@
 {inputs, ...}: {
   den.aspects.theHub.disk-config = {
     nixos = {
-      imports = [
-        inputs.disko.nixosModules.disko
-      ];
-
       disko.devices.disk = {
         main = {
           content = {
@@ -109,6 +105,10 @@
           type = "disk";
         };
       };
+
+      imports = [
+        inputs.disko.nixosModules.disko
+      ];
     };
   };
 

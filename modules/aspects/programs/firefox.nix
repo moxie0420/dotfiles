@@ -107,8 +107,8 @@
       ...
     }: {
       programs.firefox = {
-        enable = true;
         configPath = "${config.xdg.configHome}/mozilla/firefox";
+        enable = true;
 
         policies = lib.mkMerge [
           sharedPolicies

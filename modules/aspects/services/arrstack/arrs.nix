@@ -23,6 +23,8 @@
       includes = [services.arrstack.containerized];
 
       nixos.containers.starrs = {
+        autoStart = true;
+
         config = {lib, ...}: {
           services = lib.mkMerge [
             (
@@ -45,7 +47,6 @@
           users.groups.nixarr = {};
         };
 
-        autoStart = true;
         hostAddress = "192.168.100.1";
         localAddress = "192.168.100.3";
         privateNetwork = true;

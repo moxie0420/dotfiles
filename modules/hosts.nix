@@ -40,6 +40,7 @@
       home-manager.enable = lib.mkForce false;
       users.madelyn = {};
     };
+
     # web-0 = {
     #   address = "192.168.50.10";
     #   addressV6 = "";
@@ -47,6 +48,7 @@
     #   users.madelyn = { };
     #   home-manager.enable = false;
     # };
+    #
     # web-1 = {
     #   address = "192.168.50.11";
     #   addressV6 = "";
@@ -54,6 +56,7 @@
     #   users.madelyn = { };
     #   home-manager.enable = false;
     # };
+    #
     # web-2 = {
     #   address = "192.168.50.12";
     #   addressV6 = "";
@@ -61,6 +64,7 @@
     #   users.madelyn = { };
     #   home-manager.enable = false;
     # };
+    #
     # web-3 = {
     #   address = "192.168.50.13";
     #   addressV6 = "";
@@ -69,4 +73,9 @@
     #   home-manager.enable = false;
     # };
   };
+
+  systems = [
+    "x86_64-linux"
+    "aarch64-linux"
+  ];
 }

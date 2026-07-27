@@ -2,15 +2,10 @@
   lib,
   inputs,
   self,
+  withSystem,
   ...
 }: {
-  imports = [
-    inputs.treefmt-nix.flakeModule
-    inputs.pedantix.flakeModules.default
-    inputs.flake-file.flakeModules.dendritic
-    inputs.den.flakeModules.dendritic
-  ];
-
+  debug = true;
   flake.lib = import "${self}/lib" {inherit lib;};
 
   flake-file = {
@@ -43,23 +38,38 @@
         url = "github:swarsel/pedantix";
       };
 
+      pkgs-by-name-for-flake-parts.url = "github:drupol/pkgs-by-name-for-flake-parts";
+
       treefmt-nix = {
         inputs.nixpkgs.follows = "nixpkgs";
         url = "github:numtide/treefmt-nix";
       };
     };
 
-    outputs = ''
-      inputs:
-      inputs.flake-parts.lib.mkFlake { inherit inputs; } {
-        systems = [
-          "x86_64-linux"
-          "aarch64-linux"
-        ];
-        imports = [
-          (inputs.import-tree ./modules)
-        ];
+    write-hooks = [
+      {
+        program = pkgs:
+          pkgs.writeShellApplication {
+            name = "format-hook";
+
+            text = ''
+              nix fmt
+            '';
+          };
       }
-    '';
+    ];
+  };
+
+  imports = with inputs; [
+    treefmt-nix.flakeModule
+    pedantix.flakeModules.default
+    flake-file.flakeModules.dendritic
+    den.flakeModules.dendritic
+    pkgs-by-name-for-flake-parts.flakeModule
+  ];
+
+  perSystem = {
+    pkgsDirectory = ../pkgs;
+    pkgsNameSeparator = "-";
   };
 }

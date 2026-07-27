@@ -2,8 +2,8 @@
   services.immich.nixos = {
     services = {
       immich = {
-        enable = true;
         accelerationDevices = ["/dev/dri/renderD128"];
+        enable = true;
         host = "0.0.0.0";
       };
 

@@ -14,6 +14,22 @@
       };
 
       programs.niri.settings = {
+        outputs = {
+          HDMI-A-1.position = {
+            x = 0;
+            y = -1080;
+          };
+
+          HDMI-A-2 = {
+            focus-at-startup = true;
+
+            position = {
+              x = 0;
+              y = 0;
+            };
+          };
+        };
+
         binds = let
           genNumAttrs = count: name: val: let
             inherit (builtins) genList listToAttrs;
@@ -160,6 +176,11 @@
               "Mod+Shift+Up".action.focus-monitor-up = [];
               "Mod+Up".action.focus-window-up = [];
             }
+
+            # Floating windows
+            {
+              "Mod+Shift+Space".action.toggle-window-floating = [];
+            }
           ];
 
         cursor = {
@@ -198,22 +219,6 @@
           ];
         };
 
-        outputs = {
-          HDMI-A-3.position = {
-            x = 0;
-            y = -1080;
-          };
-
-          HDMI-A-4 = {
-            focus-at-startup = true;
-
-            position = {
-              x = 0;
-              y = 0;
-            };
-          };
-        };
-
         prefer-no-csd = true;
         screenshot-path = "~/Pictures/Screenshots/Screenshot from %Y-%m-%d %H-%M-%S.png";
       };
@@ -235,10 +240,6 @@
     ];
 
     nixos = {pkgs, ...}: {
-      imports = with inputs; [
-        niri.nixosModules.niri
-      ];
-
       environment = {
         pathsToLink = [
           "/share/xdg-desktop-portal"
@@ -249,6 +250,10 @@
           pkgs.xwayland-satellite
         ];
       };
+
+      imports = with inputs; [
+        niri.nixosModules.niri
+      ];
 
       niri-flake.cache.enable = false;
 

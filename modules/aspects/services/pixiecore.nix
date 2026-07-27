@@ -34,10 +34,10 @@
   in {
     nixos = {
       services.pixiecore = {
-        enable = true;
         cmdLine = "init=${build.toplevel}/init loglevel=4";
         debug = true;
         dhcpNoBind = true;
+        enable = true;
         initrd = "${build.netbootRamdisk}/initrd";
         kernel = "${build.kernel}/bzImage";
         mode = "boot";

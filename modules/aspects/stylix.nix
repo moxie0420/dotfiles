@@ -8,8 +8,8 @@
     homeManager = {pkgs, ...}: {
       home.pointerCursor = {
         enable = true;
-        package = lib.mkDefault pkgs.bibata-cursors;
         name = lib.mkDefault "Bibata-Modern-Classic";
+        package = lib.mkDefault pkgs.bibata-cursors;
         size = lib.mkDefault 18;
       };
 
@@ -26,8 +26,8 @@
     nixos = {pkgs, ...}: let
       # font constants
       mapleMono = {
-        package = pkgs.maple-mono.NF-CN;
         name = "Maple Mono NF CN";
+        package = pkgs.maple-mono.NF-CN;
       };
       # schema constants
       rose-pine = "${pkgs.base16-schemes}/share/themes/rose-pine.yaml";
@@ -37,17 +37,18 @@
       ];
 
       stylix = {
-        # Use nix-community/stylix
-        enable = lib.mkForce true;
         # Use rose-pine as the global base16 scheme
         base16Scheme = rose-pine;
 
         # Use the rose pine cursor
         cursor = {
-          package = pkgs.bibata-cursors;
           name = "Bibata-Modern-Classic";
+          package = pkgs.bibata-cursors;
           size = 18;
         };
+
+        # Use nix-community/stylix
+        enable = lib.mkForce true;
 
         # Use mapleMono as the global font
         # Set font sizes in points for various software types
@@ -59,10 +60,10 @@
 
         # # Use rose pine icons
         icons = rec {
-          enable = true;
-          package = pkgs.rose-pine-icon-theme;
           dark = "rose-pine-icons";
+          enable = true;
           light = dark;
+          package = pkgs.rose-pine-icon-theme;
         };
 
         # Set the opacity for various software types

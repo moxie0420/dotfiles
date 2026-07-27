@@ -1,6 +1,14 @@
-{programs, ...}: {
+{
+  programs,
+  self,
+  ...
+}: {
   programs.waybar = {
-    homeManager = {pkgs, ...}: {
+    homeManager = {
+      config,
+      pkgs,
+      ...
+    }: {
       home.packages = builtins.attrValues {
         inherit (pkgs) cava;
       };
@@ -216,68 +224,9 @@
               position = literals.top;
             };
         };
-
-        style = ''
-          window#waybar {
-            background: none;
-          }
-
-          .modules-left,
-          .modules-right {
-            background: @theme_bg_color;
-            padding: 0.175rem 0.3rem 0.25rem;
-          }
-
-          .modules-left {
-            border-radius: 0 0 1rem 0;
-          }
-
-          .modules-right {
-            border-radius: 0 0 0 1rem;
-          }
-
-          #custom-power,
-          #custom-quit,
-          #custom-reboot {
-            padding: 0 5px;
-          }
-
-          #workspaces button {
-            margin: 0.125rem;
-          }
-
-          #clock,
-          #cpu,
-          #idle_inhibitor,
-          #window,
-          #wireplumber,
-          #memory,
-          #network,
-          #power-profiles-daemon,
-          #privacy,
-          #tempurature {
-            border-radius: 0.5rem;
-          }
-
-          #idle_inhibitor {
-            padding: 0 10px;
-          }
-
-          #power-profiles-daemon {
-            padding: 0 10px;
-            background: @warning_color;
-          }
-
-          #power-profiles-daemon.performance {
-            background: @error_color;
-          }
-
-          #group-power.module {
-           margin: 0.25rem;
-            background: @theme_fg_color;
-          }
-        '';
       };
+
+      xdg.configFile."waybar/style.css".source = "${self}/modules/aspects/programs/waybar/style.css";
     };
 
     nixos.programs.waybar.enable = true;

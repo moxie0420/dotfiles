@@ -20,8 +20,6 @@
       pkgs,
       ...
     }: {
-      imports = [inputs.nix-index-database.nixosModules.default];
-
       environment.systemPackages = builtins.attrValues {
         inherit
           (pkgs)
@@ -29,6 +27,8 @@
           nixfmt
           ;
       };
+
+      imports = [inputs.nix-index-database.nixosModules.default];
 
       nix = let
         flake-inputs = lib.filterAttrs (_: lib.isType "flake") inputs;
@@ -74,13 +74,12 @@
 
       programs = {
         nh = {
-          enable = true;
-
           clean = {
             enable = true;
             extraArgs = "--keep 1";
           };
 
+          enable = true;
           flake = "/home/madelyn/dotfiles";
         };
 
