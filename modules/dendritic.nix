@@ -2,7 +2,6 @@
   lib,
   inputs,
   self,
-  withSystem,
   ...
 }: {
   debug = true;
@@ -10,6 +9,7 @@
 
   flake-file = {
     description = "Madelyn's personal flake for her home environment, desktop, and laptop";
+    formatter = pkgs: inputs.pedantix.packages.${pkgs.stdenv.hostPlatform.system}.pedantix-wrapped;
 
     inputs = {
       den.url = "github:vic/den";
@@ -45,27 +45,14 @@
         url = "github:numtide/treefmt-nix";
       };
     };
-
-    write-hooks = [
-      {
-        program = pkgs:
-          pkgs.writeShellApplication {
-            name = "format-hook";
-
-            text = ''
-              nix fmt
-            '';
-          };
-      }
-    ];
   };
 
   imports = with inputs; [
-    treefmt-nix.flakeModule
-    pedantix.flakeModules.default
-    flake-file.flakeModules.dendritic
     den.flakeModules.dendritic
+    flake-file.flakeModules.dendritic
+    pedantix.flakeModules.default
     pkgs-by-name-for-flake-parts.flakeModule
+    treefmt-nix.flakeModule
   ];
 
   perSystem = {

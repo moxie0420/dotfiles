@@ -57,8 +57,6 @@
             "flakes"
           ];
 
-          fallback = true;
-
           substituters = [
             "https://nix-community.cachix.org"
           ];

@@ -43,6 +43,7 @@ window#waybar {
 }
 
 #workspaces button {
+  background: #1f1d2e; /* rp surface */
   margin: 0.125rem;
 }
 
@@ -56,6 +57,7 @@ window#waybar {
 #power-profiles-daemon,
 #privacy,
 #tempurature {
+  background: #1f1d2e; /* rp surface */
   border-radius: 0.5rem;
 }
 

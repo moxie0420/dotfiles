@@ -31,7 +31,6 @@
             ];
 
             open-maximized = true;
-            open-on-workspace = "Games";
           }
 
           {

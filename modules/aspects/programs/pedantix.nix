@@ -115,8 +115,10 @@
     top-level-blank-lines = 1;
   };
 in {
-  perSystem = {
-    treefmt.programs.pedantix = {
+  flake-file.formatter = pkgs: inputs.pedantix.packages.${pkgs.stdenv.hostPlatform.system}.pedantix-wrapped;
+
+  perSystem.treefmt = {
+    programs.pedantix = {
       inherit settings;
       enable = true;
     };
