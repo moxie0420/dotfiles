@@ -1,16 +1,20 @@
 {programs, ...}: {
   programs.gamescope = {
-    nixos.programs.gamescope = {
-      args = [
-        "--rt"
-        "-W 1920"
-        "-H 1080"
-        "-b"
-        "-f"
-      ];
+    nixos.programs = {
+      gamescope = {
+        args = [
+          "--rt"
+          "-W 1920"
+          "-H 1080"
+          "-b"
+          "-f"
+        ];
 
-      enable = true;
-      enableWsi = true;
+        capSysNice = true;
+        enable = true;
+      };
+
+      steam.gamescopeSession.enable = true;
     };
 
     provides.to-hosts.includes = [

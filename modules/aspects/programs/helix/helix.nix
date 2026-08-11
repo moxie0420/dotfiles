@@ -27,6 +27,7 @@
           {
             auto-format = true;
             formatter.command = "${lib.getExe pkgs.pedantix-wrapped}";
+            language-servers = ["nil" "nixd"];
             name = "nix";
           }
 

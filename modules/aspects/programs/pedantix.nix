@@ -77,6 +77,11 @@
         attrs.blank-lines = 1;
         path = "inputs";
       }
+      # sort aspect includes
+      {
+        lists.sort = true;
+        path = "**.den.aspects.*.includes";
+      }
 
       {
         attrs.first = [

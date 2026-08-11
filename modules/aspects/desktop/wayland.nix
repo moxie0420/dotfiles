@@ -21,10 +21,6 @@
     };
 
     nixos = {
-      # services.displayManager.cosmic-greeter = {
-      #   enable = true;
-      # };
-
       environment.sessionVariables = {
         CLUTTER_BACKEND = "wayland";
         # Prefer using Ozone because we're under Wayland.

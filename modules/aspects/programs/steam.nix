@@ -1,18 +1,10 @@
 {
-  inputs,
-  programs,
-  ...
-}: {
   flake-file.inputs.nix-gaming-edge = {
     inputs.nixpkgs.follows = "nixpkgs";
     url = "github:powerofthe69/nix-gaming-edge";
   };
 
   programs.steam = {
-    includes = [
-      programs.steam.substituters
-    ];
-
     nixos = {pkgs, ...}: {
       programs.steam = {
         enable = true;
@@ -22,6 +14,24 @@
         };
 
         localNetworkGameTransfers.openFirewall = true;
+
+        package = pkgs.steam.override {
+          extraPkgs = pkgs':
+            with pkgs'; [
+              libXcursor
+              libXi
+              libXinerama
+              libXScrnSaver
+              libpng
+              libpulseaudio
+              libvorbis
+              stdenv.cc.cc.lib # Provides libstdc++.so.6
+              libkrb5
+              keyutils
+              # Add other libraries as needed
+            ];
+        };
+
         protontricks.enable = true;
         remotePlay.openFirewall = true;
       };

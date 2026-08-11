@@ -136,11 +136,17 @@
 
     # nixlang
     nix = {host, ...}: {
-      homeManager = {pkgs, ...}: {
+      homeManager = {pkgs, ...}: let
+        lsppkgs = with pkgs; [
+          nil
+          nixd
+          tix
+        ];
+      in {
+        home.packages = lsppkgs;
+
         programs.helix = {
-          extraPackages = builtins.attrValues {
-            inherit (pkgs) nil nixd;
-          };
+          extraPackages = lsppkgs;
 
           languages.language-server = {
             nil.config = {
@@ -150,17 +156,15 @@
               };
             };
 
-            nixd = {
-              command = "nixd";
-
-              config.options = {
-                # extra flakes
-                flake-parts.expr = "(builtins.getFlake \"${self}\").debug.options";
-                flake-parts2.expr = "(builtins.getFlake \"${self}\").currentSystem.options";
-                home-manager.expr = "(builtins.getFlake (builtins.toString ./.)).nixosConfigurations.${host.name}.options.home-manager.users.type.getSubOptions []";
-                nixos.expr = "(builtins.getFlake (builtins.toString ./.)).nixosConfigurations.${host.name}.options";
-              };
+            nixd.config.options = {
+              # extra flakes
+              flake-parts.expr = "(builtins.getFlake \"${self}\").debug.options";
+              flake-parts2.expr = "(builtins.getFlake \"${self}\").currentSystem.options";
+              home-manager.expr = "(builtins.getFlake (builtins.toString ./.)).nixosConfigurations.${host.name}.options.home-manager.users.type.getSubOptions []";
+              nixos.expr = "(builtins.getFlake (builtins.toString ./.)).nixosConfigurations.${host.name}.options";
             };
+
+            tix.command = "tix lsp";
           };
         };
       };

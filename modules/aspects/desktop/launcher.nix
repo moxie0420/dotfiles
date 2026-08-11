@@ -23,10 +23,10 @@
       fuzzel.enable = true;
 
       # niri intergration
-      niri.settings.binds = {
-        # "Mod+Space".action.spawn = ["rofi" "-matching" "glob" "-show" "drun" "-show-icons"];
-        "Mod+Space".action.spawn = ["fuzzel"];
-      };
+      # niri.settings.binds = {
+      #   # "Mod+Space".action.spawn = ["rofi" "-matching" "glob" "-show" "drun" "-show-icons"];
+      #   "Mod+Space".action.spawn = ["fuzzel"];
+      # };
     };
   };
 }

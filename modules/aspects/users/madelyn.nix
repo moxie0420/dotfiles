@@ -9,62 +9,44 @@
   den.aspects.madelyn = {
     homeManager = {
       options,
-      pkgs,
       self',
       ...
-    }: let
-      homeDirectory = "/home/madelyn";
-    in
+    }:
       lib.mkMerge [
         {
-          home = {
-            inherit homeDirectory;
-
-            packages = builtins.attrValues {
-              inherit
-                (pkgs)
-                baobab
-                # cyanrip
-                # element-desktop
-                ;
-
-              inherit (self'.packages) rose-pine-wallpapers;
-            };
-          };
+          home.homeDirectory = "/home/madelyn";
 
           programs.git.settings.user = {
             email = "moxiebenavides@proton.me";
             name = "Madeline Benavides";
           };
 
-          xdg.dataFile.wallpapers = {
+          xdg.dataFile."wallpapers/rose-pine" = {
             enable = true;
             recursive = true;
-            source = "${self'.packages.rose-pine-wallpapers}/share/wallpapers";
+            source = "${self'.packages.rose-pine-wallpapers}/share/wallpapers/rose-pine";
           };
         }
 
         (lib.optionalAttrs (options ? theme) {
           theme = {
-            image = "${homeDirectory}/.local/share/wallpapers/rose-pine/photography/single-celled/river.jpg";
+            image = "${self'.packages.rose-pine-wallpapers}/share/wallpapers/rose-pine/photography/single-celled/river.jpg";
           };
         })
       ];
 
     includes = [
-      den.batteries.primary-user
       (den.batteries.user-shell "fish")
-
+      den.batteries.primary-user
       programs.btop
       programs.direnv
       programs.fzf
-      programs.hyfetch
-
       # my editor
       programs.helix
       programs.helix.languages.webDev
-
+      programs.hyfetch
       programs.ripgrep
+      programs.screenlockers.gtklock
       # TODO update starship
       programs.starship
       programs.tealdeer

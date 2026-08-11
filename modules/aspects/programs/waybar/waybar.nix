@@ -1,14 +1,10 @@
 {
   programs,
-  self,
+  # self,
   ...
 }: {
   programs.waybar = {
-    homeManager = {
-      config,
-      pkgs,
-      ...
-    }: {
+    homeManager = {pkgs, ...}: {
       home.packages = builtins.attrValues {
         inherit (pkgs) cava;
       };
@@ -23,6 +19,7 @@
             spacing = 4;
             width = 1920;
           };
+
           cava = {
             actions = {
               on-click-right = "mode";
@@ -33,6 +30,7 @@
             bars = 20;
 
             format-icons = [
+              " "
               "▁"
               "▂"
               "▃"
@@ -64,15 +62,15 @@
             tooltip-format = "<big>{:%Y %B}</big>\n<tt><small>{calendar}</small></tt>";
           };
           cpu = {
-            format = "{usage}% ";
+            format = "{usage}%  ";
             tooltip = false;
           };
           idle_inhibitor = {
             format = "{icon} ";
 
             format-icons = {
-              activated = "";
-              deactivated = "";
+              activated = " ";
+              deactivated = " ";
             };
           };
           literals = {
@@ -80,22 +78,21 @@
           };
           memory.format = "{}% ";
           network = {
-            format-alt = "{ifname}: {ipaddr}/{cidr}";
+            format-alt = "{ifname}: {ipaddr}/{cidr} ";
             format-disconnected = "Disconnected ⚠";
-            format-ethernet = "{ipaddr}/{cidr} 󰊗";
-            format-linked = "{ifname} (No IP) 󰊗";
+            format-ethernet = "{ipaddr}/{cidr} 󰊗 ";
+            format-linked = "{ifname} (No IP) 󰊗 ";
             # interface = "wlp2*"; # (Optional) To force the use of this interface
-            format-wifi = "{essid} ({signalStrength}%) ";
-            tooltip-format = "{ifname} via {gwaddr} 󰊗";
+            format-wifi = "{essid} ({signalStrength}%)  ";
+            tooltip-format = "{ifname} via {gwaddr} 󰊗 ";
           };
           power-profiles-daemon = {
             format = "{icon}";
 
             format-icons = {
-              balanced = "";
-              default = "";
-              performance = "";
-              power-saver = "";
+              balanced = " ";
+              performance = " ";
+              power-saver = " ";
             };
 
             tooltip = true;
@@ -156,48 +153,10 @@
                 tooltip = false;
               };
 
-              # custom modules
-              "custom/quit" = {
-                format = "󰗼";
-                on-click = "niri msg exit";
-                tooltip = false;
-              };
-
               "custom/reboot" = {
                 format = "󰜉";
                 on-click = "reboot";
                 tooltip = false;
-              };
-
-              "group/group-hardware" = {
-                drawer = {
-                  children-class = "not-cpu";
-                  transition-duration = 500;
-                };
-
-                modules = [
-                  "cpu"
-                  "memory"
-                  "network"
-                  "temperature"
-                ];
-
-                orientation = "inherit";
-              };
-
-              "group/group-power" = {
-                drawer = {
-                  children-class = "not-power";
-                  transition-duration = 500;
-                };
-
-                modules = [
-                  "custom/power" # First element is the "group leader" and won't ever be hidden
-                  "custom/quit"
-                  "custom/reboot"
-                ];
-
-                orientation = "inherit";
               };
 
               modules-center = [
@@ -214,19 +173,33 @@
                 "idle_inhibitor"
                 "wireplumber"
                 "power-profiles-daemon"
-                "group/group-hardware"
+                "cpu"
+                "memory"
+                "network"
+                # "temperature"
                 "systemd-failed-units"
                 "tray"
                 "clock"
-                "group/group-power"
+                "custom/power"
+                "custom/reboot"
               ];
 
               position = literals.top;
             };
         };
+
+        style = ''
+
+
+          #custom-power,
+          #custom-reboot {
+            padding: .35rem;
+          }
+        '';
       };
 
-      xdg.configFile."waybar/style.css".source = "${self}/modules/aspects/programs/waybar/style.css";
+      # manual styling
+      # xdg.configFile."waybar/style.css".source = "${self}/modules/aspects/programs/waybar/style.css";
     };
 
     nixos.programs.waybar.enable = true;

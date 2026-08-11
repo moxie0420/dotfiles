@@ -21,42 +21,37 @@
     };
 
     includes = [
-      den.aspects.nixUwU.network
-
-      system.hostfile
-      system.network.tailscale
-
-      desktop.niri
-
+      # nvidia containers
+      den.aspects.containers.nvidia
       den.aspects.gaming
       den.aspects.gaming.extraLaunchers
+      den.aspects.nixUwU.network
       den.aspects.theme
-
+      desktop.niri
       hardware.bluetooth
       hardware.corsair
       hardware.nvidia
-
-      # nvidia containers
-      den.aspects.containers.nvidia
-
       programs.discord
       programs.firefox
       programs.flatpak
       programs.kitty
       programs.nautilus
-      programs.regreet
       programs.waybar
-
+      programs.waydroid
       services.arrstack
       services.authentik
       services.caddy
       services.caddy.nixUwU
       services.caddy.secret
+      services.displayManager.autoLogin
+      services.displayManager.greetd
       services.immich
-      # build broken rn TODO: enable when the build is fixed
-      # services.lact
       services.pixiecore
+      # services.stasis
       services.vaultwarden
+      system.boot.graphical
+      system.hostfile
+      system.network.tailscale
     ];
 
     # host NixOS configuration
@@ -88,7 +83,7 @@
         inherit
           (pkgs)
           gnome-disk-utility
-          lm_sensors
+          baobab
           ;
       };
 
@@ -142,6 +137,8 @@
           fsType = "btrfs";
 
           options = defaults [
+            "noauto"
+            "x-systemd.automount"
             "users"
             "nofail"
             "exec"
@@ -171,29 +168,8 @@
       programs.gamescope.args = ["-r 75"];
 
       services = {
-        beesd.filesystems.the_store = {
-          extraOptions = [
-            "--loadavg-target"
-            "5.0"
-          ];
-
-          hashTableSizeMB = 4096;
-          spec = "/mnt/the_store";
-        };
-
         fstrim.enable = true;
         hardware.openrgb.motherboard = "intel";
-
-        pipewire.extraConfig.pipewire = {
-          "95-low-latency"."context.properties" = {
-            "channelmix.mix-lfe" = true;
-            "default.clock.max-quantum" = 256;
-            "default.clock.min-quantum" = 256;
-            "default.clock.quantum" = 256;
-            "default.clock.rate" = 48000;
-            "node.pause-on-idle" = false;
-          };
-        };
       };
 
       zramSwap.enable = true;

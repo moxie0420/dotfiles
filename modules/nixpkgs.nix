@@ -39,7 +39,6 @@
         self.overlays.prismlauncher
 
         inputs.agenix.overlays.default
-        inputs.niri.overlays.niri
         inputs.nix-cachyos-kernel.overlays.pinned
         inputs.nix-gaming-edge.overlays.proton-cachyos
         inputs.pedantix.overlays.default

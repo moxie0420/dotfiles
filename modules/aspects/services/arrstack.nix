@@ -98,44 +98,44 @@
           volumes = ["/opt/cleanuparr:/config"];
         };
 
-        "slskd" = {
-          environment = {
-            SLSKD_REMOTE_CONFIGURATION = "true";
-            SLSKD_SHARED_DIR = "/music;/books";
-          };
+        # "slskd" = {
+        #   environment = {
+        #     SLSKD_REMOTE_CONFIGURATION = "true";
+        #     SLSKD_SHARED_DIR = "/music;/books";
+        #   };
 
-          image = "slskd/slskd";
+        #   image = "slskd/slskd";
 
-          ports = [
-            "5030:5030"
-            "50300:50300"
-          ];
+        #   ports = [
+        #     "5030:5030"
+        #     "50300:50300"
+        #   ];
 
-          volumes = [
-            "/mnt/the_store/soulseekd:/app"
-            "/mnt/the_store/downloads:/app/downloads"
-            "/mnt/the_store/music:/music"
-            "/mnt/the_store/books:/books"
-          ];
-        };
+        #   volumes = [
+        #     "/mnt/the_store/soulseekd:/app"
+        #     "/mnt/the_store/downloads:/app/downloads"
+        #     "/mnt/the_store/music:/music"
+        #     "/mnt/the_store/books:/books"
+        #   ];
+        # };
 
-        "soularr" = {
-          environment = {
-            SCRIPT_INTERVAL = "300";
-            TZ = "CST/UTC";
-          };
+        # "soularr" = {
+        #   environment = {
+        #     SCRIPT_INTERVAL = "300";
+        #     TZ = "CST/UTC";
+        #   };
 
-          image = "mrusse08/soularr:latest";
+        #   image = "mrusse08/soularr:latest";
 
-          ports = [
-            "8265:8265"
-          ];
+        #   ports = [
+        #     "8265:8265"
+        #   ];
 
-          volumes = [
-            "/mnt/the_store/downloads:/downloads"
-            "/opt/soularr:/data"
-          ];
-        };
+        #   volumes = [
+        #     "/mnt/the_store/downloads:/downloads"
+        #     "/opt/soularr:/data"
+        #   ];
+        # };
       };
     };
   };

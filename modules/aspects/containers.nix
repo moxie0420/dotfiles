@@ -34,10 +34,6 @@
       includes = [
         den.aspects.containers
       ];
-
-      nixos = {
-        hardware.nvidia-container-toolkit.enable = true;
-      };
     };
 
     provides.to-users = {user, ...}: {

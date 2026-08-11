@@ -57,8 +57,6 @@
           separator = "│";
         };
       };
-
-      theme = "rose_pine";
     };
   };
 }

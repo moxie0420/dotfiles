@@ -1,0 +1,17 @@
+{
+  desktop.niri.general = {
+    homeManager = {
+      wayland.windowManager.niri.settings = {
+        hotkey-overlay.skip-at-startup = {};
+        prefer-no-csd = {};
+        screenshot-path = "~/Pictures/Screenshots/Screenshot from %Y-%m-%d %H-%M-%S.png";
+
+        spawn-at-startup = [
+          {
+            _args = ["gtklock -d"];
+          }
+        ];
+      };
+    };
+  };
+}

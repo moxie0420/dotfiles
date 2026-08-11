@@ -1,26 +1,6 @@
 {system, ...}: {
   system.boot = {
-    graphical = {
-      nixos = {lib, ...}: {
-        boot = {
-          consoleLogLevel = lib.mkForce 3;
-          initrd.verbose = lib.mkForce false;
-
-          # kernel params for quiet boot
-          kernelParams = [
-            "quiet"
-            "splash"
-            "boot.shell_on_fail"
-            "udev.log_level=3"
-            "rd.systemd.show_status=auto"
-          ];
-
-          plymouth.enable = true;
-        };
-      };
-    };
-
-    nixos = {pkgs, ...}: {
+    nixos = {
       boot = {
         initrd.systemd = {
           enable = true;
@@ -39,11 +19,10 @@
           # limine ans bootloader
           limine = {
             enable = true;
-            package = pkgs.limine-full;
             resolution = "1920x1080";
           };
 
-          timeout = 3;
+          timeout = 1;
         };
 
         tmp.cleanOnBoot = true;

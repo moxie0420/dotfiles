@@ -22,7 +22,12 @@
         };
 
         security.pki.certificateFiles = ["${self}/benavides_CA.crt"];
-        services.userborn.enable = true;
+
+        services = {
+          accounts-daemon.enable = true;
+          userborn.enable = true;
+        };
+
         system.stateVersion = "25.11";
         time.timeZone = "America/Chicago";
       };
@@ -43,7 +48,7 @@
       services.openssh
       system.boot
       system.boot.secure
-
+      system.locale
       system.kernel.cachyos
 
       system.fonts

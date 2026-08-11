@@ -1,5 +1,6 @@
 {
   den,
+  inputs,
   programs,
   self,
   ...
@@ -8,47 +9,52 @@
     homeManager = {
       lib,
       config,
-      pkgs,
       ...
     }: let
       cfg = config.theme;
     in {
       config = {
+        catppuccin = let
+          accent = "pink";
+        in {
+          inherit accent;
+          autoEnable = true;
+
+          cursors = {
+            inherit accent;
+            enable = true;
+          };
+
+          enable = true;
+        };
+
         gtk = {
           colorScheme = "dark";
           enable = true;
           gtk4.theme = config.gtk.theme;
-
-          iconTheme = {
-            name = "oomox-rose-pine";
-            package = pkgs.rose-pine-icon-theme;
-          };
-
-          theme = {
-            name = "oomox-rose-pine";
-            package = pkgs.rose-pine-gtk-theme;
-          };
         };
 
         home.pointerCursor = {
           enable = true;
-          name = "Bibata-Modern-Classic";
-          package = pkgs.bibata-cursors;
           size = 12;
         };
 
-        programs.niri.settings.spawn-at-startup = [
-          (lib.mkIf (lib.isString cfg.image) {
-            argv = [
-              "awww"
-              "img"
-              cfg.image
-              "--transition-type"
-              "random"
-            ];
-          })
-        ];
+        # programs.niri.settings.spawn-at-startup = [
+        #   (lib.mkIf (lib.isString cfg.image) {
+        #     argv = [
+        #       "awww"
+        #       "img"
+        #       cfg.image
+        #       "--transition-type"
+        #       "random"
+        #     ];
+        #   })
+        # ];
       };
+
+      imports = [
+        inputs.catppuccin.homeModules.catppuccin
+      ];
 
       options.theme = {
         image = lib.mkOption {
@@ -61,6 +67,20 @@
     };
 
     nixos = {pkgs, ...}: {
+      catppuccin = let
+        accent = "pink";
+      in {
+        inherit accent;
+        autoEnable = true;
+
+        cursors = {
+          inherit accent;
+          enable = true;
+        };
+
+        enable = true;
+      };
+
       fonts = {
         enableDefaultPackages = true;
 
@@ -82,11 +102,20 @@
           pkgs.maple-mono.NF-CN
         ];
       };
+
+      imports = [
+        inputs.catppuccin.nixosModules.catppuccin
+      ];
     };
 
     provides.to-users.includes = [
       den.aspects.theme
       programs.awww
     ];
+  };
+
+  flake-file.inputs.catppuccin = {
+    inputs.nixpkgs.follows = "nixpkgs";
+    url = "github:catppuccin/nix";
   };
 }
