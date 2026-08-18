@@ -8,7 +8,7 @@
 
         spawn-at-startup = [
           {
-            _args = ["gtklock -d"];
+            _args = ["gtklock" "-d"];
           }
         ];
       };
