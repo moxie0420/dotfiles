@@ -1,14 +1,12 @@
 {
   lib,
+  den,
   inputs,
   programs,
   system,
   ...
 }: {
-  flake-file.inputs.nix-index-database = {
-    inputs.nixpkgs.follows = "nixpkgs";
-    url = "github:nix-community/nix-index-database";
-  };
+  flake-file.inputs.nix-index-database.url = "github:nix-community/nix-index-database";
 
   system.nix = {
     includes = [
@@ -83,6 +81,14 @@
 
         nix-index-database.comma.enable = true;
       };
+    };
+
+    perSystem = {pkgs, ...}: {
+      packages =
+        den.lib.nh.denPackages {
+          fromFlake = true;
+        }
+        pkgs;
     };
 
     provides.to-users.includes = [system.nix];
