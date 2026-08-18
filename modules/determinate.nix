@@ -17,5 +17,5 @@
     ];
   };
 
-  flake-file.inputs.determinate.url = "github:DeterminateSystems/determinate";
+  flake-file.inputs.determinate.url = "https://flakehub.com/f/DeterminateSystems/determinate/*";
 }
