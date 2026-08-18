@@ -1,13 +1,13 @@
 {inputs, ...}: {
-  flake-file.inputs.anime-games-launcher.url = "github:an-anime-team/anime-games-launcher";
+  flake-file.inputs.aagl.url = "github:ezKEa/aagl-gtk-on-nix";
 
   programs.anime-games-launcher = {
     nixos = {
-      includes = [inputs.anime-games-launcher.nixosModules.anime-games-launcher];
+      imports = [inputs.aagl.nixosModules.default];
 
-      programs.anime-games-launcher = {
-        anirun.enable = true;
-        enable = true;
+      programs = {
+        anime-game-launcher.enable = true;
+        honkers-railway-launcher.enable = true;
       };
     };
   };

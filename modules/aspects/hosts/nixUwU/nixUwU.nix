@@ -31,6 +31,7 @@
       hardware.bluetooth
       hardware.corsair
       hardware.nvidia
+      programs.anime-games-launcher
       programs.discord
       programs.firefox
       programs.flatpak
