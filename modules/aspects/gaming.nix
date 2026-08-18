@@ -48,8 +48,8 @@
       programs.gamescope
       programs.steam
 
-      services.ananicy
-      services.ananicy.gamescopeRules
+      # services.ananicy
+      # services.ananicy.gamescopeRules
     ];
 
     provides = {
