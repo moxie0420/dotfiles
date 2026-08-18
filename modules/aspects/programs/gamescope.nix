@@ -10,7 +10,7 @@
           "-f"
         ];
 
-        capSysNice = true;
+        capSysNice = false;
         enable = true;
       };
 
