@@ -21,7 +21,6 @@
       };
 
       home-manager = {
-        inputs.nixpkgs.follows = "nixpkgs";
         url = "github:nix-community/home-manager";
       };
 
@@ -30,29 +29,25 @@
       nixpkgs-lib.follows = "nixpkgs";
 
       pedantix = {
-        inputs = {
-          flake-parts.follows = "flake-parts";
-          nixpkgs.follows = "nixpkgs";
-        };
-
         url = "github:swarsel/pedantix";
       };
 
       pkgs-by-name-for-flake-parts.url = "github:drupol/pkgs-by-name-for-flake-parts";
 
       treefmt-nix = {
-        inputs.nixpkgs.follows = "nixpkgs";
         url = "github:numtide/treefmt-nix";
       };
     };
   };
 
   imports = with inputs; [
-    den.flakeModules.dendritic
-    flake-file.flakeModules.dendritic
-    pedantix.flakeModules.default
-    pkgs-by-name-for-flake-parts.flakeModule
-    treefmt-nix.flakeModule
+    (den.flakeModule or {})
+    (den.flakeModules.dendritic or {})
+    (flake-file.flakeModules.dendritic or {})
+    (flake-file.flakeModules.nix-auto-follow or {})
+    (pedantix.flakeModules.default or {})
+    (pkgs-by-name-for-flake-parts.flakeModule or {})
+    (treefmt-nix.flakeModule or {})
   ];
 
   perSystem = {
