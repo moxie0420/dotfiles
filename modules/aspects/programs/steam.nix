@@ -1,11 +1,25 @@
 {
   flake-file.inputs.nix-gaming-edge = {
-    inputs.nixpkgs.follows = "nixpkgs";
     url = "github:powerofthe69/nix-gaming-edge";
   };
 
   programs.steam = {
+    homeManager = {config, ...}: {
+      xdg.configFile."openxr/1/active_runtime.json".text = ''
+        {
+           "file_format_version": "1.0.0",
+            "runtime": {
+            "VALVE_runtime_is_steamvr": true,
+            "library_path": "${config.home.homeDirectory}/.local/share/Steam/steamapps/common/SteamVR/bin/linux64/vrclient.so",
+            "name": "SteamVR"
+            }
+        }
+      '';
+    };
+
     nixos = {pkgs, ...}: {
+      environment.systemPackages = [pkgs.wayvr];
+
       programs.steam = {
         enable = true;
 
@@ -16,6 +30,11 @@
         localNetworkGameTransfers.openFirewall = true;
 
         package = pkgs.steam.override {
+          extraEnv = {
+            VK_ADD_LAYER_PATH = "${pkgs.steamvr-linux-fixes}/lib/libsteamvr_linux_fixes.so";
+            VK_INSTANCE_LAYERS = "VK_LAYER_BNUUY_steamvr_linux_fixes";
+          };
+
           extraPkgs = pkgs':
             with pkgs'; [
               libXcursor
@@ -35,11 +54,6 @@
         protontricks.enable = true;
         remotePlay.openFirewall = true;
       };
-    };
-
-    substituters.nix = {
-      substituters = ["https://nix-cache.tokidoki.dev/tokidoki"];
-      trusted-public-keys = ["tokidoki:MD4VWt3kK8Fmz3jkiGoNRJIW31/QAm7l1Dcgz2Xa4hk="];
     };
   };
 }
