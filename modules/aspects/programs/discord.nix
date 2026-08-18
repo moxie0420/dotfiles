@@ -3,14 +3,7 @@
   programs,
   ...
 }: {
-  flake-file.inputs.nixcord = {
-    inputs = {
-      nixpkgs.follows = "nixpkgs";
-      nixpkgs-nixcord.follows = "nixpkgs";
-    };
-
-    url = "github:FlameFlag/nixcord";
-  };
+  flake-file.inputs.nixcord.url = "github:FlameFlag/nixcord";
 
   programs.discord = {
     homeManager = {

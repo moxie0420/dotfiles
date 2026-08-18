@@ -11,6 +11,7 @@ let
     "sonarr-key.age"
     "tailscale-auth-env.age"
     "vaultwarden.age"
+    "github.age"
   ];
   genAttrs = names: f: genAttrs' names (n: nameValuePair n (f n));
   genAttrs' = xs: f: builtins.listToAttrs (map f xs);

@@ -23,7 +23,6 @@
   };
 
   flake-file.inputs.deploy-rs = {
-    inputs.nixpkgs.follows = "nixpkgs";
     url = "github:serokell/deploy-rs";
   };
 }

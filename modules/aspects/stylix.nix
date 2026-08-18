@@ -86,7 +86,6 @@
   };
 
   flake-file.inputs.stylix = {
-    inputs.nixpkgs.follows = "nixpkgs";
     url = "github:nix-community/stylix";
   };
 }

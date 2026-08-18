@@ -113,7 +113,6 @@
   };
 
   flake-file.inputs.disko = {
-    inputs.nixpkgs.follows = "nixpkgs";
     url = "github:nix-community/disko/latest";
   };
 }

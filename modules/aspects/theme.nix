@@ -114,8 +114,5 @@
     ];
   };
 
-  flake-file.inputs.catppuccin = {
-    inputs.nixpkgs.follows = "nixpkgs";
-    url = "github:catppuccin/nix";
-  };
+  flake-file.inputs.catppuccin.url = "github:catppuccin/nix";
 }

@@ -41,7 +41,6 @@
       };
 
       imports = [inputs.niri-nix.nixosModules.default];
-      # Enable Niri
       programs.niri.enable = true;
     };
 
@@ -52,7 +51,6 @@
   };
 
   flake-file.inputs.niri-nix = {
-    inputs.nixpkgs.follows = "nixpkgs";
     url = "git+https://codeberg.org/BANanaD3V/niri-nix";
   };
 }

@@ -8,11 +8,6 @@
   };
 
   flake-file.inputs.agenix = {
-    inputs = {
-      home-manager.follows = "home-manager";
-      nixpkgs.follows = "nixpkgs";
-    };
-
     url = "github:ryantm/agenix";
   };
 }

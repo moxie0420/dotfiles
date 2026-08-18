@@ -5,7 +5,6 @@
   ...
 }: {
   flake-file.inputs.stasis = {
-    inputs.nixpkgs.follows = "nixpkgs";
     url = "github:saltnpepper97/stasis";
   };
 

@@ -1,6 +1,5 @@
 {programs, ...}: {
   flake-file.inputs.cthulock = {
-    inputs.nixpkgs.follows = "nixpkgs";
     url = "github:FriederHannenheim/cthulock";
   };
 
